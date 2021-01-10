@@ -2,13 +2,23 @@
 layout: default
 ---
 
-<small>{{ page.date | date: "%-d %B %Y" }}</small>
-<h1>{{ page.title }}</h1>
+<div class="content">
 
-<p class="view">by {{ page.author | default: site.author }}</p>
+    <p>Published: {{ page.date | date: "%b %-d, %Y" }} by {{ page.author }}</p>
 
-{{content}}
+    {{ content }}
+</div>
 
-{% if page.tags %}
-  <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
+<div class="tags">
+    {% for tag in page.tags %}
+    <span class="tag is-primary">{{ tag }}</span>
+    {% endfor %}
+</div>
+
+{% unless site.hide_share_buttons %}
+{% include share-buttons.html %}
+{% endunless %}
+
+{% if site.disqus.shortname %}
+  {% include disqus.html %}
 {% endif %}

@@ -1,4 +1,7 @@
-_site
-.sass-cache
-Gemfile.lock
 *.gem
+.bundle
+.sass-cache
+_site
+Gemfile.lock
+.idea
+.DS_Store
