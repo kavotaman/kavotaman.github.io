@@ -28,7 +28,7 @@ twitter_username: kavotaman
 github_username:  kavotaman
 
 # Build settings
-remote_theme: alshedivat/al-folio
+theme: minimal
 plugins:
   - jekyll-feed
 
