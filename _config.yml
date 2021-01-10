@@ -28,6 +28,7 @@ twitter_username: kavotaman
 github_username:  kavotaman
 
 # Build settings
+markdown: kramdown
 theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
