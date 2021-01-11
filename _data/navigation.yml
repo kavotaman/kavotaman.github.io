@@ -2,34 +2,34 @@
   link: /#
   dropdown:
     - name: Page With Sidebar
-      link: /page-1/
+      link: /page-1.html
     - name: Page No Sidebar
-      link: /page-2/
+      link: /page-2.html
     - name: Page With Menubar
-      link: /page-3/
+      link: /page-3.html
     - name: Page With Tabs
-      link: /page-4/
+      link: /page-4.html
     - name: Page Without Footer
-      link: /page-5/
+      link: /page-5.html
     - name: Page Without Hero
-      link: /page-without-hero/
+      link: /page-without-hero.html
     - name: Page With Contents
-      link: /page-with-contents/
+      link: /page-with-contents.html
     - name: Page With Video
-      link: /page-with-video/
+      link: /page-with-video.html
     - name: Page With Image Modal
-      link: /page-with-image-modal/
+      link: /page-with-image-modal.html
     - name: Page With Notifications
-      link: /page-with-notification/
+      link: /page-with-notification.html
     - name: Landing Page With Callouts
-      link: /landing/
+      link: /landing.html
     - name: Sponsors Page
-      link: /sponsors/
+      link: /sponsors.html
     - name: Image Gallery
-      link: /gallery/
-- name: Products
-  link: /products/
+      link: /gallery.html
+- name: Media
+  link: /media.html
 - name: Showcase
-  link: /showcase/
+  link: /showcase.html
 - name: Blog
   link: /blog/
