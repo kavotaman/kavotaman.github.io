@@ -1094,7 +1094,7 @@ a.dropdown-item.is-active, button.dropdown-item.is-active { background-color: #3
 
 .modal-card-body { -webkit-overflow-scrolling: touch; background-color: white; flex-grow: 1; flex-shrink: 1; overflow: auto; padding: 20px; }
 
-.navbar { background-color: red; min-height: 3.25rem; position: relative; z-index: 30; }
+.navbar { background-color: #ffc52a; min-height: 3.25rem; position: relative; z-index: 30; }
 .navbar.is-white { background-color: white; color: #0a0a0a; }
 .navbar.is-white .navbar-brand > .navbar-item, .navbar.is-white .navbar-brand .navbar-link { color: #0a0a0a; }
 .navbar.is-white .navbar-brand > a.navbar-item:focus, .navbar.is-white .navbar-brand > a.navbar-item:hover, .navbar.is-white .navbar-brand > a.navbar-item.is-active, .navbar.is-white .navbar-brand .navbar-link:focus, .navbar.is-white .navbar-brand .navbar-link:hover, .navbar.is-white .navbar-brand .navbar-link.is-active { background-color: #f2f2f2; color: #0a0a0a; }
@@ -1250,7 +1250,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 @media screen and (max-width: 1023px) { .navbar > .container { display: block; }
   .navbar-brand .navbar-item, .navbar-tabs .navbar-item { align-items: center; display: flex; }
   .navbar-link::after { display: none; }
-  .navbar-menu { background-color: red; box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1); padding: 0.5rem 0; }
+  .navbar-menu { background-color: #ffc52a; box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1); padding: 0.5rem 0; }
   .navbar-menu.is-active { display: block; }
   .navbar.is-fixed-bottom-touch, .navbar.is-fixed-top-touch { left: 0; position: fixed; right: 0; z-index: 30; }
   .navbar.is-fixed-bottom-touch { bottom: 0; }
