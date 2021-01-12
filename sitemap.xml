@@ -40,9 +40,6 @@
 <loc>http://localhost:4000/blog/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/about/</loc>
-</url>
-<url>
 <loc>http://localhost:4000/</loc>
 </url>
 <url>
@@ -89,5 +86,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/sponsors.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/works.html</loc>
 </url>
 </urlset>
