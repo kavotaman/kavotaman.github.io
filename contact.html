@@ -111,30 +111,10 @@
     <style>
     /*General */
 
-    #feedback-page {
-        text-align: center;
-    }
-
     #form-main {
         width: 100%;
         float: left;
         padding-top: 0px;
-    }
-
-    #form-div {
-        background-color: rgba(72, 72, 72, 0.4);
-        padding-left: 35px;
-        padding-right: 35px;
-        padding-top: 35px;
-        padding-bottom: 50px;
-        width: 450px;
-        float: left;
-        left: 50%;
-        position: absolute;
-        margin-top: 30px;
-        margin-left: -260px;
-        border-radius: 7px;
-
     }
 
     .montform .feedback-input {
@@ -156,7 +136,7 @@
     .montform .feedback-input:focus {
         background: #fff;
         border: 3px solid #3498db;
-        color: #3498db;
+        color: #1f1f1f;
         outline: none;
         padding: 13px 13px 13px 54px;
     }
@@ -249,19 +229,6 @@
         width: 100%;
         background-color: white;
     }
-
-    /*Styles for small screens*/
-
-    @media only screen and (max-width: 580px) {
-        #form-div {
-            left: 3%;
-            margin-right: 3%;
-            width: 88%;
-            margin-left: 0;
-            padding-left: 3%;
-            padding-right: 3%;
-        }
-    }
 </style>
 <script>
     $(function () {
@@ -341,32 +308,70 @@
         top: expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe=document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
     }
 </style>
-
-
-<div class="container">
-    <div id="form-main">
-        <div id="form-div">
-            <form class="montform"
-                action="https://api.formcake.com/api/form/440a4282-6da4-4149-b81e-225c286fca87/submission"
-                id="reused_form" method="POST" target="iframec">
-                <p class="name">
-                    <input name="name" type="text" class="feedback-input" required placeholder="Name" id="name" />
-                </p>
-                <p class="email">
-                    <input name="email" type="email" required class="feedback-input" id="email" placeholder="Email" />
-                </p>
-                <p class="text">
-                    <textarea name="message" class="feedback-input" id="comment" placeholder="Message"></textarea>
-                </p>
-                <div class="submit">
-                    <button type="submit" class="button-blue">SUBMIT</button>
-                    <div class="ease"></div>
+<div class="columns">
+    <div class="column is-8">
+        <div class="card" style="background-color: #b5bfb4;">
+            <header class="card-header" style="background-color: #7a9230;">
+                <p class="card-header-title">Send me a message using this form...</p>
+            </header>
+            <div class="card-content">
+                <div id="form-main">
+                    <div class="content" style="padding-bottom: 25px;">
+                        <form class="montform"
+                            action="https://api.formcake.com/api/form/440a4282-6da4-4149-b81e-225c286fca87/submission"
+                            id="reused_form" method="POST" target="iframec">
+                            <p class="name">
+                                <input name="name" type="text" class="feedback-input" required placeholder="Name"
+                                    id="name" />
+                            </p>
+                            <p class="email">
+                                <input name="email" type="email" required class="feedback-input" id="email"
+                                    placeholder="Email" />
+                            </p>
+                            <p class="text">
+                                <textarea name="message" class="feedback-input" id="comment"
+                                    placeholder="Message"></textarea>
+                            </p>
+                            <div class="submit">
+                                <button type="submit" class="button-blue">SUBMIT</button>
+                                <div class="ease">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </form>
+            </div>
+        </div>
+    </div>
+    <div class="column is-4-desktop is-12-tablet">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <div class="card" style="background-color: #FCF6B1;">
+
+                    <header class="card-header" style="background-color: #9E6E40;">
+                        <a class="card-header-title">...or DM me on social media</a>
+                    </header>
+
+                    <div class="card-content">
+                        <div class="content">
+                            <p><a href="https://instagram.com/kavotaman">Instagram</a></p>
+                            <p><a href="https://fb.com/kavotaman">Facebook</a></p>
+                            <p><a href="https://twitter.com/kavotaman">Twitter</a>
+                            </p>
+                            <p style="font-size: small;">(I'm not active at all on social media)</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-12">
+                <div class="content">
+                    <iframe style="width: 100%;" name="iframec"></iframe>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<iframe name="iframec"></iframe>
 
 </div>
 
