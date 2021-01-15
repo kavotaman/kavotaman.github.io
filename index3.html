@@ -12,18 +12,115 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css">
+    <style>
+        a {
+            color: #1f1f1f;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .carta {
+            background-color: red;
+            border-radius: 0.25rem;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+            color: #4a4a4a;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carta-header {
+            background-color: transparent;
+            align-items: stretch;
+            box-shadow: 0 0.125em 0.25em rgba(10, 10, 10, 0.1);
+            display: flex;
+        }
+
+        .carta-header-title-flag {
+
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+
+        }
+
+        .carta-header-title {
+            align-items: center;
+            color: #363636;
+            display: flex;
+            flex-grow: 1;
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+        }
+
+        .carta-header-title.is-centered {
+            justify-content: center;
+        }
+
+        .carta-header-icon {
+            align-items: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            padding: 0.75rem 1rem;
+        }
+
+        .carta-image {
+            display: block;
+            position: relative;
+        }
+
+        .carta-content {
+            background-color: transparent;
+            padding: 1.5rem;
+        }
+
+        .carta-footer {
+            background-color: transparent;
+            border-top: 1px solid #ededed;
+            align-items: stretch;
+            display: flex;
+        }
+
+        .carta-footer-item {
+            align-items: center;
+            display: flex;
+            flex-basis: 0;
+            flex-grow: 1;
+            flex-shrink: 0;
+            justify-content: center;
+            padding: 0.75rem;
+        }
+
+        .carta-footer-item:not(:last-child) {
+            border-left: 1px solid #ededed;
+        }
+
+        .carta .media:not(:last-child) {
+            margin-bottom: 1.5rem;
+        }
+    </style>
 
 <body>
+    <section class="hero  is-medium  is-bold is-primary"
+        style="background: url('https://kavotaman.github.io/img/hero_index.jpg') no-repeat center center; background-size: cover;">
+        <div class="hero-body ">
+            <div class="container">
+            </div>
+        </div>
+    </section>
     <section class="section">
         <div class="columns">
             <div class="column">
-                <div class="card" style="background-color: #b5bfb4;">
-                    <div class="card-header" style="background-color: #7a9230;">
-                        <div class="card-header-title "><a href="https://kavotaman.github.io/index_en.html">Site in
-                                English <img src="https://kavotaman.github.io/img/flag_us.jpg"
-                                    style="height: 20px; width: auto; border-radius: 50%"></a></div>
+                <div class="carta" style="background-color: #FCF6B1;">
+                    <div class="carta-header" style="background-color: #9E6E40;">
+                        <div class="carta-header-title"><a href="https://kavotaman.github.io/index_en.html">Site in
+                                English</a></div>
+                        <div class="carta-header-title-flag" style="float: right;"><a
+                                href="https://kavotaman.github.io/index_en.html"><img
+                                    src="https://kavotaman.github.io/img/flag_us.jpg"
+                                    style="height: 20px; width: auto; border-radius: 50%;"></a></div>
                     </div>
-                    <div class="card-image">
+                    <div class="carta-image">
                         <figure class="image is-4by3">
                             <a href="https://kavotaman.github.io/index_en.html"> <img
                                     src="https://kavotaman.github.io/img/index_en.jpg" alt="Placeholder image"></a>
@@ -33,20 +130,25 @@
             </div>
 
             <div class="column">
-                <div class="card" style="background-color: #b5bfb4;">
-                    <div class="card-header" style="background-color: #7a9230;">
-                        <div class="card-header-title "><a href="https://kavotaman.github.io/br/index.html">Site em
-                                Português <img src="https://kavotaman.github.io/img/flag_br.jpg"
-                                    style="height: 20px; width: auto; border-radius: 50%"></a></div>
-                    </div>
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            <a href="https://kavotaman.github.io/br/index.html"> <img
-                                    src="https://kavotaman.github.io/img/index_br.jpg" alt="Placeholder image"></a>
-                        </figure>
+                <div class="carta" style="background-color: #b5bfb4;">
+                    <div class="carta-header" style="background-color: #7a9230;">
+                        <div class="carta-header-title "><a href="https://kavotaman.github.io/br/index.html">Sítio em
+                                Português </a></div>
+                        <div class="carta-header-title-flag" style="float: right;"><a
+                                href="https://kavotaman.github.io/br"><img
+                                    src="https://kavotaman.github.io/img/flag_br.jpg"
+                                    style="height: 20px; width: auto; border-radius: 50%"></a>
+                        </div>
                     </div>
                 </div>
+                <div class="carta-image">
+                    <figure class="image is-4by3">
+                        <a href="https://kavotaman.github.io/br/index.html"> <img
+                                src="https://kavotaman.github.io/img/index_br.jpg" alt="Placeholder image"></a>
+                    </figure>
+                </div>
             </div>
+        </div>
 
 
 
