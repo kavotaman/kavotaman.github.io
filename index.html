@@ -1,255 +1,164 @@
-
 <!DOCTYPE html>
-<html >
+<html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content=#ffffff>
     <title>Otávio Manzano Kavakama - O.M.K.</title>
     <link rel="stylesheet" href="/assets/css/app.css">
-    <link rel="shortcut icon" type="image/png" 
-        href="/favicon.png"  />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.min.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css">
-    
-    <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Otávio Manzano Kavakama | O.M.K.</title>
-<meta name="generator" content="Jekyll v3.9.0" />
-<meta property="og:title" content="Otávio Manzano Kavakama" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Otavio Manzano Kavakama is a cellist that enjoys playing some crazy stuff. His favorite color is yellow." />
-<meta property="og:description" content="Otavio Manzano Kavakama is a cellist that enjoys playing some crazy stuff. His favorite color is yellow." />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
-<meta property="og:site_name" content="O.M.K." />
-<script type="application/ld+json">
-{"description":"Otavio Manzano Kavakama is a cellist that enjoys playing some crazy stuff. His favorite color is yellow.","url":"http://localhost:4000/","@type":"WebSite","headline":"Otávio Manzano Kavakama","name":"O.M.K.","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<!-- head scripts --></head>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css">
+    <style>
+        a {
+            color: #1f1f1f;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .carta {
+            background-color: red;
+            border-radius: 0.25rem;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+            color: #4a4a4a;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carta-header {
+            background-color: transparent;
+            align-items: stretch;
+            box-shadow: 0 0.125em 0.25em rgba(10, 10, 10, 0.1);
+            display: flex;
+        }
+
+        .carta-header-title-flag {
+
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+
+        }
+
+        .carta-header-title {
+            align-items: center;
+            color: #363636;
+            display: flex;
+            flex-grow: 1;
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+        }
+
+        .carta-header-title.is-centered {
+            justify-content: center;
+        }
+
+        .carta-header-icon {
+            align-items: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            padding: 0.75rem 1rem;
+        }
+
+        .carta-image {
+            display: block;
+            position: relative;
+        }
+
+        .carta-content {
+            background-color: transparent;
+            padding: 1.5rem;
+        }
+
+        .carta-footer {
+            background-color: transparent;
+            border-top: 1px solid #ededed;
+            align-items: stretch;
+            display: flex;
+        }
+
+        .carta-footer-item {
+            align-items: center;
+            display: flex;
+            flex-basis: 0;
+            flex-grow: 1;
+            flex-shrink: 0;
+            justify-content: center;
+            padding: 0.75rem;
+        }
+
+        .carta-footer-item:not(:last-child) {
+            border-left: 1px solid #ededed;
+        }
+
+        .carta .media:not(:last-child) {
+            margin-bottom: 1.5rem;
+        }
+    </style>
 
 <body>
-    <nav class="navbar is-primary ">
-    <div class="container">
-        <div class="navbar-brand">
-            <a href="/" class="navbar-item">
-                <!-- O.M.K. --><img src="/favicon.png">
-            </a>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-        <div class="navbar-menu" id="navMenu">
-            <div class="navbar-start">
-                <a href="/" class="navbar-item is-active">Home</a>
-                
-                
-                
-                <a href="/about/bio.html"
-                    class="navbar-item ">About</a>
-                
-                
-                
-                <a href="/media.html"
-                    class="navbar-item ">Media</a>
-                
-                
-                
-                <a href="/contact.html"
-                    class="navbar-item ">Contact</a>
-                
-                
-                
-                <a href="/blog/"
-                    class="navbar-item ">Blog</a>
-                
-                
-                
-            </div>
-
-            <div class="navbar-end">
-                
-            </div>
-
-        </div>
-    </div>
-</nav>
-
-    
-    <section
-    class="hero  is-large  is-bold is-primary"
-    
-    style="background: url('https://kavotaman.github.io/img/Otavio MK 1.jpg') no-repeat center center; background-size: cover;" >
-    <div class="hero-body ">
-        <div class="container">
-            <!-- <h1 class="title is-2">Otávio Manzano Kavakama</h1> -->
-            <!-- <p class="subtitle is-3"></p> -->
-            
-        </div>
-    </div>
-</section>
-
-    
-    
-
-
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                
-                <div class="column is-8">
-                    
-                    
-                    
-                    
-                    
-<div class="content">
-    <h1 id="otávio-manzano-kavakama">Otávio Manzano Kavakama</h1>
-
-<p>Cellist, enjoys playing some crazy stuff. Favorite color is yellow.
-<a href="https://en.wiktionary.org/wiki/mesoclisis">Mesoclisis</a> enthusiast.</p>
-
-<p>In this website you will hopefully find the answers for all your
-questions.</p>
-
-<p>If you are a composer, thank you for your work. If you are not a
-composer, consider becoming one and writing some crazy stuff. I love
-playing crazy stuff, especially if it’s fresh (I like the smell of new
-music).</p>
-
-<p>Anyway, feel free to hang out, <a href="/media.html">watch some videos</a>, <a href="/blog/">read
-some stuff</a>, <a href="/about/bio.html">look at my bio</a>,
-<a href="/contact.html">etc.</a>, <a href="/about/cv.html">etc</a>.</p>
-
-<p>Below you will encounter a cool image of my hometown of Atibaia, Brazil,
-and an image of my brother and I ready to record an awesome <a href="https://youtu.be/wCSFv_tt2NI">music
-video</a>. I hope you enjoy =)</p>
-
-<p><img src="/img/Atibaia_1.jpg" alt="Atibaia 1" /></p>
-
-<p><img src="/img/Ot%20e%20To.jpg" alt="Ot e To" /></p>
-
-</div>
-
-                </div>
-                
-                <div class="column is-4-desktop is-12-tablet">
-                    <p class="title is-4">Latest Posts</p>
-
-<div class="columns is-multiline">
-    
-    <div class="column is-12">
-        <div class="card" style="background-color: #b5bfb4;">
-    
-    <div class="card-image">
-        <img src="/img/grav other 1.jpg" alt="Recording 'The Other'">
-    </div>
-    
-    <div class="card-content">
-        <div class="content">
-            
-            <a class="title is-4" href="/behind/the/scenes/2021/01/11/behind-the-scenes-1.html">Recording 'The Other'</a>
-            
-            
-            <p><p>This is my DIY movie set.</p>
-
-</p>
-            
-        </div>
-        <div class="has-text-centered">
-            <a href="/behind/the/scenes/2021/01/11/behind-the-scenes-1.html" class="button is-primary">Read more</a>
-        </div>
-    </div>
-    <footer class="card-footer" style="background-color: #7a9230; border-top: 1px; border-top-color: #b3b3b3;">
-        <p class="card-footer-item">Published: Jan 11, 2021</p>
-    </footer>
-</div>
-
-    </div>
-    
-    <div class="column is-12">
-        <div class="card" style="background-color: #b5bfb4;">
-    
-    <div class="card-image">
-        <img src="/img/banana.jpg" alt="Banana">
-    </div>
-    
-    <div class="card-content">
-        <div class="content">
-            
-            <a class="title is-4" href="/fruits/2021/01/09/banana.html">Banana</a>
-            
-            
-            <p><p>/img/banana.jpg</p>
-
-</p>
-            
-        </div>
-        <div class="has-text-centered">
-            <a href="/fruits/2021/01/09/banana.html" class="button is-primary">Read more</a>
-        </div>
-    </div>
-    <footer class="card-footer" style="background-color: #7a9230; border-top: 1px; border-top-color: #b3b3b3;">
-        <p class="card-footer-item">Published: Jan 9, 2021</p>
-    </footer>
-</div>
-
-    </div>
-    
-    <div class="column is-12">
-        <div class="card" style="background-color: #b5bfb4;">
-    
-    <header class="card-header" style="background-color: #7a9230;">
-        <a class="card-header-title" href="/greetings/2021/01/02/hello.html">Hello!</a>
-    </header>
-    
-    <div class="card-content">
-        <div class="content">
-            
-            
-            <p><h1 id="hello">Hello!</h1>
-<p>This is just a test, no need to pay attention here.</p>
-</p>
-            
-        </div>
-        <div class="has-text-centered">
-            <a href="/greetings/2021/01/02/hello.html" class="button is-primary">Read more</a>
-        </div>
-    </div>
-    <footer class="card-footer" style="background-color: #7a9230; border-top: 1px; border-top-color: #b3b3b3;">
-        <p class="card-footer-item">Published: Jan 2, 2021</p>
-    </footer>
-</div>
-
-    </div>
-    
-</div>
-
-
-
-
-                </div>
-                
+    <section class="hero  is-medium  is-bold is-primary"
+        style="background: url('https://kavotaman.github.io/img/hero_index.jpg') no-repeat center center; background-size: cover;">
+        <div class="hero-body ">
+            <div class="container">
             </div>
         </div>
     </section>
-    
-    <footer class="footer">
-    <div class="container">
-        
-        
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <div class="carta" style="background-color: #FCF6B1;">
+                    <div class="carta-header" style="background-color: #9E6E40;">
+                        <div class="carta-header-title"><a href="https://kavotaman.github.io/index_en.html">Site in
+                                English</a></div>
+                        <div class="carta-header-title-flag" style="float: right;"><a
+                                href="https://kavotaman.github.io/index_en.html"><img
+                                    src="https://kavotaman.github.io/img/flag_us.jpg"
+                                    style="height: 20px; width: auto; border-radius: 50%;"></a></div>
+                    </div>
+                    <div class="carta-image">
+                        <figure class="image is-4by3">
+                            <a href="https://kavotaman.github.io/index_en.html"> <img
+                                    src="https://kavotaman.github.io/img/index_en.jpg" alt="Placeholder image"></a>
+                        </figure>
+                    </div>
+                </div>
+            </div>
 
-        <div class="content is-small has-text-centered">
-            <p class="">Theme built by <a href="https://www.csrhymes.com">C.S. Rhymes</a></p>
+            <div class="column">
+                <div class="carta" style="background-color: #b5bfb4;">
+                    <div class="carta-header" style="background-color: #7a9230;">
+                        <div class="carta-header-title "><a href="https://kavotaman.github.io/br/index.html">Sítio em
+                                Português </a></div>
+                        <div class="carta-header-title-flag" style="float: right;"><a
+                                href="https://kavotaman.github.io/br"><img
+                                    src="https://kavotaman.github.io/img/flag_br.jpg"
+                                    style="height: 20px; width: auto; border-radius: 50%"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carta-image">
+                    <figure class="image is-4by3">
+                        <a href="https://kavotaman.github.io/br/index.html"> <img
+                                src="https://kavotaman.github.io/img/index_br.jpg" alt="Placeholder image"></a>
+                    </figure>
+                </div>
+            </div>
         </div>
-    </div>
-</footer>
+    </section>
+    <footer class="hero  is-medium  is-bold is-primary"
+        style="background: url('https://kavotaman.github.io/img/footer_index_1.jpg') no-repeat center center; background-size: cover;">
+        <div class="hero-body ">
+            <div class="container">
+            </div>
+        </div>
+    </footer>
 
-    
-    <script src="/assets/js/app.js" type="text/javascript"></script><!-- footer scripts --></body>
+</body>
+</head>
 
 </html>
