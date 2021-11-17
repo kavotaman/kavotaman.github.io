@@ -101,8 +101,6 @@ table td { border: 1px solid #e8e8e8; }
 
 .page-link-flag { color: #c6c1b9; line-height: 1.5; }
 
-.page-link-flag:not(:last-child) { margin-right: 20px; }
-
 a.page-link-flag:link { text-decoration: none; }
 
 a.page-link-flag:visited { text-decoration: none; }
