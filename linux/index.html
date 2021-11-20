@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>linux | otávio mk</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="linux" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="otávio manzano kavakama - cello" />
+<meta property="og:description" content="otávio manzano kavakama - cello" />
+<link rel="canonical" href="https://otaviomk.com/linux/" />
+<meta property="og:url" content="https://otaviomk.com/linux/" />
+<meta property="og:site_name" content="otávio mk" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="linux" />
+<script type="application/ld+json">
+{"description":"otávio manzano kavakama - cello","url":"https://otaviomk.com/linux/","headline":"linux","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a style="color:#fca311" class="site-title" rel="author" href="/">otávio mk</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">about</a><a class="page-link" href="/media/">media</a><a class="page-link" href="/works/">works</a><a class="page-link" href="/contact/">contact</a><a class='page-link page-link-flag' href="">
+                    <img src="/assets/flag_br.jpg" style="height: 20px; border-radius: 50%;"></a>
+        </div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">linux</h1>
+  </header>
+
+  <div class="post-content">
+    <!-- vim-markdown-toc Redcarpet -->
+
+<ul>
+  <li><a href="#useful-stuff">Useful Stuff</a>
+    <ul>
+      <li><a href="#ffmpeg">ffmpeg</a></li>
+      <li><a href="#vim">vim</a></li>
+      <li><a href="#pdftk">pdftk</a></li>
+    </ul>
+  </li>
+  <li><a href="#personal-configs">Personal Configs</a></li>
+  <li><a href="#linux-on-mac">Linux on Mac</a>
+    <ul>
+      <li><a href="#always-run-this-before-doing-anything">Always run this before doing anything:</a></li>
+      <li><a href="#fix-wake-up">Fix wake up</a></li>
+      <li><a href="#fix-slow-wake-up-macbook-lid-open">Fix slow wake up (Macbook lid open)</a></li>
+      <li><a href="#mbp-fan">MBP Fan</a></li>
+      <li><a href="#how-to-install-ardour">How to install Ardour</a></li>
+      <li><a href="#i3-backlight">I3 Backlight</a></li>
+      <li><a href="#switch-keyboard-layout">Switch keyboard layout</a></li>
+      <li><a href="#switch-keyboard-layout-i3">Switch keyboard layout i3</a></li>
+      <li><a href="#keyboard-backlight-i3">Keyboard backlight (i3)</a></li>
+      <li><a href="#xrandr">Xrandr</a></li>
+      <li><a href="#obs-virtual-cam">OBS Virtual Cam</a></li>
+      <li><a href="#problem-with-wifi">Problem with WiFi</a>
+        <ul>
+          <li><a href="#problem-with-wifi-kinda-iffy-just-read-the-info-about-bcm4331-on-the-arch-wiki">Problem with WiFi (Kinda iffy, just read the info about BCM4331 on the Arch Wiki)</a></li>
+        </ul>
+      </li>
+      <li><a href="#problem-with-wifi-2">Problem with WiFi 2</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- vim-markdown-toc -->
+
+<hr />
+
+<hr />
+
+<h1 id="useful-stuff">Useful Stuff</h1>
+
+<h2 id="ffmpeg">ffmpeg</h2>
+
+<ul>
+  <li>Combine video + audio
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
+</code></pre></div>    </div>
+  </li>
+  <li>combinar varios arquivos de media em um só no ffmpeg
+    <ul>
+      <li>criar files.txt:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file 'file1.mp3'
+file 'file2.mp3'
+etc...
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>Run:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -f concat -safe 0 -i files.txt -c copy output.mkv
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="vim">vim</h2>
+
+<ul>
+  <li>find and replace
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:%s/foo/bar/g
+</code></pre></div>    </div>
+  </li>
+  <li>delete inside *
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>di*
+</code></pre></div>    </div>
+  </li>
+  <li>check orthography
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>z=
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="pdftk">pdftk</h2>
+
+<ul>
+  <li>combine pdf files
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk pdf1.pdf pdf2.pdf cat output final.pdf
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<hr />
+
+<h1 id="personal-configs">Personal Configs</h1>
+
+<p>Mouse:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/10-mouse.conf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "InputClass"
+	Identifier "My Mouse"
+	MatchIsPointer "yes"
+# some curved deceleration
+	Option "AdaptiveDeceleration" "2"
+# linear deceleration (mouse speed reduction)
+	Option "ConstantDeceleration" "2"
+	Option "NaturalScrolling" "on"
+	Option "AccelerationProfile" "-0.5"
+	Option "AccelerationScheme" "none"
+	Option "AccelSpeed" "-1"
+EndSection
+</code></pre></div></div>
+
+<p>Touchpad:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/30-touchpad.conf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "InputClass"
+    Identifier "touchpad"
+    Driver "libinput"
+    MatchIsTouchpad "on"
+    Option "NaturalScrolling" "on"
+    Option "Tapping" "on"
+EndSection
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<hr />
+
+<h1 id="linux-on-mac">Linux on Mac</h1>
+
+<hr />
+
+<h2 id="always-run-this-before-doing-anything">Always run this before doing anything:</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo pacman -Syu
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="fix-wake-up">Fix wake up</h2>
+
+<ul>
+  <li>Check which elements wake up laptop
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /proc/acpi/wakeup
+</code></pre></div>    </div>
+  </li>
+  <li>Check which elements are waking up laptop by disabling it and testing
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo EHC1 &gt;&gt; /proc/acpi/wakeup
+echo XXXX &gt;&gt; /proc/acpi/wakeup
+</code></pre></div>    </div>
+  </li>
+  <li>Create file .service in /etc/systemd/system/, you can name it whatever
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nvim /etc/systemd/system/fixwakeup.service
+</code></pre></div>    </div>
+  </li>
+  <li>Add this content:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+Description=fixwakeup
+
+[Service]
+ExecStart=/bin/bash -c "echo RP01 &gt;&gt; /proc/acpi/wakeup; echo RP02 &gt;&gt; /proc/acpi/wakeup; echo RP03 &gt;&gt; /proc/acpi/wakeup; echo EHC1 &gt;&gt; /proc/acpi/wakeup; echo EHC2 &gt;&gt; /proc/acpi/wakeup; echo XHC1 &gt;&gt; /proc/acpi/wakeup"
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div></div>
+
+<ul>
+  <li>Run these commands:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl daemon-reload
+sudo systemctl start fixwakeup
+</code></pre></div>    </div>
+  </li>
+  <li>Check status:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status fixwakeup
+</code></pre></div></div>
+
+<ul>
+  <li>Make it starts after boot:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl enable fixwakeup
+</code></pre></div>    </div>
+  </li>
+  <li>Reboot and check again with
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /proc/acpi/wakeup 
+</code></pre></div>    </div>
+    <p><a href="#top">Back to the top</a></p>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="fix-slow-wake-up-macbook-lid-open">Fix slow wake up (Macbook lid open)</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nvim /etc/systemd/logind.conf
+</code></pre></div></div>
+
+<ul>
+  <li>Add these lines:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HandlePowerKey=suspend
+HandleLidSwitch=suspend
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="mbp-fan">MBP Fan</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nvim /etc/modules
+</code></pre></div></div>
+
+<ul>
+  <li>Add these lines:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>coretemp
+applesmc
+</code></pre></div></div>
+
+<ul>
+  <li>Install mbpfan-git through your AUR enabled package manager (paman, octopi with yay, etc)</li>
+</ul>
+
+<p>Run:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo sensors-detect
+sudo systemctl enable mbpfan
+sudo systemctl start mbpfan
+</code></pre></div></div>
+
+<ul>
+  <li>Configure mbpfan (optional)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nvim /etc/mbpfan.conf
+</code></pre></div>    </div>
+    <p>Suggestion:</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>min_fan1_speed = 1300
+max_fan1_speed = 6100
+low_temp = 60  
+high_temp = 64  
+max_temp = 80  
+polling_interval = 3
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="how-to-install-ardour">How to install Ardour</h2>
+
+<ul>
+  <li>
+    <p>Install cadence</p>
+  </li>
+  <li>
+    <p>Install jack2</p>
+  </li>
+  <li>
+    <p>Install pulseaudio-jack (for PA jack bridge)</p>
+  </li>
+  <li>Run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nvim /etc/security/limits.conf
+</code></pre></div>    </div>
+  </li>
+  <li>Add:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@audio - rtprio 95
+@audio - memlock unlimited
+</code></pre></div></div>
+
+<ul>
+  <li>Go to
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nvim /etc/security/limits.d/10-gcr.conf
+</code></pre></div>    </div>
+  </li>
+  <li>Comment line
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># @user yada yada
+</code></pre></div>    </div>
+  </li>
+  <li>Check if user is in audio group
+    <ul>
+      <li>In terminal:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>groups
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>If not:
+    <ul>
+      <li>Add audio group:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>groupadd audio
+</code></pre></div>        </div>
+      </li>
+      <li>Add user to audio group:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>usermod -aG audio $USER
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="i3-backlight">I3 Backlight</h2>
+
+<ul>
+  <li>
+    <p>Install AUR package: macbook-lighter</p>
+  </li>
+  <li>Change privileges of folder:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chmod -c -v a+x+w /sys/class/backlight/intel_backlight/brightness
+</code></pre></div>    </div>
+  </li>
+  <li>In i3 conf file, edit backlight (this is for usb keyboard without a backlight special key):</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bindsym control+F2 exec --no-startup-id macbook-lighter-screen --inc 100 # increase screen brightness
+bindsym control+F1 exec --no-startup-id macbook-lighter-screen --dec 100 # decrease screen brightness
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>To make macbook backlight key to work:</p>
+  </li>
+  <li>Install acpid</li>
+  <li>Run:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl start acpi-service
+systemctl enable acpi.service
+</code></pre></div>    </div>
+  </li>
+  <li>Run to check key code:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>acpi_listen 
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>(then press the special keys, code is after description)</p>
+
+<ul>
+  <li>Run:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vim /etc/acpi/events/bl-down
+</code></pre></div>    </div>
+  </li>
+  <li>Add:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>event=video/brightnessdown BRTDN 00000087 00000000
+action=macbook-lighter-screen --dec 100
+
+event=video/brightnessup BRTUP 00000086 00000000
+action=macbook-lighter-screen --inc 100
+</code></pre></div></div>
+
+<ul>
+  <li>Restart acpid:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl stop acpid.service
+systemctl start acpid.service
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="switch-keyboard-layout">Switch keyboard layout</h2>
+
+<ul>
+  <li>Add to this file:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/00-keyboard.conf
+</code></pre></div>    </div>
+  </li>
+  <li>This:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Option "XkbLayout" "br,us"
+Option "XkbOptions" "grp:alt_shift_toggle"
+EndSection
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="switch-keyboard-layout-i3">Switch keyboard layout i3</h2>
+
+<ul>
+  <li>Follow steps above to add “br” to xorg file</li>
+  <li>Create script i3-keyboard-layout at ~/.config/i3/scripts/</li>
+  <li>Make executable:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod +x &lt;script&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>Add to i3 config file:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bindsym $mod+z exec path/to/i3-keyboard-layout set us
+bindsym $mod+x exec path/to/i3-keyboard-layout set br
+bindsym $mod+space exec path/to/i3-keyboard-layout cycle us br
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="keyboard-backlight-i3">Keyboard backlight (i3)</h2>
+
+<ul>
+  <li>
+    <p>Install xorg-xbacklight</p>
+  </li>
+  <li>Create script:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vim /bin/kbdbacklight
+</code></pre></div>    </div>
+  </li>
+  <li>Add:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/sh
+ 
+# backlight_get
+#       Print current keyboard brightness from UPower to stdout.
+backlight_get()
+{
+    dbus-send --type=method_call --print-reply=literal --system         \
+        --dest='org.freedesktop.UPower'                                 \
+        '/org/freedesktop/UPower/KbdBacklight'                          \
+        'org.freedesktop.UPower.KbdBacklight.GetBrightness'             \
+        | awk '{print $2}'
+}
+ 
+# backlight_get_max
+#       Print the maximum keyboard brightness from UPower to stdout.
+backlight_get_max()
+{
+    dbus-send --type=method_call --print-reply=literal --system       \
+        --dest='org.freedesktop.UPower'                               \
+        '/org/freedesktop/UPower/KbdBacklight'                        \
+        'org.freedesktop.UPower.KbdBacklight.GetMaxBrightness'        \
+        | awk '{print $2}'
+}
+ 
+# backlight_set NUMBER
+#       Set the current backlight brighness to NUMBER, through UPower
+backlight_set()
+{
+    value="$1"
+    if test -z "${value}" ; then
+        echo "Invalid backlight value ${value}"
+    fi
+ 
+    dbus-send --type=method_call --print-reply=literal --system       \
+        --dest='org.freedesktop.UPower'                               \
+        '/org/freedesktop/UPower/KbdBacklight'                        \
+        'org.freedesktop.UPower.KbdBacklight.SetBrightness'           \
+        "int32:${value}}"
+}
+ 
+# backlight_change [ UP | DOWN | NUMBER ]
+#       Change the current backlight value upwards or downwards, or
+#       set it to a specific numeric value.
+backlight_change()
+{
+    change="$1"
+    if test -z "${change}" ; then
+        echo "Invalid backlight change ${change}."                    \
+            "Should be 'up' or 'down'." &gt;&amp;2
+        return 1
+    fi
+ 
+    case ${change} in
+    [1234567890]|[[1234567890][[1234567890])
+        current=$( backlight_get )
+        max=$( backlight_get_max )
+        value=$( expr ${change} + 0 )
+        if test ${value} -lt 0 || test ${value} -gt ${max} ; then
+            echo "Invalid backlight value ${value}."                  \
+                "Should be a number between 0 .. ${max}" &gt;&amp;2
+            return 1
+        else
+            backlight_set "${value}"
+            notify-send -t 800 "Keyboard brightness set to ${value}"
+        fi
+        ;;
+ 
+    [uU][pP])
+        current=$( backlight_get )
+        max=$( backlight_get_max )
+        if test "${current}" -lt "${max}" ; then
+            value=$(( ${current} + 1 ))
+            backlight_set "${value}"
+            notify-send -t 800 "Keyboard brightness set to ${value}"
+        fi
+        ;;
+ 
+    [dD][oO][wW][nN])
+        current=$( backlight_get )
+        if test "${current}" -gt 0 ; then
+            value=$(( ${current}  - 1 ))
+            backlight_set "${value}"
+            notify-send -t 800 "Keyboard brightness set to ${value}"
+        fi
+        ;;
+ 
+    *)
+        echo "Invalid backlight change ${change}." &gt;&amp;2
+        echo "Should be 'up' or 'down' or a number between"           \
+            "1 .. $( backlight_get_max )" &gt;&amp;2
+        return 1
+        ;;
+    esac
+}
+ 
+if test $# -eq 0 ; then
+    current_brightness=$( backlight_get )
+    notify-send -t 800 "Keyboard brightness is ${current_brightness}"
+else
+    # Handle multiple backlight changes, e.g.:
+    #   backlight.sh up up down down up
+    for change in "$@" ; do
+        backlight_change "${change}"
+    done
+fi
+</code></pre></div></div>
+
+<ul>
+  <li>Make executable:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod +x YADAYADA
+</code></pre></div>    </div>
+  </li>
+  <li>Add to i3 config:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bindsym XF86KbdBrightnessUp exec kbdbacklight up
+bindsym XF86KbdBrightnessDown exec kbdbacklight down
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="xrandr">Xrandr</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xrandr --output LVDS1 --primary --mode 1280x800 --rate 144.00 --output HDMI1 --mode 1920x1080 --rate 60.00 --right-of LVDS1
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="obs-virtual-cam">OBS Virtual Cam</h2>
+
+<ul>
+  <li>
+    <p>Install https://github.com/umlaeute/v4l2loopback</p>
+  </li>
+  <li>git clone ……</li>
+  <li>cd to folder</li>
+  <li>
+    <p>make &amp;&amp; sudo make install</p>
+  </li>
+  <li>Install https://github.com/CatxFish/obs-v4l2sink
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yay -Syu obs-v4l2sink
+</code></pre></div>    </div>
+  </li>
+  <li>Load module
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo modprobe v4l2loopback
+</code></pre></div>    </div>
+  </li>
+  <li>In OBS
+    <ul>
+      <li>Tools &gt; v4l2</li>
+      <li>Select video device (here /dev/video2)</li>
+      <li>Start</li>
+    </ul>
+  </li>
+  <li>Run to the hug</li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="problem-with-wifi">Problem with WiFi</h2>
+
+<h3 id="problem-with-wifi-kinda-iffy-just-read-the-info-about-bcm4331-on-the-arch-wiki">Problem with WiFi (Kinda iffy, just read the info about BCM4331 on the Arch Wiki)</h3>
+
+<p>Install linux-header, linux-lts-header and other stuff</p>
+
+<h2 id="problem-with-wifi-2">Problem with WiFi 2</h2>
+
+<p>If your Broadcom wireless adapter driver is detected as “bcma-pci-bridge” or “b43-pci-bridge”, your driver has likely been installed incorrectly.</p>
+
+<ul>
+  <li>Examples:
+    <ul>
+      <li>Kernel driver in use: bcma-pci-bridge</li>
+      <li>Kernel modules: bcma</li>
+      <li>Kernel driver in use: b43-pci-bridge</li>
+      <li>Kernel modules: ssb</li>
+    </ul>
+  </li>
+</ul>
+
+<p>If your WiFi connection is not working correctly you will need an alternate means to connect to the internet. You can use a wired LAN connection if your computer has a wired NIC (and a connection is available). The other alternative for wired connectivity is a USB to Ethernet adapter if you have one available.</p>
+
+<p>If a wired connection is not an option then you have at least several other wireless connectivity options. If you have an older (but slower) USB WiFi dongle available with built in kernel support this is a good option to use temporarily. The other option that is widely used is Android USB phone tethering. Ensure you have an alternate working connection to install required packages before attempting to replace any currently installed driver.</p>
+
+<ul>
+  <li>Drivers detected as “bcma-pci-bridge”</li>
+</ul>
+
+<p>If your driver is detected as “bcma-pci-bridge”, use the following steps below to hopefully improve your WiFi. For this procedure to work your adapter should be included in the broadcom-wl supported chipsets list below.</p>
+
+<p>You will need to uninstall the currently installed dysfunctional driver to correct this issue.</p>
+
+<p>The driver most likely installed by default is the broadcom-wl driver. You can check if the broadcom-wl driver is already installed with the following command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mhwd -li
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>If the broadcom-wl driver is installed then uninstall it with the command below:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo mhwd -r pci network-broadcom-wl
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>If you have a different broadcom WiFi driver installed you can remove it through your graphical package manager (Octopi or Pamac). Driver modules such as b43, brcm80211, brcmfmac, brcmsmac, bcma, and ssb are included in the kernel and can not be uninstalled. Kernel modules must be blacklisted rather than uninstalled. The install script for the broadcom-wl-dkms driver should automatically create the required blacklist file.</p>
+
+<ul>
+  <li>
+    <p>Before proceeding with the driver install, make sure your system is fully up to date with this command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo pacman-mirrors -f 5 &amp;&amp; sudo pacman -Syyu
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Broadcom drivers have been experiencing breakages on some kernels recently. I would suggest installing the two most recent kernels to test WiFi operation. If after testing the two most recent kernels your WiFi is still not working satisfactorily then install older LTS kernels for testing. Install kernels through Manjaro Settings Manager, and always keep at least two working kernels installed.</p>
+
+<p>If you need to switch kernels reboot. If you do not see the grub boot screen press the ESC, SHIFT or F8 key. This should show the GRUB boot menu if it doesn’t appear automatically. As soon as you see the grub boot screen, press the down arrow. Select the “advanced” menu from the choices and press enter. In the next menu you can select the different kernels you have installed to boot from. Select the kernel version you wish boot into (not the fallback version), and then press enter to complete the kernel change.</p>
+
+<ul>
+  <li>Installing the required Linux kernel headers:</li>
+</ul>
+
+<p>To automatically install the Linux headers packages for all installed kernels, use the following command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     sudo pacman -S $(pacman -Qsq "^linux" | grep "^linux[0-9]*[-rt]*$" | awk '{print $1"-headers"}' ORS=' ')
+</code></pre></div></div>
+
+<p>command courtesy of @dalto</p>
+
+<ul>
+  <li>
+    <p>Once you have completed the linux-headers package installation, install the “dkms” package with the following command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo pacman -S dkms 
+</code></pre></div>    </div>
+  </li>
+  <li>After all those steps are complete unplug any tethering, LAN, or other alternate internet connections and reboot.</li>
+  <li>After rebooting, your WiFi may be working with the native modules already included in the kernel. Conduct performance assessments on your WiFi connection using the kernel modules. If you find the kernel driver works satisfactorily you may simply want to continue using it.</li>
+  <li>If your WiFi is not working (or the kernel driver performs poorly), then continue with the directions below to install the proprietary broadcom-wl-dkms driver.</li>
+  <li>Reconnect to an alternate internet source to perform the broadcom-wl-dkms driver installation.</li>
+  <li>
+    <p>Install the “broadcom-wl-dkms” driver package from the Manjaro extra repo with this command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo pacman -S broadcom-wl-dkms
+</code></pre></div>    </div>
+  </li>
+  <li>After the driver has finished installing, unplug any tethering, LAN, or other alternate internet connections and reboot.</li>
+  <li>After rebooting, if your WiFi is still not working then follow these additional steps.</li>
+  <li>
+    <p>Check that a blacklist file exists in</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  /etc/modprobe.d/ 
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>with the following contents.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blacklist b43
+blacklist b43legacy
+blacklist ssb
+blacklist bcm43xx
+blacklist brcm80211
+blacklist brcmfmac
+blacklist brcmsmac
+blacklist bcma
+</code></pre></div></div>
+
+<ul>
+  <li>If a file does not already exist with those contents, create it.</li>
+  <li>
+    <p>You can automatically add the required entries to /etc/modprobe.d/blacklist.conf file with the following command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo echo -e "blacklist b43\nblacklist b43legacy\nblacklist ssb\nblacklist bcm43xx\nblacklist brcm80211\nblacklist brcmfmac\nblacklist brcmsmac\nblacklist bcma" | sudo tee -a /etc/modprobe.d/blacklist.conf
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Then, issue these commands separately:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rfkill unblock all
+
+sudo depmod -a
+
+sudo mkinitcpio -P
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Run the following list of commands in its entirety, regardless of any errors received. Issue the commands individually one at a time allowing several seconds between commands:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo systemctl stop NetworkManager 
+
+  sudo rmmod b43 b43legacy ssb brcm80211 brcmfmac brcmsmac bcma 
+
+  sudo modprobe -r wl
+
+  sudo modprobe wl
+
+  DEVICE=$(hwinfo --wlan | grep "Device File" | cut -d " " -f5) &amp;&amp; sudo ip link set $DEVICE up
+
+  sudo rfkill unblock all
+
+  sudo systemctl start NetworkManager 
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Once those commands have finished running test your connection again.</p>
+
+<p>If your WiFi is still not working correctly, reboot.</p>
+
+<p>Hopefully after a restart your new wl driver will be working correctly.</p>
+
+<p>This method will not necessarily work for all Broadcom chips. This method should work for most cards compatible with the broadcom-wl driver. Not all Broadcom adapters work best with the wl drivers, (but the majority do).</p>
+
+<p>The broadcom-wl driver should work correctly with the following Wireless chipsets.</p>
+
+<p>broadcom-wl supported chipsets:</p>
+
+<ul>
+  <li>BCM4311</li>
+  <li>BCM4312</li>
+  <li>BCM4313</li>
+  <li>BCM4321</li>
+  <li>BCM4322</li>
+  <li>BCM4331</li>
+  <li>BCM4352</li>
+  <li>BCM436O</li>
+  <li>BCM43142</li>
+  <li>BCM43224</li>
+  <li>BCM43225</li>
+  <li>BCM43227</li>
+  <li>BCM43228</li>
+</ul>
+
+<p>Linux Broadcom adapter driver support reference lists:</p>
+
+<p>https://wireless.wiki.kernel.org/en/users/drivers/brcm80211 67</p>
+
+<p>https://wireless.wiki.kernel.org/en/users/drivers/b43 63</p>
+
+<p>https://wiki.debian.org/wl 22</p>
+
+<p>If your adapter is not on the above list, this method may not work for your adapter. If the wl driver does not work (or performs poorly) it may be better to follow the method below to use the built in kernel drivers.</p>
+
+<ul>
+  <li>Drivers detected as “b43-pci-bridge”</li>
+</ul>
+
+<p>Generally if you see your WiFi drivers listed as “b43-pci-bridge” you have conflicting drivers installed. In a minority of instances a driver detected as “b43-pci-bridge” may function adequately. However, drivers installed this way tend to be unreliable in the long term.</p>
+
+<p>In these cases the drivers included in the kernel may be the better choice. You may find your driver issues can be corrected by simply uninstalling the “broadcom-wl” drivers. You can uninstall the wl drivers through the Manjaro Settings Manager. Open Manjaro Settings Manager -&gt; Hardware configuration -&gt; right click on your device driver and select “Remove”. Once the “broadcom-wl” drivers are uninstalled you can test the b43 driver:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rmmod  wl
+
+sudo rmmod ssb
+
+sudo rmmod b43
+
+sudo modprobe b43
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rfkill unblock all
+
+sudo systemctl restart NetworkManager
+
+sudo depmod -a
+
+sudo mkinitcpio -P
+</code></pre></div></div>
+
+<p>Test your wifi for connectivity.</p>
+
+<p>Then reboot you computer. After restarting, the kernel drivers should automatically load.</p>
+
+<p>If the kernel modules do not load automatically you must ensure they are not blacklisted. Check that no blacklist file exists in any of these locations:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/modprobe.d/
+
+/etc/modules-load.d/
+
+/usr/lib/modprobe.d/
+</code></pre></div></div>
+
+<p>Any blacklist on the broadcom kernel modules (as in the blacklist example above), must either be deleted, or commented out. The blacklist entries can be made to be ignored by adding a pound sign “#” (hash tag ) before any entry line. This is what is referred to as “commenting out” an entry.</p>
+
+<p>There is no guarantee the correct kernel module will automatically be loaded for your adapter model. As different adapters may use different modules you may need to research which modules are required. A different blacklist may be required for different kernel modules, so this can get complicated. If the installation steps listed here do not resolve your broadcom driver issues a support request on the forum may be helpful.</p>
+
+<p>Unfortunately, Broadcom drivers are well known for being problematic in Linux. If you can’t get the kernel modules working, then perhaps installing the “broadcom-wl-dkms” driver may be worth attempting. If you have no luck with either the native or proprietary drivers you may find purchasing a USB adapter with good Linux support is your best alternative.</p>
+
+<p>Directions for opening a help request</p>
+
+<p>If your WiFi connection is still not working after following all the above steps, then you will need to open a help request on the forum. Follow the instructions below to create a help request that will have the best chance of helping resolve your issue.</p>
+
+<p>Disconnect any LAN cable, USB LAN adapter, USB WiFi tethering, or any other network devices connected to your computer. Once you have disconnected all other network devices, reboot your computer.</p>
+
+<p>Once restarted, you will need to run extensive diagnostic commands to help identify why your WiFi is not working. Numerous diagnostic outputs and logs are required to properly diagnose complicated WiFi issues. Please run all the following commands individually in the terminal:</p>
+
+<p>Please post the outputs of the following commands:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inxi -Fxxxza
+
+dkms status
+
+rfkill list all
+
+lsmod | sort
+
+sudo mhwd-kernel -li 
+
+sudo dmesg | grep -Ei 'b43|bcma|brcm|wl|[F]irm|deauth'
+
+grep -r "blacklist\|install\|options"  /etc/modprobe.d/
+
+pacman -Qsq linux | grep linux | grep -v -E '(arch|util|sys|api|firmware)' | grep -v nvidia
+
+hwinfo --netcard --wlan --bluetooth | grep -Ei "model\:|driver\:|status\:|cmd\:|file\:|detected\:" | grep -v "Config Status" 
+</code></pre></div></div>
+
+<p>Unless there is absolutely no alternative, do not post any terminal outputs as a picture.</p>
+
+<p><a href="#top">Back to the top</a></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">otávio mk</h2> -->
+
+    <div class="footer-col-wrapper">
+      <!-- <div class="footer-col footer-col-1"> -->
+      <!--   <ul class="contact-list"> -->
+      <!--     <!-1- <li class="p-name"> -1-> -->
+      <!--     <!-1--1-> -->
+      <!--     <!-1-     otávio mk -1-> -->
+      <!--     <!-1--1-> -->
+      <!--     <!-1-   </li> -1-> -->
+      <!--       <!-1--1-> -->
+      <!--   </ul> -->
+      <!-- </div> -->
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+  <li style="display:inline"><a href="https://www.youtube.com/channel/UCFSm9mZHqqNlxPxyEDmPjQA"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#youtube"></use></svg> <span class="username"></span></a></li><li style="display:inline"><a href="https://www.facebook.com/kavotaman"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#facebook"></use></svg> <span class="username"></span></a></li><li style="display:inline"><a href="https://instagram.com/kavotaman"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg> <span class="username"></span></a></li><li style="display:inline"><a href="https://www.twitter.com/kavotaman"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username"></span></a></li></ul>
+</div>
+
+      <!-- <div class="footer-col footer-col-3"> -->
+      <!--   <p>otávio manzano kavakama - cello</p> -->
+      <!-- </div> -->
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
