@@ -134,8 +134,10 @@ etc...
 
 <h2 id="scripts">scripts</h2>
 
+<p>To run scripts: <code class="language-plaintext highlighter-rouge">chmod +x &lt;script&gt;</code> then <code class="language-plaintext highlighter-rouge">./&lt;script&gt;</code></p>
+
 <ul>
-  <li>script for generating CV (for Jekyll website)</li>
+  <li>script for generating CV (for Jekyll website) <code class="language-plaintext highlighter-rouge">./update_cv_pdf</code></li>
 </ul>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
@@ -149,6 +151,21 @@ sed -i '/Back to the top/d' cv_temp ## delete lines with 'back to the top'
 line=13
 
 sed -i -e "${line}r cv_temp" cv_pdf/cv_pdf.md ## inserts temp file into cv_pdf after line 13
+</code></pre></div></div>
+
+<ul>
+  <li>generate pdf version of cv <code class="language-plaintext highlighter-rouge">./cv_pdf</code>
+    <ul>
+      <li>have jekyll server running OR substitute to <code class="language-plaintext highlighter-rouge">https://otaviomk.com/cv_pdf/</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+TODAY1=$(date +%F)
+
+wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavakama - cellist' --footer-right [page]/[topage] --footer-line http://127.0.0.1:4000/cv_pdf/ /home/omk/Storage/Insync/DMA\ BGSU\ 2019-/PORTFOLIO/Otavio_Manzano_Kavakama_CV_$TODAY1.pdf
 </code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
