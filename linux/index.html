@@ -52,13 +52,13 @@
     <ul>
       <li><a href="#ffmpeg">ffmpeg</a></li>
       <li><a href="#vim">vim</a></li>
+      <li><a href="#scripts">scripts</a></li>
       <li><a href="#pdftk">pdftk</a></li>
     </ul>
   </li>
   <li><a href="#personal-configs">Personal Configs</a></li>
   <li><a href="#linux-on-mac">Linux on Mac</a>
     <ul>
-      <li><a href="#always-run-this-before-doing-anything">Always run this before doing anything:</a></li>
       <li><a href="#fix-wake-up">Fix wake up</a></li>
       <li><a href="#fix-slow-wake-up-macbook-lid-open">Fix slow wake up (Macbook lid open)</a></li>
       <li><a href="#mbp-fan">MBP Fan</a></li>
@@ -117,19 +117,37 @@ etc...
 <h2 id="vim">vim</h2>
 
 <ul>
-  <li>find and replace
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:%s/foo/bar/g
-</code></pre></div>    </div>
+  <li>
+    <p>find and replace <code class="language-plaintext highlighter-rouge">:%s/foo/bar/g</code></p>
   </li>
-  <li>delete inside *
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>di*
-</code></pre></div>    </div>
+  <li>
+    <p>delete inside * <code class="language-plaintext highlighter-rouge">di*</code></p>
   </li>
-  <li>check orthography
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>z=
-</code></pre></div>    </div>
+  <li>
+    <p>check orthography <code class="language-plaintext highlighter-rouge">z=</code></p>
   </li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="scripts">scripts</h2>
+
+<ul>
+  <li>script for generating CV (for Jekyll website)</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+sed -i '14,$d' cv_pdf/cv_pdf.md ## deletes after line 14
+
+sed -n '23,$p' cv.md &gt; cv_temp ## copies from original from line 23 into temp file
+
+line=13
+
+sed -i -e "${line}r cv_temp" cv_pdf/cv_pdf.md ## inserts temp file into cv_pdf after line 13
+</code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
 
@@ -193,10 +211,7 @@ EndSection
 
 <hr />
 
-<h2 id="always-run-this-before-doing-anything">Always run this before doing anything:</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo pacman -Syu
-</code></pre></div></div>
+<p>Always run this before doing anything: <code class="language-plaintext highlighter-rouge">sudo pacman -Syu</code></p>
 
 <hr />
 
