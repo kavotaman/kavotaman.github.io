@@ -144,6 +144,8 @@ sed -i '14,$d' cv_pdf/cv_pdf.md ## deletes after line 14
 
 sed -n '23,$p' cv.md &gt; cv_temp ## copies from original from line 23 into temp file
 
+sed -i '/Back to the top/d' cv_temp ## delete lines with 'back to the top'
+
 line=13
 
 sed -i -e "${line}r cv_temp" cv_pdf/cv_pdf.md ## inserts temp file into cv_pdf after line 13

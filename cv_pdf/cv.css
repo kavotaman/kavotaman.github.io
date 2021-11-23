@@ -18,9 +18,9 @@ h5 { font-size: 14px; color: #333; text-align: center; }
 
 h6 { color: #777; font-size: 14px; text-align: center; -webkit-margin-before: 0.05em; }
 
-.col1 { font-size: 24px; float: left; width: 48%; margin-top: 20px; margin-bottom: 80px; text-align: center; }
+.col1 { font-size: 24px; float: left; width: 48%; margin-top: 20px; margin-bottom: 60px; text-align: center; }
 
-.col2 { float: right; width: 48%; margin-bottom: 28px; text-align: center; }
+.col2 { float: right; width: 48%; margin-top: 9px; text-align: center; }
 
 ul { padding-left: 30px; }
 
