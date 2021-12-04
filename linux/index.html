@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="linux" />
 <script type="application/ld+json">
-{"description":"otávio manzano kavakama - cello","url":"https://otaviomk.com/linux/","headline":"linux","@type":"WebPage","@context":"https://schema.org"}</script>
+{"headline":"linux","description":"otávio manzano kavakama - cello","url":"https://otaviomk.com/linux/","@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
@@ -54,6 +54,7 @@
       <li><a href="#vim">vim</a></li>
       <li><a href="#scripts">scripts</a></li>
       <li><a href="#pdftk">pdftk</a></li>
+      <li><a href="#git">Git</a></li>
     </ul>
   </li>
   <li><a href="#personal-configs">Personal Configs</a></li>
@@ -77,6 +78,7 @@
       <li><a href="#problem-with-wifi-2">Problem with WiFi 2</a></li>
     </ul>
   </li>
+  <li><a href="#packages">Packages</a></li>
 </ul>
 
 <!-- vim-markdown-toc -->
@@ -168,6 +170,17 @@ TODAY1=$(date +%F)
 wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavakama - cellist' --footer-right [page]/[topage] --footer-line http://127.0.0.1:4000/cv_pdf/ /home/omk/Storage/Insync/DMA\ BGSU\ 2019-/PORTFOLIO/Otavio_Manzano_Kavakama_CV_$TODAY1.pdf
 </code></pre></div></div>
 
+<ul>
+  <li>run scripts as apps
+    <ul>
+      <li>add this to <code class="language-plaintext highlighter-rouge">.bashrc</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PATH=$PATH:$HOME/.scripts #making my scripts run without typing the whole path
+</code></pre></div></div>
+
 <p><a href="#top">Back to the top</a></p>
 
 <hr />
@@ -179,6 +192,14 @@ wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavaka
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk pdf1.pdf pdf2.pdf cat output final.pdf
 </code></pre></div>    </div>
   </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<h2 id="git">Git</h2>
+
+<ul>
+  <li>remove directory <code class="language-plaintext highlighter-rouge">git rm -r &lt;directory&gt;</code></li>
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
@@ -955,6 +976,16 @@ hwinfo --netcard --wlan --bluetooth | grep -Ei "model\:|driver\:|status\:|cmd\:|
 <p>Unless there is absolutely no alternative, do not post any terminal outputs as a picture.</p>
 
 <p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<hr />
+
+<h1 id="packages">Packages</h1>
+
+<ul>
+  <li>timeshift-autosnap</li>
+</ul>
 
   </div>
 
