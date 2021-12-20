@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="linux" />
 <script type="application/ld+json">
-{"description":"otávio manzano kavakama - cello","url":"https://otaviomk.com/linux/","headline":"linux","@type":"WebPage","@context":"https://schema.org"}</script>
+{"description":"otávio manzano kavakama - cello","headline":"linux","url":"https://otaviomk.com/linux/","@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
@@ -68,6 +68,7 @@
         </ul>
       </li>
       <li><a href="#git">Git</a></li>
+      <li><a href="#numlock-on-startup">Numlock on startup</a></li>
       <li><a href="#formatting-usb">Formatting USB</a>
         <ul>
           <li><a href="#gparted-fat32">gparted (Fat32)</a></li>
@@ -160,7 +161,7 @@ etc...
 
 sed -i '14,$d' cv_pdf/cv_pdf.md ## deletes after line 14
 
-sed -n '23,$p' cv.md &gt; cv_temp ## copies from original from line 23 into temp file
+sed -n '25,$p' cv.md &gt; cv_temp ## copies from original from line 25 into temp file
 
 sed -i '/Back to the top/d' cv_temp ## delete lines with 'back to the top'
 
@@ -204,11 +205,28 @@ wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavaka
 
 <p><a href="#top">Back to the top</a></p>
 
+<hr />
+
 <h2 id="git">Git</h2>
 
 <ul>
   <li>remove directory <code class="language-plaintext highlighter-rouge">git rm -r &lt;directory&gt;</code></li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="numlock-on-startup">Numlock on startup</h2>
+
+<ul>
+  <li>install numlockx</li>
+  <li>add to <code class="language-plaintext highlighter-rouge">/etc/lightdm/lightdm.conf</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Seat:*]
+greeter-setup-script=/usr/bin/numlockx on
+</code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
 
