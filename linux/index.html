@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="linux" />
 <script type="application/ld+json">
-{"description":"otávio manzano kavakama - cello","headline":"linux","url":"https://otaviomk.com/linux/","@type":"WebPage","@context":"https://schema.org"}</script>
+{"description":"otávio manzano kavakama - cello","url":"https://otaviomk.com/linux/","headline":"linux","@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
@@ -281,6 +281,36 @@ EndSection
     Option "NaturalScrolling" "on"
     Option "Tapping" "on"
 EndSection
+</code></pre></div></div>
+
+<p>Keyboard language switch:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/00-keyboard.conf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "us,br"
+        Option "XkbModel" "pc105"
+	    Option "XkbOptions" "grp:alt_shift_toggle"
+EndSection
+</code></pre></div></div>
+
+<p>on Polybar:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = caps lock
+
+format-prefix = " "
+format-prefix-underline = #0000ff
+
+label-layout = %layout%
+label-layout-underline = #0000ff
+
+label-indicator-padding = 0
+label-indicator-margin = 0
+label-indicator-underline = #000044
 </code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
