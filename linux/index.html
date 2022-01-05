@@ -76,7 +76,13 @@
       </li>
     </ul>
   </li>
-  <li><a href="#personal-configs">Personal Configs</a></li>
+  <li><a href="#personal-configs">Personal Configs</a>
+    <ul>
+      <li><a href="#mouse">Mouse:</a></li>
+      <li><a href="#touchpad">Touchpad:</a></li>
+      <li><a href="#keyboard-layout-switch">Keyboard layout switch:</a></li>
+    </ul>
+  </li>
   <li><a href="#linux-on-mac">Linux on Mac</a>
     <ul>
       <li><a href="#fix-wake-up">Fix wake up</a></li>
@@ -252,7 +258,7 @@ sudo parted /dev/sdX --script print
 
 <h1 id="personal-configs">Personal Configs</h1>
 
-<p>Mouse:</p>
+<h2 id="mouse">Mouse:</h2>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/10-mouse.conf
 </code></pre></div></div>
 
@@ -270,7 +276,7 @@ sudo parted /dev/sdX --script print
 EndSection
 </code></pre></div></div>
 
-<p>Touchpad:</p>
+<h2 id="touchpad">Touchpad:</h2>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/30-touchpad.conf
 </code></pre></div></div>
 
@@ -283,7 +289,7 @@ EndSection
 EndSection
 </code></pre></div></div>
 
-<p>Keyboard language switch:</p>
+<h2 id="keyboard-layout-switch">Keyboard layout switch:</h2>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/00-keyboard.conf
 </code></pre></div></div>
 
@@ -292,7 +298,7 @@ EndSection
         MatchIsKeyboard "on"
         Option "XkbLayout" "us,br"
         Option "XkbModel" "pc105"
-	    Option "XkbOptions" "grp:alt_shift_toggle"
+        Option "XkbOptions" "grp:alt_shift_toggle"
 EndSection
 </code></pre></div></div>
 
