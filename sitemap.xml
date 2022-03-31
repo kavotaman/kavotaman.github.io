@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://otaviomk.com/jekyll/update/2021/12/19/teste_1.html</loc>
-<lastmod>2021-12-19T01:15:18-05:00</lastmod>
-</url>
-<url>
 <loc>https://otaviomk.com/about/</loc>
-</url>
-<url>
-<loc>https://otaviomk.com/books/</loc>
 </url>
 <url>
 <loc>https://otaviomk.com/contact/</loc>
@@ -23,25 +16,13 @@
 <loc>https://otaviomk.com/</loc>
 </url>
 <url>
-<loc>https://otaviomk.com/linux/</loc>
-</url>
-<url>
 <loc>https://otaviomk.com/media/</loc>
-</url>
-<url>
-<loc>https://otaviomk.com/movies/</loc>
 </url>
 <url>
 <loc>https://otaviomk.com/works/odes/</loc>
 </url>
 <url>
 <loc>https://otaviomk.com/works/other/</loc>
-</url>
-<url>
-<loc>https://otaviomk.com/stand-up/</loc>
-</url>
-<url>
-<loc>https://otaviomk.com/tv-series/</loc>
 </url>
 <url>
 <loc>https://otaviomk.com/works/</loc>

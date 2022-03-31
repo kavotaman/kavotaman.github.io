@@ -68,6 +68,7 @@
       <li><a href="#pdftk">pdftk</a>
         <ul>
           <li><a href="#combine-pdf-files">combine pdf files</a></li>
+          <li><a href="#extract-from-pdf">extract from pdf</a></li>
         </ul>
       </li>
       <li><a href="#git">Git</a></li>
@@ -210,6 +211,13 @@ wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavaka
 
 <h3 id="combine-pdf-files">combine pdf files</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk pdf1.pdf pdf2.pdf cat output final.pdf
+</code></pre></div></div>
+
+<h3 id="extract-from-pdf">extract from pdf</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3-8 output final.pdf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3 4 5 output final.pdf
 </code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
