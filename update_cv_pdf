@@ -2,7 +2,7 @@
 
 sed -i '14,$d' cv_pdf/cv_pdf.md
 
-sed -n '25,$p' cv.md > cv_temp
+sed -n '26,$p' cv.md > cv_temp
 
 sed -i '/Back to the top/d' cv_temp
 
