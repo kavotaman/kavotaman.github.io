@@ -67,6 +67,9 @@
       </li>
       <li><a href="#scripts">scripts</a>
         <ul>
+          <li><a href="#generating-cv-for-jekyll-website-update_cv_pdf">Generating CV (for Jekyll website) <code class="language-plaintext highlighter-rouge">./update_cv_pdf</code></a></li>
+          <li><a href="#generate-pdf-version-of-cv-cv_pdf">generate pdf version of cv <code class="language-plaintext highlighter-rouge">./cv_pdf</code></a></li>
+          <li><a href="#remove-from-filenames">remove from filenames:</a></li>
           <li><a href="#run-scripts-as-apps">run scripts as apps</a></li>
         </ul>
       </li>
@@ -113,6 +116,16 @@
     </ul>
   </li>
   <li><a href="#packages">Packages</a></li>
+  <li><a href="#arch-install">Arch Install</a>
+    <ul>
+      <li><a href="#packages-to-install">Packages to install:</a></li>
+      <li><a href="#tty2">tty2</a></li>
+      <li><a href="#intel-drivers">Intel drivers</a></li>
+      <li><a href="#power-management">Power Management</a></li>
+      <li><a href="#appearance">Appearance</a></li>
+      <li><a href="#backlight">backlight</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- vim-markdown-toc -->
@@ -158,6 +171,9 @@ etc...
   <li>
     <p>check orthography <code class="language-plaintext highlighter-rouge">z=</code></p>
   </li>
+  <li>
+    <p>append numbers to end of line <code class="language-plaintext highlighter-rouge">:execute "% normal A \&lt;C-R&gt;=printf(\"%05d\", line(\".\"))\&lt;CR&gt;"</code></p>
+  </li>
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
@@ -176,9 +192,7 @@ etc...
 
 <p>To run scripts: <code class="language-plaintext highlighter-rouge">chmod +x &lt;script&gt;</code> then <code class="language-plaintext highlighter-rouge">./&lt;script&gt;</code></p>
 
-<ul>
-  <li>script for generating CV (for Jekyll website) <code class="language-plaintext highlighter-rouge">./update_cv_pdf</code></li>
-</ul>
+<h3 id="generating-cv-for-jekyll-website-update_cv_pdf">Generating CV (for Jekyll website) <code class="language-plaintext highlighter-rouge">./update_cv_pdf</code></h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
 
@@ -193,12 +207,9 @@ line=13
 sed -i -e "${line}r cv_temp" cv_pdf/cv_pdf.md ## inserts temp file into cv_pdf after line 13
 </code></pre></div></div>
 
+<h3 id="generate-pdf-version-of-cv-cv_pdf">generate pdf version of cv <code class="language-plaintext highlighter-rouge">./cv_pdf</code></h3>
 <ul>
-  <li>generate pdf version of cv <code class="language-plaintext highlighter-rouge">./cv_pdf</code>
-    <ul>
-      <li>have jekyll server running OR substitute to <code class="language-plaintext highlighter-rouge">https://otaviomk.com/cv_pdf/</code></li>
-    </ul>
-  </li>
+  <li>have jekyll server running OR substitute to <code class="language-plaintext highlighter-rouge">https://otaviomk.com/cv_pdf/</code></li>
 </ul>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
@@ -210,99 +221,107 @@ wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavaka
 
 <hr />
 
+<h3 id="remove-from-filenames">remove from filenames:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+for f in *STRING_TO_BE_REMOVED*; do
+    mv -- "$f" "${f/STRING_TO_BE_REMOVED/}"
+done
+</code></pre></div></div>
+
+<h3 id="run-scripts-as-apps">run scripts as apps</h3>
 <ul>
-  <li>remove from filenames:
-```
-#!/bin/bash</li>
+  <li>add this to <code class="language-plaintext highlighter-rouge">.bashrc</code></li>
 </ul>
 
-<p>for f in <em>STRING_TO_BE_REMOVED</em>; do
-    mv – “$f” “${f/STRING_TO_BE_REMOVED/}”
-done</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-### run scripts as apps
-- add this to `.bashrc`
-
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PATH=$PATH:$HOME/.scripts #making my scripts run without typing the whole path
 </code></pre></div></div>
-<p>PATH=$PATH:$HOME/.scripts #making my scripts run without typing the whole path</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-[Back to the top](#top)
 
----
+<p><a href="#top">Back to the top</a></p>
 
-## pdftk
+<hr />
 
-### combine pdf files
+<h2 id="pdftk">pdftk</h2>
+
+<h3 id="combine-pdf-files">combine pdf files</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk pdf1.pdf pdf2.pdf cat output final.pdf
 </code></pre></div></div>
-<p>pdftk pdf1.pdf pdf2.pdf cat output final.pdf</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-### extract from pdf
+
+<h3 id="extract-from-pdf">extract from pdf</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3-8 output final.pdf
 </code></pre></div></div>
-<p>pdftk file.pdf cat 3-8 output final.pdf</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3 4 5 output final.pdf
 </code></pre></div></div>
-<p>pdftk file.pdf cat 3 4 5 output final.pdf</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-[Back to the top](#top)
 
----
+<p><a href="#top">Back to the top</a></p>
 
-## Git
+<hr />
 
-- remove directory `git rm -r &lt;directory&gt;`
+<h2 id="git">Git</h2>
 
-[Back to the top](#top)
+<ul>
+  <li>remove directory <code class="language-plaintext highlighter-rouge">git rm -r &lt;directory&gt;</code></li>
+</ul>
 
----
+<p><a href="#top">Back to the top</a></p>
 
-## Numlock on startup
+<hr />
 
-- install numlockx
-- add to `/etc/lightdm/lightdm.conf`
+<h2 id="numlock-on-startup">Numlock on startup</h2>
 
+<ul>
+  <li>install numlockx</li>
+  <li>add to <code class="language-plaintext highlighter-rouge">/etc/lightdm/lightdm.conf</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Seat:*]
+greeter-setup-script=/usr/bin/numlockx on
 </code></pre></div></div>
-<p>[Seat:*]
-greeter-setup-script=/usr/bin/numlockx on</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-[Back to the top](#top)
 
----
+<p><a href="#top">Back to the top</a></p>
 
-## Formatting USB
+<hr />
 
-### gparted (Fat32)
+<h2 id="formatting-usb">Formatting USB</h2>
 
-</code></pre></div></div>
-<p>lsblk # check which disk
+<h3 id="gparted-fat32">gparted (Fat32)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk # check which disk
 sudo umount /dev/sdX1
-sudo parted /dev/sdX –script – mklabel msdos
-sudo parted /dev/sdX –script – mkpart primary fat32 1MiB 100%
+sudo parted /dev/sdX --script -- mklabel msdos
+sudo parted /dev/sdX --script -- mkpart primary fat32 1MiB 100%
 sudo mkfs.vfat -F32 /dev/sdX1
-sudo parted /dev/sdX –script print</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-[Back to the top](#top)
-
----
-
----
-
-# Personal Configs
-
-## Mouse:
+sudo parted /dev/sdX --script print
 </code></pre></div></div>
-<p>/etc/X11/xorg.conf.d/10-mouse.conf</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<hr />
+
+<h1 id="personal-configs">Personal Configs</h1>
+
+<h2 id="mouse">Mouse:</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/10-mouse.conf
 </code></pre></div></div>
-<p>Section “InputClass”
-	Identifier “My Mouse”
-	MatchIsPointer “yes”</p>
-<h1 id="some-curved-deceleration">some curved deceleration</h1>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Option "AdaptiveDeceleration" "2" # linear deceleration (mouse speed reduction)
-Option "ConstantDeceleration" "2"
-Option "NaturalScrolling" "on"
-Option "AccelerationProfile" "-0.5"
-Option "AccelerationScheme" "none"
-Option "AccelSpeed" "-1" EndSection ```
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "InputClass"
+	Identifier "My Mouse"
+	MatchIsPointer "yes"
+# some curved deceleration
+	Option "AdaptiveDeceleration" "2"
+# linear deceleration (mouse speed reduction)
+	Option "ConstantDeceleration" "2"
+	Option "NaturalScrolling" "on"
+	Option "AccelerationProfile" "-0.5"
+	Option "AccelerationScheme" "none"
+	Option "AccelSpeed" "-1"
+EndSection
 </code></pre></div></div>
 
 <h2 id="touchpad">Touchpad:</h2>
@@ -776,8 +795,7 @@ bindsym XF86KbdBrightnessDown exec kbdbacklight down
 
 <h2 id="xrandr">Xrandr</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xrandr --output LVDS1 --primary --mode 1280x800 --rate 144.00 --output HDMI1 --mode 1920x1080 --rate 60.00 --right-of LVDS1
-</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">xrandr --output LVDS1 --primary --mode 1280x800 --rate 144.00 --output HDMI1 --mode 1920x1080 --rate 60.00 --right-of LVDS1</code></p>
 
 <hr />
 
@@ -1099,6 +1117,59 @@ hwinfo --netcard --wlan --bluetooth | grep -Ei "model\:|driver\:|status\:|cmd\:|
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h1 id="arch-install">Arch Install</h1>
+
+<p>Follow the script</p>
+
+<h2 id="packages-to-install">Packages to install:</h2>
+<ul>
+  <li>neovim, firefox, git, ranger, pcmanfm, timeshift(AUR), nitrogen, neofetch</li>
+  <li>yay: <code class="language-plaintext highlighter-rouge">https://github.com/Jguer/yay</code></li>
+</ul>
+
+<h2 id="tty2">tty2</h2>
+<ul>
+  <li>ctrl+alt+F2 in login screen</li>
+  <li>NetworkManager: <code class="language-plaintext highlighter-rouge">nmtui</code></li>
+  <li>to create uder folders: <code class="language-plaintext highlighter-rouge">xdg-user-dirs-update</code></li>
+</ul>
+
+<h2 id="intel-drivers">Intel drivers</h2>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">intel-media-driver intel-gpu-tools</code></li>
+</ul>
+
+<h2 id="power-management">Power Management</h2>
+<ul>
+  <li>install <code class="language-plaintext highlighter-rouge">tlp</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">systemctl enable tlp</code></li>
+      <li>sudo tlp start</li>
+      <li>check tlp website</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="appearance">Appearance</h2>
+<ul>
+  <li>gtk3, gtk4, qt6-base, qt5-base, lxappearance-gtk3, kvantum, breeze</li>
+</ul>
+
+<h2 id="backlight">backlight</h2>
+<ul>
+  <li>add to <code class="language-plaintext highlighter-rouge">/etc/udev/rules.d/90-backlight.rules</code>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SUBSYSTEM=="backlight", ACTION=="add", \
+RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness", \
+RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+</code></pre></div>    </div>
+  </li>
+  <li>add user to video group: <code class="language-plaintext highlighter-rouge">sudo usermod -a -G video $LOGNAME</code></li>
+  <li>reboot</li>
+</ul>
+
 
   </div>
 
