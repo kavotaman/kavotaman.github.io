@@ -9,17 +9,17 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="otávio manzano kavakama - cello" />
 <meta property="og:description" content="otávio manzano kavakama - cello" />
-<link rel="canonical" href="https://otaviomk.com/linux/" />
-<meta property="og:url" content="https://otaviomk.com/linux/" />
+<link rel="canonical" href="http://localhost:4000/linux/" />
+<meta property="og:url" content="http://localhost:4000/linux/" />
 <meta property="og:site_name" content="otávio mk" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="linux" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"linux","url":"https://otaviomk.com/linux/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"linux","url":"http://localhost:4000/linux/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
-  <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="otávio mk" /></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a style="color:#fca311" class="site-title" rel="author" href="/">otávio mk</a><nav class="site-nav">
@@ -116,11 +116,13 @@
     </ul>
   </li>
   <li><a href="#packages">Packages</a></li>
-  <li><a href="#arch-install">Arch Install</a>
+  <li><a href="#arch-install-on-framework-laptop">Arch Install on Framework Laptop</a>
     <ul>
       <li><a href="#packages-to-install">Packages to install:</a></li>
       <li><a href="#tty2">tty2</a></li>
       <li><a href="#intel-drivers">Intel drivers</a></li>
+      <li><a href="#screen-resolution">Screen Resolution</a></li>
+      <li><a href="#screen-tearing">Screen Tearing</a></li>
       <li><a href="#power-management">Power Management</a></li>
       <li><a href="#appearance">Appearance</a></li>
       <li><a href="#backlight">backlight</a></li>
@@ -1120,13 +1122,13 @@ hwinfo --netcard --wlan --bluetooth | grep -Ei "model\:|driver\:|status\:|cmd\:|
 
 <hr />
 
-<h1 id="arch-install">Arch Install</h1>
+<h1 id="arch-install-on-framework-laptop">Arch Install on Framework Laptop</h1>
 
 <p>Follow the script</p>
 
 <h2 id="packages-to-install">Packages to install:</h2>
 <ul>
-  <li>neovim, firefox, git, ranger, pcmanfm, timeshift(AUR), nitrogen, neofetch</li>
+  <li>neovim, firefox, git, ranger, pcmanfm, timeshift(AUR), nitrogen, neofetch, xclip</li>
   <li>yay: <code class="language-plaintext highlighter-rouge">https://github.com/Jguer/yay</code></li>
 </ul>
 
@@ -1139,33 +1141,103 @@ hwinfo --netcard --wlan --bluetooth | grep -Ei "model\:|driver\:|status\:|cmd\:|
 
 <h2 id="intel-drivers">Intel drivers</h2>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">intel-media-driver intel-gpu-tools</code></li>
+  <li><code class="language-plaintext highlighter-rouge">intel-media-driver intel-gpu-tools xf86-video-intel</code></li>
 </ul>
+
+<h2 id="screen-resolution">Screen Resolution</h2>
+<ul>
+  <li>run <code class="language-plaintext highlighter-rouge">cvt 1536 1024</code> and copy everything after <strong>Modeline</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">xrandr --newmode [STUFF COPIED]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xrandr --addmode eDP-1 [RESOLUTION_60.00]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xrandr --output eDP-1 --mode [RESOLUTION_60.00]</code></li>
+  <li>make changes permanent, add to <code class="language-plaintext highlighter-rouge">/etc/X11/xorg.conf.d/40-monitor.conf</code>:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "Monitor"
+    Identifier "eDP1"
+    Modeline .....
+    Option "PreferredMode" "[RESOLUTION_60.00]"
+EndSection
+</code></pre></div></div>
+
+<h2 id="screen-tearing">Screen Tearing</h2>
+
+<ul>
+  <li>add to <code class="language-plaintext highlighter-rouge">/etc/X11/xorg.conf.d/20-intel.conf</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "Device"
+  Identifier "Intel Graphics"
+  Driver "intel"
+  Option "TearFree" "true"
+EndSection
+</code></pre></div></div>
 
 <h2 id="power-management">Power Management</h2>
 <ul>
-  <li>install <code class="language-plaintext highlighter-rouge">tlp</code>
+  <li>install <code class="language-plaintext highlighter-rouge">tlp powertop</code>
     <ul>
       <li><code class="language-plaintext highlighter-rouge">systemctl enable tlp</code></li>
       <li>sudo tlp start</li>
       <li>check tlp website</li>
     </ul>
   </li>
+  <li>powertop:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sudo powertop --calibrate</code></li>
+      <li><code class="language-plaintext highlighter-rouge">sudo powertop --auto-tune</code></li>
+    </ul>
+  </li>
+  <li>screenlock
+    <ul>
+      <li>do <code class="language-plaintext highlighter-rouge">sudo nvim /etc/systemd/system/sleep@omk.service</code></li>
+      <li>write:</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+Description=Lock the screen
+Before=sleep.target
+ 
+[Service]
+User=%I
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/i3lock -c 000000
+ 
+[Install]
+WantedBy=sleep.target
+</code></pre></div></div>
+
+<ul>
+  <li>run <code class="language-plaintext highlighter-rouge">sudo systemctl enable sleep@omk.service</code></li>
 </ul>
 
 <h2 id="appearance">Appearance</h2>
 <ul>
   <li>gtk3, gtk4, qt6-base, qt5-base, lxappearance-gtk3, kvantum, breeze</li>
+  <li>picom.conf</li>
 </ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+fading = false;
+fade-delta = 0;
+fade-in-step = 1;
+fade-out-step = 1;
+...
+</code></pre></div></div>
 
 <h2 id="backlight">backlight</h2>
 <ul>
-  <li>add to <code class="language-plaintext highlighter-rouge">/etc/udev/rules.d/90-backlight.rules</code>
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SUBSYSTEM=="backlight", ACTION=="add", \
-RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness", \
-RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
-</code></pre></div>    </div>
-  </li>
+  <li>add to <code class="language-plaintext highlighter-rouge">/etc/udev/rules.d/90-backlight.rules</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SUBSYSTEM=="backlight", ACTION=="add", \
+  RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness", \
+  RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+</code></pre></div></div>
+<ul>
   <li>add user to video group: <code class="language-plaintext highlighter-rouge">sudo usermod -a -G video $LOGNAME</code></li>
   <li>reboot</li>
 </ul>
