@@ -9,17 +9,17 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="otávio manzano kavakama - cello" />
 <meta property="og:description" content="otávio manzano kavakama - cello" />
-<link rel="canonical" href="http://localhost:4000/linux/" />
-<meta property="og:url" content="http://localhost:4000/linux/" />
+<link rel="canonical" href="https://otaviomk.com/linux/" />
+<meta property="og:url" content="https://otaviomk.com/linux/" />
 <meta property="og:site_name" content="otávio mk" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="linux" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"linux","url":"http://localhost:4000/linux/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"linux","url":"https://otaviomk.com/linux/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
-  <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="otávio mk" /></head>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a style="color:#fca311" class="site-title" rel="author" href="/">otávio mk</a><nav class="site-nav">
@@ -86,6 +86,7 @@
           <li><a href="#gparted-fat32">gparted (Fat32)</a></li>
         </ul>
       </li>
+      <li><a href="#nestopia">Nestopia</a></li>
     </ul>
   </li>
   <li><a href="#personal-configs">Personal Configs</a>
@@ -104,7 +105,6 @@
       <li><a href="#i3-backlight">I3 Backlight</a></li>
       <li><a href="#switch-keyboard-layout">Switch keyboard layout</a></li>
       <li><a href="#switch-keyboard-layout-i3">Switch keyboard layout i3</a></li>
-      <li><a href="#keyboard-backlight-i3">Keyboard backlight (i3)</a></li>
       <li><a href="#xrandr">Xrandr</a></li>
       <li><a href="#obs-virtual-cam">OBS Virtual Cam</a></li>
       <li><a href="#problem-with-wifi">Problem with WiFi</a>
@@ -123,9 +123,21 @@
       <li><a href="#intel-drivers">Intel drivers</a></li>
       <li><a href="#screen-resolution">Screen Resolution</a></li>
       <li><a href="#screen-tearing">Screen Tearing</a></li>
-      <li><a href="#power-management">Power Management</a></li>
+      <li><a href="#power-management">Power Management</a>
+        <ul>
+          <li><a href="#install-auto-cpufreq">install auto-cpufreq:</a></li>
+          <li><a href="#screenlock">screenlock</a></li>
+        </ul>
+      </li>
       <li><a href="#appearance">Appearance</a></li>
+      <li><a href="#cpu-scaling-governors">CPU Scaling Governors</a></li>
       <li><a href="#backlight">backlight</a></li>
+      <li><a href="#git">Git</a></li>
+      <li><a href="#trash-management">Trash Management</a></li>
+      <li><a href="#update-pacman-mirrorlist">Update Pacman mirrorlist</a></li>
+      <li><a href="#fix-wakeup">Fix Wakeup</a></li>
+      <li><a href="#fix-mouse-lag">Fix mouse lag</a></li>
+      <li><a href="#deprecated-stuff">DEPRECATED STUFF:</a></li>
     </ul>
   </li>
 </ul>
@@ -304,6 +316,15 @@ sudo parted /dev/sdX --script print
 
 <hr />
 
+<h2 id="nestopia">Nestopia</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://aur.archlinux.org/nestopia.git
+cd nestopia
+makepkg -sri
+</code></pre></div></div>
+
+<hr />
+
 <hr />
 
 <h1 id="personal-configs">Personal Configs</h1>
@@ -432,9 +453,11 @@ sudo systemctl start fixwakeup
   <li>Reboot and check again with
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /proc/acpi/wakeup 
 </code></pre></div>    </div>
-    <p><a href="#top">Back to the top</a></p>
   </li>
+  <li>If need to know which code means what, if a code has a pci number, check that number with the output of <code class="language-plaintext highlighter-rouge">lspci</code></li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
@@ -653,142 +676,6 @@ EndSection
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bindsym $mod+z exec path/to/i3-keyboard-layout set us
 bindsym $mod+x exec path/to/i3-keyboard-layout set br
 bindsym $mod+space exec path/to/i3-keyboard-layout cycle us br
-</code></pre></div></div>
-
-<p><a href="#top">Back to the top</a></p>
-
-<hr />
-
-<h2 id="keyboard-backlight-i3">Keyboard backlight (i3)</h2>
-
-<ul>
-  <li>
-    <p>Install xorg-xbacklight</p>
-  </li>
-  <li>Create script:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vim /bin/kbdbacklight
-</code></pre></div>    </div>
-  </li>
-  <li>Add:</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/sh
- 
-# backlight_get
-#       Print current keyboard brightness from UPower to stdout.
-backlight_get()
-{
-    dbus-send --type=method_call --print-reply=literal --system         \
-        --dest='org.freedesktop.UPower'                                 \
-        '/org/freedesktop/UPower/KbdBacklight'                          \
-        'org.freedesktop.UPower.KbdBacklight.GetBrightness'             \
-        | awk '{print $2}'
-}
- 
-# backlight_get_max
-#       Print the maximum keyboard brightness from UPower to stdout.
-backlight_get_max()
-{
-    dbus-send --type=method_call --print-reply=literal --system       \
-        --dest='org.freedesktop.UPower'                               \
-        '/org/freedesktop/UPower/KbdBacklight'                        \
-        'org.freedesktop.UPower.KbdBacklight.GetMaxBrightness'        \
-        | awk '{print $2}'
-}
- 
-# backlight_set NUMBER
-#       Set the current backlight brighness to NUMBER, through UPower
-backlight_set()
-{
-    value="$1"
-    if test -z "${value}" ; then
-        echo "Invalid backlight value ${value}"
-    fi
- 
-    dbus-send --type=method_call --print-reply=literal --system       \
-        --dest='org.freedesktop.UPower'                               \
-        '/org/freedesktop/UPower/KbdBacklight'                        \
-        'org.freedesktop.UPower.KbdBacklight.SetBrightness'           \
-        "int32:${value}}"
-}
- 
-# backlight_change [ UP | DOWN | NUMBER ]
-#       Change the current backlight value upwards or downwards, or
-#       set it to a specific numeric value.
-backlight_change()
-{
-    change="$1"
-    if test -z "${change}" ; then
-        echo "Invalid backlight change ${change}."                    \
-            "Should be 'up' or 'down'." &gt;&amp;2
-        return 1
-    fi
- 
-    case ${change} in
-    [1234567890]|[[1234567890][[1234567890])
-        current=$( backlight_get )
-        max=$( backlight_get_max )
-        value=$( expr ${change} + 0 )
-        if test ${value} -lt 0 || test ${value} -gt ${max} ; then
-            echo "Invalid backlight value ${value}."                  \
-                "Should be a number between 0 .. ${max}" &gt;&amp;2
-            return 1
-        else
-            backlight_set "${value}"
-            notify-send -t 800 "Keyboard brightness set to ${value}"
-        fi
-        ;;
- 
-    [uU][pP])
-        current=$( backlight_get )
-        max=$( backlight_get_max )
-        if test "${current}" -lt "${max}" ; then
-            value=$(( ${current} + 1 ))
-            backlight_set "${value}"
-            notify-send -t 800 "Keyboard brightness set to ${value}"
-        fi
-        ;;
- 
-    [dD][oO][wW][nN])
-        current=$( backlight_get )
-        if test "${current}" -gt 0 ; then
-            value=$(( ${current}  - 1 ))
-            backlight_set "${value}"
-            notify-send -t 800 "Keyboard brightness set to ${value}"
-        fi
-        ;;
- 
-    *)
-        echo "Invalid backlight change ${change}." &gt;&amp;2
-        echo "Should be 'up' or 'down' or a number between"           \
-            "1 .. $( backlight_get_max )" &gt;&amp;2
-        return 1
-        ;;
-    esac
-}
- 
-if test $# -eq 0 ; then
-    current_brightness=$( backlight_get )
-    notify-send -t 800 "Keyboard brightness is ${current_brightness}"
-else
-    # Handle multiple backlight changes, e.g.:
-    #   backlight.sh up up down down up
-    for change in "$@" ; do
-        backlight_change "${change}"
-    done
-fi
-</code></pre></div></div>
-
-<ul>
-  <li>Make executable:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod +x YADAYADA
-</code></pre></div>    </div>
-  </li>
-  <li>Add to i3 config:</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bindsym XF86KbdBrightnessUp exec kbdbacklight up
-bindsym XF86KbdBrightnessDown exec kbdbacklight down
 </code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
@@ -1174,26 +1061,17 @@ EndSection
 </code></pre></div></div>
 
 <h2 id="power-management">Power Management</h2>
+
+<h3 id="install-auto-cpufreq">install auto-cpufreq:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+cd auto-cpufreq &amp;&amp; sudo ./auto-cpufreq-installer
+</code></pre></div></div>
+
+<h3 id="screenlock">screenlock</h3>
 <ul>
-  <li>install <code class="language-plaintext highlighter-rouge">tlp powertop</code>
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">systemctl enable tlp</code></li>
-      <li>sudo tlp start</li>
-      <li>check tlp website</li>
-    </ul>
-  </li>
-  <li>powertop:
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">sudo powertop --calibrate</code></li>
-      <li><code class="language-plaintext highlighter-rouge">sudo powertop --auto-tune</code></li>
-    </ul>
-  </li>
-  <li>screenlock
-    <ul>
-      <li>do <code class="language-plaintext highlighter-rouge">sudo nvim /etc/systemd/system/sleep@omk.service</code></li>
-      <li>write:</li>
-    </ul>
-  </li>
+  <li>do <code class="language-plaintext highlighter-rouge">sudo nvim /etc/systemd/system/sleep@omk.service</code></li>
+  <li>write:</li>
 </ul>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
@@ -1217,7 +1095,11 @@ WantedBy=sleep.target
 <h2 id="appearance">Appearance</h2>
 <ul>
   <li>gtk3, gtk4, qt6-base, qt5-base, lxappearance-gtk3, kvantum, breeze</li>
-  <li>picom.conf</li>
+  <li>Get rid of fadings when switching workspaces
+    <ul>
+      <li>in <code class="language-plaintext highlighter-rouge">picom.conf</code></li>
+    </ul>
+  </li>
 </ul>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
@@ -1228,6 +1110,15 @@ fade-out-step = 1;
 ...
 </code></pre></div></div>
 
+<h2 id="cpu-scaling-governors">CPU Scaling Governors</h2>
+
+<ul>
+  <li>install <code class="language-plaintext highlighter-rouge">cpupwoer</code></li>
+  <li>enable and start cpupower.service</li>
+  <li>for performance: <code class="language-plaintext highlighter-rouge">sudo cpupower frequency-set -g performance</code></li>
+  <li>for powersave: <code class="language-plaintext highlighter-rouge">sudo cpupower frequency-set -g powersave</code></li>
+</ul>
+
 <h2 id="backlight">backlight</h2>
 <ul>
   <li>add to <code class="language-plaintext highlighter-rouge">/etc/udev/rules.d/90-backlight.rules</code></li>
@@ -1237,9 +1128,103 @@ fade-out-step = 1;
   RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness", \
   RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
 </code></pre></div></div>
+
 <ul>
   <li>add user to video group: <code class="language-plaintext highlighter-rouge">sudo usermod -a -G video $LOGNAME</code></li>
   <li>reboot</li>
+</ul>
+
+<h2 id="git-1">Git</h2>
+
+<p>To be able to use same github repository as in previous computer:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git config --global user.email "manzano@bgsu.edu"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git config --global user.name "kavotaman"</code></li>
+  <li>maybe <code class="language-plaintext highlighter-rouge">git init</code>, not sure</li>
+</ul>
+
+<h2 id="trash-management">Trash Management</h2>
+
+<ul>
+  <li>install <code class="language-plaintext highlighter-rouge">trash-cli</code>
+    <ul>
+      <li>commands: <code class="language-plaintext highlighter-rouge">trash-put [FILE]</code>; <code class="language-plaintext highlighter-rouge">trash-list</code>; <code class="language-plaintext highlighter-rouge">trash-empty</code>; <code class="language-plaintext highlighter-rouge">trash-restore</code></li>
+    </ul>
+  </li>
+  <li>For PCManFM, install <code class="language-plaintext highlighter-rouge">gvfs</code></li>
+</ul>
+
+<h2 id="update-pacman-mirrorlist">Update Pacman mirrorlist</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist</code></li>
+</ul>
+
+<h2 id="fix-wakeup">Fix Wakeup</h2>
+
+<ul>
+  <li>check devices <code class="language-plaintext highlighter-rouge">cat /proc/acpi/wakeup</code></li>
+  <li>disable with <code class="language-plaintext highlighter-rouge">echo XXX &gt;&gt; /proc/acpi/wakeup</code>
+    <ul>
+      <li>for Framework, leave only <code class="language-plaintext highlighter-rouge">PWRB</code> (Power Button) enabled</li>
+    </ul>
+  </li>
+  <li>create .service file at <code class="language-plaintext highlighter-rouge">/etc/systemd/system</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+Description=fixwakeup
+
+[Service]
+ExecStart=/bin/bash -c "echo PEG0 &gt;&gt; /proc/acpi/wakeup; echo XHCI &gt;&gt; /proc/acpi/wakeup; echo RP10 &gt;&gt; /proc/acpi/wakeup; echo TXHC &gt;&gt; /proc/acpi/wakeup; echo TDM0 &gt;&gt; /proc/acpi/wakeup; echo TDM1 &gt;&gt; /proc/acpi/wakeup; echo TRP0 &gt;&gt; /proc/acpi/wakeup; echo TRP1 &gt;&gt; /proc/acpi/wakeup; echo TRP2 &gt;&gt; /proc/acpi/wakeup; echo TRP3 &gt;&gt; /proc/acpi/wakeup"
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div></div>
+
+<p>Useful list</p>
+
+<ul>
+  <li>PS2K: PS/2 keyboard</li>
+  <li>PS2M: PS/2 mouse</li>
+  <li>PWRB or PBTN: Power button</li>
+  <li>LID: Laptop lid</li>
+  <li>RP0x or EXPx: PCIE slot #x (aka PCI Express Root Port #x)</li>
+  <li>EHCx or USBx: USB 2.0 (EHCI) chip</li>
+  <li>XHC: USB 3.0 (XHCI) chip</li>
+  <li>PEGx: PCI Express for Graphics slot #x</li>
+  <li>GLAN: Gigabit Ethernet</li>
+</ul>
+
+<h2 id="fix-mouse-lag">Fix mouse lag</h2>
+
+<ul>
+  <li>go to <code class="language-plaintext highlighter-rouge">/etc/default/grub</code></li>
+  <li>add <code class="language-plaintext highlighter-rouge">usbcore.autosuspend=-1</code> to <code class="language-plaintext highlighter-rouge">GRUB_CMDLINE_LINUX_DEFAULT="xxx yyy asdf"</code></li>
+  <li>do <code class="language-plaintext highlighter-rouge">sudo grub-mkconfig -o /boot/grub/grub.cfg</code></li>
+  <li>reboot and check if <code class="language-plaintext highlighter-rouge">cat /sys/module/usbcore/parameters/autosuspend</code> gives <code class="language-plaintext highlighter-rouge">-1</code></li>
+</ul>
+
+<h2 id="deprecated-stuff">DEPRECATED STUFF:</h2>
+
+<ul>
+  <li>From Power Management
+    <ul>
+      <li>install <code class="language-plaintext highlighter-rouge">tlp powertop</code>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">systemctl enable tlp</code></li>
+          <li>sudo tlp start</li>
+          <li>check tlp website</li>
+        </ul>
+      </li>
+      <li>powertop:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">sudo powertop --calibrate</code></li>
+          <li><code class="language-plaintext highlighter-rouge">sudo powertop --auto-tune</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </ul>
 
 
