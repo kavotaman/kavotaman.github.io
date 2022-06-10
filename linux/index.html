@@ -87,6 +87,16 @@
         </ul>
       </li>
       <li><a href="#nestopia">Nestopia</a></li>
+      <li><a href="#ssh">SSH</a>
+        <ul>
+          <li><a href="#backup-and-sync-with-rsync">Backup and sync with <code class="language-plaintext highlighter-rouge">rsync</code></a></li>
+        </ul>
+      </li>
+      <li><a href="#default-application">Default Application</a>
+        <ul>
+          <li><a href="#file-manager-pcmanfm">File Manager (PCManFM)</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#personal-configs">Personal Configs</a>
@@ -126,6 +136,7 @@
       <li><a href="#power-management">Power Management</a>
         <ul>
           <li><a href="#install-auto-cpufreq">install auto-cpufreq:</a></li>
+          <li><a href="#disable-screen-blanking">Disable Screen Blanking</a></li>
           <li><a href="#screenlock">screenlock</a></li>
         </ul>
       </li>
@@ -137,7 +148,19 @@
       <li><a href="#update-pacman-mirrorlist">Update Pacman mirrorlist</a></li>
       <li><a href="#fix-wakeup">Fix Wakeup</a></li>
       <li><a href="#fix-mouse-lag">Fix mouse lag</a></li>
+      <li><a href="#tips">TIPS</a>
+        <ul>
+          <li><a href="#keyboard-backlight-fn-space-bar">Keyboard Backlight: fn + space bar</a></li>
+        </ul>
+      </li>
       <li><a href="#deprecated-stuff">DEPRECATED STUFF:</a></li>
+      <li><a href="#open-media-vault-on-macbook">Open Media Vault on Macbook</a>
+        <ul>
+          <li><a href="#login-in-pcmanfm">Login in PCManFM</a></li>
+          <li><a href="#update-music-folder">Update Music Folder</a></li>
+          <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -322,6 +345,60 @@ sudo parted /dev/sdX --script print
 cd nestopia
 makepkg -sri
 </code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="ssh">SSH</h2>
+
+<ul>
+  <li>On server machine (remote):
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ip a</code> to get host address</li>
+    </ul>
+  </li>
+  <li>On local machine
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ssh USER@HOSTADDRESS</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">systemctl status sshd</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo systemctl start sshd</code>
+<code class="language-plaintext highlighter-rouge">sudo systemctl enable sshd</code></p>
+
+<h3 id="backup-and-sync-with-rsync">Backup and sync with <code class="language-plaintext highlighter-rouge">rsync</code></h3>
+
+<p><code class="language-plaintext highlighter-rouge">rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location/of/backup</code></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--delete</code> = file deleted on the source will be delete on backup</li>
+  <li><code class="language-plaintext highlighter-rouge">-e ssh</code> = access to remote server</li>
+  <li>Script for the above, at <code class="language-plaintext highlighter-rouge">/etc/cron.daily/backup</code>:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/sh
+rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location/of/backup
+</code></pre></div></div>
+
+<p>MAKE IT EXECUTABLE!</p>
+
+<hr />
+
+<h2 id="default-application">Default Application</h2>
+
+<h3 id="file-manager-pcmanfm">File Manager (PCManFM)</h3>
+<ul>
+  <li>Find out what’s the default <code class="language-plaintext highlighter-rouge">xdg-mime query default inode/directory</code></li>
+  <li>If not correct, <code class="language-plaintext highlighter-rouge">sudo xdg-mime default pcmanfm.desktop inode/directory</code>
+    <ul>
+      <li>to find out the correct name of .desktop: <code class="language-plaintext highlighter-rouge">ls /usr/share/applications/ | grep NAME</code></li>
+    </ul>
+  </li>
+</ul>
 
 <hr />
 
@@ -1068,6 +1145,14 @@ EndSection
 cd auto-cpufreq &amp;&amp; sudo ./auto-cpufreq-installer
 </code></pre></div></div>
 
+<h3 id="disable-screen-blanking">Disable Screen Blanking</h3>
+
+<p>Run on startup (here, on bspwmrc):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xset s off -dpms &amp;
+xset s noblank &amp;
+</code></pre></div></div>
+
 <h3 id="screenlock">screenlock</h3>
 <ul>
   <li>do <code class="language-plaintext highlighter-rouge">sudo nvim /etc/systemd/system/sleep@omk.service</code></li>
@@ -1205,6 +1290,10 @@ WantedBy=multi-user.target
   <li>reboot and check if <code class="language-plaintext highlighter-rouge">cat /sys/module/usbcore/parameters/autosuspend</code> gives <code class="language-plaintext highlighter-rouge">-1</code></li>
 </ul>
 
+<h2 id="tips">TIPS</h2>
+
+<h3 id="keyboard-backlight-fn--space-bar">Keyboard Backlight: fn + space bar</h3>
+
 <h2 id="deprecated-stuff">DEPRECATED STUFF:</h2>
 
 <ul>
@@ -1227,6 +1316,57 @@ WantedBy=multi-user.target
   </li>
 </ul>
 
+<hr />
+
+<hr />
+
+<h2 id="open-media-vault-on-macbook">Open Media Vault on Macbook</h2>
+
+<ul>
+  <li>Access modem</li>
+  <li>get device address</li>
+  <li>insert ip on browser</li>
+  <li>install extras: <code class="language-plaintext highlighter-rouge">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</code></li>
+  <li>on browser &gt; System &gt; omv-extras:
+    <ul>
+      <li>isntall docker, portainer</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="login-in-pcmanfm">Login in PCManFM</h3>
+
+<ul>
+  <li>Connect to Server &gt; SSH
+    <ul>
+      <li>root, pw</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="update-music-folder">Update Music Folder</h3>
+
+<ul>
+  <li>SSH to server</li>
+  <li>Do <code class="language-plaintext highlighter-rouge">rsync -a --delete -e ssh /home/omk/Insync/manzano\@bgsu.edu/OneDrive\ Biz/Music/ root@192.168.1.20:/srv/dev-disk-by-uuid-827ef6d8-6e25-4bb3-9c1b-e36c51a1dc15/Music</code></li>
+</ul>
+
+<h3 id="handle-lid-and-screen-blank">Handle Lid and Screen Blank</h3>
+
+<ul>
+  <li>on <code class="language-plaintext highlighter-rouge">/etc/systemd/logind.conf</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">HandleLidSwitch=ignore</code></li>
+    </ul>
+  </li>
+  <li>on <code class="language-plaintext highlighter-rouge">/etc/default/grub</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">GRUB_CMDLINE_LINUX_DEFAULT="quiet consoleblank=100"</code></li>
+      <li>100 is in seconds</li>
+      <li><code class="language-plaintext highlighter-rouge">sudo update-grub</code></li>
+    </ul>
+  </li>
+</ul>
 
   </div>
 
