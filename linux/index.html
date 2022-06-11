@@ -79,7 +79,11 @@
           <li><a href="#extract-from-pdf">extract from pdf</a></li>
         </ul>
       </li>
-      <li><a href="#git">Git</a></li>
+      <li><a href="#git">Git</a>
+        <ul>
+          <li><a href="#making-existing-folder-into-a-local-git-repo">Making existing folder into a local git repo</a></li>
+        </ul>
+      </li>
       <li><a href="#numlock-on-startup">Numlock on startup</a></li>
       <li><a href="#formatting-usb">Formatting USB</a>
         <ul>
@@ -90,6 +94,11 @@
       <li><a href="#ssh">SSH</a>
         <ul>
           <li><a href="#backup-and-sync-with-rsync">Backup and sync with <code class="language-plaintext highlighter-rouge">rsync</code></a></li>
+        </ul>
+      </li>
+      <li><a href="#rsync">RSYNC</a>
+        <ul>
+          <li><a href="#music-folder-to-phone">Music folder to phone</a></li>
         </ul>
       </li>
       <li><a href="#default-application">Default Application</a>
@@ -117,12 +126,7 @@
       <li><a href="#switch-keyboard-layout-i3">Switch keyboard layout i3</a></li>
       <li><a href="#xrandr">Xrandr</a></li>
       <li><a href="#obs-virtual-cam">OBS Virtual Cam</a></li>
-      <li><a href="#problem-with-wifi">Problem with WiFi</a>
-        <ul>
-          <li><a href="#problem-with-wifi-kinda-iffy-just-read-the-info-about-bcm4331-on-the-arch-wiki">Problem with WiFi (Kinda iffy, just read the info about BCM4331 on the Arch Wiki)</a></li>
-        </ul>
-      </li>
-      <li><a href="#problem-with-wifi-2">Problem with WiFi 2</a></li>
+      <li><a href="#problem-with-wifi">Problem with WiFi</a></li>
     </ul>
   </li>
   <li><a href="#packages">Packages</a></li>
@@ -135,12 +139,15 @@
       <li><a href="#screen-tearing">Screen Tearing</a></li>
       <li><a href="#power-management">Power Management</a>
         <ul>
-          <li><a href="#install-auto-cpufreq">install auto-cpufreq:</a></li>
           <li><a href="#disable-screen-blanking">Disable Screen Blanking</a></li>
           <li><a href="#screenlock">screenlock</a></li>
         </ul>
       </li>
-      <li><a href="#appearance">Appearance</a></li>
+      <li><a href="#appearance">Appearance</a>
+        <ul>
+          <li><a href="#change-battery-cap-in-bios">Change battery cap in BIOS</a></li>
+        </ul>
+      </li>
       <li><a href="#cpu-scaling-governors">CPU Scaling Governors</a></li>
       <li><a href="#backlight">backlight</a></li>
       <li><a href="#git">Git</a></li>
@@ -153,7 +160,6 @@
           <li><a href="#keyboard-backlight-fn-space-bar">Keyboard Backlight: fn + space bar</a></li>
         </ul>
       </li>
-      <li><a href="#deprecated-stuff">DEPRECATED STUFF:</a></li>
       <li><a href="#open-media-vault-on-macbook">Open Media Vault on Macbook</a>
         <ul>
           <li><a href="#login-in-pcmanfm">Login in PCManFM</a></li>
@@ -256,6 +262,8 @@ TODAY1=$(date +%F)
 wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavakama - cellist' --footer-right [page]/[topage] --footer-line http://127.0.0.1:4000/cv_pdf/ /home/omk/Storage/Insync/DMA\ BGSU\ 2019-/PORTFOLIO/Otavio_Manzano_Kavakama_CV_$TODAY1.pdf
 </code></pre></div></div>
 
+<p><a href="#top">Back to the top</a></p>
+
 <hr />
 
 <h3 id="remove-from-filenames">remove from filenames:</h3>
@@ -305,6 +313,17 @@ done
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
+
+<h3 id="making-existing-folder-into-a-local-git-repo">Making existing folder into a local git repo</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cd</code> to folder</li>
+  <li><code class="language-plaintext highlighter-rouge">git init</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git remote add origin &lt;URL&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git add --all</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git commit -m "MESSAGE"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git push -u origin master</code></li>
+</ul>
 
 <hr />
 
@@ -386,6 +405,16 @@ rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location
 
 <p>MAKE IT EXECUTABLE!</p>
 
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="rsync">RSYNC</h2>
+
+<h3 id="music-folder-to-phone">Music folder to phone</h3>
+
+<p><code class="language-plaintext highlighter-rouge">rsync -a --delete --quiet /home/omk/Insync/manzano\@bgsu.edu/OneDrive\ Biz/Music/ /run/media/omk/android/Music</code></p>
+
 <hr />
 
 <h2 id="default-application">Default Application</h2>
@@ -399,6 +428,8 @@ rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location
     </ul>
   </li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
@@ -653,6 +684,8 @@ polling_interval = 3
   </li>
 </ul>
 
+<p>REBOOT!!</p>
+
 <p><a href="#top">Back to the top</a></p>
 
 <hr />
@@ -800,273 +833,9 @@ bindsym $mod+space exec path/to/i3-keyboard-layout cycle us br
 
 <h2 id="problem-with-wifi">Problem with WiFi</h2>
 
-<h3 id="problem-with-wifi-kinda-iffy-just-read-the-info-about-bcm4331-on-the-arch-wiki">Problem with WiFi (Kinda iffy, just read the info about BCM4331 on the Arch Wiki)</h3>
+<p>Read the info about BCM4331 on the Arch Wiki</p>
 
 <p>Install linux-header, linux-lts-header and other stuff</p>
-
-<h2 id="problem-with-wifi-2">Problem with WiFi 2</h2>
-
-<p>If your Broadcom wireless adapter driver is detected as “bcma-pci-bridge” or “b43-pci-bridge”, your driver has likely been installed incorrectly.</p>
-
-<ul>
-  <li>Examples:
-    <ul>
-      <li>Kernel driver in use: bcma-pci-bridge</li>
-      <li>Kernel modules: bcma</li>
-      <li>Kernel driver in use: b43-pci-bridge</li>
-      <li>Kernel modules: ssb</li>
-    </ul>
-  </li>
-</ul>
-
-<p>If your WiFi connection is not working correctly you will need an alternate means to connect to the internet. You can use a wired LAN connection if your computer has a wired NIC (and a connection is available). The other alternative for wired connectivity is a USB to Ethernet adapter if you have one available.</p>
-
-<p>If a wired connection is not an option then you have at least several other wireless connectivity options. If you have an older (but slower) USB WiFi dongle available with built in kernel support this is a good option to use temporarily. The other option that is widely used is Android USB phone tethering. Ensure you have an alternate working connection to install required packages before attempting to replace any currently installed driver.</p>
-
-<ul>
-  <li>Drivers detected as “bcma-pci-bridge”</li>
-</ul>
-
-<p>If your driver is detected as “bcma-pci-bridge”, use the following steps below to hopefully improve your WiFi. For this procedure to work your adapter should be included in the broadcom-wl supported chipsets list below.</p>
-
-<p>You will need to uninstall the currently installed dysfunctional driver to correct this issue.</p>
-
-<p>The driver most likely installed by default is the broadcom-wl driver. You can check if the broadcom-wl driver is already installed with the following command:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mhwd -li
-</code></pre></div></div>
-
-<ul>
-  <li>
-    <p>If the broadcom-wl driver is installed then uninstall it with the command below:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo mhwd -r pci network-broadcom-wl
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p>If you have a different broadcom WiFi driver installed you can remove it through your graphical package manager (Octopi or Pamac). Driver modules such as b43, brcm80211, brcmfmac, brcmsmac, bcma, and ssb are included in the kernel and can not be uninstalled. Kernel modules must be blacklisted rather than uninstalled. The install script for the broadcom-wl-dkms driver should automatically create the required blacklist file.</p>
-
-<ul>
-  <li>
-    <p>Before proceeding with the driver install, make sure your system is fully up to date with this command:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo pacman-mirrors -f 5 &amp;&amp; sudo pacman -Syyu
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p>Broadcom drivers have been experiencing breakages on some kernels recently. I would suggest installing the two most recent kernels to test WiFi operation. If after testing the two most recent kernels your WiFi is still not working satisfactorily then install older LTS kernels for testing. Install kernels through Manjaro Settings Manager, and always keep at least two working kernels installed.</p>
-
-<p>If you need to switch kernels reboot. If you do not see the grub boot screen press the ESC, SHIFT or F8 key. This should show the GRUB boot menu if it doesn’t appear automatically. As soon as you see the grub boot screen, press the down arrow. Select the “advanced” menu from the choices and press enter. In the next menu you can select the different kernels you have installed to boot from. Select the kernel version you wish boot into (not the fallback version), and then press enter to complete the kernel change.</p>
-
-<ul>
-  <li>Installing the required Linux kernel headers:</li>
-</ul>
-
-<p>To automatically install the Linux headers packages for all installed kernels, use the following command:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     sudo pacman -S $(pacman -Qsq "^linux" | grep "^linux[0-9]*[-rt]*$" | awk '{print $1"-headers"}' ORS=' ')
-</code></pre></div></div>
-
-<p>command courtesy of @dalto</p>
-
-<ul>
-  <li>
-    <p>Once you have completed the linux-headers package installation, install the “dkms” package with the following command:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo pacman -S dkms 
-</code></pre></div>    </div>
-  </li>
-  <li>After all those steps are complete unplug any tethering, LAN, or other alternate internet connections and reboot.</li>
-  <li>After rebooting, your WiFi may be working with the native modules already included in the kernel. Conduct performance assessments on your WiFi connection using the kernel modules. If you find the kernel driver works satisfactorily you may simply want to continue using it.</li>
-  <li>If your WiFi is not working (or the kernel driver performs poorly), then continue with the directions below to install the proprietary broadcom-wl-dkms driver.</li>
-  <li>Reconnect to an alternate internet source to perform the broadcom-wl-dkms driver installation.</li>
-  <li>
-    <p>Install the “broadcom-wl-dkms” driver package from the Manjaro extra repo with this command:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo pacman -S broadcom-wl-dkms
-</code></pre></div>    </div>
-  </li>
-  <li>After the driver has finished installing, unplug any tethering, LAN, or other alternate internet connections and reboot.</li>
-  <li>After rebooting, if your WiFi is still not working then follow these additional steps.</li>
-  <li>
-    <p>Check that a blacklist file exists in</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  /etc/modprobe.d/ 
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p>with the following contents.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blacklist b43
-blacklist b43legacy
-blacklist ssb
-blacklist bcm43xx
-blacklist brcm80211
-blacklist brcmfmac
-blacklist brcmsmac
-blacklist bcma
-</code></pre></div></div>
-
-<ul>
-  <li>If a file does not already exist with those contents, create it.</li>
-  <li>
-    <p>You can automatically add the required entries to /etc/modprobe.d/blacklist.conf file with the following command:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo echo -e "blacklist b43\nblacklist b43legacy\nblacklist ssb\nblacklist bcm43xx\nblacklist brcm80211\nblacklist brcmfmac\nblacklist brcmsmac\nblacklist bcma" | sudo tee -a /etc/modprobe.d/blacklist.conf
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p>Then, issue these commands separately:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rfkill unblock all
-
-sudo depmod -a
-
-sudo mkinitcpio -P
-</code></pre></div></div>
-
-<ul>
-  <li>
-    <p>Run the following list of commands in its entirety, regardless of any errors received. Issue the commands individually one at a time allowing several seconds between commands:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo systemctl stop NetworkManager 
-
-  sudo rmmod b43 b43legacy ssb brcm80211 brcmfmac brcmsmac bcma 
-
-  sudo modprobe -r wl
-
-  sudo modprobe wl
-
-  DEVICE=$(hwinfo --wlan | grep "Device File" | cut -d " " -f5) &amp;&amp; sudo ip link set $DEVICE up
-
-  sudo rfkill unblock all
-
-  sudo systemctl start NetworkManager 
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p>Once those commands have finished running test your connection again.</p>
-
-<p>If your WiFi is still not working correctly, reboot.</p>
-
-<p>Hopefully after a restart your new wl driver will be working correctly.</p>
-
-<p>This method will not necessarily work for all Broadcom chips. This method should work for most cards compatible with the broadcom-wl driver. Not all Broadcom adapters work best with the wl drivers, (but the majority do).</p>
-
-<p>The broadcom-wl driver should work correctly with the following Wireless chipsets.</p>
-
-<p>broadcom-wl supported chipsets:</p>
-
-<ul>
-  <li>BCM4311</li>
-  <li>BCM4312</li>
-  <li>BCM4313</li>
-  <li>BCM4321</li>
-  <li>BCM4322</li>
-  <li>BCM4331</li>
-  <li>BCM4352</li>
-  <li>BCM436O</li>
-  <li>BCM43142</li>
-  <li>BCM43224</li>
-  <li>BCM43225</li>
-  <li>BCM43227</li>
-  <li>BCM43228</li>
-</ul>
-
-<p>Linux Broadcom adapter driver support reference lists:</p>
-
-<p>https://wireless.wiki.kernel.org/en/users/drivers/brcm80211 67</p>
-
-<p>https://wireless.wiki.kernel.org/en/users/drivers/b43 63</p>
-
-<p>https://wiki.debian.org/wl 22</p>
-
-<p>If your adapter is not on the above list, this method may not work for your adapter. If the wl driver does not work (or performs poorly) it may be better to follow the method below to use the built in kernel drivers.</p>
-
-<ul>
-  <li>Drivers detected as “b43-pci-bridge”</li>
-</ul>
-
-<p>Generally if you see your WiFi drivers listed as “b43-pci-bridge” you have conflicting drivers installed. In a minority of instances a driver detected as “b43-pci-bridge” may function adequately. However, drivers installed this way tend to be unreliable in the long term.</p>
-
-<p>In these cases the drivers included in the kernel may be the better choice. You may find your driver issues can be corrected by simply uninstalling the “broadcom-wl” drivers. You can uninstall the wl drivers through the Manjaro Settings Manager. Open Manjaro Settings Manager -&gt; Hardware configuration -&gt; right click on your device driver and select “Remove”. Once the “broadcom-wl” drivers are uninstalled you can test the b43 driver:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rmmod  wl
-
-sudo rmmod ssb
-
-sudo rmmod b43
-
-sudo modprobe b43
-</code></pre></div></div>
-
-<p>Then:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rfkill unblock all
-
-sudo systemctl restart NetworkManager
-
-sudo depmod -a
-
-sudo mkinitcpio -P
-</code></pre></div></div>
-
-<p>Test your wifi for connectivity.</p>
-
-<p>Then reboot you computer. After restarting, the kernel drivers should automatically load.</p>
-
-<p>If the kernel modules do not load automatically you must ensure they are not blacklisted. Check that no blacklist file exists in any of these locations:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/modprobe.d/
-
-/etc/modules-load.d/
-
-/usr/lib/modprobe.d/
-</code></pre></div></div>
-
-<p>Any blacklist on the broadcom kernel modules (as in the blacklist example above), must either be deleted, or commented out. The blacklist entries can be made to be ignored by adding a pound sign “#” (hash tag ) before any entry line. This is what is referred to as “commenting out” an entry.</p>
-
-<p>There is no guarantee the correct kernel module will automatically be loaded for your adapter model. As different adapters may use different modules you may need to research which modules are required. A different blacklist may be required for different kernel modules, so this can get complicated. If the installation steps listed here do not resolve your broadcom driver issues a support request on the forum may be helpful.</p>
-
-<p>Unfortunately, Broadcom drivers are well known for being problematic in Linux. If you can’t get the kernel modules working, then perhaps installing the “broadcom-wl-dkms” driver may be worth attempting. If you have no luck with either the native or proprietary drivers you may find purchasing a USB adapter with good Linux support is your best alternative.</p>
-
-<p>Directions for opening a help request</p>
-
-<p>If your WiFi connection is still not working after following all the above steps, then you will need to open a help request on the forum. Follow the instructions below to create a help request that will have the best chance of helping resolve your issue.</p>
-
-<p>Disconnect any LAN cable, USB LAN adapter, USB WiFi tethering, or any other network devices connected to your computer. Once you have disconnected all other network devices, reboot your computer.</p>
-
-<p>Once restarted, you will need to run extensive diagnostic commands to help identify why your WiFi is not working. Numerous diagnostic outputs and logs are required to properly diagnose complicated WiFi issues. Please run all the following commands individually in the terminal:</p>
-
-<p>Please post the outputs of the following commands:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inxi -Fxxxza
-
-dkms status
-
-rfkill list all
-
-lsmod | sort
-
-sudo mhwd-kernel -li 
-
-sudo dmesg | grep -Ei 'b43|bcma|brcm|wl|[F]irm|deauth'
-
-grep -r "blacklist\|install\|options"  /etc/modprobe.d/
-
-pacman -Qsq linux | grep linux | grep -v -E '(arch|util|sys|api|firmware)' | grep -v nvidia
-
-hwinfo --netcard --wlan --bluetooth | grep -Ei "model\:|driver\:|status\:|cmd\:|file\:|detected\:" | grep -v "Config Status" 
-</code></pre></div></div>
-
-<p>Unless there is absolutely no alternative, do not post any terminal outputs as a picture.</p>
-
-<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
@@ -1083,6 +852,8 @@ hwinfo --netcard --wlan --bluetooth | grep -Ei "model\:|driver\:|status\:|cmd\:|
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
+
+<hr />
 
 <hr />
 
@@ -1124,6 +895,8 @@ hwinfo --netcard --wlan --bluetooth | grep -Ei "model\:|driver\:|status\:|cmd\:|
 EndSection
 </code></pre></div></div>
 
+<hr />
+
 <h2 id="screen-tearing">Screen Tearing</h2>
 
 <ul>
@@ -1137,13 +910,30 @@ EndSection
 EndSection
 </code></pre></div></div>
 
+<hr />
+
 <h2 id="power-management">Power Management</h2>
 
-<h3 id="install-auto-cpufreq">install auto-cpufreq:</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/AdnanHodzic/auto-cpufreq.git
-cd auto-cpufreq &amp;&amp; sudo ./auto-cpufreq-installer
-</code></pre></div></div>
+<ul>
+  <li>From Power Management
+    <ul>
+      <li>install <code class="language-plaintext highlighter-rouge">tlp powertop</code>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">systemctl enable tlp</code></li>
+          <li>sudo tlp start</li>
+          <li>check tlp website</li>
+          <li>tlp config at <code class="language-plaintext highlighter-rouge">/etc/tlp.conf</code></li>
+        </ul>
+      </li>
+      <li>powertop (only as monitor):
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">sudo powertop --calibrate</code></li>
+          <li><code class="language-plaintext highlighter-rouge">sudo powertop</code> to monitor</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <h3 id="disable-screen-blanking">Disable Screen Blanking</h3>
 
@@ -1152,6 +942,8 @@ cd auto-cpufreq &amp;&amp; sudo ./auto-cpufreq-installer
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xset s off -dpms &amp;
 xset s noblank &amp;
 </code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
 
 <h3 id="screenlock">screenlock</h3>
 <ul>
@@ -1195,6 +987,14 @@ fade-out-step = 1;
 ...
 </code></pre></div></div>
 
+<h3 id="change-battery-cap-in-bios">Change battery cap in BIOS</h3>
+
+<p>Pra acessar BIOS: F2 (Fn F2)</p>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
 <h2 id="cpu-scaling-governors">CPU Scaling Governors</h2>
 
 <ul>
@@ -1219,6 +1019,10 @@ fade-out-step = 1;
   <li>reboot</li>
 </ul>
 
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
 <h2 id="git-1">Git</h2>
 
 <p>To be able to use same github repository as in previous computer:</p>
@@ -1227,6 +1031,8 @@ fade-out-step = 1;
   <li><code class="language-plaintext highlighter-rouge">git config --global user.name "kavotaman"</code></li>
   <li>maybe <code class="language-plaintext highlighter-rouge">git init</code>, not sure</li>
 </ul>
+
+<hr />
 
 <h2 id="trash-management">Trash Management</h2>
 
@@ -1239,11 +1045,17 @@ fade-out-step = 1;
   <li>For PCManFM, install <code class="language-plaintext highlighter-rouge">gvfs</code></li>
 </ul>
 
+<hr />
+
 <h2 id="update-pacman-mirrorlist">Update Pacman mirrorlist</h2>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist</code></li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
 
 <h2 id="fix-wakeup">Fix Wakeup</h2>
 
@@ -1281,6 +1093,10 @@ WantedBy=multi-user.target
   <li>GLAN: Gigabit Ethernet</li>
 </ul>
 
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
 <h2 id="fix-mouse-lag">Fix mouse lag</h2>
 
 <ul>
@@ -1294,27 +1110,7 @@ WantedBy=multi-user.target
 
 <h3 id="keyboard-backlight-fn--space-bar">Keyboard Backlight: fn + space bar</h3>
 
-<h2 id="deprecated-stuff">DEPRECATED STUFF:</h2>
-
-<ul>
-  <li>From Power Management
-    <ul>
-      <li>install <code class="language-plaintext highlighter-rouge">tlp powertop</code>
-        <ul>
-          <li><code class="language-plaintext highlighter-rouge">systemctl enable tlp</code></li>
-          <li>sudo tlp start</li>
-          <li>check tlp website</li>
-        </ul>
-      </li>
-      <li>powertop:
-        <ul>
-          <li><code class="language-plaintext highlighter-rouge">sudo powertop --calibrate</code></li>
-          <li><code class="language-plaintext highlighter-rouge">sudo powertop --auto-tune</code></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
@@ -1367,6 +1163,8 @@ WantedBy=multi-user.target
     </ul>
   </li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
 
   </div>
 
