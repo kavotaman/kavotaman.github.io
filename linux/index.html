@@ -81,6 +81,8 @@
       </li>
       <li><a href="#git">Git</a>
         <ul>
+          <li><a href="#setting-up-git">Setting up Git</a></li>
+          <li><a href="#remove-directory">Remove directory</a></li>
           <li><a href="#making-existing-folder-into-a-local-git-repo">Making existing folder into a local git repo</a></li>
         </ul>
       </li>
@@ -308,11 +310,19 @@ done
 
 <h2 id="git">Git</h2>
 
+<h3 id="setting-up-git">Setting up Git</h3>
 <ul>
-  <li>remove directory <code class="language-plaintext highlighter-rouge">git rm -r &lt;directory&gt;</code></li>
+  <li>Install <code class="language-plaintext highlighter-rouge">git</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git config --global user.name "USERNAME"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git config --global user.email "email@example.com"</code></li>
 </ul>
 
-<p><a href="#top">Back to the top</a></p>
+<h3 id="remove-directory">Remove directory</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git rm -r &lt;directory&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git commit -m "asdf"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git push</code></li>
+</ul>
 
 <h3 id="making-existing-folder-into-a-local-git-repo">Making existing folder into a local git repo</h3>
 
@@ -324,6 +334,8 @@ done
   <li><code class="language-plaintext highlighter-rouge">git commit -m "MESSAGE"</code></li>
   <li><code class="language-plaintext highlighter-rouge">git push -u origin master</code></li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
@@ -849,6 +861,7 @@ bindsym $mod+space exec path/to/i3-keyboard-layout cycle us br
   <li>gparted (formatting disks)</li>
   <li>mkinitcpio-numlock (AUR numlock on startup - check Arch Wiki)</li>
   <li>md-to-pdf (check <a href="https://github.com/simonhaenisch/md-to-pdf">https://github.com/simonhaenisch/md-to-pdf</a> to update)</li>
+  <li>yt-dlp, spotiflyer (spotiflyer-bin AUR)</li>
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
@@ -881,10 +894,10 @@ bindsym $mod+space exec path/to/i3-keyboard-layout cycle us br
 
 <h2 id="screen-resolution">Screen Resolution</h2>
 <ul>
-  <li>run <code class="language-plaintext highlighter-rouge">cvt 1536 1024</code> and copy everything after <strong>Modeline</strong></li>
+  <li>run <code class="language-plaintext highlighter-rouge">cvt 1632 1088</code> and copy everything after <strong>Modeline</strong></li>
   <li><code class="language-plaintext highlighter-rouge">xrandr --newmode [STUFF COPIED]</code></li>
-  <li><code class="language-plaintext highlighter-rouge">xrandr --addmode eDP-1 [RESOLUTION_60.00]</code></li>
-  <li><code class="language-plaintext highlighter-rouge">xrandr --output eDP-1 --mode [RESOLUTION_60.00]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xrandr --addmode eDP1 [RESOLUTION_60.00]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xrandr --output eDP1 --mode [RESOLUTION_60.00]</code></li>
   <li>make changes permanent, add to <code class="language-plaintext highlighter-rouge">/etc/X11/xorg.conf.d/40-monitor.conf</code>:</li>
 </ul>
 
