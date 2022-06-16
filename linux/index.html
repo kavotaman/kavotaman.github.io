@@ -53,49 +53,46 @@
 <ul>
   <li><a href="#useful-stuff">Useful Stuff</a>
     <ul>
-      <li><a href="#ffmpeg">ffmpeg</a>
+      <li><a href="#bash">BASH</a>
+        <ul>
+          <li><a href="#adicionar-extensão-pra-todos-os-arquivos">adicionar extensão pra todos os arquivos</a></li>
+          <li><a href="#syntax-highlighting-blesh">Syntax highlighting, Blesh</a></li>
+        </ul>
+      </li>
+      <li><a href="#default-apps-xdg-mime">DEFAULT APPS - XDG, MIME</a>
+        <ul>
+          <li><a href="#file-manager-pcmanfm">File Manager (PCManFM)</a></li>
+        </ul>
+      </li>
+      <li><a href="#display-manager">DISPLAY MANAGER</a></li>
+      <li><a href="#ffmpeg">FFMPEG</a>
         <ul>
           <li><a href="#combine-video-audio">Combine video + audio</a></li>
           <li><a href="#combinar-varios-arquivos-de-media-em-um-só-no-ffmpeg">combinar varios arquivos de media em um só no ffmpeg</a></li>
         </ul>
       </li>
-      <li><a href="#vim">vim</a></li>
-      <li><a href="#bash">bash</a>
+      <li><a href="#formatting-disks-usb">FORMATTING DISKS/USB</a>
         <ul>
-          <li><a href="#adicionar-extensão-pra-todos-os-arquivos">adicionar extensão pra todos os arquivos</a></li>
+          <li><a href="#gparted-fat32">gparted (Fat32)</a></li>
         </ul>
       </li>
-      <li><a href="#scripts">scripts</a>
-        <ul>
-          <li><a href="#generating-cv-for-jekyll-website-update_cv_pdf">Generating CV (for Jekyll website) <code class="language-plaintext highlighter-rouge">./update_cv_pdf</code></a></li>
-          <li><a href="#generate-pdf-version-of-cv-cv_pdf">generate pdf version of cv <code class="language-plaintext highlighter-rouge">./cv_pdf</code></a></li>
-          <li><a href="#remove-from-filenames">remove from filenames:</a></li>
-          <li><a href="#run-scripts-as-apps">run scripts as apps</a></li>
-        </ul>
-      </li>
-      <li><a href="#pdftk">pdftk</a>
-        <ul>
-          <li><a href="#combine-pdf-files">combine pdf files</a></li>
-          <li><a href="#extract-from-pdf">extract from pdf</a></li>
-        </ul>
-      </li>
-      <li><a href="#git">Git</a>
+      <li><a href="#git">GIT</a>
         <ul>
           <li><a href="#setting-up-git">Setting up Git</a></li>
           <li><a href="#remove-directory">Remove directory</a></li>
           <li><a href="#making-existing-folder-into-a-local-git-repo">Making existing folder into a local git repo</a></li>
         </ul>
       </li>
-      <li><a href="#numlock-on-startup">Numlock on startup</a></li>
-      <li><a href="#formatting-usb">Formatting USB</a>
+      <li><a href="#nestopia">NESTOPIA</a></li>
+      <li><a href="#numlock-on-startup">NUMLOCK ON STARTUP</a></li>
+      <li><a href="#pdf">PDF</a>
         <ul>
-          <li><a href="#gparted-fat32">gparted (Fat32)</a></li>
+          <li><a href="#pdftk">pdftk</a></li>
         </ul>
       </li>
-      <li><a href="#nestopia">Nestopia</a></li>
-      <li><a href="#ssh">SSH</a>
+      <li><a href="#ranger">RANGER</a>
         <ul>
-          <li><a href="#backup-and-sync-with-rsync">Backup and sync with <code class="language-plaintext highlighter-rouge">rsync</code></a></li>
+          <li><a href="#image-preview">Image Preview</a></li>
         </ul>
       </li>
       <li><a href="#rsync">RSYNC</a>
@@ -103,11 +100,20 @@
           <li><a href="#music-folder-to-phone">Music folder to phone</a></li>
         </ul>
       </li>
-      <li><a href="#default-application">Default Application</a>
+      <li><a href="#scripts">SCRIPTS</a>
         <ul>
-          <li><a href="#file-manager-pcmanfm">File Manager (PCManFM)</a></li>
+          <li><a href="#generating-cv-for-jekyll-website">Generating CV (for Jekyll website)</a></li>
+          <li><a href="#generate-pdf-version-of-cv">generate pdf version of cv</a></li>
+          <li><a href="#remove-from-filenames">remove from filenames</a></li>
+          <li><a href="#run-scripts-as-apps">run scripts as apps</a></li>
         </ul>
       </li>
+      <li><a href="#ssh">SSH</a>
+        <ul>
+          <li><a href="#backup-and-sync">Backup and sync</a></li>
+        </ul>
+      </li>
+      <li><a href="#vim">VIM</a></li>
     </ul>
   </li>
   <li><a href="#personal-configs">Personal Configs</a>
@@ -181,7 +187,61 @@
 
 <h1 id="useful-stuff">Useful Stuff</h1>
 
-<h2 id="ffmpeg">ffmpeg</h2>
+<h2 id="bash">BASH</h2>
+
+<h3 id="adicionar-extensão-pra-todos-os-arquivos">adicionar extensão pra todos os arquivos</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -type f -exec mv '{}' '{}'.jpg \;
+</code></pre></div></div>
+
+<h3 id="syntax-highlighting-blesh">Syntax highlighting, Blesh</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone --recursive https://github.com/akinomyoga/ble.sh.git
+make -C ble.sh install PREFIX=~/.local
+</code></pre></div></div>
+
+<ul>
+  <li>https://github.com/akinomyoga/ble.sh</li>
+  <li>copy <code class="language-plaintext highlighter-rouge">blerc</code> contents to <code class="language-plaintext highlighter-rouge">~/.blerc</code></li>
+  <li>follow instructions</li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="default-apps---xdg-mime">DEFAULT APPS - XDG, MIME</h2>
+
+<h3 id="file-manager-pcmanfm">File Manager (PCManFM)</h3>
+<ul>
+  <li>Find out what’s the default <code class="language-plaintext highlighter-rouge">xdg-mime query default inode/directory</code></li>
+  <li>If not correct, <code class="language-plaintext highlighter-rouge">sudo xdg-mime default pcmanfm.desktop inode/directory</code>
+    <ul>
+      <li>to find out the correct name of .desktop: <code class="language-plaintext highlighter-rouge">ls /usr/share/applications/ | grep NAME</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="display-manager">DISPLAY MANAGER</h2>
+
+<ul>
+  <li>install display manager (lightdm, ly, etc)</li>
+  <li><code class="language-plaintext highlighter-rouge">sudo systemctl enable XXXX</code></li>
+  <li>if there’s a display manager already installed:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sudo systemctl disable YYYYY</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="ffmpeg">FFMPEG</h2>
 
 <h3 id="combine-video--audio">Combine video + audio</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
@@ -204,111 +264,23 @@ etc...
 
 <hr />
 
-<h2 id="vim">vim</h2>
+<h2 id="formatting-disksusb">FORMATTING DISKS/USB</h2>
 
-<ul>
-  <li>
-    <p>find and replace <code class="language-plaintext highlighter-rouge">:%s/foo/bar/g</code></p>
-  </li>
-  <li>
-    <p>delete inside * <code class="language-plaintext highlighter-rouge">di*</code></p>
-  </li>
-  <li>
-    <p>check orthography <code class="language-plaintext highlighter-rouge">z=</code></p>
-  </li>
-  <li>
-    <p>append numbers to end of line <code class="language-plaintext highlighter-rouge">:execute "% normal A \&lt;C-R&gt;=printf(\"%05d\", line(\".\"))\&lt;CR&gt;"</code></p>
-  </li>
-</ul>
+<h3 id="gparted-fat32">gparted (Fat32)</h3>
 
-<p><a href="#top">Back to the top</a></p>
-
-<hr />
-
-<h2 id="bash">bash</h2>
-
-<h3 id="adicionar-extensão-pra-todos-os-arquivos">adicionar extensão pra todos os arquivos</h3>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -type f -exec mv '{}' '{}'.jpg \;
-</code></pre></div></div>
-
-<hr />
-
-<h2 id="scripts">scripts</h2>
-
-<p>To run scripts: <code class="language-plaintext highlighter-rouge">chmod +x &lt;script&gt;</code> then <code class="language-plaintext highlighter-rouge">./&lt;script&gt;</code></p>
-
-<h3 id="generating-cv-for-jekyll-website-update_cv_pdf">Generating CV (for Jekyll website) <code class="language-plaintext highlighter-rouge">./update_cv_pdf</code></h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
-
-sed -i '14,$d' cv_pdf/cv_pdf.md ## deletes after line 14
-
-sed -n '25,$p' cv.md &gt; cv_temp ## copies from original from line 25 into temp file
-
-sed -i '/Back to the top/d' cv_temp ## delete lines with 'back to the top'
-
-line=13
-
-sed -i -e "${line}r cv_temp" cv_pdf/cv_pdf.md ## inserts temp file into cv_pdf after line 13
-</code></pre></div></div>
-
-<h3 id="generate-pdf-version-of-cv-cv_pdf">generate pdf version of cv <code class="language-plaintext highlighter-rouge">./cv_pdf</code></h3>
-<ul>
-  <li>have jekyll server running OR substitute to <code class="language-plaintext highlighter-rouge">https://otaviomk.com/cv_pdf/</code></li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
-
-TODAY1=$(date +%F)
-
-wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavakama - cellist' --footer-right [page]/[topage] --footer-line http://127.0.0.1:4000/cv_pdf/ /home/omk/Storage/Insync/DMA\ BGSU\ 2019-/PORTFOLIO/Otavio_Manzano_Kavakama_CV_$TODAY1.pdf
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk # check which disk
+sudo umount /dev/sdX1
+sudo parted /dev/sdX --script -- mklabel msdos
+sudo parted /dev/sdX --script -- mkpart primary fat32 1MiB 100%
+sudo mkfs.vfat -F32 /dev/sdX1
+sudo parted /dev/sdX --script print
 </code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
 
 <hr />
 
-<h3 id="remove-from-filenames">remove from filenames:</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
-
-for f in *STRING_TO_BE_REMOVED*; do
-    mv -- "$f" "${f/STRING_TO_BE_REMOVED/}"
-done
-</code></pre></div></div>
-
-<h3 id="run-scripts-as-apps">run scripts as apps</h3>
-<ul>
-  <li>add this to <code class="language-plaintext highlighter-rouge">.bashrc</code></li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PATH=$PATH:$HOME/.scripts #making my scripts run without typing the whole path
-</code></pre></div></div>
-
-<p><a href="#top">Back to the top</a></p>
-
-<hr />
-
-<h2 id="pdftk">pdftk</h2>
-
-<h3 id="combine-pdf-files">combine pdf files</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk pdf1.pdf pdf2.pdf cat output final.pdf
-</code></pre></div></div>
-
-<h3 id="extract-from-pdf">extract from pdf</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3-8 output final.pdf
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3 4 5 output final.pdf
-</code></pre></div></div>
-
-<p><a href="#top">Back to the top</a></p>
-
-<hr />
-
-<h2 id="git">Git</h2>
+<h2 id="git">GIT</h2>
 
 <h3 id="setting-up-git">Setting up Git</h3>
 <ul>
@@ -339,7 +311,18 @@ done
 
 <hr />
 
-<h2 id="numlock-on-startup">Numlock on startup</h2>
+<h2 id="nestopia">NESTOPIA</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://aur.archlinux.org/nestopia.git
+cd nestopia
+makepkg -sri
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="numlock-on-startup">NUMLOCK ON STARTUP</h2>
 
 <ul>
   <li>install numlockx</li>
@@ -354,27 +337,107 @@ greeter-setup-script=/usr/bin/numlockx on
 
 <hr />
 
-<h2 id="formatting-usb">Formatting USB</h2>
+<h2 id="pdf">PDF</h2>
 
-<h3 id="gparted-fat32">gparted (Fat32)</h3>
+<h3 id="pdftk">pdftk</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk # check which disk
-sudo umount /dev/sdX1
-sudo parted /dev/sdX --script -- mklabel msdos
-sudo parted /dev/sdX --script -- mkpart primary fat32 1MiB 100%
-sudo mkfs.vfat -F32 /dev/sdX1
-sudo parted /dev/sdX --script print
+<p>combine pdf files</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk pdf1.pdf pdf2.pdf cat output final.pdf
+</code></pre></div></div>
+
+<p>extract from pdf</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3-8 output final.pdf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3 4 5 output final.pdf
 </code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
 
 <hr />
 
-<h2 id="nestopia">Nestopia</h2>
+<h2 id="ranger">RANGER</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://aur.archlinux.org/nestopia.git
-cd nestopia
-makepkg -sri
+<ul>
+  <li>ranger-fzf-filter</li>
+  <li>ranger-devicons2</li>
+</ul>
+
+<h3 id="image-preview">Image Preview</h3>
+
+<p>in the config file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set preview_images true
+set preview_images_method ueberzug
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="rsync">RSYNC</h2>
+
+<h3 id="music-folder-to-phone">Music folder to phone</h3>
+
+<p><code class="language-plaintext highlighter-rouge">rsync -a --delete --quiet /home/omk/Insync/manzano\@bgsu.edu/OneDrive\ Biz/Music/ /run/media/omk/android/Music</code></p>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="scripts">SCRIPTS</h2>
+
+<p>To run scripts: <code class="language-plaintext highlighter-rouge">chmod +x &lt;script&gt;</code> then <code class="language-plaintext highlighter-rouge">./&lt;script&gt;</code></p>
+
+<h3 id="generating-cv-for-jekyll-website">Generating CV (for Jekyll website)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">./update_cv_pdf</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+sed -i '14,$d' cv_pdf/cv_pdf.md ## deletes after line 14
+
+sed -n '25,$p' cv.md &gt; cv_temp ## copies from original from line 25 into temp file
+
+sed -i '/Back to the top/d' cv_temp ## delete lines with 'back to the top'
+
+line=13
+
+sed -i -e "${line}r cv_temp" cv_pdf/cv_pdf.md ## inserts temp file into cv_pdf after line 13
+</code></pre></div></div>
+
+<h3 id="generate-pdf-version-of-cv">generate pdf version of cv</h3>
+
+<p><code class="language-plaintext highlighter-rouge">./cv_pdf</code></p>
+
+<ul>
+  <li>have jekyll server running OR substitute to <code class="language-plaintext highlighter-rouge">https://otaviomk.com/cv_pdf/</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+TODAY1=$(date +%F)
+
+wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavakama - cellist' --footer-right [page]/[topage] --footer-line http://127.0.0.1:4000/cv_pdf/ /home/omk/Storage/Insync/DMA\ BGSU\ 2019-/PORTFOLIO/Otavio_Manzano_Kavakama_CV_$TODAY1.pdf
+</code></pre></div></div>
+
+<h3 id="remove-from-filenames">remove from filenames</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+for f in *STRING_TO_BE_REMOVED*; do
+    mv -- "$f" "${f/STRING_TO_BE_REMOVED/}"
+done
+</code></pre></div></div>
+
+<h3 id="run-scripts-as-apps">run scripts as apps</h3>
+<ul>
+  <li>add this to <code class="language-plaintext highlighter-rouge">.bashrc</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PATH=$PATH:$HOME/.scripts #making my scripts run without typing the whole path
 </code></pre></div></div>
 
 <p><a href="#top">Back to the top</a></p>
@@ -401,7 +464,7 @@ makepkg -sri
 <p><code class="language-plaintext highlighter-rouge">sudo systemctl start sshd</code>
 <code class="language-plaintext highlighter-rouge">sudo systemctl enable sshd</code></p>
 
-<h3 id="backup-and-sync-with-rsync">Backup and sync with <code class="language-plaintext highlighter-rouge">rsync</code></h3>
+<h3 id="backup-and-sync">Backup and sync</h3>
 
 <p><code class="language-plaintext highlighter-rouge">rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location/of/backup</code></p>
 
@@ -421,29 +484,24 @@ rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location
 
 <hr />
 
-<h2 id="rsync">RSYNC</h2>
+<h2 id="vim">VIM</h2>
 
-<h3 id="music-folder-to-phone">Music folder to phone</h3>
-
-<p><code class="language-plaintext highlighter-rouge">rsync -a --delete --quiet /home/omk/Insync/manzano\@bgsu.edu/OneDrive\ Biz/Music/ /run/media/omk/android/Music</code></p>
-
-<hr />
-
-<h2 id="default-application">Default Application</h2>
-
-<h3 id="file-manager-pcmanfm">File Manager (PCManFM)</h3>
 <ul>
-  <li>Find out what’s the default <code class="language-plaintext highlighter-rouge">xdg-mime query default inode/directory</code></li>
-  <li>If not correct, <code class="language-plaintext highlighter-rouge">sudo xdg-mime default pcmanfm.desktop inode/directory</code>
-    <ul>
-      <li>to find out the correct name of .desktop: <code class="language-plaintext highlighter-rouge">ls /usr/share/applications/ | grep NAME</code></li>
-    </ul>
+  <li>
+    <p>find and replace <code class="language-plaintext highlighter-rouge">:%s/foo/bar/g</code></p>
+  </li>
+  <li>
+    <p>delete inside * <code class="language-plaintext highlighter-rouge">di*</code></p>
+  </li>
+  <li>
+    <p>check orthography <code class="language-plaintext highlighter-rouge">z=</code></p>
+  </li>
+  <li>
+    <p>append numbers to end of line <code class="language-plaintext highlighter-rouge">:execute "% normal A \&lt;C-R&gt;=printf(\"%05d\", line(\".\"))\&lt;CR&gt;"</code></p>
   </li>
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
-
-<hr />
 
 <hr />
 
@@ -872,7 +930,7 @@ bindsym $mod+space exec path/to/i3-keyboard-layout cycle us br
 
 <h1 id="arch-install-on-framework-laptop">Arch Install on Framework Laptop</h1>
 
-<p>Follow the script</p>
+<p>Follow the script - <code class="language-plaintext highlighter-rouge">archinstall</code> on tty</p>
 
 <h2 id="packages-to-install">Packages to install:</h2>
 <ul>
