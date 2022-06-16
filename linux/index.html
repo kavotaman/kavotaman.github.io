@@ -123,7 +123,7 @@
       <li><a href="#keyboard-layout-switch">Keyboard layout switch:</a></li>
     </ul>
   </li>
-  <li><a href="#linux-on-mac">Linux on Mac</a>
+  <li><a href="#linux-on-mac">LINUX ON MAC</a>
     <ul>
       <li><a href="#fix-wake-up">Fix wake up</a></li>
       <li><a href="#fix-slow-wake-up-macbook-lid-open">Fix slow wake up (Macbook lid open)</a></li>
@@ -138,7 +138,7 @@
     </ul>
   </li>
   <li><a href="#packages">Packages</a></li>
-  <li><a href="#arch-install-on-framework-laptop">Arch Install on Framework Laptop</a>
+  <li><a href="#arch-install-on-framework-laptop">ARCH INSTALL ON FRAMEWORK LAPTOP</a>
     <ul>
       <li><a href="#packages-to-install">Packages to install:</a></li>
       <li><a href="#tty2">tty2</a></li>
@@ -163,18 +163,14 @@
       <li><a href="#update-pacman-mirrorlist">Update Pacman mirrorlist</a></li>
       <li><a href="#fix-wakeup">Fix Wakeup</a></li>
       <li><a href="#fix-mouse-lag">Fix mouse lag</a></li>
-      <li><a href="#tips">TIPS</a>
-        <ul>
-          <li><a href="#keyboard-backlight-fn-space-bar">Keyboard Backlight: fn + space bar</a></li>
-        </ul>
-      </li>
-      <li><a href="#open-media-vault-on-macbook">Open Media Vault on Macbook</a>
-        <ul>
-          <li><a href="#login-in-pcmanfm">Login in PCManFM</a></li>
-          <li><a href="#update-music-folder">Update Music Folder</a></li>
-          <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
-        </ul>
-      </li>
+      <li><a href="#tips">TIPS</a></li>
+    </ul>
+  </li>
+  <li><a href="#open-media-vault">OPEN MEDIA VAULT</a>
+    <ul>
+      <li><a href="#login-in-pcmanfm">Login in PCManFM</a></li>
+      <li><a href="#update-music-folder">Update Music Folder</a></li>
+      <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
     </ul>
   </li>
 </ul>
@@ -574,7 +570,7 @@ label-indicator-underline = #000044
 
 <hr />
 
-<h1 id="linux-on-mac">Linux on Mac</h1>
+<h1 id="linux-on-mac">LINUX ON MAC</h1>
 
 <hr />
 
@@ -928,15 +924,21 @@ bindsym $mod+space exec path/to/i3-keyboard-layout cycle us br
 
 <hr />
 
-<h1 id="arch-install-on-framework-laptop">Arch Install on Framework Laptop</h1>
+<h1 id="arch-install-on-framework-laptop">ARCH INSTALL ON FRAMEWORK LAPTOP</h1>
+
+<hr />
 
 <p>Follow the script - <code class="language-plaintext highlighter-rouge">archinstall</code> on tty</p>
+
+<hr />
 
 <h2 id="packages-to-install">Packages to install:</h2>
 <ul>
   <li>neovim, firefox, git, ranger, pcmanfm, timeshift(AUR), nitrogen, neofetch, xclip</li>
   <li>yay: <code class="language-plaintext highlighter-rouge">https://github.com/Jguer/yay</code></li>
 </ul>
+
+<hr />
 
 <h2 id="tty2">tty2</h2>
 <ul>
@@ -945,10 +947,14 @@ bindsym $mod+space exec path/to/i3-keyboard-layout cycle us br
   <li>to create uder folders: <code class="language-plaintext highlighter-rouge">xdg-user-dirs-update</code></li>
 </ul>
 
+<hr />
+
 <h2 id="intel-drivers">Intel drivers</h2>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">intel-media-driver intel-gpu-tools xf86-video-intel</code></li>
 </ul>
+
+<hr />
 
 <h2 id="screen-resolution">Screen Resolution</h2>
 <ul>
@@ -1041,6 +1047,8 @@ WantedBy=sleep.target
 <ul>
   <li>run <code class="language-plaintext highlighter-rouge">sudo systemctl enable sleep@omk.service</code></li>
 </ul>
+
+<hr />
 
 <h2 id="appearance">Appearance</h2>
 <ul>
@@ -1181,7 +1189,9 @@ WantedBy=multi-user.target
 
 <h2 id="tips">TIPS</h2>
 
-<h3 id="keyboard-backlight-fn--space-bar">Keyboard Backlight: fn + space bar</h3>
+<ul>
+  <li>Keyboard Backlight: fn + space bar</li>
+</ul>
 
 <p><a href="#top">Back to the top</a></p>
 
@@ -1189,7 +1199,9 @@ WantedBy=multi-user.target
 
 <hr />
 
-<h2 id="open-media-vault-on-macbook">Open Media Vault on Macbook</h2>
+<h1 id="open-media-vault">OPEN MEDIA VAULT</h1>
+
+<hr />
 
 <ul>
   <li>Access modem</li>
@@ -1203,7 +1215,9 @@ WantedBy=multi-user.target
   </li>
 </ul>
 
-<h3 id="login-in-pcmanfm">Login in PCManFM</h3>
+<hr />
+
+<h2 id="login-in-pcmanfm">Login in PCManFM</h2>
 
 <ul>
   <li>Connect to Server &gt; SSH
@@ -1213,14 +1227,18 @@ WantedBy=multi-user.target
   </li>
 </ul>
 
-<h3 id="update-music-folder">Update Music Folder</h3>
+<hr />
+
+<h2 id="update-music-folder">Update Music Folder</h2>
 
 <ul>
   <li>SSH to server</li>
   <li>Do <code class="language-plaintext highlighter-rouge">rsync -a --delete -e ssh /home/omk/Insync/manzano\@bgsu.edu/OneDrive\ Biz/Music/ root@192.168.1.20:/srv/dev-disk-by-uuid-827ef6d8-6e25-4bb3-9c1b-e36c51a1dc15/Music</code></li>
 </ul>
 
-<h3 id="handle-lid-and-screen-blank">Handle Lid and Screen Blank</h3>
+<hr />
+
+<h2 id="handle-lid-and-screen-blank">Handle Lid and Screen Blank</h2>
 
 <ul>
   <li>on <code class="language-plaintext highlighter-rouge">/etc/systemd/logind.conf</code>
