@@ -134,26 +134,25 @@
       <li><a href="#power-management">Power Management</a>
         <ul>
           <li><a href="#disable-screen-blanking">Disable Screen Blanking</a></li>
-          <li><a href="#screenlock">screenlock</a></li>
         </ul>
       </li>
-      <li><a href="#appearance">Appearance</a>
-        <ul>
-          <li><a href="#change-battery-cap-in-bios">Change battery cap in BIOS</a></li>
-        </ul>
-      </li>
+      <li><a href="#screenlock">Screenlock</a></li>
+      <li><a href="#appearance">Appearance</a></li>
+      <li><a href="#battery-cap-in-bios">Battery Cap in BIOS</a></li>
       <li><a href="#cpu-scaling-governors">CPU Scaling Governors</a></li>
-      <li><a href="#backlight">backlight</a></li>
-      <li><a href="#git">Git</a></li>
+      <li><a href="#backlight">Backlight</a></li>
       <li><a href="#trash-management">Trash Management</a></li>
       <li><a href="#update-pacman-mirrorlist">Update Pacman mirrorlist</a></li>
       <li><a href="#fix-wakeup">Fix Wakeup</a></li>
       <li><a href="#fix-mouse-lag">Fix mouse lag</a></li>
+      <li><a href="#bluetooth">Bluetooth</a></li>
+      <li><a href="#cursor-behavior-fix">Cursor Behavior Fix</a></li>
       <li><a href="#tips">TIPS</a></li>
     </ul>
   </li>
   <li><a href="#open-media-vault">OPEN MEDIA VAULT</a>
     <ul>
+      <li><a href="#access-modem">Access modem</a></li>
       <li><a href="#login-in-pcmanfm">Login in PCManFM</a></li>
       <li><a href="#update-music-folder">Update Music Folder</a></li>
       <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
@@ -601,6 +600,8 @@ label-indicator-underline = #000044
   <li>yay: <code class="language-plaintext highlighter-rouge">https://github.com/Jguer/yay</code></li>
 </ul>
 
+<p><a href="#top">Back to the top</a></p>
+
 <hr />
 
 <h2 id="tty2">tty2</h2>
@@ -610,12 +611,16 @@ label-indicator-underline = #000044
   <li>to create uder folders: <code class="language-plaintext highlighter-rouge">xdg-user-dirs-update</code></li>
 </ul>
 
+<p><a href="#top">Back to the top</a></p>
+
 <hr />
 
 <h2 id="intel-drivers">Intel drivers</h2>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">intel-media-driver intel-gpu-tools xf86-video-intel</code></li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
@@ -634,6 +639,8 @@ label-indicator-underline = #000044
     Option "PreferredMode" "[RESOLUTION_60.00]"
 EndSection
 </code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
@@ -687,7 +694,9 @@ xset s noblank &amp;
 
 <p><a href="#top">Back to the top</a></p>
 
-<h3 id="screenlock">screenlock</h3>
+<hr />
+
+<h2 id="screenlock">Screenlock</h2>
 <ul>
   <li>do <code class="language-plaintext highlighter-rouge">sudo nvim /etc/systemd/system/sleep@omk.service</code></li>
   <li>write:</li>
@@ -711,6 +720,8 @@ WantedBy=sleep.target
   <li>run <code class="language-plaintext highlighter-rouge">sudo systemctl enable sleep@omk.service</code></li>
 </ul>
 
+<p><a href="#top">Back to the top</a></p>
+
 <hr />
 
 <h2 id="appearance">Appearance</h2>
@@ -731,7 +742,11 @@ fade-out-step = 1;
 ...
 </code></pre></div></div>
 
-<h3 id="change-battery-cap-in-bios">Change battery cap in BIOS</h3>
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="battery-cap-in-bios">Battery Cap in BIOS</h2>
 
 <p>Pra acessar BIOS: F2 (Fn F2)</p>
 
@@ -748,7 +763,11 @@ fade-out-step = 1;
   <li>for powersave: <code class="language-plaintext highlighter-rouge">sudo cpupower frequency-set -g powersave</code></li>
 </ul>
 
-<h2 id="backlight">backlight</h2>
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="backlight">Backlight</h2>
 <ul>
   <li>add to <code class="language-plaintext highlighter-rouge">/etc/udev/rules.d/90-backlight.rules</code></li>
 </ul>
@@ -764,17 +783,6 @@ fade-out-step = 1;
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
-
-<hr />
-
-<h2 id="git-1">Git</h2>
-
-<p>To be able to use same github repository as in previous computer:</p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">git config --global user.email "manzano@bgsu.edu"</code></li>
-  <li><code class="language-plaintext highlighter-rouge">git config --global user.name "kavotaman"</code></li>
-  <li>maybe <code class="language-plaintext highlighter-rouge">git init</code>, not sure</li>
-</ul>
 
 <hr />
 
@@ -850,6 +858,31 @@ WantedBy=multi-user.target
   <li>reboot and check if <code class="language-plaintext highlighter-rouge">cat /sys/module/usbcore/parameters/autosuspend</code> gives <code class="language-plaintext highlighter-rouge">-1</code></li>
 </ul>
 
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="bluetooth">Bluetooth</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl stop bluetooth-mesh.service
+systemctl disable bluetooth-mesh.service
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">"ControllerMode = bredr"</code> in <code class="language-plaintext highlighter-rouge">/etc/bluetooth/main.conf</code></p>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="cursor-behavior-fix">Cursor Behavior Fix</h2>
+
+<p>-Install <code class="language-plaintext highlighter-rouge">xorg-xsetroot</code>
+-Add <code class="language-plaintext highlighter-rouge">xsetroot -cursor_name left_ptr</code> to startup file (bspwm config file)</p>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
 <h2 id="tips">TIPS</h2>
 
 <ul>
@@ -866,8 +899,8 @@ WantedBy=multi-user.target
 
 <hr />
 
+<h2 id="access-modem">Access modem</h2>
 <ul>
-  <li>Access modem</li>
   <li>get device address</li>
   <li>insert ip on browser</li>
   <li>install extras: <code class="language-plaintext highlighter-rouge">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</code></li>
@@ -877,6 +910,8 @@ WantedBy=multi-user.target
     </ul>
   </li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
@@ -890,6 +925,8 @@ WantedBy=multi-user.target
   </li>
 </ul>
 
+<p><a href="#top">Back to the top</a></p>
+
 <hr />
 
 <h2 id="update-music-folder">Update Music Folder</h2>
@@ -898,6 +935,8 @@ WantedBy=multi-user.target
   <li>SSH to server</li>
   <li>Do <code class="language-plaintext highlighter-rouge">rsync -a --delete -e ssh /home/omk/Insync/manzano\@bgsu.edu/OneDrive\ Biz/Music/ root@192.168.1.20:/srv/dev-disk-by-uuid-827ef6d8-6e25-4bb3-9c1b-e36c51a1dc15/Music</code></li>
 </ul>
+
+<p><a href="#top">Back to the top</a></p>
 
 <hr />
 
