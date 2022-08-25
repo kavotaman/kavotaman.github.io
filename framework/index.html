@@ -72,6 +72,7 @@
       <li><a href="#fix-mouse-lag">Fix mouse lag</a></li>
       <li><a href="#bluetooth">Bluetooth</a></li>
       <li><a href="#cursor-behavior-fix">Cursor Behavior Fix</a></li>
+      <li><a href="#mount-drivers-file-manager">Mount Drivers File Manager</a></li>
       <li><a href="#tips">TIPS</a></li>
     </ul>
   </li>
@@ -377,6 +378,25 @@ systemctl disable bluetooth-mesh.service
 <p><a href="#top">Back to the top</a></p>
 
 <hr />
+
+<h2 id="mount-drivers-file-manager">Mount Drivers File Manager</h2>
+
+<ul>
+  <li>Create to <code class="language-plaintext highlighter-rouge">/etc/polkit-1/rules.d/10-udisks2.rules</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Allow udisks2 to mount devices without authentication
+// for users in the "storage" group.
+polkit.addRule(function(action, subject) {
+    if ((action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
+         action.id == "org.freedesktop.udisks2.filesystem-mount") &amp;&amp;
+	subject.isInGroup("storage")) {
+        return polkit.Result.YES;
+    }
+});
+</code></pre></div></div>
+
+<p>Obs.: Not sure if necessary</p>
 
 <h2 id="tips">TIPS</h2>
 
