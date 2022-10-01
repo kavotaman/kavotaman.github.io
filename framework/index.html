@@ -72,7 +72,8 @@
       <li><a href="#fix-mouse-lag">Fix mouse lag</a></li>
       <li><a href="#bluetooth">Bluetooth</a></li>
       <li><a href="#cursor-behavior-fix">Cursor Behavior Fix</a></li>
-      <li><a href="#mount-drivers-file-manager">Mount Drivers File Manager</a></li>
+      <li><a href="#polkit">Polkit</a></li>
+      <li><a href="#grub">GRUB</a></li>
       <li><a href="#tips">TIPS</a></li>
     </ul>
   </li>
@@ -379,7 +380,7 @@ systemctl disable bluetooth-mesh.service
 
 <hr />
 
-<h2 id="mount-drivers-file-manager">Mount Drivers File Manager</h2>
+<h2 id="polkit">Polkit</h2>
 
 <ul>
   <li>Create to <code class="language-plaintext highlighter-rouge">/etc/polkit-1/rules.d/10-udisks2.rules</code></li>
@@ -396,7 +397,64 @@ polkit.addRule(function(action, subject) {
 });
 </code></pre></div></div>
 
-<p>Obs.: Not sure if necessary</p>
+<ul>
+  <li>Reboot, poweroff, etc</li>
+</ul>
+
+<p>In <code class="language-plaintext highlighter-rouge">/etc/polkit-1/rules.d/10-rules.rules</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//  /etc/polkit-1/rules.d/10-rules.rules
+//  PolKit rules to allow mounting, rebooting and network management without password.
+//  User needs to be in storage, power and users groups.
+
+polkit.addRule(function(action, subject) {
+    if (action.id.match("org.freedesktop.udisks2.") &amp;&amp; subject.isInGroup("storage")) {
+        return polkit.Result.YES;
+    }
+});
+
+polkit.addRule(function(action, subject) {
+    if (action.id.match("org.freedesktop.login1.") &amp;&amp; subject.isInGroup("power")) {
+        return polkit.Result.YES;
+    }
+});
+
+polkit.addRule(function(action, subject) {
+    if (action.id.match("org.freedesktop.upower.") &amp;&amp; subject.isInGroup("power")) {
+        return polkit.Result.YES;
+    }
+});
+
+polkit.addRule(function(action, subject) {
+    if (action.id.match("org.freedesktop.NetworkManager.") &amp;&amp; subject.isInGroup("users")) {
+        return polkit.Result.YES;
+    }
+});
+
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="grub">GRUB</h2>
+
+<p>If shit goes down:</p>
+
+<ul>
+  <li>Boot from live USB</li>
+  <li>Mount stuff:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">mount /dev/nvme0n1p2 /mnt</code></li>
+      <li><code class="language-plaintext highlighter-rouge">mount /dev/nvme0n1p1 /mnt/boot</code> The small partition, 512MB or something</li>
+    </ul>
+  </li>
+  <li>Chroot to mounted system <code class="language-plaintext highlighter-rouge">arch-chroot /mnt</code></li>
+  <li>Mount EFI partition <code class="language-plaintext highlighter-rouge">mount /dev/nvme0n1p1 /mnt/boot/EFI</code></li>
+  <li>Then go:</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB --recheck</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">grub-mkconfig -o boot/grub/grub.cfg</code></p>
 
 <hr />
 
