@@ -75,6 +75,11 @@
       <li><a href="#bluetooth">Bluetooth</a></li>
       <li><a href="#cursor-behavior-fix">Cursor Behavior Fix</a></li>
       <li><a href="#polkit">Polkit</a></li>
+      <li><a href="#audio">AUDIO</a>
+        <ul>
+          <li><a href="#pipewire">Pipewire</a></li>
+        </ul>
+      </li>
       <li><a href="#grub">GRUB</a></li>
       <li><a href="#tips">TIPS</a></li>
     </ul>
@@ -432,6 +437,19 @@ polkit.addRule(function(action, subject) {
         return polkit.Result.YES;
     }
 });
+
+</code></pre></div></div>
+
+<h2 id="audio">AUDIO</h2>
+
+<h3 id="pipewire">Pipewire</h3>
+
+<p>To avoid echoe, remove/comment out from <code class="language-plaintext highlighter-rouge">mpd.conf</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>audio_output {
+        type            "pipewire"
+        name            "PipeWire Sound Server"
+}
 
 </code></pre></div></div>
 
