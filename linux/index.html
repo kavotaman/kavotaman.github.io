@@ -124,6 +124,11 @@
     </ul>
   </li>
   <li><a href="#packages">Packages</a></li>
+  <li><a href="#sway-wayland">Sway / Wayland</a>
+    <ul>
+      <li><a href="#arduino-ide">Arduino IDE</a></li>
+    </ul>
+  </li>
   <li><a href="#open-media-vault">OPEN MEDIA VAULT</a>
     <ul>
       <li><a href="#access-modem">Access modem</a></li>
@@ -542,6 +547,24 @@ label-indicator-underline = #000044
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<hr />
+
+<h1 id="sway--wayland">Sway / Wayland</h1>
+
+<h2 id="arduino-ide">Arduino IDE</h2>
+
+<p>Edit .desktop file to make it work properly:</p>
+
+<p><code class="language-plaintext highlighter-rouge">/usr/share/applications/arduino.desktop</code></p>
+
+<p>Comment out the <code class="language-plaintext highlighter-rouge">Exec</code> entry and change to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Exec=arduino %U
+Exec=env _JAVA_AWT_WM_NONREPARENTING=1 arduino %U
+</code></pre></div></div>
 
 <hr />
 
