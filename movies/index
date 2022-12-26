@@ -46,20 +46,18 @@
   </header>
 
   <div class="post-content">
-    <ul>
-  <li>10: Can be rewatched at any time (same day, etc.)</li>
-  <li>9: Can be rewatched within a short interval (few days, etc.)</li>
-  <li>8: Can be rewatched after a longer period, long enough so I forgot most of it</li>
-  <li>7: Enjoyable but not rewatchable</li>
-  <li>6: Watched until the end with no issues, but not super great</li>
-  <li>5 and below: Unable to watch until the end</li>
-  <li>TBW: To Be Watched</li>
-</ul>
+    - 10: Can be rewatched at any time (same day, etc.)
+- 9: Can be rewatched within a short interval (few days, etc.)
+- 8: Can be rewatched after a longer period, long enough so I forgot most of it
+- 7: Enjoyable but not rewatchable
+- 6: Watched until the end with no issues, but not super great
+- 5 and below: Unable to watch until the end
+- TBW: To Be Watched
 
 <div id="users">
  <input class="search" placeholder="Search" />
  
- <br />
+ <br>
 
  <button class="sort" data-sort="title">Title</button>
  <button class="sort" data-sort="year">Year</button>
@@ -67,8 +65,8 @@
  <button class="sort" data-sort="genre">Genre</button>
  <button class="sort" data-sort="director">Director</button>
  <button class="sort" data-sort="rating">Rating</button>
-<br />
-<br />
+<br>
+<br>
   <table>
     <!-- IMPORTANT, class="list" have to be at tbody -->
     <tbody class="list">
@@ -465,7 +463,7 @@
   <td class="rating">8.0</td>
 </tr>
 <tr>
-  <td class="title">Men &amp; Chicken</td>
+  <td class="title">Men & Chicken</td>
   <td class="year">2015</td>
   <td class="country">Denmark</td>
   <td class="genre">comedy</td>
@@ -1162,6 +1160,14 @@
   <td class="director">Jang Chang-won</td>
   <td class="rating">8.0</td>
 </tr>
+<tr>
+  <td class="title">z</td>
+  <td class="year">x</td>
+  <td class="country">c</td>
+  <td class="genre">v</td>
+  <td class="director">b</td>
+  <td class="rating">n</td>
+</tr>
 <!-- MARK111 -->
     </tbody>
   </table>
@@ -1177,6 +1183,7 @@ var options = {
 var userList = new List('users', options);
 
 </script>
+
 
 
   </div>
