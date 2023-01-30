@@ -1094,7 +1094,7 @@
   <td class="country">Korea</td>
   <td class="genre">zombie comedy</td>
   <td class="director">Lee Min-jae</td>
-  <td class="rating">TBW</td>
+  <td class="rating">7.0</td>
 </tr>
 <tr>
   <td class="title">Yaksha: Ruthless Operations</td>
@@ -1231,6 +1231,46 @@
   <td class="genre">crime drama</td>
   <td class="director">Woo Min-ho</td>
   <td class="rating">7.8</td>
+</tr>
+<tr>
+  <td class="title">The Man Standing Next</td>
+  <td class="year">2020</td>
+  <td class="country">Korea</td>
+  <td class="genre">Thriller Political Drama</td>
+  <td class="director">Min-ho Woo</td>
+  <td class="rating">8.0</td>
+</tr>
+<tr>
+  <td class="title">Joint Security Area</td>
+  <td class="year">2000</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller drama</td>
+  <td class="director">Park Chan-wook</td>
+  <td class="rating">8.5</td>
+</tr>
+<tr>
+  <td class="title">Broker</td>
+  <td class="year">2022</td>
+  <td class="country">Korea</td>
+  <td class="genre">Drama</td>
+  <td class="director">Hirokazu Koreeda</td>
+  <td class="rating">8,0</td>
+</tr>
+<tr>
+  <td class="title">The Age of Shadows</td>
+  <td class="year">2016</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller historical</td>
+  <td class="director">Kim Jee-woon</td>
+  <td class="rating">8,0</td>
+</tr>
+<tr>
+  <td class="title">The Villainess</td>
+  <td class="year">2017</td>
+  <td class="country">Korea</td>
+  <td class="genre">Action thriller</td>
+  <td class="director">Jeong Byeong-gil</td>
+  <td class="rating">7.5</td>
 </tr>
 <!-- MARK111 -->
     </tbody>
