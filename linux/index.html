@@ -57,6 +57,7 @@
         <ul>
           <li><a href="#adicionar-extensão-pra-todos-os-arquivos">adicionar extensão pra todos os arquivos</a></li>
           <li><a href="#syntax-highlighting-blesh">Syntax highlighting, Blesh</a></li>
+          <li><a href="#automount-usb-drive">Automount USB drive</a></li>
         </ul>
       </li>
       <li><a href="#default-apps-xdg-mime">DEFAULT APPS - XDG, MIME</a>
@@ -166,6 +167,14 @@ make -C ble.sh install PREFIX=~/.local
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
+
+<h3 id="automount-usb-drive">Automount USB drive</h3>
+
+<ul>
+  <li>Edit <code class="language-plaintext highlighter-rouge">/etc/fstab</code></li>
+  <li>Get details with <code class="language-plaintext highlighter-rouge">lsblk -f</code></li>
+  <li>Create the mount point (anywhere, like <code class="language-plaintext highlighter-rouge">/home/omk/USB_Drivers/Backup_1</code>)</li>
+</ul>
 
 <hr />
 

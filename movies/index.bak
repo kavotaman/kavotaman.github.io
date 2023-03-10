@@ -1504,38 +1504,6 @@
   <td class="director">Bong Joon-ho</td>
   <td class="rating">6.5</td>
 </tr>
-<tr>
-  <td class="title">Hello Ghost</td>
-  <td class="year">2010</td>
-  <td class="country">Korea</td>
-  <td class="genre">comedy drama</td>
-  <td class="director">Kim Young-tak</td>
-  <td class="rating">6.9</td>
-</tr>
-<tr>
-  <td class="title">Welcome to Dongmakgol</td>
-  <td class="year">2005</td>
-  <td class="country">Korea</td>
-  <td class="genre">drama war</td>
-  <td class="director">Park Kwang-hyun</td>
-  <td class="rating">7.5</td>
-</tr>
-<tr>
-  <td class="title">Breathless</td>
-  <td class="year">2008</td>
-  <td class="country">Korea</td>
-  <td class="genre">drama crime</td>
-  <td class="director">Yang Ik-joon</td>
-  <td class="rating">8.5</td>
-</tr>
-<tr>
-  <td class="title">Masquerade</td>
-  <td class="year">2012</td>
-  <td class="country">Korea</td>
-  <td class="genre">period drama</td>
-  <td class="director">Choo Chang-min</td>
-  <td class="rating">8.0</td>
-</tr>
 <!-- MARK111 -->
     </tbody>
   </table>
