@@ -1536,6 +1536,38 @@
   <td class="director">Choo Chang-min</td>
   <td class="rating">8.0</td>
 </tr>
+<tr>
+  <td class="title">The Point Men</td>
+  <td class="year">2023</td>
+  <td class="country">Korea</td>
+  <td class="genre">thriller</td>
+  <td class="director">Yim Soon-rye</td>
+  <td class="rating">6.5</td>
+</tr>
+<tr>
+  <td class="title">The Quiet Family</td>
+  <td class="year">1998</td>
+  <td class="country">Korea</td>
+  <td class="genre">comedy crime</td>
+  <td class="director">Jee-woon Kim</td>
+  <td class="rating">8.0</td>
+</tr>
+<tr>
+  <td class="title">The Terror Live</td>
+  <td class="year">2013</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller</td>
+  <td class="director">Kim Byung-woo</td>
+  <td class="rating">7.5</td>
+</tr>
+<tr>
+  <td class="title">Hwayi: A Monster Boy</td>
+  <td class="year">2013</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller</td>
+  <td class="director">Jang Joon-hwan</td>
+  <td class="rating">7.0</td>
+</tr>
 <!-- MARK111 -->
     </tbody>
   </table>

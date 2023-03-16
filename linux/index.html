@@ -75,6 +75,7 @@
       <li><a href="#formatting-disks-usb">FORMATTING DISKS/USB</a>
         <ul>
           <li><a href="#gparted-fat32">gparted (Fat32)</a></li>
+          <li><a href="#slightly-different-terminal-method">Slightly different terminal method</a></li>
         </ul>
       </li>
       <li><a href="#git">GIT</a>
@@ -82,6 +83,11 @@
           <li><a href="#setting-up-git">Setting up Git</a></li>
           <li><a href="#remove-directory">Remove directory</a></li>
           <li><a href="#making-existing-folder-into-a-local-git-repo">Making existing folder into a local git repo</a></li>
+        </ul>
+      </li>
+      <li><a href="#permissions">Permissions</a>
+        <ul>
+          <li><a href="#external-drive-read-write-permission">External Drive Read/Write permission</a></li>
         </ul>
       </li>
       <li><a href="#nestopia">NESTOPIA</a></li>
@@ -114,6 +120,7 @@
           <li><a href="#backup-and-sync">Backup and sync</a></li>
         </ul>
       </li>
+      <li><a href="#timeshift">TIMESHIFT</a></li>
       <li><a href="#vim">VIM</a></li>
     </ul>
   </li>
@@ -170,11 +177,20 @@ make -C ble.sh install PREFIX=~/.local
 
 <h3 id="automount-usb-drive">Automount USB drive</h3>
 
+<p>For ext4:</p>
+
 <ul>
   <li>Edit <code class="language-plaintext highlighter-rouge">/etc/fstab</code></li>
   <li>Get details with <code class="language-plaintext highlighter-rouge">lsblk -f</code></li>
   <li>Create the mount point (anywhere, like <code class="language-plaintext highlighter-rouge">/home/omk/USB_Drivers/Backup_1</code>)</li>
+  <li>in <code class="language-plaintext highlighter-rouge">etc/fstab</code> <code class="language-plaintext highlighter-rouge">UUID /mnt/point ext4 defaults,noatime,nofail 0 2</code></li>
 </ul>
+
+<p>For exFat:</p>
+
+<p><code class="language-plaintext highlighter-rouge">UUID /mnt/point exfat defaults,noatime,nofail,auto,umask=000,users,rw 0 0</code></p>
+
+<p>Not sure about this, actually</p>
 
 <hr />
 
@@ -245,6 +261,17 @@ sudo mkfs.vfat -F32 /dev/sdX1
 sudo parted /dev/sdX --script print
 </code></pre></div></div>
 
+<h3 id="slightly-different-terminal-method">Slightly different terminal method</h3>
+
+<ul>
+  <li>check location <code class="language-plaintext highlighter-rouge">df</code></li>
+  <li>unmount <code class="language-plaintext highlighter-rouge">sudo umount /dev/sdb1</code></li>
+  <li>format <code class="language-plaintext highlighter-rouge">sudo mkfs.exfat /dev/sdb1</code></li>
+  <li>check if it worked <code class="language-plaintext highlighter-rouge">sudo fsck /dev/sdb1</code></li>
+</ul>
+
+<hr />
+
 <p><a href="#top">Back to the top</a></p>
 
 <hr />
@@ -279,6 +306,12 @@ sudo parted /dev/sdX --script print
 <p><a href="#top">Back to the top</a></p>
 
 <hr />
+
+<h2 id="permissions">Permissions</h2>
+
+<h3 id="external-drive-readwrite-permission">External Drive Read/Write permission</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sudo chmod -R 777 /run/media/omk/OMK_500GB</code></p>
 
 <h2 id="nestopia">NESTOPIA</h2>
 
@@ -450,6 +483,19 @@ rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location
 <p>MAKE IT EXECUTABLE!</p>
 
 <p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="timeshift">TIMESHIFT</h2>
+
+<p>To make it run scheduled tasks:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sudo systemctl enable cronie</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sudo systemctl start cronie</code></li>
+</ul>
+
+<p>Check with <code class="language-plaintext highlighter-rouge">journalctl -u cronie.service</code> to see if there’s a scheduled task listed</p>
 
 <hr />
 
