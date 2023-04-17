@@ -1664,6 +1664,70 @@
   <td class="director">Ahn Tae-jin</td>
   <td class="rating">6.8</td>
 </tr>
+<tr>
+  <td class="title">The Battleship Island</td>
+  <td class="year">2017</td>
+  <td class="country">Korea</td>
+  <td class="genre">action period drama</td>
+  <td class="director">Ryoo Seung-wan</td>
+  <td class="rating">7.5</td>
+</tr>
+<tr>
+  <td class="title">Secret Reunion</td>
+  <td class="year">2010</td>
+  <td class="country">Korea</td>
+  <td class="genre">action crime drama</td>
+  <td class="director">Jang Hoon</td>
+  <td class="rating">6.8</td>
+</tr>
+<tr>
+  <td class="title">Mal-Mo-E: The Secret Mission</td>
+  <td class="year">2019</td>
+  <td class="country">Korea</td>
+  <td class="genre">historical drama comedy</td>
+  <td class="director">Eom Yu-na</td>
+  <td class="rating">8.0</td>
+</tr>
+<tr>
+  <td class="title">The Suspect</td>
+  <td class="year">2013</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller</td>
+  <td class="director">Shin-yeon Won</td>
+  <td class="rating">7.0</td>
+</tr>
+<tr>
+  <td class="title">Remember</td>
+  <td class="year">2022</td>
+  <td class="country">Korea</td>
+  <td class="genre">action drama thriller</td>
+  <td class="director">Lee Il-hyung</td>
+  <td class="rating">7.0</td>
+</tr>
+<tr>
+  <td class="title">The Admiral: Roaring Currents</td>
+  <td class="year">2014</td>
+  <td class="country">Korea</td>
+  <td class="genre">war period historical</td>
+  <td class="director">Kim Han-min</td>
+  <td class="rating">7.0</td>
+</tr>
+<tr>
+  <td class="title">Hansan: Rising Dragon</td>
+  <td class="year">2022</td>
+  <td class="country">Korea</td>
+  <td class="genre">war poeriod historical</td>
+  <td class="director">Kim Han-min</td>
+  <td class="rating">7.0</td>
+</tr>
+<tr>
+  <td class="title">The President's Barber</td>
+  <td class="year">2004</td>
+  <td class="country">Korea</td>
+  <td class="genre">comedy drama</td>
+  <td class="director">Im Chan-sang</td>
+  <td class="rating">7.5</td>
+</tr>
 <!-- MARK111 -->
     </tbody>
   </table>
