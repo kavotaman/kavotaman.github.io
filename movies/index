@@ -1764,6 +1764,38 @@
   <td class="director">Park Kwang-hyun</td>
   <td class="rating">6.2</td>
 </tr>
+<tr>
+  <td class="title">The Unjust</td>
+  <td class="year">2010</td>
+  <td class="country">Korea</td>
+  <td class="genre">crime thriller</td>
+  <td class="director">Ryoo Seung-wan</td>
+  <td class="rating">7.5</td>
+</tr>
+<tr>
+  <td class="title">V.I.P.</td>
+  <td class="year">2017</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller</td>
+  <td class="director">Park Hoon-jung</td>
+  <td class="rating">7.0</td>
+</tr>
+<tr>
+  <td class="title">Kill Boksoon</td>
+  <td class="year">2023</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller</td>
+  <td class="director">Byun Sung-hyun</td>
+  <td class="rating">7.0</td>
+</tr>
+<tr>
+  <td class="title">New Trial</td>
+  <td class="year">2017</td>
+  <td class="country">Korea</td>
+  <td class="genre">crime drama</td>
+  <td class="director">Kim Tae-yoon</td>
+  <td class="rating">6.5</td>
+</tr>
 <!-- MARK111 -->
     </tbody>
   </table>
