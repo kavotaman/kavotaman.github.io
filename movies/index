@@ -1796,6 +1796,62 @@
   <td class="director">Kim Tae-yoon</td>
   <td class="rating">6.5</td>
 </tr>
+<tr>
+  <td class="title">Fists of Legend</td>
+  <td class="year">2013</td>
+  <td class="country">Korea</td>
+  <td class="genre">sports drama</td>
+  <td class="director">Kang Woo-suk</td>
+  <td class="rating">6.6</td>
+</tr>
+<tr>
+  <td class="title">The Merciless</td>
+  <td class="year">2017</td>
+  <td class="country">Korea</td>
+  <td class="genre">crime thriller</td>
+  <td class="director">Byun Sung-hyun</td>
+  <td class="rating">7.0</td>
+</tr>
+<tr>
+  <td class="title">Kingmaker</td>
+  <td class="year">2022</td>
+  <td class="country">Korea</td>
+  <td class="genre">drama political</td>
+  <td class="director">Byun Sung-hyun</td>
+  <td class="rating">6.4</td>
+</tr>
+<tr>
+  <td class="title">Asura</td>
+  <td class="year">2016</td>
+  <td class="country">Korea</td>
+  <td class="genre">action crime</td>
+  <td class="director">Kim Sung-su</td>
+  <td class="rating">6.8</td>
+</tr>
+<tr>
+  <td class="title">No Tears for the Dead</td>
+  <td class="year">2014</td>
+  <td class="country">Korea</td>
+  <td class="genre">action crime</td>
+  <td class="director">Lee Jeong-beom</td>
+  <td class="rating">5.5</td>
+</tr>
+<tr>
+  <td class="title">The Negotiation</td>
+  <td class="year">2018</td>
+  <td class="country">Korea</td>
+  <td class="genre">action crime thriller</td>
+  <td class="director">Lee Jong-seok</td>
+  <td class="rating">6.0</td>
+</tr>
+<tr>
+  <td class="title">The Net</td>
+  <td class="year">2016</td>
+  <td class="country">Korea</td>
+  <td class="genre">drama</td>
+  <td class="director">Kim Ki-duk</td>
+  <td class="rating">7.0</td>
+</tr>
 <!-- MARK111 -->
     </tbody>
   </table>
