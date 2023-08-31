@@ -1876,6 +1876,22 @@
   <td class="director">Kim Min-Ho</td>
   <td class="rating">7.0</td>
 </tr>
+<tr>
+  <td class="title">The Childe</td>
+  <td class="year">2023</td>
+  <td class="country">Korea</td>
+  <td class="genre">action</td>
+  <td class="director">Park Hoon-jung</td>
+  <td class="rating">7.0</td>
+</tr>
+<tr>
+  <td class="title">Roundup: No Way Out</td>
+  <td class="year">2023</td>
+  <td class="country">Korea</td>
+  <td class="genre">action comedy</td>
+  <td class="director">Lee Sang-yong</td>
+  <td class="rating">7.8</td>
+</tr>
 <!-- MARK111 -->
     </tbody>
   </table>
