@@ -155,6 +155,7 @@
       <li><a href="#login-in-pcmanfm">Login in PCManFM</a></li>
       <li><a href="#update-music-folder">Update Music Folder</a></li>
       <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
+      <li><a href="#pdanet-wifi-hotspot">PDANet WiFi Hotspot</a></li>
     </ul>
   </li>
 </ul>
@@ -702,6 +703,42 @@ Exec=env _JAVA_AWT_WM_NONREPARENTING=1 arduino %U
 <p><a href="#top">Back to the top</a></p>
 
 <hr />
+
+<h2 id="pdanet-wifi-hotspot">PDANet WiFi Hotspot</h2>
+
+<p>For window managers, you need to set the proxy for each program.</p>
+
+<ul>
+  <li>Firefox:
+    <ul>
+      <li>Settings, all the way down to Network Settings.</li>
+      <li>Manual proxy configuration
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">192.168.49.1</code> port <code class="language-plaintext highlighter-rouge">8000</code></li>
+          <li>check box “Also use ths proxy for HTTPS”</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Terminal (for updates)
+    <ul>
+      <li>on <code class="language-plaintext highlighter-rouge">.bashrc</code>: add:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export http_proxy=192.168.49.1:8000
+export https_proxy=192.168.49.1:8000
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>Insync
+    <ul>
+      <li>Settings, Network, Manual proxy</li>
+    </ul>
+  </li>
+</ul>
+
+<p>On tutorials, I saw people adding `Defaults env_keep +=”https_proxy” to sudoers file (via command visudo)</p>
+
+<p>I’ll come back for other programs as I use it</p>
 
   </div>
 

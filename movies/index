@@ -1948,6 +1948,22 @@
   <td class="director">Jung Woo-sung</td>
   <td class="rating">6.0</td>
 </tr>
+<tr>
+  <td class="title">Ransomed</td>
+  <td class="year">2023</td>
+  <td class="country">Korea</td>
+  <td class="genre">action drama</td>
+  <td class="director">Kim Seong-hoon</td>
+  <td class="rating">6.7</td>
+</tr>
+<tr>
+  <td class="title">Phantom</td>
+  <td class="year">2023</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller period</td>
+  <td class="director">Lee Hae-young</td>
+  <td class="rating">7.4</td>
+</tr>
 <!-- MARK111 -->
     </tbody>
   </table>
