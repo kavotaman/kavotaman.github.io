@@ -16,7 +16,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>linux | otávio mk</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.4" />
 <meta property="og:title" content="linux" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="otávio manzano kavakama - cello" />
@@ -156,6 +156,7 @@
       <li><a href="#update-music-folder">Update Music Folder</a></li>
       <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
       <li><a href="#pdanet-wifi-hotspot">PDANet WiFi Hotspot</a></li>
+      <li><a href="#zero-padding">Zero padding</a></li>
     </ul>
   </li>
 </ul>
@@ -739,6 +740,24 @@ export https_proxy=192.168.49.1:8000
 <p>On tutorials, I saw people adding `Defaults env_keep +=”https_proxy” to sudoers file (via command visudo)</p>
 
 <p>I’ll come back for other programs as I use it</p>
+
+<hr />
+
+<h2 id="zero-padding">Zero padding</h2>
+
+<p>If you have files named lala1.txt lala2.txt … lala23.txt etc and want to add zeroes so that it’s better do:</p>
+
+<p>create bash script:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+num=`expr match "$1" '[^0-9]*\([0-9]\+\).*'`
+paddednum=`printf "%03d" $num`
+echo ${1/$num/$paddednum}
+</code></pre></div></div>
+
+<p>on a terminal, where the files are, type: <code class="language-plaintext highlighter-rouge">for i in *.jpg;do mv $i </code>~/Scripts/zeropad.sh $i<code class="language-plaintext highlighter-rouge">; done</code></p>
+
+<p>change the <code class="language-plaintext highlighter-rouge">*.jpg</code> to the extension of your liking.</p>
 
   </div>
 

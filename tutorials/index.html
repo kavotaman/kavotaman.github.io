@@ -15,20 +15,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>works | otávio mk</title>
+<title>tutorials | otávio mk</title>
 <meta name="generator" content="Jekyll v4.3.4" />
-<meta property="og:title" content="works" />
+<meta property="og:title" content="tutorials" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="otávio manzano kavakama - cello" />
 <meta property="og:description" content="otávio manzano kavakama - cello" />
-<link rel="canonical" href="https://otaviomk.com/works/" />
-<meta property="og:url" content="https://otaviomk.com/works/" />
+<link rel="canonical" href="https://otaviomk.com/tutorials/" />
+<meta property="og:url" content="https://otaviomk.com/tutorials/" />
 <meta property="og:site_name" content="otávio mk" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="works" />
+<meta property="twitter:title" content="tutorials" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"works","url":"https://otaviomk.com/works/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"tutorials","url":"https://otaviomk.com/tutorials/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
@@ -44,7 +44,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/about/">about</a><a class="page-link" href="/media/">media</a><a class="page-link" href="/works/">works</a><a class="page-link" href="/contact/">contact</a><a class='page-link page-link-flag' href="https://otaviomk.com/br/criacoes/">
+        <div class="trigger"><a class="page-link" href="/about/">about</a><a class="page-link" href="/media/">media</a><a class="page-link" href="/works/">works</a><a class="page-link" href="/contact/">contact</a><a class='page-link page-link-flag' href="">
                     <img src="/assets/flag_br.jpg" style="height: 20px; border-radius: 50%;"></a>
         </div>
       </nav></div>
@@ -54,26 +54,32 @@
         <article class="post">
 
   <header class="post-header">
-    <h1 class="post-title">works</h1>
+    <h1 class="post-title">tutorials</h1>
   </header>
 
   <div class="post-content">
-    <h2 id="pieces">Pieces</h2>
+    <h2 id="rip-vs-1680-backup-cds-to-pc">Rip VS-1680 backup cds to PC</h2>
 
-<p><em>Odes to Noise</em> 2019~ <a href="/works/odes/">info</a></p>
-
-<p><em>The Other, or how to peel a banana</em>, for 10 instruments + two actors, 2020 <a href="/works/other/">info</a></p>
-
-<h2 id="albums">Albums</h2>
-
-<p><em>Eh Noises</em> 2022 <a href="/works/eh_noises/">info</a></p>
-
-<h2 id="arrangements">Arrangements</h2>
-
-<!-- _Hide and Seek_ (Imogen Heap), for cello ensemble [score+parts](https://drive.google.com/drive/folders/11o6xKsSYrha8GAktyoFngY6HYNCfK3k9?usp=sharing){:target="_blank"} -->
-
-<p>The Simpsons Theme, for cello quartet/ensemble <a href="https://drive.google.com/drive/folders/1VnSdpR8k5tcypkb937fr7A0xjDc9nT3f?usp=sharing" target="_blank">score+parts</a></p>
-
+<ul>
+  <li>Download VS Wave Export tool</li>
+  <li>Needs to have Windows 10</li>
+  <li>Unzip VSWE</li>
+  <li>Right click program file, go to compatibility tab, check “Run as admin”</li>
+  <li>Copy cd2roland exe to some place like C:\test</li>
+  <li>Open VSWE</li>
+  <li>Click “Extras” on menu; click CD rip (or something like that)</li>
+  <li>There, it has a field already filled. This needs to be changed a bit
+    <ul>
+      <li>You need to specify where the command cd2roland is. So prefix the command with the place you put the cd2roland.exe. In our case, C:\test\cd2roland</li>
+      <li>The capital letter after the command (cd2roland) is the drive where the backup CD is. As default it shows D. If your CD drive is on E:, change the letter to E.</li>
+      <li>Click “run”</li>
+    </ul>
+  </li>
+  <li>If everything works, you’ll get a command prompt window that will run some processes. Press any key when prompted</li>
+  <li>You should have a list of files in the main window of the VSWE program, called Projects.</li>
+  <li>If the project has files, click “All”, then “Export”.</li>
+  <li>After you’re done with everything, I recommend closing the program and erasing the folder Rip0000 before inserting a new backup CD.</li>
+</ul>
 
   </div>
 
