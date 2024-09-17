@@ -58,7 +58,7 @@
   </header>
 
   <div class="post-content">
-    <h2 id="rip-vs-1680-backup-cds-to-pc">Rip VS-1680 backup cds to PC</h2>
+    <h1 id="rip-vs-1680-backup-cds-to-pc">Rip VS-1680 backup cds to PC</h1>
 
 <ul>
   <li>Download VS Wave Export tool</li>
@@ -80,6 +80,24 @@
   <li>If the project has files, click “All”, then “Export”.</li>
   <li>After you’re done with everything, I recommend closing the program and erasing the folder Rip0000 before inserting a new backup CD.</li>
 </ul>
+
+<hr />
+
+<h1 id="zero-padding">Zero padding</h1>
+
+<p>If you have files named lala1.txt lala2.txt … lala23.txt etc and want to add zeroes so that it’s better do:</p>
+
+<p>create bash script:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+num=`expr match "$1" '[^0-9]*\([0-9]\+\).*'`
+paddednum=`printf "%03d" $num`
+echo ${1/$num/$paddednum}
+</code></pre></div></div>
+
+<p>on a terminal, where the files are, type: <code class="language-plaintext highlighter-rouge">for i in *.jpg;do mv $i </code>~/Scripts/zeropad.sh $i<code class="language-plaintext highlighter-rouge">; done</code></p>
+
+<p>change the <code class="language-plaintext highlighter-rouge">*.jpg</code> to the extension of your liking.</p>
 
   </div>
 
