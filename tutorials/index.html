@@ -95,7 +95,7 @@ paddednum=`printf "%03d" $num`
 echo ${1/$num/$paddednum}
 </code></pre></div></div>
 
-<p>on a terminal, where the files are, type: <code class="language-plaintext highlighter-rouge">for i in *.jpg;do mv $i </code>~/Scripts/zeropad.sh $i<code class="language-plaintext highlighter-rouge">; done</code></p>
+<p>on a terminal, where the files are, type: <code class="language-plaintext highlighter-rouge">for i in *.jpg;do mv $i '~/Scripts/zeropad.sh $i'; done</code></p>
 
 <p>change the <code class="language-plaintext highlighter-rouge">*.jpg</code> to the extension of your liking.</p>
 
