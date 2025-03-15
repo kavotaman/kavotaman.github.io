@@ -82,6 +82,7 @@
         <ul>
           <li><a href="#combine-video-audio">Combine video + audio</a></li>
           <li><a href="#combinar-varios-arquivos-de-media-em-um-só-no-ffmpeg">combinar varios arquivos de media em um só no ffmpeg</a></li>
+          <li><a href="#batch-convert-wav-to-mp3-ogg-flac">batch convert WAV to MP3/OGG/FLAC:</a></li>
         </ul>
       </li>
       <li><a href="#formatting-disks-usb">FORMATTING DISKS/USB</a>
@@ -159,6 +160,17 @@
     </ul>
   </li>
   <li><a href="#virtualbox-fix-if-memory-error">VirtualBox fix if memory error</a></li>
+  <li><a href="#pipewire">Pipewire</a>
+    <ul>
+      <li><a href="#change-sample-rate">Change sample rate</a></li>
+    </ul>
+  </li>
+  <li><a href="#musescore">Musescore</a>
+    <ul>
+      <li><a href="#update">Update</a></li>
+      <li><a href="#installation">Installation</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- vim-markdown-toc -->
@@ -257,6 +269,15 @@ etc...
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -f concat -safe 0 -i files.txt -c copy output.mkv
 </code></pre></div>    </div>
   </li>
+</ul>
+
+<h3 id="batch-convert-wav-to-mp3oggflac">batch convert WAV to MP3/OGG/FLAC:</h3>
+
+<ul>
+  <li>MP3: <code class="language-plaintext highlighter-rouge">for i in *.wav; do ffmpeg -i "$i" -b:a 320000 "${i%.*}.mp3"; done</code></li>
+  <li>OGG: <code class="language-plaintext highlighter-rouge">for i in *.wav; do ffmpeg -i "$i" -b:a 320000 "${i%.*}.ogg"; done</code></li>
+  <li>FLAC: <code class="language-plaintext highlighter-rouge">for i in *.wav; do ffmpeg -i "$i" "${i%.*}.flac"; done</code></li>
+  <li>All three: <code class="language-plaintext highlighter-rouge">for i in *.wav; do ffmpeg -i "$i" -b:a 320000 "${i%.*}.mp3" -b:a 320000 "${i%.*}.ogg" "${i%.*}.flac"; done</code></li>
 </ul>
 
 <p><a href="#top">Back to the top</a></p>
@@ -741,6 +762,8 @@ export https_proxy=192.168.49.1:8000
 
 <p>I’ll come back for other programs as I use it</p>
 
+<p><a href="#top">top</a></p>
+
 <hr />
 
 <h1 id="virtualbox-fix-if-memory-error">VirtualBox fix if memory error</h1>
@@ -748,6 +771,48 @@ export https_proxy=192.168.49.1:8000
 <ul>
   <li>run as “su”: <code class="language-plaintext highlighter-rouge">echo 3 &gt; /proc/sys/vm/drop_caches</code></li>
 </ul>
+
+<p><a href="#top">top</a></p>
+
+<hr />
+
+<h1 id="pipewire">Pipewire</h1>
+
+<h2 id="change-sample-rate">Change sample rate</h2>
+
+<ul>
+  <li>Change <code class="language-plaintext highlighter-rouge">pipewire.conf</code> at <code class="language-plaintext highlighter-rouge">/home/omk/.config/pipewire</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">default.clock.rate          = 44100</code> or <code class="language-plaintext highlighter-rouge">48000</code> etc.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">top</a></p>
+
+<hr />
+
+<h1 id="musescore">Musescore</h1>
+
+<h2 id="update">Update</h2>
+
+<p>I use an AppImage from the official website.<br />
+When there’s a new release, I need to manually update it</p>
+
+<h2 id="installation">Installation</h2>
+
+<ul>
+  <li>Download AppImage from official website</li>
+  <li>Make file executable</li>
+  <li>rename file to <code class="language-plaintext highlighter-rouge">musescore</code> without the extension</li>
+  <li>move file to <code class="language-plaintext highlighter-rouge">/usr/bin/</code>
+    <ul>
+      <li>this way, it is pickup by bemenu-run</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">top</a></p>
 
   </div>
 
