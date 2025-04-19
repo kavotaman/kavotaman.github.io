@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sed -i '14,$d' cv_pdf/cv_pdf.md
+
+sed -n '26,$p' cv.md > cv_temp
+
+sed -i '/Back to the top/d' cv_temp
+
+line=13
+
+sed -i -e "${line}r cv_temp" cv_pdf/cv_pdf.md
