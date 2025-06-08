@@ -262,10 +262,15 @@ pre {
       <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/movies</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/backup:/data/Backup</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
+    <span class="na">dns</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">1.1.1.1</span>
+      <span class="pi">-</span> <span class="s">8.8.8.8</span>
     <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">7878:7878</span>
     <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
 </code></pre></div></div>
+
+<p>Added <code class="language-plaintext highlighter-rouge">dns:</code> element because of some issues with my setup.</p>
 
 <hr />
 
@@ -280,6 +285,9 @@ pre {
       <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/backup:/data/Backup</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/tvshows</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
+    <span class="na">dns</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">1.1.1.1</span>
+      <span class="pi">-</span> <span class="s">8.8.8.8</span>
     <span class="na">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">PUID=1000</span>
       <span class="pi">-</span> <span class="s">PGID=100</span>
@@ -288,6 +296,8 @@ pre {
       <span class="pi">-</span> <span class="s">8989:8989</span>
     <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
 </code></pre></div></div>
+
+<p>Added <code class="language-plaintext highlighter-rouge">dns:</code> element because of some issues with my setup.</p>
 
 <hr />
 
