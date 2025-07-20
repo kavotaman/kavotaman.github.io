@@ -2013,6 +2013,38 @@
   <td class="director">Kim Hyung-joo</td>
   <td class="rating">7.2</td>
 </tr>
+<tr>
+  <td class="title">Hijack 1971</td>
+  <td class="year">2024</td>
+  <td class="country">Korea</td>
+  <td class="genre">action thriller</td>
+  <td class="director">Kim Seong-han</td>
+  <td class="rating">6.5</td>
+</tr>
+<tr>
+  <td class="title">The Noisy Mansion</td>
+  <td class="year">2025</td>
+  <td class="country">Korea</td>
+  <td class="genre">comedy mistery</td>
+  <td class="director">Lee Ru-da</td>
+  <td class="rating">6.8</td>
+</tr>
+<tr>
+  <td class="title">Bad Genius</td>
+  <td class="year">2017</td>
+  <td class="country">Thailand</td>
+  <td class="genre">heist thriller</td>
+  <td class="director">Nattawut Poonpiriya</td>
+  <td class="rating">6.3</td>
+</tr>
+<tr>
+  <td class="title">The Dinner Game</td>
+  <td class="year">1998</td>
+  <td class="country">France</td>
+  <td class="genre">comedy</td>
+  <td class="director">Francis Veber</td>
+  <td class="rating">8.0</td>
+</tr>
 <!-- MARK111 -->
     </tbody>
   </table>
