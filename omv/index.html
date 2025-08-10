@@ -78,6 +78,7 @@ pre {
 <!-- vim-markdown-toc Redcarpet -->
 
 <ul>
+  <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
   <li><a href="#static-ip">Static IP</a>
     <ul>
       <li><a href="#comcast-residential-internet-fix">Comcast Residential Internet fix</a></li>
@@ -142,6 +143,25 @@ pre {
 <!-- vim-markdown-toc -->
 
 <p>Install OMV</p>
+
+<h1 id="handle-lid-and-screen-blank">Handle Lid and Screen Blank</h1>
+
+<ul>
+  <li>on <code class="language-plaintext highlighter-rouge">/etc/systemd/logind.conf</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">HandleLidSwitch=ignore</code></li>
+    </ul>
+  </li>
+  <li>on <code class="language-plaintext highlighter-rouge">/etc/default/grub</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">GRUB_CMDLINE_LINUX_DEFAULT="quiet consoleblank=100"</code></li>
+      <li>100 is in seconds</li>
+      <li><code class="language-plaintext highlighter-rouge">sudo update-grub</code></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
 
 <h1 id="static-ip">Static IP</h1>
 
