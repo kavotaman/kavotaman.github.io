@@ -85,7 +85,16 @@ pre {
       <li><a href="#ssh">SSH</a></li>
     </ul>
   </li>
+  <li><a href="#first-steps">First steps</a>
+    <ul>
+      <li><a href="#neovim">NEOVIM</a></li>
+      <li><a href="#bashrc-aliases-etc">.BASHRC (aliases etc)</a></li>
+      <li><a href="#ranger">RANGER</a></li>
+    </ul>
+  </li>
   <li><a href="#omv-extras">OMV-Extras</a></li>
+  <li><a href="#snapraid">SnapRaid</a></li>
+  <li><a href="#mergerfs">MergerFS</a></li>
   <li><a href="#env">.env</a></li>
   <li><a href="#media-server">MEDIA SERVER</a>
     <ul>
@@ -134,8 +143,6 @@ pre {
       <li><a href="#wetty">WeTTY</a></li>
     </ul>
   </li>
-  <li><a href="#snapraid">SnapRAID</a></li>
-  <li><a href="#mergerfs">MergerFS</a></li>
   <li><a href="#email-notifications">Email Notifications</a></li>
   <li><a href="#glance-dashboard">Glance (Dashboard)</a></li>
 </ul>
@@ -192,45 +199,132 @@ pre {
 
 <hr />
 
-<h1 id="omv-extras">OMV-Extras</h1>
+<h1 id="first-steps">First steps</h1>
 
 <ul>
-  <li>We need to install omv-extras in order to install docker.</li>
-  <li>On your server (which you ssh into), type:</li>
-  <li><code class="language-plaintext highlighter-rouge">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</code></li>
+  <li>SSH into server</li>
+  <li><code class="language-plaintext highlighter-rouge">apt update</code></li>
+  <li><code class="language-plaintext highlighter-rouge">apt install neovim ranger file git curl unzip -y</code></li>
 </ul>
 
-<hr />
+<h2 id="neovim">NEOVIM</h2>
 
-<h1 id="env">.env</h1>
+<ul>
+  <li>create or edit <code class="language-plaintext highlighter-rouge">/etc/profile.d/editor.sh</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">nvim /etc/profile.d/editor.sh</code>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export EDITOR="nvim"
+export VISUAL="nvim"
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">source /etc/profile.d/editor.sh</code></li>
+  <li><code class="language-plaintext highlighter-rouge">update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60</code></li>
+  <li><code class="language-plaintext highlighter-rouge">update-alternatives --config editor</code></li>
+  <li>choose the nvim option</li>
+  <li>check if <code class="language-plaintext highlighter-rouge">echo $EDITOR</code> gives <code class="language-plaintext highlighter-rouge">nvim</code></li>
+</ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ARRPATH=/srv/mergerfs/MEDIA/data/Arr/
+<h2 id="bashrc-aliases-etc">.BASHRC (aliases etc)</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nvim .bashrc</code> (it’s in the /root folder)
+```
+    <h1 id="added-by-openmediavault-httpswwwopenmediavaultorg">Added by openmediavault (https://www.openmediavault.org).</h1>
+    <p>if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+      . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+      . /etc/bash_completion
+  fi
+fi</p>
+    <h1 id="bashrc-executed-by-bash1-for-non-login-shells">~/.bashrc: executed by bash(1) for non-login shells.</h1>
+  </li>
+</ul>
+
+<h1 id="note-ps1-and-umask-are-already-set-in-etcprofile-you-should-not">Note: PS1 and umask are already set in /etc/profile. You should not</h1>
+<h1 id="need-this-unless-you-want-different-defaults-for-root">need this unless you want different defaults for root.</h1>
+<h1 id="ps1debian_chrootdebian_chroothw-">PS1=’${debian_chroot:+($debian_chroot)}\h:\w$ ‘</h1>
+<h1 id="umask-022">umask 022</h1>
+
+<p>export TERM=xterm-256color</p>
+
+<h1 id="you-may-uncomment-the-following-lines-if-you-want-ls-to-be-colorized">You may uncomment the following lines if you want `ls’ to be colorized:</h1>
+<p>export LS_OPTIONS=’–color=auto’
+ eval “$(dircolors)”
+ alias ls=’ls $LS_OPTIONS’
+ alias ll=’ls $LS_OPTIONS -l’
+ alias l=’ls $LS_OPTIONS -lA’
+#</p>
+<h1 id="some-more-alias-to-avoid-making-mistakes">Some more alias to avoid making mistakes:</h1>
+<p>alias rm=’rm -i’
+ alias cp=’cp -i’
+ alias mv=’mv -i’</p>
+
+<p>alias f=’ranger –choosedir=$HOME/.rangerdir; LASTDIR=<code class="language-plaintext highlighter-rouge">cat $HOME/.rangerdir</code>; cd “$LASTDIR”’
+ alias v=’nvim’</p>
+
+<p>alias ..=’cd ..’
+alias …=’cd ../..’
+alias ….=’cd ../../..’</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## RANGER
+
+- all the above plus:
+- `ranger --copy-config=all` to copy the config files
+
+---
+
+# OMV-Extras
+
+- We need to install omv-extras in order to install docker.
+- On your server (which you ssh into), type:
+- `wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash`
+
+---
+
+# SnapRaid
+
+[https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:snapraid](https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:snapraid)
+
+# MergerFS
+
+[https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:mergerfs](https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:mergerfs)
+
+---
+
+# .env
+
 </code></pre></div></div>
+<p>ARRPATH=/srv/mergerfs/MEDIA/data/Arr/
+CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+---
 
-<hr />
+# MEDIA SERVER
 
-<h1 id="media-server">MEDIA SERVER</h1>
+## Arr Stack
 
-<h2 id="arr-stack">Arr Stack</h2>
+### Bazarr
 
-<h3 id="bazarr">Bazarr</h3>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
-  <span class="na">bazarr</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">lscr.io/linuxserver/bazarr:latest</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">bazarr</span>
-    <span class="na">environment</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">PUID=1000</span>
-      <span class="pi">-</span> <span class="s">PGID=100</span>
-      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
-      <span class="pi">-</span> <span class="s">UMASK_SET=022</span>
-    <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Bazarr/config:/config</span>      
-      <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/Movies</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/TVShows</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">6767:6767</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+```yaml
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ=America/New_York
+      - UMASK_SET=022
+    volumes:
+      - ${ARRPATH}Bazarr/config:/config      
+      - ${ARRPATH}Radarr/movies:/data/Movies
+      - ${ARRPATH}Sonarr/tvshows:/data/TVShows
+    ports:
+      - 6767:6767
+    restart: unless-stopped
 </code></pre></div></div>
 
 <p>I had to adjust the path in bazarr so it could “see” sonarr and radarr folders, even though I had it in the environments. After that, it worked like a charm.</p>
@@ -444,6 +538,16 @@ pre {
       <span class="na">start_period</span><span class="pi">:</span> <span class="s">15s</span>
 </code></pre></div></div>
 
+<p>When first installed, the user will be admin, and the password will be in the logs.</p>
+
+<p>On Settings -&gt; Advanced, change the “Network Interface” to tun0.</p>
+
+<p>Very important if using MergerFS:</p>
+<ul>
+  <li>in the OMV7 WebGUI, go to Storage -&gt; mergerfs -&gt; edit</li>
+  <li>in options, change to <code class="language-plaintext highlighter-rouge">defaults,cache.files=partial</code></li>
+</ul>
+
 <hr />
 
 <h3 id="soulseek">Soulseek</h3>
@@ -479,7 +583,7 @@ pre {
       <span class="pi">-</span> <span class="s">PGID=100</span>
       <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Jellyfin/config:/config</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Jellyfin/config:/config</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/Movies</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/TVShows</span>
       <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data/Media:/data/Media</span>
@@ -489,6 +593,10 @@ pre {
       <span class="pi">-</span> <span class="s">1900:1900/udp</span> <span class="c1">#Client Discovery</span>
     <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
 </code></pre></div></div>
+
+<p>After installing Jellyfin, when opening the WebGUI, you might be faced with a login page instead of the setup wizard. If that’s the case, just refresh the page (maybe more than once), and you’ll get the setup wizard.</p>
+
+<p>An important point is to have the <code class="language-plaintext highlighter-rouge">/config</code> folder not pointed to the MergerFS path, but to an actual path (like <code class="language-plaintext highlighter-rouge">/srv/xxxxxx/</code></p>
 
 <hr />
 
@@ -945,14 +1053,6 @@ sudo systemctl stop systemd-resolved
 <p>Name it <code class="language-plaintext highlighter-rouge">my-net</code>, as shown in the docker-compose file above.</p>
 
 <p>To run it, the address needs to be followed by <code class="language-plaintext highlighter-rouge">/wetty</code> like this: <code class="language-plaintext highlighter-rouge">http://10.0.0.90:3000/wetty</code></p>
-
-<hr />
-
-<h1 id="snapraid">SnapRAID</h1>
-
-<hr />
-
-<h1 id="mergerfs">MergerFS</h1>
 
 <hr />
 
