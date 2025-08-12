@@ -95,6 +95,7 @@ pre {
   <li><a href="#omv-extras">OMV-Extras</a></li>
   <li><a href="#snapraid">SnapRaid</a></li>
   <li><a href="#mergerfs">MergerFS</a></li>
+  <li><a href="#very-important">VERY IMPORTANT!!!</a></li>
   <li><a href="#env">.env</a></li>
   <li><a href="#media-server">MEDIA SERVER</a>
     <ul>
@@ -104,8 +105,8 @@ pre {
           <li><a href="#prowlarr">Prowlarr</a></li>
           <li><a href="#radarr">Radarr</a></li>
           <li><a href="#sonarr">Sonarr</a></li>
-          <li><a href="#lidarr">Lidarr</a></li>
           <li><a href="#huntarr">Huntarr</a></li>
+          <li><a href="#cleanuparr">Cleanuparr</a></li>
           <li><a href="#flaresolverr">Flaresolverr</a></li>
         </ul>
       </li>
@@ -229,102 +230,118 @@ export VISUAL="nvim"
 <h2 id="bashrc-aliases-etc">.BASHRC (aliases etc)</h2>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">nvim .bashrc</code> (it’s in the /root folder)
-```
-    <h1 id="added-by-openmediavault-httpswwwopenmediavaultorg">Added by openmediavault (https://www.openmediavault.org).</h1>
-    <p>if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-      . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-      . /etc/bash_completion
-  fi
-fi</p>
-    <h1 id="bashrc-executed-by-bash1-for-non-login-shells">~/.bashrc: executed by bash(1) for non-login shells.</h1>
+  <li><code class="language-plaintext highlighter-rouge">nvim .bashrc</code> (it’s in the /root folder)</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Added by openmediavault (https://www.openmediavault.org).
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+fi
+# ~/.bashrc: executed by bash(1) for non-login shells.
+ 
+# Note: PS1 and umask are already set in /etc/profile. You should not
+# need this unless you want different defaults for root.
+# PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
+# umask 022
+ 
+export TERM=xterm-256color
+ 
+# You may uncomment the following lines if you want `ls' to be colorized:
+ export LS_OPTIONS='--color=auto'
+ eval "$(dircolors)"
+ alias ls='ls $LS_OPTIONS'
+ alias ll='ls $LS_OPTIONS -l'
+ alias l='ls $LS_OPTIONS -lA'
+#
+# Some more alias to avoid making mistakes:
+ alias rm='rm -i'
+ alias cp='cp -i'
+ alias mv='mv -i'
+ 
+ alias f='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+ alias v='nvim'
+ 
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+</code></pre></div></div>
+
+<h2 id="ranger">RANGER</h2>
+
+<ul>
+  <li>all the above plus:</li>
+  <li><code class="language-plaintext highlighter-rouge">ranger --copy-config=all</code> to copy the config files</li>
+</ul>
+
+<hr />
+
+<h1 id="omv-extras">OMV-Extras</h1>
+
+<ul>
+  <li>We need to install omv-extras in order to install docker.</li>
+  <li>On your server (which you ssh into), type:</li>
+  <li><code class="language-plaintext highlighter-rouge">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</code></li>
+</ul>
+
+<hr />
+
+<h1 id="snapraid">SnapRaid</h1>
+
+<p><a href="https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:snapraid">https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:snapraid</a></p>
+
+<h1 id="mergerfs">MergerFS</h1>
+
+<p><a href="https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:mergerfs">https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:mergerfs</a></p>
+
+<hr />
+
+<h1 id="very-important">VERY IMPORTANT!!!</h1>
+
+<p>Since we’re using MergerFS, we need to make sure to:</p>
+<ul>
+  <li>Have an absolute path for container configs (see bellow on .env). If we use a mergerfs path, there’s the risk of the server trying to load the configs before the mergerfs pool starts, which can lead to a lot of trouble.</li>
+  <li>Have an absolute path to the compose shared folder that we use to configure Docker for the same reasons as above.
+    <ul>
+      <li>on the OMV WebGUI, go to Storage -&gt; Shared Folders and create a shared folder at one of the drives.</li>
+      <li>On Services -&gt; Compose -&gt; Setings, link the compose thing to the shared folder created.</li>
+    </ul>
   </li>
 </ul>
 
-<h1 id="note-ps1-and-umask-are-already-set-in-etcprofile-you-should-not">Note: PS1 and umask are already set in /etc/profile. You should not</h1>
-<h1 id="need-this-unless-you-want-different-defaults-for-root">need this unless you want different defaults for root.</h1>
-<h1 id="ps1debian_chrootdebian_chroothw-">PS1=’${debian_chroot:+($debian_chroot)}\h:\w$ ‘</h1>
-<h1 id="umask-022">umask 022</h1>
+<h1 id="env">.env</h1>
 
-<p>export TERM=xterm-256color</p>
-
-<h1 id="you-may-uncomment-the-following-lines-if-you-want-ls-to-be-colorized">You may uncomment the following lines if you want `ls’ to be colorized:</h1>
-<p>export LS_OPTIONS=’–color=auto’
- eval “$(dircolors)”
- alias ls=’ls $LS_OPTIONS’
- alias ll=’ls $LS_OPTIONS -l’
- alias l=’ls $LS_OPTIONS -lA’
-#</p>
-<h1 id="some-more-alias-to-avoid-making-mistakes">Some more alias to avoid making mistakes:</h1>
-<p>alias rm=’rm -i’
- alias cp=’cp -i’
- alias mv=’mv -i’</p>
-
-<p>alias f=’ranger –choosedir=$HOME/.rangerdir; LASTDIR=<code class="language-plaintext highlighter-rouge">cat $HOME/.rangerdir</code>; cd “$LASTDIR”’
- alias v=’nvim’</p>
-
-<p>alias ..=’cd ..’
-alias …=’cd ../..’
-alias ….=’cd ../../..’</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-## RANGER
-
-- all the above plus:
-- `ranger --copy-config=all` to copy the config files
-
----
-
-# OMV-Extras
-
-- We need to install omv-extras in order to install docker.
-- On your server (which you ssh into), type:
-- `wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash`
-
----
-
-# SnapRaid
-
-[https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:snapraid](https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:snapraid)
-
-# MergerFS
-
-[https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:mergerfs](https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:mergerfs)
-
----
-
-# .env
-
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ARRPATH=/srv/mergerfs/Merger1/data/Arr/
+CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/
 </code></pre></div></div>
-<p>ARRPATH=/srv/mergerfs/MEDIA/data/Arr/
-CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
----
 
-# MEDIA SERVER
+<hr />
 
-## Arr Stack
+<h1 id="media-server">MEDIA SERVER</h1>
 
-### Bazarr
+<h2 id="arr-stack">Arr Stack</h2>
 
-```yaml
-services:
-  bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
-    environment:
-      - PUID=1000
-      - PGID=100
-      - TZ=America/New_York
-      - UMASK_SET=022
-    volumes:
-      - ${ARRPATH}Bazarr/config:/config      
-      - ${ARRPATH}Radarr/movies:/data/Movies
-      - ${ARRPATH}Sonarr/tvshows:/data/TVShows
-    ports:
-      - 6767:6767
-    restart: unless-stopped
+<h3 id="bazarr">Bazarr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">bazarr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">lscr.io/linuxserver/bazarr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">bazarr</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+      <span class="pi">-</span> <span class="s">UMASK_SET=022</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Bazarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/Movies</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/TVShows</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">6767:6767</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
 </code></pre></div></div>
 
 <p>I had to adjust the path in bazarr so it could “see” sonarr and radarr folders, even though I had it in the environments. After that, it worked like a charm.</p>
@@ -342,14 +359,13 @@ services:
       <span class="pi">-</span> <span class="s">PGID=100</span>
       <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Prowlarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Prowlarr/config:/config</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Prowlarr/backup:/data/Backup</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
 <span class="c1">#    ports:</span>
 <span class="c1">#      - 9696:9696</span>
     <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container:gluetun"</span>      
     <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
-
 </code></pre></div></div>
 
 <p>In settings -&gt; Apps -&gt; add app -&gt; Radarr/Sonarr:</p>
@@ -372,13 +388,10 @@ services:
       <span class="pi">-</span> <span class="s">PGID=100</span>
       <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Radarr/config:/config</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/movies</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/backup:/data/Backup</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
-    <span class="na">dns</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">1.1.1.1</span>
-      <span class="pi">-</span> <span class="s">8.8.8.8</span>
     <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">7878:7878</span>
     <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
@@ -395,46 +408,20 @@ services:
     <span class="na">image</span><span class="pi">:</span> <span class="s">linuxserver/sonarr:latest</span>
     <span class="na">container_name</span><span class="pi">:</span> <span class="s">sonarr</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Sonarr/config:/config</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/backup:/data/Backup</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/tvshows</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
-    <span class="na">dns</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">1.1.1.1</span>
-      <span class="pi">-</span> <span class="s">8.8.8.8</span>
     <span class="na">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">PUID=1000</span>
       <span class="pi">-</span> <span class="s">PGID=100</span>
-      <span class="pi">-</span> <span class="s">TZ=${TZ}</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
     <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">8989:8989</span>
     <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
 </code></pre></div></div>
 
 <p>Added <code class="language-plaintext highlighter-rouge">dns:</code> element because of some issues with my setup.</p>
-
-<hr />
-
-<h3 id="lidarr">Lidarr</h3>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
-  <span class="na">lidarr</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">linuxserver/lidarr:latest</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">lidarr</span>
-    <span class="na">hostname</span><span class="pi">:</span> <span class="s">lidarr</span>
-    <span class="na">environment</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">PUID=1000</span>
-      <span class="pi">-</span> <span class="s">PGID=100</span>
-      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
-    <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Lidarr/config:/config</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Lidarr/music:/data/musicfolder</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Soulseek/downloads:/data/musicfolder2</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">8686:8686</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
-</code></pre></div></div>
 
 <hr />
 
@@ -448,9 +435,38 @@ services:
     <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">9705:9705"</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}Huntarr:/config</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Huntarr:/config</span>
     <span class="na">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="cleanuparr">Cleanuparr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">cleanuparr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/cleanuparr/cleanuparr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">cleanuparr</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">11011:11011"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Cleanuparr/config:/config</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PORT=11011</span>
+      <span class="pi">-</span> <span class="s">BASE_PATH=</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">UMASK=022</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="c1"># Health check configuration</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">CMD"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">curl"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">-f"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">http://10.0.0.90:11011/health"</span><span class="pi">]</span>
+      <span class="na">interval</span><span class="pi">:</span> <span class="s">30s</span>        <span class="c1"># Check every 30 seconds</span>
+      <span class="na">timeout</span><span class="pi">:</span> <span class="s">10s</span>         <span class="c1"># Allow up to 10 seconds for response</span>
+      <span class="na">start_period</span><span class="pi">:</span> <span class="s">30s</span>    <span class="c1"># Wait 30 seconds before first check</span>
+      <span class="na">retries</span><span class="pi">:</span> <span class="m">3</span>           <span class="c1"># Mark unhealthy after 3 consecutive failures</span>
 </code></pre></div></div>
 
 <hr />
@@ -459,15 +475,17 @@ services:
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
   <span class="na">flaresolverr</span><span class="pi">:</span>
+    <span class="c1"># DockerHub mirror flaresolverr/flaresolverr:latest</span>
     <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/flaresolverr/flaresolverr:latest</span>
     <span class="na">container_name</span><span class="pi">:</span> <span class="s">flaresolverr</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container:gluetun"</span>
     <span class="na">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">LOG_LEVEL=${LOG_LEVEL:-info}</span>
       <span class="pi">-</span> <span class="s">LOG_HTML=${LOG_HTML:-false}</span>
       <span class="pi">-</span> <span class="s">CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}</span>
       <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">8191:8191</span>
+<span class="c1">#    ports:</span>
+<span class="c1">#      - 8191:8191</span>
     <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
 </code></pre></div></div>
 
@@ -486,17 +504,18 @@ services:
     <span class="na">devices</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">/dev/net/tun:/dev/net/tun</span>
     <span class="na">ports</span><span class="pi">:</span>
- <span class="c1">#      - 8888:8888/tcp # HTTP proxy Remove if not using    </span>
+<span class="c1">#      - 8888:8888/tcp # HTTP proxy Remove if not using    </span>
       <span class="pi">-</span> <span class="s">8080:8080</span> <span class="c1"># qbittorrent web interface</span>
       <span class="pi">-</span> <span class="s">6081:6881</span>
       <span class="pi">-</span> <span class="s">6081:6881/udp</span>
       <span class="pi">-</span> <span class="s">6011:6011</span>
       <span class="pi">-</span> <span class="s">9696:9696</span> <span class="c1"># prowlarr</span>
+      <span class="pi">-</span> <span class="s">8191:8191</span> <span class="c1">#flaresolverr</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677/configs/gluetun:/config</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Gluetun:/config</span>
     <span class="na">environment</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">FIREWALL_OUTBOUND_SUBNETS=172.17.0.0/16</span>
- <span class="c1">#      - HTTPPROXY=on #Remove if not using for HTTP proxy    </span>
+      <span class="pi">-</span> <span class="s">FIREWALL_OUTBOUND_SUBNETS=[REDACTED]</span>
+<span class="c1">#      - HTTPPROXY=on #Remove if not using for HTTP proxy    </span>
       <span class="pi">-</span> <span class="s">VPN_SERVICE_PROVIDER=mullvad</span>
       <span class="pi">-</span> <span class="s">VPN_TYPE=wireguard</span>
       <span class="pi">-</span> <span class="s">WIREGUARD_PRIVATE_KEY=[REDACTED]</span>
@@ -526,7 +545,7 @@ services:
     <span class="na">labels</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">com.centurylinklabs.watchtower.enable=false"</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${ARRPATH}qbittorrent/config:/config</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Qbittorrent/config:/config</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
     <span class="na">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">PUID=1000</span>
@@ -563,7 +582,7 @@ services:
       <span class="pi">-</span> <span class="s">50300:50300/tcp</span>
     <span class="na">volumes</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Soulseek:/app:rw</span>
-      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data2/nextcloud/data/omk/files/OMK-FW/manzano@bgsu.edu/OneDrive Biz/Music/Popular Music:/music:rw</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/Music/Popular Music:/music:rw</span>
     <span class="na">user</span><span class="pi">:</span> <span class="s">1000:100</span>
     <span class="na">image</span><span class="pi">:</span> <span class="s">slskd/slskd:latest</span>
 </code></pre></div></div>
@@ -586,7 +605,6 @@ services:
       <span class="pi">-</span> <span class="s">${CONFIGS}Jellyfin/config:/config</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/Movies</span>
       <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/TVShows</span>
-      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data/Media:/data/Media</span>
     <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">8096:8096</span>
       <span class="pi">-</span> <span class="s">7359:7359/udp</span> <span class="c1">#Service Discovery</span>
@@ -612,9 +630,8 @@ services:
  <span class="s">12       - PGID=100</span>
  <span class="s">13       - DARK_MODE=1</span>
  <span class="na">14     volumes</span><span class="pi">:</span>
- <span class="s">15       - /srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677/configs/</span>
-    <span class="s">/filebot:/config</span>
- <span class="s">16       - /srv/mergerfs/MEDIA:/storage</span>
+ <span class="s">15       - ${CONFIGS}Filebot/config:/config</span>
+ <span class="s">16       - ${ARRPATH}Filebot:/storage</span>
 </code></pre></div></div>
 
 <p>You need to pay for FileBot, but from my experience, it’s the best tool to rename files to be Jellyfin compliant.</p>
@@ -928,7 +945,7 @@ DB_PORT=5432
       <span class="pi">-</span> <span class="s">TS_USERSPACE=false</span>
       <span class="pi">-</span> <span class="s">TS_EXTRA_ARGS=--accept-dns=false</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677/configs/tailscale/ts-authkey-test/state:/var/lib/tailscale</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Tailscale/ts-authkey-test/state:/var/lib/tailscale</span>
     <span class="na">devices</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">/dev/net/tun:/dev/net/tun</span>
     <span class="na">cap_add</span><span class="pi">:</span>
@@ -995,33 +1012,33 @@ sudo systemctl stop systemd-resolved
 
 <h2 id="omni-tools">Omni-tools</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>services:
-  omni-tools:
-    image: iib0011/omni-tools:latest
-    container_name: omni-tools
-    restart: unless-stopped
-    ports:
-      - "8484:80"
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">omni-tools</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">iib0011/omni-tools:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">omni-tools</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8484:80"</span>
 </code></pre></div></div>
 
 <hr />
 
 <h2 id="stirling-pdf">Stirling-PDF</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>services:
-  stirling-pdf:
-    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
-    ports:
-      - '8083:8080'
-    volumes:
-      - /srv/mergerfs/MEDIA/data//StirlingPDF/trainingData:/usr/share/tessdata # Required for extra OCR languages
-      - /srv/mergerfs/MEDIA/data//StirlingPDF/extraConfigs:/configs
-      - /srv/mergerfs/MEDIA/data//StirlingPDF/customFiles:/customFiles/
-      - /srv/mergerfs/MEDIA/data//StirlingPDF/logs:/logs/
-      - /srv/mergerfs/MEDIA/data//StirlingPDF/pipeline:/pipeline/
-    environment:
-      - DOCKER_ENABLE_SECURITY=false
-      - LANGS=en_US
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">stirling-pdf</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">8083:8080'</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/trainingData:/usr/share/tessdata</span> <span class="c1"># Required for extra OCR languages</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/extraConfigs:/configs</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/customFiles:/customFiles/</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/logs:/logs/</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/pipeline:/pipeline/</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">DOCKER_ENABLE_SECURITY=false</span>
+      <span class="pi">-</span> <span class="s">LANGS=en_US</span>
 </code></pre></div></div>
 
 <hr />
@@ -1088,12 +1105,8 @@ sudo systemctl stop systemd-resolved
     <span class="na">image</span><span class="pi">:</span> <span class="s">glanceapp/glance</span>
     <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
     <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/configs/glance:/app/config</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Glance:/app/config</span>
       <span class="pi">-</span> <span class="s">/var/run/docker.sock:/var/run/docker.sock</span>
-      <span class="c1"># for mountpoint stats in the server stats widget</span>
-      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677:/srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677:ro</span>
-      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-d657f449-9e05-43a7-840f-756115e9855c:/srv/dev-disk-by-uuid-d657f449-9e05-43a7-840f-756115e9855c:ro</span>
-      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-302b9dbb-571f-4368-97bf-cdfc98f4769e:/srv/dev-disk-by-uuid-302b9dbb-571f-4368-97bf-cdfc98f4769e:ro</span>
     <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">3030:8080</span>
 </code></pre></div></div>
@@ -1191,31 +1204,6 @@ pages:
                 url: http://10.0.0.90:5800
                 icon: di:filebot
 
-          - type: dns-stats
-            service: pihole-v6
-            password: [REDACTED]
-            url: http://10.0.0.90
-            allow-insecure: true
-
-          - type: server-stats
-            servers:
-              - type: local
-                name: Services
-                hide-mountpoints-by-default: true
-                mountpoints:
-                  "/srv/mergerfs/MEDIA":
-                    name: MergerFS
-                    hide: true
-                  "/srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677":
-                    name: Media
-                    hide: false
-                  "/srv/dev-disk-by-uuid-d657f449-9e05-43a7-840f-756115e9855c":
-                    name: Nextcloud
-                    hide: false
-                  "/srv/dev-disk-by-uuid-302b9dbb-571f-4368-97bf-cdfc98f4769e":
-                    name: Parity
-                    hide: true
-
           - type: clock
             hour-format: 24h
             timezones:
@@ -1291,12 +1279,6 @@ pages:
               - title: FileBot
                 url: http://[REDACTED]:5800
                 icon: di:filebot
-
-          - type: dns-stats
-            service: pihole-v6
-            password: [REDACTED]
-            url: http://[REDACTED]
-            allow-insecure: true
 
           - type: calendar
             first-day-of-week: sunday
