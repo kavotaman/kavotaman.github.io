@@ -172,6 +172,11 @@
       <li><a href="#installation">Installation</a></li>
     </ul>
   </li>
+  <li><a href="#change-dns-server">Change DNS server</a>
+    <ul>
+      <li><a href="#nextdns-systemd-resolved">NextDNS systemd-resolved</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- vim-markdown-toc -->
@@ -814,6 +819,24 @@ When there’s a new release, I need to manually update it</p>
 </ul>
 
 <p><a href="#top">top</a></p>
+
+<hr />
+
+<h1 id="change-dns-server">Change DNS server</h1>
+
+<h2 id="nextdns-systemd-resolved">NextDNS systemd-resolved</h2>
+
+<p>Use the following in /etc/systemd/resolved.conf:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Resolve]
+DNS=45.90.28.0#dffb84.dns.nextdns.io
+DNS=2a07:a8c0::#dffb84.dns.nextdns.io
+DNS=45.90.30.0#dffb84.dns.nextdns.io
+DNS=2a07:a8c1::#dffb84.dns.nextdns.io
+DNSOverTLS=yes
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">sudo systemctl restart systemd-resolved</code></p>
 
   </div>
 

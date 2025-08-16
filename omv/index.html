@@ -144,6 +144,7 @@ pre {
       <li><a href="#wetty">WeTTY</a></li>
     </ul>
   </li>
+  <li><a href="#fmhy">FMHY</a></li>
   <li><a href="#email-notifications">Email Notifications</a></li>
   <li><a href="#glance-dashboard">Glance (Dashboard)</a></li>
 </ul>
@@ -233,49 +234,59 @@ export VISUAL="nvim"
   <li><code class="language-plaintext highlighter-rouge">nvim .bashrc</code> (it’s in the /root folder)</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Added by openmediavault (https://www.openmediavault.org).
-if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
-fi
-# ~/.bashrc: executed by bash(1) for non-login shells.
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Added by openmediavault (https://www.openmediavault.org).</span>
+<span class="k">if</span> <span class="o">!</span> <span class="nb">shopt</span> <span class="nt">-oq</span> posix<span class="p">;</span> <span class="k">then
+    if</span> <span class="o">[</span> <span class="nt">-f</span> /usr/share/bash-completion/bash_completion <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">.</span> /usr/share/bash-completion/bash_completion
+    <span class="k">elif</span> <span class="o">[</span> <span class="nt">-f</span> /etc/bash_completion <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">.</span> /etc/bash_completion
+    <span class="k">fi
+fi</span>
+<span class="c"># ~/.bashrc: executed by bash(1) for non-login shells.</span>
  
-# Note: PS1 and umask are already set in /etc/profile. You should not
-# need this unless you want different defaults for root.
-# PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
-# umask 022
+<span class="c"># Note: PS1 and umask are already set in /etc/profile. You should not</span>
+<span class="c"># need this unless you want different defaults for root.</span>
+<span class="c"># PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '</span>
+<span class="c"># umask 022</span>
  
-export TERM=xterm-256color
+<span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span>xterm-256color
  
-# You may uncomment the following lines if you want `ls' to be colorized:
- export LS_OPTIONS='--color=auto'
- eval "$(dircolors)"
- alias ls='ls $LS_OPTIONS'
- alias ll='ls $LS_OPTIONS -l'
- alias l='ls $LS_OPTIONS -lA'
-#
-# Some more alias to avoid making mistakes:
- alias rm='rm -i'
- alias cp='cp -i'
- alias mv='mv -i'
+<span class="c"># You may uncomment the following lines if you want `ls' to be colorized:</span>
+ <span class="nb">export </span><span class="nv">LS_OPTIONS</span><span class="o">=</span><span class="s1">'--color=auto'</span>
+ <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">dircolors</span><span class="si">)</span><span class="s2">"</span>
+ <span class="nb">alias ls</span><span class="o">=</span><span class="s1">'ls $LS_OPTIONS'</span>
+ <span class="nb">alias </span><span class="nv">ll</span><span class="o">=</span><span class="s1">'ls $LS_OPTIONS -l'</span>
+ <span class="nb">alias </span><span class="nv">l</span><span class="o">=</span><span class="s1">'ls $LS_OPTIONS -lA'</span>
+<span class="c">#</span>
+<span class="c"># Some more alias to avoid making mistakes:</span>
+ <span class="nb">alias rm</span><span class="o">=</span><span class="s1">'rm -i'</span>
+ <span class="nb">alias cp</span><span class="o">=</span><span class="s1">'cp -i'</span>
+ <span class="nb">alias mv</span><span class="o">=</span><span class="s1">'mv -i'</span>
  
- alias f='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
- alias v='nvim'
+ <span class="nb">alias </span><span class="nv">f</span><span class="o">=</span><span class="s1">'ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'</span>
+ <span class="nb">alias </span><span class="nv">v</span><span class="o">=</span><span class="s1">'nvim'</span>
  
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
+<span class="nb">alias</span> ..<span class="o">=</span><span class="s1">'cd ..'</span>
+<span class="nb">alias</span> ...<span class="o">=</span><span class="s1">'cd ../..'</span>
+<span class="nb">alias</span> ....<span class="o">=</span><span class="s1">'cd ../../..'</span>
 </code></pre></div></div>
+
+<hr />
 
 <h2 id="ranger">RANGER</h2>
 
 <ul>
   <li>all the above plus:</li>
   <li><code class="language-plaintext highlighter-rouge">ranger --copy-config=all</code> to copy the config files</li>
+  <li>open ranger, type <code class="language-plaintext highlighter-rouge">gR</code></li>
+  <li>change to <code class="language-plaintext highlighter-rouge">True</code>”</li>
 </ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if fm.username == 'root':
+     fm.settings.preview_files = True
+     fm.settings.use_preview_script = True
+     fm.log.appendleft("Running as root, disabling the file previews.")
+</code></pre></div></div>
 
 <hr />
 
@@ -1072,6 +1083,23 @@ sudo systemctl stop systemd-resolved
 <p>To run it, the address needs to be followed by <code class="language-plaintext highlighter-rouge">/wetty</code> like this: <code class="language-plaintext highlighter-rouge">http://10.0.0.90:3000/wetty</code></p>
 
 <hr />
+
+<p>#FMHY</p>
+
+<ul>
+  <li>create folder somewhere</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/fmhy/edit.git
+cd edit
+sudo docker compose up --build
+</code></pre></div></div>
+
+<ul>
+  <li>to run:</li>
+  <li><code class="language-plaintext highlighter-rouge">cd /srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/FMHY/edit</code></li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose up --detach</code></li>
+</ul>
 
 <h1 id="email-notifications">Email Notifications</h1>
 
