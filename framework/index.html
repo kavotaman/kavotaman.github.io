@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FWJK9XZLFC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FWJK9XZLFC');
+</script>
+  
+<!-- Google tag (gtag.js) -->
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>framework | otávio mk</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="framework" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="otávio manzano kavakama - cello" />
+<meta property="og:description" content="otávio manzano kavakama - cello" />
+<link rel="canonical" href="https://otaviomk.com/framework/" />
+<meta property="og:url" content="https://otaviomk.com/framework/" />
+<meta property="og:site_name" content="otávio mk" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="framework" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"framework","url":"https://otaviomk.com/framework/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a style="color:#fca311" class="site-title" rel="author" href="/">otávio mk</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">about</a><a class="page-link" href="/media/">media</a><a class="page-link" href="/works/">works</a><a class="page-link" href="/contact/">contact</a><a class='page-link page-link-flag' href="">
+                    <img src="/assets/flag_br.jpg" style="height: 20px; border-radius: 50%;"></a>
+        </div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">framework</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="if-you-got-here-from-google-or-the-like-please-be-aware-that-this-is-for-my-own-use-and-many-things-in-here-could-be-out-of-date-or-not-work-at-all">If you got here from google or the like, please be aware that this is for my own use, and many things in here could be out of date or not work at all.</h2>
+
+<!-- vim-markdown-toc Redcarpet -->
+
+<ul>
+  <li><a href="#arch-install-on-framework-laptop">ARCH INSTALL ON FRAMEWORK LAPTOP</a>
+    <ul>
+      <li><a href="#packages-to-install">Packages to install:</a></li>
+      <li><a href="#tty2">tty2</a></li>
+      <li><a href="#intel-drivers">Intel drivers</a></li>
+      <li><a href="#screen-resolution">Screen Resolution</a></li>
+      <li><a href="#screen-tearing">Screen Tearing</a></li>
+      <li><a href="#power-management">Power Management</a>
+        <ul>
+          <li><a href="#disable-screen-blanking">Disable Screen Blanking</a></li>
+        </ul>
+      </li>
+      <li><a href="#screenlock">Screenlock</a></li>
+      <li><a href="#appearance">Appearance</a></li>
+      <li><a href="#battery-cap-in-bios">Battery Cap in BIOS</a></li>
+      <li><a href="#cpu-scaling-governors">CPU Scaling Governors</a></li>
+      <li><a href="#backlight">Backlight</a></li>
+      <li><a href="#trash-management">Trash Management</a></li>
+      <li><a href="#update-pacman-mirrorlist">Update Pacman mirrorlist</a></li>
+      <li><a href="#fix-wakeup">Fix Wakeup</a></li>
+      <li><a href="#fix-mouse-lag">Fix mouse lag</a></li>
+      <li><a href="#bluetooth">Bluetooth</a></li>
+      <li><a href="#cursor-behavior-fix">Cursor Behavior Fix</a></li>
+      <li><a href="#polkit">Polkit</a></li>
+      <li><a href="#audio">AUDIO</a>
+        <ul>
+          <li><a href="#pipewire">Pipewire</a></li>
+        </ul>
+      </li>
+      <li><a href="#grub">GRUB</a></li>
+      <li><a href="#tips">TIPS</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- vim-markdown-toc -->
+
+<h1 id="arch-install-on-framework-laptop">ARCH INSTALL ON FRAMEWORK LAPTOP</h1>
+
+<hr />
+
+<p>Follow the script - <code class="language-plaintext highlighter-rouge">archinstall</code> on tty</p>
+
+<hr />
+
+<h2 id="packages-to-install">Packages to install:</h2>
+<ul>
+  <li>neovim, firefox, git, ranger, pcmanfm, timeshift(AUR), nitrogen, neofetch, xclip</li>
+  <li>yay: <code class="language-plaintext highlighter-rouge">https://github.com/Jguer/yay</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="tty2">tty2</h2>
+<ul>
+  <li>ctrl+alt+F2 in login screen</li>
+  <li>NetworkManager: <code class="language-plaintext highlighter-rouge">nmtui</code></li>
+  <li>to create uder folders: <code class="language-plaintext highlighter-rouge">xdg-user-dirs-update</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="intel-drivers">Intel drivers</h2>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">intel-media-driver intel-gpu-tools xf86-video-intel</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="screen-resolution">Screen Resolution</h2>
+<ul>
+  <li>run <code class="language-plaintext highlighter-rouge">cvt 1632 1088</code> and copy everything after <strong>Modeline</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">xrandr --newmode [STUFF COPIED]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xrandr --addmode eDP1 [RESOLUTION_60.00]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xrandr --output eDP1 --mode [RESOLUTION_60.00]</code></li>
+  <li>make changes permanent, add to <code class="language-plaintext highlighter-rouge">/etc/X11/xorg.conf.d/40-monitor.conf</code>:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "Monitor"
+    Identifier "eDP1"
+    Modeline .....
+    Option "PreferredMode" "[RESOLUTION_60.00]"
+EndSection
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="screen-tearing">Screen Tearing</h2>
+
+<ul>
+  <li>add to <code class="language-plaintext highlighter-rouge">/etc/X11/xorg.conf.d/20-intel.conf</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "Device"
+  Identifier "Intel Graphics"
+  Driver "intel"
+  Option "TearFree" "true"
+EndSection
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="power-management">Power Management</h2>
+
+<ul>
+  <li>From Power Management
+    <ul>
+      <li>install <code class="language-plaintext highlighter-rouge">tlp powertop</code>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">systemctl enable tlp</code></li>
+          <li>sudo tlp start</li>
+          <li>check tlp website</li>
+          <li>tlp config at <code class="language-plaintext highlighter-rouge">/etc/tlp.conf</code></li>
+        </ul>
+      </li>
+      <li>powertop (only as monitor):
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">sudo powertop --calibrate</code></li>
+          <li><code class="language-plaintext highlighter-rouge">sudo powertop</code> to monitor</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="disable-screen-blanking">Disable Screen Blanking</h3>
+
+<p>Run on startup (here, on bspwmrc):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xset s off -dpms &amp;
+xset s noblank &amp;
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="screenlock">Screenlock</h2>
+<ul>
+  <li>do <code class="language-plaintext highlighter-rouge">sudo nvim /etc/systemd/system/sleep@omk.service</code></li>
+  <li>write:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+Description=Lock the screen
+Before=sleep.target
+ 
+[Service]
+User=%I
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/i3lock -c 000000
+ 
+[Install]
+WantedBy=sleep.target
+</code></pre></div></div>
+
+<ul>
+  <li>run <code class="language-plaintext highlighter-rouge">sudo systemctl enable sleep@omk.service</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="appearance">Appearance</h2>
+<ul>
+  <li>gtk3, gtk4, qt6-base, qt5-base, lxappearance-gtk3, kvantum, breeze</li>
+  <li>Get rid of fadings when switching workspaces
+    <ul>
+      <li>in <code class="language-plaintext highlighter-rouge">picom.conf</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+fading = false;
+fade-delta = 0;
+fade-in-step = 1;
+fade-out-step = 1;
+...
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="battery-cap-in-bios">Battery Cap in BIOS</h2>
+
+<p>Pra acessar BIOS: F2 (Fn F2)</p>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="cpu-scaling-governors">CPU Scaling Governors</h2>
+
+<ul>
+  <li>install <code class="language-plaintext highlighter-rouge">cpupwoer</code></li>
+  <li>enable and start cpupower.service</li>
+  <li>for performance: <code class="language-plaintext highlighter-rouge">sudo cpupower frequency-set -g performance</code></li>
+  <li>for powersave: <code class="language-plaintext highlighter-rouge">sudo cpupower frequency-set -g powersave</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="backlight">Backlight</h2>
+<ul>
+  <li>add to <code class="language-plaintext highlighter-rouge">/etc/udev/rules.d/90-backlight.rules</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SUBSYSTEM=="backlight", ACTION=="add", \
+  RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness", \
+  RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+</code></pre></div></div>
+
+<ul>
+  <li>add user to video group: <code class="language-plaintext highlighter-rouge">sudo usermod -a -G video $LOGNAME</code></li>
+  <li>reboot</li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="trash-management">Trash Management</h2>
+
+<ul>
+  <li>install <code class="language-plaintext highlighter-rouge">trash-cli</code>
+    <ul>
+      <li>commands: <code class="language-plaintext highlighter-rouge">trash-put [FILE]</code>; <code class="language-plaintext highlighter-rouge">trash-list</code>; <code class="language-plaintext highlighter-rouge">trash-empty</code>; <code class="language-plaintext highlighter-rouge">trash-restore</code></li>
+    </ul>
+  </li>
+  <li>For PCManFM, install <code class="language-plaintext highlighter-rouge">gvfs</code></li>
+</ul>
+
+<hr />
+
+<h2 id="update-pacman-mirrorlist">Update Pacman mirrorlist</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="fix-wakeup">Fix Wakeup</h2>
+
+<ul>
+  <li>check devices <code class="language-plaintext highlighter-rouge">cat /proc/acpi/wakeup</code></li>
+  <li>disable with <code class="language-plaintext highlighter-rouge">echo XXX &gt;&gt; /proc/acpi/wakeup</code>
+    <ul>
+      <li>for Framework, leave only <code class="language-plaintext highlighter-rouge">PWRB</code> (Power Button) enabled</li>
+    </ul>
+  </li>
+  <li>create .service file at <code class="language-plaintext highlighter-rouge">/etc/systemd/system</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+Description=fixwakeup
+
+[Service]
+ExecStart=/bin/bash -c "echo PEG0 &gt;&gt; /proc/acpi/wakeup; echo XHCI &gt;&gt; /proc/acpi/wakeup; echo RP10 &gt;&gt; /proc/acpi/wakeup; echo TXHC &gt;&gt; /proc/acpi/wakeup; echo TDM0 &gt;&gt; /proc/acpi/wakeup; echo TDM1 &gt;&gt; /proc/acpi/wakeup; echo TRP0 &gt;&gt; /proc/acpi/wakeup; echo TRP1 &gt;&gt; /proc/acpi/wakeup; echo TRP2 &gt;&gt; /proc/acpi/wakeup; echo TRP3 &gt;&gt; /proc/acpi/wakeup"
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div></div>
+
+<p>Useful list</p>
+
+<ul>
+  <li>PS2K: PS/2 keyboard</li>
+  <li>PS2M: PS/2 mouse</li>
+  <li>PWRB or PBTN: Power button</li>
+  <li>LID: Laptop lid</li>
+  <li>RP0x or EXPx: PCIE slot #x (aka PCI Express Root Port #x)</li>
+  <li>EHCx or USBx: USB 2.0 (EHCI) chip</li>
+  <li>XHC: USB 3.0 (XHCI) chip</li>
+  <li>PEGx: PCI Express for Graphics slot #x</li>
+  <li>GLAN: Gigabit Ethernet</li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="fix-mouse-lag">Fix mouse lag</h2>
+
+<ul>
+  <li>go to <code class="language-plaintext highlighter-rouge">/etc/default/grub</code></li>
+  <li>add <code class="language-plaintext highlighter-rouge">usbcore.autosuspend=-1</code> to <code class="language-plaintext highlighter-rouge">GRUB_CMDLINE_LINUX_DEFAULT="xxx yyy asdf"</code></li>
+  <li>do <code class="language-plaintext highlighter-rouge">sudo grub-mkconfig -o /boot/grub/grub.cfg</code></li>
+  <li>reboot and check if <code class="language-plaintext highlighter-rouge">cat /sys/module/usbcore/parameters/autosuspend</code> gives <code class="language-plaintext highlighter-rouge">-1</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="bluetooth">Bluetooth</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl stop bluetooth-mesh.service
+systemctl disable bluetooth-mesh.service
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">"ControllerMode = bredr"</code> in <code class="language-plaintext highlighter-rouge">/etc/bluetooth/main.conf</code></p>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="cursor-behavior-fix">Cursor Behavior Fix</h2>
+
+<ul>
+  <li>Install <code class="language-plaintext highlighter-rouge">xorg-xsetroot</code></li>
+  <li>Add <code class="language-plaintext highlighter-rouge">xsetroot -cursor_name left_ptr</code> to startup file (bspwm config file)</li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="polkit">Polkit</h2>
+
+<ul>
+  <li>Create to <code class="language-plaintext highlighter-rouge">/etc/polkit-1/rules.d/10-udisks2.rules</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Allow udisks2 to mount devices without authentication
+// for users in the "storage" group.
+polkit.addRule(function(action, subject) {
+    if ((action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
+         action.id == "org.freedesktop.udisks2.filesystem-mount") &amp;&amp;
+	subject.isInGroup("storage")) {
+        return polkit.Result.YES;
+    }
+});
+</code></pre></div></div>
+
+<ul>
+  <li>Reboot, poweroff, etc</li>
+</ul>
+
+<p>In <code class="language-plaintext highlighter-rouge">/etc/polkit-1/rules.d/10-rules.rules</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//  /etc/polkit-1/rules.d/10-rules.rules
+//  PolKit rules to allow mounting, rebooting and network management without password.
+//  User needs to be in storage, power and users groups.
+
+polkit.addRule(function(action, subject) {
+    if (action.id.match("org.freedesktop.udisks2.") &amp;&amp; subject.isInGroup("storage")) {
+        return polkit.Result.YES;
+    }
+});
+
+polkit.addRule(function(action, subject) {
+    if (action.id.match("org.freedesktop.login1.") &amp;&amp; subject.isInGroup("power")) {
+        return polkit.Result.YES;
+    }
+});
+
+polkit.addRule(function(action, subject) {
+    if (action.id.match("org.freedesktop.upower.") &amp;&amp; subject.isInGroup("power")) {
+        return polkit.Result.YES;
+    }
+});
+
+polkit.addRule(function(action, subject) {
+    if (action.id.match("org.freedesktop.NetworkManager.") &amp;&amp; subject.isInGroup("users")) {
+        return polkit.Result.YES;
+    }
+});
+
+</code></pre></div></div>
+
+<h2 id="audio">AUDIO</h2>
+
+<h3 id="pipewire">Pipewire</h3>
+
+<p>To avoid echoe, remove/comment out from <code class="language-plaintext highlighter-rouge">mpd.conf</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>audio_output {
+        type            "pipewire"
+        name            "PipeWire Sound Server"
+}
+
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="grub">GRUB</h2>
+
+<p>If shit goes down:</p>
+
+<ul>
+  <li>Boot from live USB</li>
+  <li>Mount stuff:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">mount /dev/nvme0n1p2 /mnt</code></li>
+      <li><code class="language-plaintext highlighter-rouge">mount /dev/nvme0n1p1 /mnt/boot</code> The small partition, 512MB or something</li>
+    </ul>
+  </li>
+  <li>Chroot to mounted system <code class="language-plaintext highlighter-rouge">arch-chroot /mnt</code></li>
+  <li>Mount EFI partition <code class="language-plaintext highlighter-rouge">mount /dev/nvme0n1p1 /mnt/boot/EFI</code></li>
+  <li>Then go:</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB --recheck</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">grub-mkconfig -o boot/grub/grub.cfg</code></p>
+
+<hr />
+
+<h2 id="tips">TIPS</h2>
+
+<ul>
+  <li>Keyboard Backlight: fn + space bar</li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">otávio mk</h2> -->
+
+    <!-- <div class="footer-col-wrapper"> -->
+      <!-- <div class="footer-col footer-col-1"> -->
+      <!--   <ul class="contact-list"> -->
+      <!--     <!-1- <li class="p-name"> -1-> -->
+      <!--     <!-1--1-> -->
+      <!--     <!-1-     otávio mk -1-> -->
+      <!--     <!-1--1-> -->
+      <!--     <!-1-   </li> -1-> -->
+      <!--       <!-1--1-> -->
+      <!--   </ul> -->
+      <!-- </div> -->
+
+      <!-- <div class="footer-col footer-col-2"> -->
+      <div><ul class="social-media-list">
+  <!-- <li style="display:inline"><a target="_blank" href="https://www.youtube.com/channel/UCFSm9mZHqqNlxPxyEDmPjQA"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#youtube"></use></svg> <span class="username"></span></a></li> --><li style="display:inline"><a target="_blank" href="https://www.youtube.com/channel/UCFSm9mZHqqNlxPxyEDmPjQA">youtube</a></li>
+<li style="display:inline"><a target="_blank" href="https://kavotaman.bandcamp.com">bandcamp</a></li>
+<li style="display:inline"><a target="_blank" href="https://ruidospodcast.com.br">ruidospodcast</a></li>
+<li style="display:inline"><a target="_blank" href="https://github.com/kavotaman">github</a></li>
+</ul>
+</div>
+
+      <!-- <div class="footer-col footer-col-3"> -->
+      <!--   <p>otávio manzano kavakama - cello</p> -->
+      <!-- </div> -->
+    <!-- </div> -->
+
+  </div>
+
+</footer>
+</body>
+
+</html>

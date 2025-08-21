@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FWJK9XZLFC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FWJK9XZLFC');
+</script>
+  
+<!-- Google tag (gtag.js) -->
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>linux | otávio mk</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="linux" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="otávio manzano kavakama - cello" />
+<meta property="og:description" content="otávio manzano kavakama - cello" />
+<link rel="canonical" href="https://otaviomk.com/linux/" />
+<meta property="og:url" content="https://otaviomk.com/linux/" />
+<meta property="og:site_name" content="otávio mk" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="linux" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"linux","url":"https://otaviomk.com/linux/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a style="color:#fca311" class="site-title" rel="author" href="/">otávio mk</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">about</a><a class="page-link" href="/media/">media</a><a class="page-link" href="/works/">works</a><a class="page-link" href="/contact/">contact</a><a class='page-link page-link-flag' href="">
+                    <img src="/assets/flag_br.jpg" style="height: 20px; border-radius: 50%;"></a>
+        </div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">linux</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="if-you-got-here-from-google-or-the-like-please-be-aware-that-this-is-for-my-own-use-and-many-things-in-here-could-be-out-of-date-or-not-work-at-all">If you got here from google or the like, please be aware that this is for my own use, and many things in here could be out of date or not work at all.</h2>
+
+<!-- vim-markdown-toc Redcarpet -->
+
+<ul>
+  <li><a href="#useful-stuff">Useful Stuff</a>
+    <ul>
+      <li><a href="#bash">BASH</a>
+        <ul>
+          <li><a href="#adicionar-extensão-pra-todos-os-arquivos">adicionar extensão pra todos os arquivos</a></li>
+          <li><a href="#syntax-highlighting-blesh">Syntax highlighting, Blesh</a></li>
+          <li><a href="#automount-usb-drive">Automount USB drive</a></li>
+        </ul>
+      </li>
+      <li><a href="#default-apps-xdg-mime">DEFAULT APPS - XDG, MIME</a>
+        <ul>
+          <li><a href="#file-manager-pcmanfm">File Manager (PCManFM)</a></li>
+        </ul>
+      </li>
+      <li><a href="#display-manager">DISPLAY MANAGER</a></li>
+      <li><a href="#ffmpeg">FFMPEG</a>
+        <ul>
+          <li><a href="#combine-video-audio">Combine video + audio</a></li>
+          <li><a href="#combinar-varios-arquivos-de-media-em-um-só-no-ffmpeg">combinar varios arquivos de media em um só no ffmpeg</a></li>
+          <li><a href="#batch-convert-wav-to-mp3-ogg-flac">batch convert WAV to MP3/OGG/FLAC:</a></li>
+        </ul>
+      </li>
+      <li><a href="#formatting-disks-usb">FORMATTING DISKS/USB</a>
+        <ul>
+          <li><a href="#gparted-fat32">gparted (Fat32)</a></li>
+          <li><a href="#slightly-different-terminal-method">Slightly different terminal method</a></li>
+        </ul>
+      </li>
+      <li><a href="#git">GIT</a>
+        <ul>
+          <li><a href="#setting-up-git">Setting up Git</a></li>
+          <li><a href="#remove-directory">Remove directory</a></li>
+          <li><a href="#making-existing-folder-into-a-local-git-repo">Making existing folder into a local git repo</a></li>
+        </ul>
+      </li>
+      <li><a href="#permissions">Permissions</a>
+        <ul>
+          <li><a href="#external-drive-read-write-permission">External Drive Read/Write permission</a></li>
+        </ul>
+      </li>
+      <li><a href="#nestopia">NESTOPIA</a></li>
+      <li><a href="#numlock-on-startup">NUMLOCK ON STARTUP</a></li>
+      <li><a href="#pdf">PDF</a>
+        <ul>
+          <li><a href="#pdftk">pdftk</a></li>
+        </ul>
+      </li>
+      <li><a href="#ranger">RANGER</a>
+        <ul>
+          <li><a href="#image-preview">Image Preview</a></li>
+        </ul>
+      </li>
+      <li><a href="#rsync">RSYNC</a>
+        <ul>
+          <li><a href="#music-folder-to-phone">Music folder to phone</a></li>
+        </ul>
+      </li>
+      <li><a href="#scripts">SCRIPTS</a>
+        <ul>
+          <li><a href="#generating-cv-for-jekyll-website">Generating CV (for Jekyll website)</a></li>
+          <li><a href="#generate-pdf-version-of-cv">generate pdf version of cv</a></li>
+          <li><a href="#remove-from-filenames">remove from filenames</a></li>
+          <li><a href="#run-scripts-as-apps">run scripts as apps</a></li>
+        </ul>
+      </li>
+      <li><a href="#ssh">SSH</a>
+        <ul>
+          <li><a href="#backup-and-sync">Backup and sync</a></li>
+        </ul>
+      </li>
+      <li><a href="#timeshift">TIMESHIFT</a></li>
+      <li><a href="#vim">VIM</a></li>
+    </ul>
+  </li>
+  <li><a href="#personal-configs">Personal Configs</a>
+    <ul>
+      <li><a href="#mouse">Mouse:</a></li>
+      <li><a href="#touchpad">Touchpad:</a></li>
+      <li><a href="#keyboard-layout-switch">Keyboard layout switch:</a></li>
+    </ul>
+  </li>
+  <li><a href="#packages">Packages</a></li>
+  <li><a href="#sway-wayland">Sway / Wayland</a>
+    <ul>
+      <li><a href="#arduino-ide">Arduino IDE</a></li>
+    </ul>
+  </li>
+  <li><a href="#open-media-vault">OPEN MEDIA VAULT</a>
+    <ul>
+      <li><a href="#access-modem">Access modem</a></li>
+      <li><a href="#login-in-pcmanfm">Login in PCManFM</a></li>
+      <li><a href="#update-music-folder">Update Music Folder</a></li>
+      <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
+      <li><a href="#pdanet-wifi-hotspot">PDANet WiFi Hotspot</a></li>
+    </ul>
+  </li>
+  <li><a href="#virtualbox-fix-if-memory-error">VirtualBox fix if memory error</a></li>
+  <li><a href="#pipewire">Pipewire</a>
+    <ul>
+      <li><a href="#change-sample-rate">Change sample rate</a></li>
+    </ul>
+  </li>
+  <li><a href="#musescore">Musescore</a>
+    <ul>
+      <li><a href="#update">Update</a></li>
+      <li><a href="#installation">Installation</a></li>
+    </ul>
+  </li>
+  <li><a href="#change-dns-server">Change DNS server</a>
+    <ul>
+      <li><a href="#nextdns-systemd-resolved">NextDNS systemd-resolved</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- vim-markdown-toc -->
+
+<hr />
+
+<hr />
+
+<h1 id="useful-stuff">Useful Stuff</h1>
+
+<h2 id="bash">BASH</h2>
+
+<h3 id="adicionar-extensão-pra-todos-os-arquivos">adicionar extensão pra todos os arquivos</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -type f -exec mv '{}' '{}'.jpg \;
+</code></pre></div></div>
+
+<h3 id="syntax-highlighting-blesh">Syntax highlighting, Blesh</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone --recursive https://github.com/akinomyoga/ble.sh.git
+make -C ble.sh install PREFIX=~/.local
+</code></pre></div></div>
+
+<ul>
+  <li>https://github.com/akinomyoga/ble.sh</li>
+  <li>copy <code class="language-plaintext highlighter-rouge">blerc</code> contents to <code class="language-plaintext highlighter-rouge">~/.blerc</code></li>
+  <li>follow instructions</li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<h3 id="automount-usb-drive">Automount USB drive</h3>
+
+<p>For ext4:</p>
+
+<ul>
+  <li>Edit <code class="language-plaintext highlighter-rouge">/etc/fstab</code></li>
+  <li>Get details with <code class="language-plaintext highlighter-rouge">lsblk -f</code></li>
+  <li>Create the mount point (anywhere, like <code class="language-plaintext highlighter-rouge">/home/omk/USB_Drivers/Backup_1</code>)</li>
+  <li>in <code class="language-plaintext highlighter-rouge">etc/fstab</code> <code class="language-plaintext highlighter-rouge">UUID /mnt/point ext4 defaults,noatime,nofail 0 2</code></li>
+</ul>
+
+<p>For exFat:</p>
+
+<p><code class="language-plaintext highlighter-rouge">UUID /mnt/point exfat defaults,noatime,nofail,auto,umask=000,users,rw 0 0</code></p>
+
+<p>Not sure about this, actually</p>
+
+<hr />
+
+<h2 id="default-apps---xdg-mime">DEFAULT APPS - XDG, MIME</h2>
+
+<h3 id="file-manager-pcmanfm">File Manager (PCManFM)</h3>
+<ul>
+  <li>Find out what’s the default <code class="language-plaintext highlighter-rouge">xdg-mime query default inode/directory</code></li>
+  <li>If not correct, <code class="language-plaintext highlighter-rouge">sudo xdg-mime default pcmanfm.desktop inode/directory</code>
+    <ul>
+      <li>to find out the correct name of .desktop: <code class="language-plaintext highlighter-rouge">ls /usr/share/applications/ | grep NAME</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="display-manager">DISPLAY MANAGER</h2>
+
+<ul>
+  <li>install display manager (lightdm, ly, etc)</li>
+  <li><code class="language-plaintext highlighter-rouge">sudo systemctl enable XXXX</code></li>
+  <li>if there’s a display manager already installed:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sudo systemctl disable YYYYY</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="ffmpeg">FFMPEG</h2>
+
+<h3 id="combine-video--audio">Combine video + audio</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
+</code></pre></div></div>
+<h3 id="combinar-varios-arquivos-de-media-em-um-só-no-ffmpeg">combinar varios arquivos de media em um só no ffmpeg</h3>
+<ul>
+  <li>criar files.txt:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file 'file1.mp3'
+file 'file2.mp3'
+etc...
+</code></pre></div>    </div>
+  </li>
+  <li>Run:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -f concat -safe 0 -i files.txt -c copy output.mkv
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="batch-convert-wav-to-mp3oggflac">batch convert WAV to MP3/OGG/FLAC:</h3>
+
+<ul>
+  <li>MP3: <code class="language-plaintext highlighter-rouge">for i in *.wav; do ffmpeg -i "$i" -b:a 320000 "${i%.*}.mp3"; done</code></li>
+  <li>OGG: <code class="language-plaintext highlighter-rouge">for i in *.wav; do ffmpeg -i "$i" -b:a 320000 "${i%.*}.ogg"; done</code></li>
+  <li>FLAC: <code class="language-plaintext highlighter-rouge">for i in *.wav; do ffmpeg -i "$i" "${i%.*}.flac"; done</code></li>
+  <li>All three: <code class="language-plaintext highlighter-rouge">for i in *.wav; do ffmpeg -i "$i" -b:a 320000 "${i%.*}.mp3" -b:a 320000 "${i%.*}.ogg" "${i%.*}.flac"; done</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="formatting-disksusb">FORMATTING DISKS/USB</h2>
+
+<h3 id="gparted-fat32">gparted (Fat32)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk # check which disk
+sudo umount /dev/sdX1
+sudo parted /dev/sdX --script -- mklabel msdos
+sudo parted /dev/sdX --script -- mkpart primary fat32 1MiB 100%
+sudo mkfs.vfat -F32 /dev/sdX1
+sudo parted /dev/sdX --script print
+</code></pre></div></div>
+
+<h3 id="slightly-different-terminal-method">Slightly different terminal method</h3>
+
+<ul>
+  <li>check location <code class="language-plaintext highlighter-rouge">df</code></li>
+  <li>unmount <code class="language-plaintext highlighter-rouge">sudo umount /dev/sdb1</code></li>
+  <li>format <code class="language-plaintext highlighter-rouge">sudo mkfs.exfat /dev/sdb1</code></li>
+  <li>check if it worked <code class="language-plaintext highlighter-rouge">sudo fsck /dev/sdb1</code></li>
+</ul>
+
+<hr />
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="git">GIT</h2>
+
+<h3 id="setting-up-git">Setting up Git</h3>
+<ul>
+  <li>Install <code class="language-plaintext highlighter-rouge">git</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git config --global user.name "USERNAME"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git config --global user.email "email@example.com"</code></li>
+</ul>
+
+<h3 id="remove-directory">Remove directory</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git rm -r &lt;directory&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git commit -m "asdf"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git push</code></li>
+</ul>
+
+<h3 id="making-existing-folder-into-a-local-git-repo">Making existing folder into a local git repo</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cd</code> to folder</li>
+  <li><code class="language-plaintext highlighter-rouge">git init</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git remote add origin &lt;URL&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git add --all</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git commit -m "MESSAGE"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git push -u origin master</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="permissions">Permissions</h2>
+
+<h3 id="external-drive-readwrite-permission">External Drive Read/Write permission</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sudo chmod -R 777 /run/media/omk/OMK_500GB</code></p>
+
+<h2 id="nestopia">NESTOPIA</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://aur.archlinux.org/nestopia.git
+cd nestopia
+makepkg -sri
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="numlock-on-startup">NUMLOCK ON STARTUP</h2>
+
+<ul>
+  <li>install numlockx</li>
+  <li>add to <code class="language-plaintext highlighter-rouge">/etc/lightdm/lightdm.conf</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Seat:*]
+greeter-setup-script=/usr/bin/numlockx on
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="pdf">PDF</h2>
+
+<h3 id="pdftk">pdftk</h3>
+
+<p>combine pdf files</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk pdf1.pdf pdf2.pdf cat output final.pdf
+</code></pre></div></div>
+
+<p>extract from pdf</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3-8 output final.pdf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdftk file.pdf cat 3 4 5 output final.pdf
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="ranger">RANGER</h2>
+
+<ul>
+  <li>ranger-fzf-filter</li>
+  <li>ranger-devicons2</li>
+</ul>
+
+<h3 id="image-preview">Image Preview</h3>
+
+<p>in the config file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set preview_images true
+set preview_images_method ueberzug
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="rsync">RSYNC</h2>
+
+<h3 id="music-folder-to-phone">Music folder to phone</h3>
+
+<p><code class="language-plaintext highlighter-rouge">rsync -a --delete --quiet /home/omk/Insync/manzano\@bgsu.edu/OneDrive\ Biz/Music/ /run/media/omk/android/Music</code></p>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="scripts">SCRIPTS</h2>
+
+<p>To run scripts: <code class="language-plaintext highlighter-rouge">chmod +x &lt;script&gt;</code> then <code class="language-plaintext highlighter-rouge">./&lt;script&gt;</code></p>
+
+<h3 id="generating-cv-for-jekyll-website">Generating CV (for Jekyll website)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">./update_cv_pdf</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+sed -i '14,$d' cv_pdf/cv_pdf.md ## deletes after line 14
+
+sed -n '25,$p' cv.md &gt; cv_temp ## copies from original from line 25 into temp file
+
+sed -i '/Back to the top/d' cv_temp ## delete lines with 'back to the top'
+
+line=13
+
+sed -i -e "${line}r cv_temp" cv_pdf/cv_pdf.md ## inserts temp file into cv_pdf after line 13
+</code></pre></div></div>
+
+<h3 id="generate-pdf-version-of-cv">generate pdf version of cv</h3>
+
+<p><code class="language-plaintext highlighter-rouge">./cv_pdf</code></p>
+
+<ul>
+  <li>have jekyll server running OR substitute to <code class="language-plaintext highlighter-rouge">https://otaviomk.com/cv_pdf/</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+TODAY1=$(date +%F)
+
+wkhtmltopdf -s letter --footer-font-size 10 --footer-left 'Otavio Manzano Kavakama - cellist' --footer-right [page]/[topage] --footer-line http://127.0.0.1:4000/cv_pdf/ /home/omk/Storage/Insync/DMA\ BGSU\ 2019-/PORTFOLIO/Otavio_Manzano_Kavakama_CV_$TODAY1.pdf
+</code></pre></div></div>
+
+<h3 id="remove-from-filenames">remove from filenames</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+for f in *STRING_TO_BE_REMOVED*; do
+    mv -- "$f" "${f/STRING_TO_BE_REMOVED/}"
+done
+</code></pre></div></div>
+
+<h3 id="run-scripts-as-apps">run scripts as apps</h3>
+<ul>
+  <li>add this to <code class="language-plaintext highlighter-rouge">.bashrc</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PATH=$PATH:$HOME/.scripts #making my scripts run without typing the whole path
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="ssh">SSH</h2>
+
+<ul>
+  <li>On server machine (remote):
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ip a</code> to get host address</li>
+    </ul>
+  </li>
+  <li>On local machine
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ssh USER@HOSTADDRESS</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">systemctl status sshd</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo systemctl start sshd</code>
+<code class="language-plaintext highlighter-rouge">sudo systemctl enable sshd</code></p>
+
+<h3 id="backup-and-sync">Backup and sync</h3>
+
+<p><code class="language-plaintext highlighter-rouge">rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location/of/backup</code></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--delete</code> = file deleted on the source will be delete on backup</li>
+  <li><code class="language-plaintext highlighter-rouge">-e ssh</code> = access to remote server</li>
+  <li>Script for the above, at <code class="language-plaintext highlighter-rouge">/etc/cron.daily/backup</code>:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/sh
+rsync -a --delete --quiet -e ssh /path/to/backup remoteuser@remotehost:/location/of/backup
+</code></pre></div></div>
+
+<p>MAKE IT EXECUTABLE!</p>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="timeshift">TIMESHIFT</h2>
+
+<p>To make it run scheduled tasks:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sudo systemctl enable cronie</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sudo systemctl start cronie</code></li>
+</ul>
+
+<p>Check with <code class="language-plaintext highlighter-rouge">journalctl -u cronie.service</code> to see if there’s a scheduled task listed</p>
+
+<hr />
+
+<h2 id="vim">VIM</h2>
+
+<ul>
+  <li>
+    <p>find and replace <code class="language-plaintext highlighter-rouge">:%s/foo/bar/g</code></p>
+  </li>
+  <li>
+    <p>delete inside * <code class="language-plaintext highlighter-rouge">di*</code></p>
+  </li>
+  <li>
+    <p>check orthography <code class="language-plaintext highlighter-rouge">z=</code></p>
+  </li>
+  <li>
+    <p>append numbers to end of line <code class="language-plaintext highlighter-rouge">:execute "% normal A \&lt;C-R&gt;=printf(\"%05d\", line(\".\"))\&lt;CR&gt;"</code></p>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h1 id="personal-configs">Personal Configs</h1>
+
+<h2 id="mouse">Mouse:</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/10-mouse.conf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "InputClass"
+	Identifier "My Mouse"
+	MatchIsPointer "yes"
+# some curved deceleration
+	Option "AdaptiveDeceleration" "2"
+# linear deceleration (mouse speed reduction)
+	Option "ConstantDeceleration" "2"
+	Option "NaturalScrolling" "on"
+	Option "AccelerationProfile" "-0.5"
+	Option "AccelerationScheme" "none"
+	Option "AccelSpeed" "-1"
+EndSection
+</code></pre></div></div>
+
+<h2 id="touchpad">Touchpad:</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/30-touchpad.conf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "InputClass"
+    Identifier "touchpad"
+    Driver "libinput"
+    MatchIsTouchpad "on"
+    Option "NaturalScrolling" "on"
+    Option "Tapping" "on"
+EndSection
+</code></pre></div></div>
+
+<h2 id="keyboard-layout-switch">Keyboard layout switch:</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/X11/xorg.conf.d/00-keyboard.conf
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "us,br"
+        Option "XkbModel" "pc105"
+        Option "XkbOptions" "grp:alt_shift_toggle"
+EndSection
+</code></pre></div></div>
+
+<p>on Polybar:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = caps lock
+
+format-prefix = " "
+format-prefix-underline = #0000ff
+
+label-layout = %layout%
+label-layout-underline = #0000ff
+
+label-indicator-padding = 0
+label-indicator-margin = 0
+label-indicator-underline = #000044
+</code></pre></div></div>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<hr />
+
+<h1 id="packages">Packages</h1>
+
+<ul>
+  <li>timeshift-autosnap (auto snapshot when Syu)</li>
+  <li>exa (beautify ls)</li>
+  <li>gparted (formatting disks)</li>
+  <li>mkinitcpio-numlock (AUR numlock on startup - check Arch Wiki)</li>
+  <li>md-to-pdf (check <a href="https://github.com/simonhaenisch/md-to-pdf">https://github.com/simonhaenisch/md-to-pdf</a> to update)</li>
+  <li>yt-dlp, spotiflyer (spotiflyer-bin AUR)</li>
+  <li>Quod Libet - Music ReplayGain</li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<hr />
+
+<h1 id="sway--wayland">Sway / Wayland</h1>
+
+<h2 id="arduino-ide">Arduino IDE</h2>
+
+<p>Edit .desktop file to make it work properly:</p>
+
+<p><code class="language-plaintext highlighter-rouge">/usr/share/applications/arduino.desktop</code></p>
+
+<p>Comment out the <code class="language-plaintext highlighter-rouge">Exec</code> entry and change to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Exec=arduino %U
+Exec=env _JAVA_AWT_WM_NONREPARENTING=1 arduino %U
+</code></pre></div></div>
+
+<hr />
+
+<hr />
+
+<h1 id="open-media-vault">OPEN MEDIA VAULT</h1>
+
+<hr />
+
+<h2 id="access-modem">Access modem</h2>
+<ul>
+  <li>get device address</li>
+  <li>insert ip on browser</li>
+  <li>install extras: <code class="language-plaintext highlighter-rouge">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</code></li>
+  <li>on browser &gt; System &gt; omv-extras:
+    <ul>
+      <li>isntall docker, portainer</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="login-in-pcmanfm">Login in PCManFM</h2>
+
+<ul>
+  <li>Connect to Server &gt; SSH
+    <ul>
+      <li>root, pw</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="update-music-folder">Update Music Folder</h2>
+
+<ul>
+  <li>SSH to server</li>
+  <li>Do <code class="language-plaintext highlighter-rouge">rsync -a --delete -e ssh /home/omk/Insync/manzano\@bgsu.edu/OneDrive\ Biz/Music/ root@192.168.1.20:/srv/dev-disk-by-uuid-827ef6d8-6e25-4bb3-9c1b-e36c51a1dc15/Music</code></li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="handle-lid-and-screen-blank">Handle Lid and Screen Blank</h2>
+
+<ul>
+  <li>on <code class="language-plaintext highlighter-rouge">/etc/systemd/logind.conf</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">HandleLidSwitch=ignore</code></li>
+    </ul>
+  </li>
+  <li>on <code class="language-plaintext highlighter-rouge">/etc/default/grub</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">GRUB_CMDLINE_LINUX_DEFAULT="quiet consoleblank=100"</code></li>
+      <li>100 is in seconds</li>
+      <li><code class="language-plaintext highlighter-rouge">sudo update-grub</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">Back to the top</a></p>
+
+<hr />
+
+<h2 id="pdanet-wifi-hotspot">PDANet WiFi Hotspot</h2>
+
+<p>For window managers, you need to set the proxy for each program.</p>
+
+<ul>
+  <li>Firefox:
+    <ul>
+      <li>Settings, all the way down to Network Settings.</li>
+      <li>Manual proxy configuration
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">192.168.49.1</code> port <code class="language-plaintext highlighter-rouge">8000</code></li>
+          <li>check box “Also use ths proxy for HTTPS”</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Terminal (for updates)
+    <ul>
+      <li>on <code class="language-plaintext highlighter-rouge">.bashrc</code>: add:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export http_proxy=192.168.49.1:8000
+export https_proxy=192.168.49.1:8000
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>Insync
+    <ul>
+      <li>Settings, Network, Manual proxy</li>
+    </ul>
+  </li>
+</ul>
+
+<p>On tutorials, I saw people adding `Defaults env_keep +=”https_proxy” to sudoers file (via command visudo)</p>
+
+<p>I’ll come back for other programs as I use it</p>
+
+<p><a href="#top">top</a></p>
+
+<hr />
+
+<h1 id="virtualbox-fix-if-memory-error">VirtualBox fix if memory error</h1>
+
+<ul>
+  <li>run as “su”: <code class="language-plaintext highlighter-rouge">echo 3 &gt; /proc/sys/vm/drop_caches</code></li>
+</ul>
+
+<p><a href="#top">top</a></p>
+
+<hr />
+
+<h1 id="pipewire">Pipewire</h1>
+
+<h2 id="change-sample-rate">Change sample rate</h2>
+
+<ul>
+  <li>Change <code class="language-plaintext highlighter-rouge">pipewire.conf</code> at <code class="language-plaintext highlighter-rouge">/home/omk/.config/pipewire</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">default.clock.rate          = 44100</code> or <code class="language-plaintext highlighter-rouge">48000</code> etc.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">top</a></p>
+
+<hr />
+
+<h1 id="musescore">Musescore</h1>
+
+<h2 id="update">Update</h2>
+
+<p>I use an AppImage from the official website.<br />
+When there’s a new release, I need to manually update it</p>
+
+<h2 id="installation">Installation</h2>
+
+<ul>
+  <li>Download AppImage from official website</li>
+  <li>Make file executable</li>
+  <li>rename file to <code class="language-plaintext highlighter-rouge">musescore</code> without the extension</li>
+  <li>move file to <code class="language-plaintext highlighter-rouge">/usr/bin/</code>
+    <ul>
+      <li>this way, it is pickup by bemenu-run</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#top">top</a></p>
+
+<hr />
+
+<h1 id="change-dns-server">Change DNS server</h1>
+
+<h2 id="nextdns-systemd-resolved">NextDNS systemd-resolved</h2>
+
+<p>Use the following in /etc/systemd/resolved.conf:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Resolve]
+DNS=45.90.28.0#dffb84.dns.nextdns.io
+DNS=2a07:a8c0::#dffb84.dns.nextdns.io
+DNS=45.90.30.0#dffb84.dns.nextdns.io
+DNS=2a07:a8c1::#dffb84.dns.nextdns.io
+DNSOverTLS=yes
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">sudo systemctl restart systemd-resolved</code></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">otávio mk</h2> -->
+
+    <!-- <div class="footer-col-wrapper"> -->
+      <!-- <div class="footer-col footer-col-1"> -->
+      <!--   <ul class="contact-list"> -->
+      <!--     <!-1- <li class="p-name"> -1-> -->
+      <!--     <!-1--1-> -->
+      <!--     <!-1-     otávio mk -1-> -->
+      <!--     <!-1--1-> -->
+      <!--     <!-1-   </li> -1-> -->
+      <!--       <!-1--1-> -->
+      <!--   </ul> -->
+      <!-- </div> -->
+
+      <!-- <div class="footer-col footer-col-2"> -->
+      <div><ul class="social-media-list">
+  <!-- <li style="display:inline"><a target="_blank" href="https://www.youtube.com/channel/UCFSm9mZHqqNlxPxyEDmPjQA"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#youtube"></use></svg> <span class="username"></span></a></li> --><li style="display:inline"><a target="_blank" href="https://www.youtube.com/channel/UCFSm9mZHqqNlxPxyEDmPjQA">youtube</a></li>
+<li style="display:inline"><a target="_blank" href="https://kavotaman.bandcamp.com">bandcamp</a></li>
+<li style="display:inline"><a target="_blank" href="https://ruidospodcast.com.br">ruidospodcast</a></li>
+<li style="display:inline"><a target="_blank" href="https://github.com/kavotaman">github</a></li>
+</ul>
+</div>
+
+      <!-- <div class="footer-col footer-col-3"> -->
+      <!--   <p>otávio manzano kavakama - cello</p> -->
+      <!-- </div> -->
+    <!-- </div> -->
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FWJK9XZLFC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FWJK9XZLFC');
+</script>
+  
+<!-- Google tag (gtag.js) -->
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>OMV | otávio mk</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="OMV" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="otávio manzano kavakama - cello" />
+<meta property="og:description" content="otávio manzano kavakama - cello" />
+<link rel="canonical" href="https://otaviomk.com/omv/" />
+<meta property="og:url" content="https://otaviomk.com/omv/" />
+<meta property="og:site_name" content="otávio mk" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="OMV" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"otávio manzano kavakama - cello","headline":"OMV","url":"https://otaviomk.com/omv/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/><link type="application/atom+xml" rel="alternate" href="https://otaviomk.com/feed.xml" title="otávio mk" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a style="color:#fca311" class="site-title" rel="author" href="/">otávio mk</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">about</a><a class="page-link" href="/media/">media</a><a class="page-link" href="/works/">works</a><a class="page-link" href="/contact/">contact</a><a class='page-link page-link-flag' href="">
+                    <img src="/assets/flag_br.jpg" style="height: 20px; border-radius: 50%;"></a>
+        </div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">OMV</h1>
+  </header>
+
+  <div class="post-content">
+    <style>
+details {
+	padding-bottom: 20px;
+	color: grey;
+}
+pre {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+  margin: 1em 0;
+  color: #c80;
+}
+</style>
+
+<h2 id="if-you-got-here-from-google-or-the-like-please-be-aware-that-this-is-for-my-own-use-and-many-things-in-here-could-be-out-of-date-or-not-work-at-all">If you got here from google or the like, please be aware that this is for my own use, and many things in here could be out of date or not work at all.</h2>
+
+<!-- vim-markdown-toc Redcarpet -->
+
+<ul>
+  <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
+  <li><a href="#static-ip">Static IP</a>
+    <ul>
+      <li><a href="#comcast-residential-internet-fix">Comcast Residential Internet fix</a></li>
+      <li><a href="#ssh">SSH</a></li>
+    </ul>
+  </li>
+  <li><a href="#first-steps">First steps</a>
+    <ul>
+      <li><a href="#neovim">NEOVIM</a></li>
+      <li><a href="#bashrc-aliases-etc">.BASHRC (aliases etc)</a></li>
+      <li><a href="#ranger">RANGER</a></li>
+    </ul>
+  </li>
+  <li><a href="#omv-extras">OMV-Extras</a></li>
+  <li><a href="#snapraid">SnapRaid</a></li>
+  <li><a href="#mergerfs">MergerFS</a></li>
+  <li><a href="#very-important">VERY IMPORTANT!!!</a></li>
+  <li><a href="#env">.env</a></li>
+  <li><a href="#media-server">MEDIA SERVER</a>
+    <ul>
+      <li><a href="#arr-stack">Arr Stack</a>
+        <ul>
+          <li><a href="#bazarr">Bazarr</a></li>
+          <li><a href="#prowlarr">Prowlarr</a></li>
+          <li><a href="#radarr">Radarr</a></li>
+          <li><a href="#sonarr">Sonarr</a></li>
+          <li><a href="#huntarr">Huntarr</a></li>
+          <li><a href="#cleanuparr">Cleanuparr</a></li>
+          <li><a href="#flaresolverr">Flaresolverr</a></li>
+        </ul>
+      </li>
+      <li><a href="#vpn-etc">VPN etc</a>
+        <ul>
+          <li><a href="#gluetun">Gluetun</a></li>
+          <li><a href="#qbittorrent">qBitTorrent</a></li>
+          <li><a href="#soulseek">Soulseek</a></li>
+        </ul>
+      </li>
+      <li><a href="#jellyfin">Jellyfin</a></li>
+      <li><a href="#filebot">FileBot</a></li>
+      <li><a href="#nextcloud">Nextcloud</a>
+        <ul>
+          <li><a href="#mariadb">MariaDB</a></li>
+          <li><a href="#nextcloud">Nextcloud</a></li>
+          <li><a href="#nextcloud-office">Nextcloud Office</a></li>
+          <li><a href="#nextcloud-config-php">Nextcloud config.php</a></li>
+          <li><a href="#cron-jobs">Cron jobs</a></li>
+        </ul>
+      </li>
+      <li><a href="#immich">Immich</a></li>
+    </ul>
+  </li>
+  <li><a href="#tailscale">Tailscale</a></li>
+  <li><a href="#pi-hole">Pi-Hole</a>
+    <ul>
+      <li><a href="#integration-with-tailscale">Integration with Tailscale</a></li>
+    </ul>
+  </li>
+  <li><a href="#tools">Tools</a>
+    <ul>
+      <li><a href="#omni-tools">Omni-tools</a></li>
+      <li><a href="#stirling-pdf">Stirling-PDF</a></li>
+      <li><a href="#wetty">WeTTY</a></li>
+    </ul>
+  </li>
+  <li><a href="#fmhy">FMHY</a></li>
+  <li><a href="#email-notifications">Email Notifications</a></li>
+  <li><a href="#glance-dashboard">Glance (Dashboard)</a></li>
+</ul>
+
+<!-- vim-markdown-toc -->
+
+<p>Install OMV</p>
+
+<h1 id="handle-lid-and-screen-blank">Handle Lid and Screen Blank</h1>
+
+<ul>
+  <li>on <code class="language-plaintext highlighter-rouge">/etc/systemd/logind.conf</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">HandleLidSwitch=ignore</code></li>
+    </ul>
+  </li>
+  <li>on <code class="language-plaintext highlighter-rouge">/etc/default/grub</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">GRUB_CMDLINE_LINUX_DEFAULT="quiet consoleblank=100"</code></li>
+      <li>100 is in seconds</li>
+      <li><code class="language-plaintext highlighter-rouge">sudo update-grub</code></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h1 id="static-ip">Static IP</h1>
+
+<h2 id="comcast-residential-internet-fix">Comcast Residential Internet fix</h2>
+
+<ul>
+  <li>Go to <code class="language-plaintext highlighter-rouge">10.0.0.1</code> on your browser
+    <ul>
+      <li>default is User: admin Password: password</li>
+    </ul>
+  </li>
+  <li>Go to Connected Devices and find your server device</li>
+  <li>Edit the server</li>
+  <li>Choose Reserved IP and remember the address (in my case it was something like <code class="language-plaintext highlighter-rouge">10.0.0.222</code></li>
+  <li>This address is how you connect to your server from another device within your network (Next Step)</li>
+</ul>
+
+<hr />
+
+<h2 id="ssh">SSH</h2>
+
+<ul>
+  <li>Now that we have our static IP, go to your main machine (not server), open terminal and type <code class="language-plaintext highlighter-rouge">ssh root@10.0.0.222</code></li>
+  <li>For the first time, you’ll be prompted to say yes before continuing.</li>
+  <li>Enter your password and now you’re in!</li>
+  <li>You’ll need to use this for many of the following steps.</li>
+</ul>
+
+<hr />
+
+<h1 id="first-steps">First steps</h1>
+
+<ul>
+  <li>SSH into server</li>
+  <li><code class="language-plaintext highlighter-rouge">apt update</code></li>
+  <li><code class="language-plaintext highlighter-rouge">apt install neovim ranger file git curl unzip -y</code></li>
+</ul>
+
+<h2 id="neovim">NEOVIM</h2>
+
+<ul>
+  <li>create or edit <code class="language-plaintext highlighter-rouge">/etc/profile.d/editor.sh</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">nvim /etc/profile.d/editor.sh</code>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export EDITOR="nvim"
+export VISUAL="nvim"
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">source /etc/profile.d/editor.sh</code></li>
+  <li><code class="language-plaintext highlighter-rouge">update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60</code></li>
+  <li><code class="language-plaintext highlighter-rouge">update-alternatives --config editor</code></li>
+  <li>choose the nvim option</li>
+  <li>check if <code class="language-plaintext highlighter-rouge">echo $EDITOR</code> gives <code class="language-plaintext highlighter-rouge">nvim</code></li>
+</ul>
+
+<h2 id="bashrc-aliases-etc">.BASHRC (aliases etc)</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nvim .bashrc</code> (it’s in the /root folder)</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Added by openmediavault (https://www.openmediavault.org).</span>
+<span class="k">if</span> <span class="o">!</span> <span class="nb">shopt</span> <span class="nt">-oq</span> posix<span class="p">;</span> <span class="k">then
+    if</span> <span class="o">[</span> <span class="nt">-f</span> /usr/share/bash-completion/bash_completion <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">.</span> /usr/share/bash-completion/bash_completion
+    <span class="k">elif</span> <span class="o">[</span> <span class="nt">-f</span> /etc/bash_completion <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">.</span> /etc/bash_completion
+    <span class="k">fi
+fi</span>
+<span class="c"># ~/.bashrc: executed by bash(1) for non-login shells.</span>
+ 
+<span class="c"># Note: PS1 and umask are already set in /etc/profile. You should not</span>
+<span class="c"># need this unless you want different defaults for root.</span>
+<span class="c"># PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '</span>
+<span class="c"># umask 022</span>
+ 
+<span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span>xterm-256color
+ 
+<span class="c"># You may uncomment the following lines if you want `ls' to be colorized:</span>
+ <span class="nb">export </span><span class="nv">LS_OPTIONS</span><span class="o">=</span><span class="s1">'--color=auto'</span>
+ <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">dircolors</span><span class="si">)</span><span class="s2">"</span>
+ <span class="nb">alias ls</span><span class="o">=</span><span class="s1">'ls $LS_OPTIONS'</span>
+ <span class="nb">alias </span><span class="nv">ll</span><span class="o">=</span><span class="s1">'ls $LS_OPTIONS -l'</span>
+ <span class="nb">alias </span><span class="nv">l</span><span class="o">=</span><span class="s1">'ls $LS_OPTIONS -lA'</span>
+<span class="c">#</span>
+<span class="c"># Some more alias to avoid making mistakes:</span>
+ <span class="nb">alias rm</span><span class="o">=</span><span class="s1">'rm -i'</span>
+ <span class="nb">alias cp</span><span class="o">=</span><span class="s1">'cp -i'</span>
+ <span class="nb">alias mv</span><span class="o">=</span><span class="s1">'mv -i'</span>
+ 
+ <span class="nb">alias </span><span class="nv">f</span><span class="o">=</span><span class="s1">'ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'</span>
+ <span class="nb">alias </span><span class="nv">v</span><span class="o">=</span><span class="s1">'nvim'</span>
+ 
+<span class="nb">alias</span> ..<span class="o">=</span><span class="s1">'cd ..'</span>
+<span class="nb">alias</span> ...<span class="o">=</span><span class="s1">'cd ../..'</span>
+<span class="nb">alias</span> ....<span class="o">=</span><span class="s1">'cd ../../..'</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="ranger">RANGER</h2>
+
+<ul>
+  <li>all the above plus:</li>
+  <li><code class="language-plaintext highlighter-rouge">ranger --copy-config=all</code> to copy the config files</li>
+  <li>open ranger, type <code class="language-plaintext highlighter-rouge">gR</code></li>
+  <li>change to <code class="language-plaintext highlighter-rouge">True</code>”</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if fm.username == 'root':
+     fm.settings.preview_files = True
+     fm.settings.use_preview_script = True
+     fm.log.appendleft("Running as root, disabling the file previews.")
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="omv-extras">OMV-Extras</h1>
+
+<ul>
+  <li>We need to install omv-extras in order to install docker.</li>
+  <li>On your server (which you ssh into), type:</li>
+  <li><code class="language-plaintext highlighter-rouge">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</code></li>
+</ul>
+
+<hr />
+
+<h1 id="snapraid">SnapRaid</h1>
+
+<p><a href="https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:snapraid">https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:snapraid</a></p>
+
+<h1 id="mergerfs">MergerFS</h1>
+
+<p><a href="https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:mergerfs">https://wiki.omv-extras.org/doku.php?id=omv7:omv7_plugins:mergerfs</a></p>
+
+<hr />
+
+<h1 id="very-important">VERY IMPORTANT!!!</h1>
+
+<p>Since we’re using MergerFS, we need to make sure to:</p>
+<ul>
+  <li>Have an absolute path for container configs (see bellow on .env). If we use a mergerfs path, there’s the risk of the server trying to load the configs before the mergerfs pool starts, which can lead to a lot of trouble.</li>
+  <li>Have an absolute path to the compose shared folder that we use to configure Docker for the same reasons as above.
+    <ul>
+      <li>on the OMV WebGUI, go to Storage -&gt; Shared Folders and create a shared folder at one of the drives.</li>
+      <li>On Services -&gt; Compose -&gt; Setings, link the compose thing to the shared folder created.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="env">.env</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ARRPATH=/srv/mergerfs/Merger1/data/Arr/
+CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="media-server">MEDIA SERVER</h1>
+
+<h2 id="arr-stack">Arr Stack</h2>
+
+<h3 id="bazarr">Bazarr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">bazarr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">lscr.io/linuxserver/bazarr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">bazarr</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+      <span class="pi">-</span> <span class="s">UMASK_SET=022</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Bazarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/Movies</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/TVShows</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">6767:6767</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<p>I had to adjust the path in bazarr so it could “see” sonarr and radarr folders, even though I had it in the environments. After that, it worked like a charm.</p>
+
+<hr />
+
+<h3 id="prowlarr">Prowlarr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>                           
+  <span class="na">prowlarr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">linuxserver/prowlarr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">prowlarr</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Prowlarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Prowlarr/backup:/data/Backup</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
+<span class="c1">#    ports:</span>
+<span class="c1">#      - 9696:9696</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container:gluetun"</span>      
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<p>In settings -&gt; Apps -&gt; add app -&gt; Radarr/Sonarr:</p>
+<ul>
+  <li>use the Gateway address from above in the “Prowlarr Server” and “Radarr/Sonarr Server” addresses, like this:</li>
+  <li><code class="language-plaintext highlighter-rouge">http://172.17.0.1:9696</code></li>
+  <li><code class="language-plaintext highlighter-rouge">http://172.17.0.1:8989</code></li>
+</ul>
+
+<hr />
+
+<h3 id="radarr">Radarr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">radarr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">lscr.io/linuxserver/radarr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">radarr</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Radarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/movies</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/backup:/data/Backup</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">7878:7878</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<p>Added <code class="language-plaintext highlighter-rouge">dns:</code> element because of some issues with my setup.</p>
+
+<hr />
+
+<h3 id="sonarr">Sonarr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">sonarr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">linuxserver/sonarr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">sonarr</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Sonarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/backup:/data/Backup</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/tvshows</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8989:8989</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<p>Added <code class="language-plaintext highlighter-rouge">dns:</code> element because of some issues with my setup.</p>
+
+<hr />
+
+<h3 id="huntarr">Huntarr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">huntarr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">huntarr/huntarr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">huntarr</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">9705:9705"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Huntarr:/config</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="cleanuparr">Cleanuparr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">cleanuparr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/cleanuparr/cleanuparr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">cleanuparr</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">11011:11011"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Cleanuparr/config:/config</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PORT=11011</span>
+      <span class="pi">-</span> <span class="s">BASE_PATH=</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">UMASK=022</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="c1"># Health check configuration</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">CMD"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">curl"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">-f"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">http://10.0.0.90:11011/health"</span><span class="pi">]</span>
+      <span class="na">interval</span><span class="pi">:</span> <span class="s">30s</span>        <span class="c1"># Check every 30 seconds</span>
+      <span class="na">timeout</span><span class="pi">:</span> <span class="s">10s</span>         <span class="c1"># Allow up to 10 seconds for response</span>
+      <span class="na">start_period</span><span class="pi">:</span> <span class="s">30s</span>    <span class="c1"># Wait 30 seconds before first check</span>
+      <span class="na">retries</span><span class="pi">:</span> <span class="m">3</span>           <span class="c1"># Mark unhealthy after 3 consecutive failures</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="flaresolverr">Flaresolverr</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">flaresolverr</span><span class="pi">:</span>
+    <span class="c1"># DockerHub mirror flaresolverr/flaresolverr:latest</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/flaresolverr/flaresolverr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">flaresolverr</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container:gluetun"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">LOG_LEVEL=${LOG_LEVEL:-info}</span>
+      <span class="pi">-</span> <span class="s">LOG_HTML=${LOG_HTML:-false}</span>
+      <span class="pi">-</span> <span class="s">CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+<span class="c1">#    ports:</span>
+<span class="c1">#      - 8191:8191</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="vpn-etc">VPN etc</h2>
+
+<h3 id="gluetun">Gluetun</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">gluetun</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">qmcgaw/gluetun</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">gluetun</span>
+    <span class="na">cap_add</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">NET_ADMIN</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/dev/net/tun:/dev/net/tun</span>
+    <span class="na">ports</span><span class="pi">:</span>
+<span class="c1">#      - 8888:8888/tcp # HTTP proxy Remove if not using    </span>
+      <span class="pi">-</span> <span class="s">8080:8080</span> <span class="c1"># qbittorrent web interface</span>
+      <span class="pi">-</span> <span class="s">6081:6881</span>
+      <span class="pi">-</span> <span class="s">6081:6881/udp</span>
+      <span class="pi">-</span> <span class="s">6011:6011</span>
+      <span class="pi">-</span> <span class="s">9696:9696</span> <span class="c1"># prowlarr</span>
+      <span class="pi">-</span> <span class="s">8191:8191</span> <span class="c1">#flaresolverr</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Gluetun:/config</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">FIREWALL_OUTBOUND_SUBNETS=[REDACTED]</span>
+<span class="c1">#      - HTTPPROXY=on #Remove if not using for HTTP proxy    </span>
+      <span class="pi">-</span> <span class="s">VPN_SERVICE_PROVIDER=mullvad</span>
+      <span class="pi">-</span> <span class="s">VPN_TYPE=wireguard</span>
+      <span class="pi">-</span> <span class="s">WIREGUARD_PRIVATE_KEY=[REDACTED]</span>
+      <span class="pi">-</span> <span class="s">WIREGUARD_ADDRESSES=[REDACTED]</span>
+      <span class="pi">-</span> <span class="s">SERVER_CITIES="Chicago IL"</span>
+</code></pre></div></div>
+
+<p>To find <code class="language-plaintext highlighter-rouge">FIREWALL_OUTBOUND_SUBNETS</code>:</p>
+<ul>
+  <li>ssh into omv server <code class="language-plaintext highlighter-rouge">ssh@10.0.0.222</code></li>
+  <li><code class="language-plaintext highlighter-rouge">docker network inspect bridge</code></li>
+  <li>Use the address after Subnet:</li>
+  <li>“Subnet”: “172.17.0.0/16”, “Gateway”: “172.17.0.1”</li>
+</ul>
+
+<p>IMPORTANT: We will use the Gateway address in prowlarr because of the VPN stuff.</p>
+
+<hr />
+
+<h3 id="qbittorrent">qBitTorrent</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">qbittorrent</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">linuxserver/qbittorrent:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">qbittorrent</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">com.centurylinklabs.watchtower.enable=false"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Qbittorrent/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+      <span class="pi">-</span> <span class="s">WEBUI_PORT=8080</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container:gluetun"</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">start_period</span><span class="pi">:</span> <span class="s">15s</span>
+</code></pre></div></div>
+
+<p>When first installed, the user will be admin, and the password will be in the logs.</p>
+
+<p>On Settings -&gt; Advanced, change the “Network Interface” to tun0.</p>
+
+<p>Very important if using MergerFS:</p>
+<ul>
+  <li>in the OMV7 WebGUI, go to Storage -&gt; mergerfs -&gt; edit</li>
+  <li>in options, change to <code class="language-plaintext highlighter-rouge">defaults,cache.files=partial</code></li>
+</ul>
+
+<hr />
+
+<h3 id="soulseek">Soulseek</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">slskd</span><span class="pi">:</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">SLSKD_REMOTE_CONFIGURATION=true</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">SLSKD_SHARED_DIR=/music"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">5030:5030/tcp</span>
+      <span class="pi">-</span> <span class="s">5031:5031/tcp</span>
+      <span class="pi">-</span> <span class="s">50300:50300/tcp</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Soulseek:/app:rw</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/Music/Popular Music:/music:rw</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">1000:100</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">slskd/slskd:latest</span>
+</code></pre></div></div>
+
+<p>For soulseek, in the WebGUI, uncomment only the things you want to change in the config file. Make sure to change the username so that it connects to the server.</p>
+
+<hr />
+
+<h2 id="jellyfin">Jellyfin</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">jellyfin</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">lscr.io/linuxserver/jellyfin:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">jellyfin</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Jellyfin/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Radarr/movies:/data/Movies</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Sonarr/tvshows:/data/TVShows</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8096:8096</span>
+      <span class="pi">-</span> <span class="s">7359:7359/udp</span> <span class="c1">#Service Discovery</span>
+      <span class="pi">-</span> <span class="s">1900:1900/udp</span> <span class="c1">#Client Discovery</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<p>After installing Jellyfin, when opening the WebGUI, you might be faced with a login page instead of the setup wizard. If that’s the case, just refresh the page (maybe more than once), and you’ll get the setup wizard.</p>
+
+<p>An important point is to have the <code class="language-plaintext highlighter-rouge">/config</code> folder not pointed to the MergerFS path, but to an actual path (like <code class="language-plaintext highlighter-rouge">/srv/xxxxxx/</code></p>
+
+<hr />
+
+<h2 id="filebot">FileBot</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">6   filebot</span><span class="pi">:</span>
+  <span class="na">7     image</span><span class="pi">:</span> <span class="s">jlesage/filebot</span>
+  <span class="na">8     ports</span><span class="pi">:</span>
+  <span class="s">9       - "5800:5800"</span>
+ <span class="na">10     environment</span><span class="pi">:</span>
+ <span class="s">11       - PUID=1000</span>
+ <span class="s">12       - PGID=100</span>
+ <span class="s">13       - DARK_MODE=1</span>
+ <span class="na">14     volumes</span><span class="pi">:</span>
+ <span class="s">15       - ${CONFIGS}Filebot/config:/config</span>
+ <span class="s">16       - ${ARRPATH}Filebot:/storage</span>
+</code></pre></div></div>
+
+<p>You need to pay for FileBot, but from my experience, it’s the best tool to rename files to be Jellyfin compliant.</p>
+
+<hr />
+
+<h2 id="nextcloud">Nextcloud</h2>
+
+<p>First create a network for nextcloud and mariadb:</p>
+
+<ul>
+  <li>ssh into the server</li>
+  <li><code class="language-plaintext highlighter-rouge">docker network create nextcloud-net</code></li>
+</ul>
+
+<h3 id="mariadb">MariaDB</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">mariadb</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">linuxserver/mariadb</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">mariadb</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">MYSQL_ROOT_PASSWORD=[REDACTED]</span>
+      <span class="pi">-</span> <span class="s">MYSQL_DATABASE=nextcloud</span>
+      <span class="pi">-</span> <span class="s">MYSQL_USER=nextcloud</span>
+      <span class="pi">-</span> <span class="s">MYSQL_PASSWORD=[REDACTED]</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-d657f449-9e05-43a7-840f-756115e9855c/data2/nextcloud/db:/config</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">nextcloud-net</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">nextcloud-net</span><span class="pi">:</span>
+    <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="nextcloud-1">Nextcloud</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">nextcloud</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">lscr.io/linuxserver/nextcloud:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">nextcloud</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-d657f449-9e05-43a7-840f-756115e9855c/data2/nextcloud/config:/config</span>
+      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-d657f449-9e05-43a7-840f-756115e9855c/data2/nextcloud/data:/data</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8022:80</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">nextcloud-net</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">nextcloud-net</span><span class="pi">:</span>
+    <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="nextcloud-office">Nextcloud Office</h3>
+
+<ul>
+  <li>First you need to create a Collabora docker container:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">collabora</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">collabora/code</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">collabora</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">domain=10\\.0\\.0\\.90:8022\\|[REDACTED]:8022</span>
+      <span class="pi">-</span> <span class="s">extra_params=--o:ssl.enable=false</span>
+      <span class="pi">-</span> <span class="s">username=[REDACTED]</span>
+      <span class="pi">-</span> <span class="s">password=[REDACTED]</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/srv/dev-disk-by-uuid-d657f449-9e05-43a7-840f-756115e9855c/data2/collabora-config/coolwsd.xml:/etc/coolwsd/coolwsd.xml</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">9980:9980</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">nextcloud-net</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">nextcloud-net</span><span class="pi">:</span>
+    <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<p>If using tailscale, you’ll have to edit the <code class="language-plaintext highlighter-rouge">coolwsd.xml</code> file. That’s why I defined a custom path to it under <code class="language-plaintext highlighter-rouge">volumes:</code>.</p>
+
+<p>In the <code class="language-plaintext highlighter-rouge">coolwsd.xml</code>, edit the <code class="language-plaintext highlighter-rouge">alias_groups</code> section to look like this:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            <span class="nt">&lt;alias_groups</span> <span class="na">desc=</span><span class="s">"default mode is 'first' it allows only the first host when groups are not defined. set mode to 'groups' and define group to allow multiple host and its aliases"</span> <span class="na">mode=</span><span class="s">"groups"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;group&gt;</span>
+                    <span class="nt">&lt;host</span> <span class="na">desc=</span><span class="s">"[REDACTED]"</span> <span class="na">allow=</span><span class="s">"true"</span><span class="nt">&gt;</span>http://[REDACTED]:8022<span class="nt">&lt;/host&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+            <span class="nt">&lt;group&gt;</span>
+                    <span class="nt">&lt;host</span> <span class="na">desc=</span><span class="s">"10.0.0.90"</span> <span class="na">allow=</span><span class="s">"true"</span><span class="nt">&gt;</span>http://10.0.0.90:8022<span class="nt">&lt;/host&gt;</span>        
+            <span class="nt">&lt;/group&gt;</span>
+            <span class="nt">&lt;/alias_groups&gt;</span>
+</code></pre></div></div>
+
+<p>Make sure to change to <code class="language-plaintext highlighter-rouge">mode="groups"</code>.</p>
+
+<p>In each <code class="language-plaintext highlighter-rouge">&lt;group&gt;</code> section, add the addresses you need. In my case, <code class="language-plaintext highlighter-rouge">10.0.0.90:8022</code> for my local host, and <code class="language-plaintext highlighter-rouge">[REDACTED]:8022</code> for my tailscale network.</p>
+
+<p>Restart the collabora container.</p>
+
+<ul>
+  <li>Next you install the app in the Nextcloud GUI.</li>
+  <li>Go to Settings -&gt; Administration -&gt; Office</li>
+  <li>Put your local Collabora address under “Use your own server”
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">http://10.0.0.90:9980</code></li>
+    </ul>
+  </li>
+  <li>Save. It will tell you if everything is correct.</li>
+</ul>
+
+<p>Make sure the “Collaborative tags” app is enabled.</p>
+
+<p>It should work now.</p>
+
+<hr />
+
+<h3 id="nextcloud-configphp">Nextcloud config.php</h3>
+
+<p>Located in :<code class="language-plaintext highlighter-rouge">/srv/dev-disk-by-uuid-d657f449-9e05-43a7-840f-756115e9855c/data2/nextcloud/config/www/nextcloud/config</code>)</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$CONFIG</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span>
+  <span class="s1">'datadirectory'</span> <span class="o">=&gt;</span> <span class="s1">'/data'</span><span class="p">,</span>
+  <span class="s1">'instanceid'</span> <span class="o">=&gt;</span> <span class="s1">'REDACTED'</span><span class="p">,</span>
+  <span class="s1">'passwordsalt'</span> <span class="o">=&gt;</span> <span class="s1">'REDACTED'</span><span class="p">,</span>
+  <span class="s1">'secret'</span> <span class="o">=&gt;</span> <span class="s1">'REDACTED'</span><span class="p">,</span>
+  <span class="s1">'trusted_domains'</span> <span class="o">=&gt;</span> 
+  <span class="k">array</span> <span class="p">(</span>
+    <span class="mi">0</span> <span class="o">=&gt;</span> <span class="s1">'10.0.0.90:8022'</span><span class="p">,</span>
+    <span class="mi">1</span> <span class="o">=&gt;</span> <span class="s1">'[REDACTED]:8022'</span><span class="p">,</span>
+  <span class="p">),</span>
+  <span class="s1">'dbtype'</span> <span class="o">=&gt;</span> <span class="s1">'mysql'</span><span class="p">,</span>
+  <span class="s1">'version'</span> <span class="o">=&gt;</span> <span class="s1">'31.0.5.1'</span><span class="p">,</span>
+  <span class="s1">'overwrite.cli.url'</span> <span class="o">=&gt;</span> <span class="s1">'http://10.0.0.90:8022'</span><span class="p">,</span>
+  <span class="s1">'maintenance_window_start'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">'log_type'</span> <span class="o">=&gt;</span> <span class="s1">'file'</span><span class="p">,</span>
+  <span class="s1">'logfile'</span> <span class="o">=&gt;</span> <span class="s1">'nextcloud.log'</span><span class="p">,</span>
+  <span class="s1">'loglevel'</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="s1">'logdateformat'</span> <span class="o">=&gt;</span> <span class="s1">'F d, Y H:i:s'</span><span class="p">,</span>
+  <span class="s1">'dbname'</span> <span class="o">=&gt;</span> <span class="s1">'nextcloud'</span><span class="p">,</span>
+  <span class="s1">'dbhost'</span> <span class="o">=&gt;</span> <span class="s1">'mariadb'</span><span class="p">,</span>
+  <span class="s1">'dbport'</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="s1">'dbtableprefix'</span> <span class="o">=&gt;</span> <span class="s1">'oc_'</span><span class="p">,</span>
+  <span class="s1">'mysql.utf8mb4'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s1">'dbuser'</span> <span class="o">=&gt;</span> <span class="s1">'nextcloud'</span><span class="p">,</span>
+  <span class="s1">'dbpassword'</span> <span class="o">=&gt;</span> <span class="s1">'REDACTED'</span><span class="p">,</span>
+  <span class="s1">'installed'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s1">'memcache.local'</span> <span class="o">=&gt;</span> <span class="s1">'\\OC\\Memcache\\APCu'</span><span class="p">,</span>
+  <span class="s1">'filelocking.enabled'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s1">'memcache.locking'</span> <span class="o">=&gt;</span> <span class="s1">'\\OC\\Memcache\\APCu'</span><span class="p">,</span>
+  <span class="s1">'upgrade.disable-web'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s1">'richdocuments'</span> <span class="o">=&gt;</span> 
+  <span class="k">array</span> <span class="p">(</span>
+    <span class="s1">'wopi_url'</span> <span class="o">=&gt;</span> <span class="s1">'http://10.0.0.90:9980'</span><span class="p">,</span>
+    <span class="s1">'wopi_allowlist'</span> <span class="o">=&gt;</span> 
+    <span class="k">array</span> <span class="p">(</span>
+      <span class="mi">0</span> <span class="o">=&gt;</span> <span class="s1">'10.0.0.90:8022'</span><span class="p">,</span>
+      <span class="mi">1</span> <span class="o">=&gt;</span> <span class="s1">'[REDACTED]:8022'</span><span class="p">,</span>
+    <span class="p">),</span>
+  <span class="p">),</span>
+  <span class="s1">'maintenance'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="cron-jobs">Cron jobs</h3>
+
+<p>Fix slowness</p>
+
+<p>On host machine:</p>
+
+<p><code class="language-plaintext highlighter-rouge">docker exec -it nextcloud bash</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">crontab -e</code></p>
+
+<p>Append:</p>
+
+<p><code class="language-plaintext highlighter-rouge">*/5 * * * * php /app/www/public/cron.php</code></p>
+
+<p>To find where the cron.php is: <code class="language-plaintext highlighter-rouge">find / -name cron.php 2&gt;/dev/null</code></p>
+
+<p>Check if Nexcloud is using the cronjob instead of AJAX:</p>
+<ul>
+  <li>on the WebGUI, go to Administration Settings -&gt; Basic Settings</li>
+</ul>
+
+<hr />
+
+<h2 id="immich">Immich</h2>
+
+<p>I installed Immich with Portainer.</p>
+
+<p>Create a stack and add the compose file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">immich</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">immich-server</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">immich_server</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="c1"># Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file</span>
+      <span class="pi">-</span> <span class="s">${UPLOAD_LOCATION}:/usr/src/app/upload</span>
+      <span class="pi">-</span> <span class="s">/etc/localtime:/etc/localtime:ro</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">stack.env</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">2283:2283'</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">redis</span>
+      <span class="pi">-</span> <span class="s">database</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">disable</span><span class="pi">:</span> <span class="kc">false</span>
+
+  <span class="na">immich-machine-learning</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">immich_machine_learning</span>
+    <span class="c1"># For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.</span>
+    <span class="c1"># Example tag: ${IMMICH_VERSION:-release}-cuda</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}</span>
+    <span class="c1"># extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration</span>
+    <span class="c1">#   file: hwaccel.ml.yml</span>
+    <span class="c1">#   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">model-cache:/cache</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">stack.env</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">disable</span><span class="pi">:</span> <span class="kc">false</span>
+
+  <span class="na">redis</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">immich_redis</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">docker.io/valkey/valkey:8-bookworm@sha256:ff21bc0f8194dc9c105b769aeabf9585fea6a8ed649c0781caeac5cb3c247884</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="s">redis-cli ping || exit </span><span class="m">1</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+
+  <span class="na">database</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">immich_postgres</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0</span>
+    <span class="c1"># image: ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0@sha256:fa4f6e0971f454cd95fec5a9aaed2ed93d8f46725cc6bc61e0698e97dba96da1</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">${DB_PASSWORD}</span>
+      <span class="na">POSTGRES_USER</span><span class="pi">:</span> <span class="s">${DB_USERNAME}</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">${DB_DATABASE_NAME}</span>
+      <span class="na">POSTGRES_INITDB_ARGS</span><span class="pi">:</span> <span class="s1">'</span><span class="s">--data-checksums'</span>
+      <span class="c1"># Uncomment the DB_STORAGE_TYPE: 'HDD' var if your database isn't stored on SSDs</span>
+      <span class="na">DB_STORAGE_TYPE</span><span class="pi">:</span> <span class="s1">'</span><span class="s">HDD'</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="c1"># Do not edit the next line. If you want to change the database storage location on your system, edit the value of DB_DATA_LOCATION in the .env file</span>
+      <span class="pi">-</span> <span class="s">${DB_DATA_LOCATION}:/var/lib/postgresql/data</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+
+  <span class="na">power-tools</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">immich_power_tools</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/varun-raj/immich-power-tools:latest</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8001:3000"</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">stack.env</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">model-cache</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<p>Add the environment variables:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UPLOAD_LOCATION=/srv/mergerfs/Merger1/data/portainer/library
+DB_DATA_LOCATION=/srv/dev-disk-by-uuid-8d480631-d323-4e8e-92a1-42a85272b03c/data/portainer/postgres
+IMMICH_VERSION=v1.137.0
+DB_PASSWORD=[REDACTED]
+DB_USERNAME=[REDACTED]
+DB_DATABASE_NAME=immich
+IMMICH_URL=http://10.0.0.90:2283
+DB_HOST=database
+DB_PORT=5432
+</code></pre></div></div>
+
+<p>IMPORTANT:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">UPLOAD_LOCATION</code> can be in the mergerfs pool</li>
+  <li><code class="language-plaintext highlighter-rouge">DB_DATA_LOCATION</code> <strong>needs</strong> to be an absolute path.</li>
+</ul>
+
+<hr />
+
+<h1 id="tailscale">Tailscale</h1>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">ts-authkey-test</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">tailscale/tailscale:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">ts-authkey-test</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">omv-server</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">TS_AUTHKEY=[REDACTED]</span>
+      <span class="pi">-</span> <span class="s">TS_STATE_DIR=/var/lib/tailscale</span>
+      <span class="pi">-</span> <span class="s">TS_USERSPACE=false</span>
+      <span class="pi">-</span> <span class="s">TS_EXTRA_ARGS=--accept-dns=false</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Tailscale/ts-authkey-test/state:/var/lib/tailscale</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/dev/net/tun:/dev/net/tun</span>
+    <span class="na">cap_add</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">net_admin</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s">host</span>
+</code></pre></div></div>
+
+<p>This is for remote access to the server.</p>
+
+<p>You need to have an account at Tailscale (it’s free). Generate an auth key. It’s on settings -&gt; keys and generate an auth key.</p>
+
+<p>Use that auth key on the environment <code class="language-plaintext highlighter-rouge">TS_AUTHKEY</code> on our docker compose file.</p>
+
+<p>You also need to install and run Tailscale on the device you want to use.</p>
+
+<p>With tailscale running everywhere, use the server address that shows on the tailscale account page or app, and add the port you want to use, like 100.0.12.2:8096 for Jellyfin.</p>
+
+<hr />
+
+<h1 id="pi-hole">Pi-Hole</h1>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">pihole</span><span class="pi">:</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">pihole</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">pihole</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">pihole/pihole:latest</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">host"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">TZ</span><span class="pi">:</span> <span class="s1">'</span><span class="s">America/New_York'</span>
+      <span class="na">FTLCONF_webserver_api_password</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">REDACTED</span><span class="pi">]</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">/srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677/data/pihole/etc-pihole:/etc/pihole'</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">/srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<h2 id="integration-with-tailscale">Integration with Tailscale</h2>
+
+<p>On the Tailscale admin page, go to the tab DNS</p>
+
+<ul>
+  <li>Add a custom nameserver with the OMV server tailscale address (something like <code class="language-plaintext highlighter-rouge">100.111.55.11</code>)</li>
+  <li>Enable the “override DNS servers”</li>
+</ul>
+
+<p>On the OMV machine, disable systemd-restored:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl disable systemd-resolved --now
+sudo systemctl stop systemd-resolved
+</code></pre></div></div>
+
+<p>Beucause Pi-Hole is now using the host network, you need to change OMV’s own port.</p>
+
+<ul>
+  <li>On the OMV WebGUI, go to Systems -&gt; Workbench and switch port 80 to something else, like 81</li>
+  <li>The WebGUI will crash, so now you have to open it using the port. In my case, it’s <code class="language-plaintext highlighter-rouge">10.0.0.90:81</code></li>
+</ul>
+
+<p>With all the containers up, you can access the Pi-Hole WebGUI with <code class="language-plaintext highlighter-rouge">10.0.0.66/admin</code></p>
+
+<hr />
+
+<h1 id="tools">Tools</h1>
+
+<h2 id="omni-tools">Omni-tools</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">omni-tools</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">iib0011/omni-tools:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">omni-tools</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8484:80"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="stirling-pdf">Stirling-PDF</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">stirling-pdf</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">8083:8080'</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/trainingData:/usr/share/tessdata</span> <span class="c1"># Required for extra OCR languages</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/extraConfigs:/configs</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/customFiles:/customFiles/</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/logs:/logs/</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/pipeline:/pipeline/</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">DOCKER_ENABLE_SECURITY=false</span>
+      <span class="pi">-</span> <span class="s">LANGS=en_US</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="wetty">WeTTY</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">networks</span><span class="pi">:</span>
+  <span class="na">my-net</span><span class="pi">:</span>
+    <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">wetty</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">wettyoss/wetty:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">wetty</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="na">my-net</span><span class="pi">:</span>
+    <span class="na">cap_add</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">NET_ADMIN</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">SSHHOST=10.0.0.90</span> <span class="c1"># Your NAS Ip here</span>
+      <span class="pi">-</span> <span class="s">SSHPORT=22</span> <span class="c1"># You SSH port Here</span>
+      <span class="pi">-</span> <span class="s">SSHUSER=root</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">3000:3000</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<p>After doing this, you need to go to OMV7 -&gt; Services -&gt; Compose -&gt; Networks and create a new empty bridge network by clicking the plus button.</p>
+
+<p>Name it <code class="language-plaintext highlighter-rouge">my-net</code>, as shown in the docker-compose file above.</p>
+
+<p>To run it, the address needs to be followed by <code class="language-plaintext highlighter-rouge">/wetty</code> like this: <code class="language-plaintext highlighter-rouge">http://10.0.0.90:3000/wetty</code></p>
+
+<hr />
+
+<p>#FMHY</p>
+
+<ul>
+  <li>create folder somewhere</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/fmhy/edit.git
+cd edit
+sudo docker compose up --build
+</code></pre></div></div>
+
+<ul>
+  <li>to run:</li>
+  <li><code class="language-plaintext highlighter-rouge">cd /srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/FMHY/edit</code></li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose up --detach</code></li>
+</ul>
+
+<h1 id="email-notifications">Email Notifications</h1>
+
+<p>On OMV’s WebGUI:</p>
+
+<p>System -&gt; Notification -&gt; Settings</p>
+
+<ul>
+  <li>Enabled</li>
+  <li>smtp.gmail.com</li>
+  <li>587</li>
+  <li>STARTTLS</li>
+  <li>USERNAME@gmail.com</li>
+  <li>Authentication required</li>
+  <li>USERNAME</li>
+  <li>Password
+    <ul>
+      <li>You need to generate an app password. Just google how to do it. Google will generate one with spaces, you should delete the spaces.</li>
+    </ul>
+  </li>
+  <li>Add the recipients</li>
+</ul>
+
+<hr />
+
+<h1 id="glance-dashboard">Glance (Dashboard)</h1>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">glance</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">glance</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">glanceapp/glance</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Glance:/app/config</span>
+      <span class="pi">-</span> <span class="s">/var/run/docker.sock:/var/run/docker.sock</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">3030:8080</span>
+</code></pre></div></div>
+
+<p>Glance was a bit tricky to get working.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">glance.yml</code> file should go here:</p>
+
+<p><code class="language-plaintext highlighter-rouge">/srv/dev-disk-by-uuid-f7b0c05a-e445-402d-a0c0-b8f2a4f9c677/configs/glance/glance.yml</code></p>
+
+<p>The default port is <code class="language-plaintext highlighter-rouge">8080:8080</code>, but it conflicts with qBitTorrent. So you have to reroute the port, which I did with <code class="language-plaintext highlighter-rouge">3030:8080</code></p>
+
+<p>All the configuration for the dashboard is made through the <code class="language-plaintext highlighter-rouge">glance.yml</code> file.</p>
+
+<p>My <code class="language-plaintext highlighter-rouge">glance.yml</code> file:</p>
+
+<details>
+	<summary>Click to expand</summary>
+	<pre>
+
+theme:
+  background-color: 50 1 6
+  primary-color: 24 97 58
+  negative-color: 209 88 54
+  contrast-multiplier: 1.3
+pages:
+  - name: Home
+    # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
+    hide-desktop-navigation: true
+    columns:
+
+      - size: full
+        widgets:
+          - type: monitor
+            cache: 1m
+            title: Services
+            sites:
+              - title: OMV
+                url: http://10.0.0.90
+                icon: di:openmediavault
+              - title: Portainer
+                url: https://10.0.0.90:9443
+                icon: di:portainer
+                allow-insecure: true
+              - title: NextCloud
+                url: http://10.0.0.90:8022
+                icon: di:nextcloud
+              - title: Paperless
+                url: http://10.0.0.90:8010
+                icon: di:paperless
+              - title: WeTTY
+                url: http://10.0.0.90:3000/wetty
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/wetty.png
+              - title: File Browser
+                url: http://10.0.0.90:3671
+                icon: http://10.0.0.90:3671/static/img/logo.svg
+              - title: Stirling-PDF
+                url: http://10.0.0.90:8083
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/stirling-pdf.svg
+              - title: Omni-tools
+                url: http://10.0.0.90:8484
+                icon: https://raw.githubusercontent.com/iib0011/omni-tools/a6a13eff75f02d6b07f405bd88d73942cbb2eb42/src/assets/logo.svg
+              - title: FMHY
+                url: http://10.0.0.90:4173
+                icon: https://fmhy.net/test.png
+
+          - type: monitor
+            cache: 1m
+            title: Media Server
+            sites:
+              - title: Jellyfin
+                url: http://10.0.0.90:8096
+                icon: di:jellyfin
+              - title: Immich
+                url: http://10.0.0.90:2283
+                icon: di:immich
+              - title: Immich Power Tools
+                url: http://10.0.0.90:8001
+                icon: https://vault.featureos.app/uploads/organization/avatar/7973/thumb_795964df8c50b79e1f6c552a1804d01f.png
+              - title: qBittorrent
+                url: http://10.0.0.90:8080
+                icon: di:qbittorrent  
+              - title: Jellyseerr
+                url: http://10.0.0.90:5055
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyseerr.svg
+              - title: Radarr
+                url: http://10.0.0.90:7878
+                icon: di:radarr
+                alt-status-codes:
+                  - 401
+              - title: Sonarr
+                url: http://10.0.0.90:8989
+                icon: di:sonarr
+                alt-status-codes:
+                  - 401
+              - title: Prowlarr
+                url: http://10.0.0.90:9696
+                icon: di:prowlarr
+                alt-status-codes:
+                  - 401
+              - title: Bazarr
+                url: http://10.0.0.90:6767
+                icon: di:bazarr
+              - title: Huntarr
+                url: http://10.0.0.90:9705
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/huntarr.png
+              - title: Cleanuparr
+                url: http://10.0.0.90:11011
+                icon: https://cleanuparr.github.io/Cleanuparr/img/cleanuparr.svg
+              - title: Soulseek
+                url: http://10.0.0.90:5030
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/soulseek.png
+              - title: FileBot
+                url: http://10.0.0.90:5800
+                icon: di:filebot
+
+          - type: clock
+            hour-format: 24h
+            timezones:
+              - timezone: America/New_York
+                label: New York
+              - timezone: Europe/Rome
+                label: Rome
+              - timezone: Australia/Brisbane
+                label: Brisbane
+
+      - size: full
+        widgets:
+          - type: monitor
+            cache: 1m
+            title: Services Remote
+            sites:
+              - title: OMV
+                url: http://100.95.189.126
+                icon: di:openmediavault
+              - title: Portainer
+                url: https://100.95.189.126:9443
+                icon: di:portainer
+                allow-insecure: true
+              - title: Nextcloud
+                url: http://100.95.189.126:8022
+                icon: di:nextcloud
+              - title: Paperless
+                url: http://100.95.189.126:8010
+                icon: di:paperless
+              - title: WeTTY
+                url: http://100.95.189.126:3000/wetty
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/wetty.png
+              - title: File Browser
+                url: http://100.95.189.126:3671
+                icon: http://100.95.189.126:3671/static/img/logo.svg 
+              - title: Stirling-PDF
+                url: http://100.95.189.126:8083
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/stirling-pdf.svg
+              - title: Omni-tools
+                url: http://100.95.189.126:8484
+                icon: https://raw.githubusercontent.com/iib0011/omni-tools/a6a13eff75f02d6b07f405bd88d73942cbb2eb42/src/assets/logo.svg
+              - title: FMHY
+                url: http://100.95.189.126:4173
+                icon: http://100.95.189.126:4173/test.png
+
+          - type: monitor
+            cache: 1m
+            title: Media Server Remote
+            sites:
+              - title: Jellyfin
+                url: http://100.95.189.126:8096
+                icon: di:jellyfin
+              - title: Immich
+                url: http://100.95.189.126:2283
+                icon: di:immich
+              - title: Immich Power Tools
+                url: http://100.95.189.126:8001
+                icon: https://vault.featureos.app/uploads/organization/avatar/7973/thumb_795964df8c50b79e1f6c552a1804d01f.png
+              - title: qBittorrent # only for Linux ISOs, of course
+                url: http://100.95.189.126:8080
+                icon: di:qbittorrent
+              - title: Jellyseerr
+                url: http://100.95.189.126:5055
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyseerr.svg
+              - title: Radarr
+                url: http://100.95.189.126:7878
+                icon: di:radarr
+                alt-status-codes:
+                  - 401
+              - title: Sonarr
+                url: http://100.95.189.126:8989
+                icon: di:sonarr
+                alt-status-codes:
+                  - 401
+              - title: Prowlarr
+                url: http://100.95.189.126:9696
+                icon: di:prowlarr
+                alt-status-codes:
+                  - 401
+              - title: Bazarr
+                url: http://100.95.189.126:6767
+                icon: di:bazarr
+              - title: Huntarr
+                url: http://100.95.189.126:9705
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/huntarr.png
+              - title: Cleanuparr
+                url: http://100.95.189.126:11011
+                icon: https://cleanuparr.github.io/Cleanuparr/img/cleanuparr.svg
+              - title: Soulseek
+                url: http://100.95.189.126:5030
+                icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/soulseek.png
+              - title: FileBot
+                url: http://100.95.189.126:5800
+                icon: di:filebot
+
+          - type: calendar
+            first-day-of-week: sunday
+
+	</pre>
+
+</details>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">otávio mk</h2> -->
+
+    <!-- <div class="footer-col-wrapper"> -->
+      <!-- <div class="footer-col footer-col-1"> -->
+      <!--   <ul class="contact-list"> -->
+      <!--     <!-1- <li class="p-name"> -1-> -->
+      <!--     <!-1--1-> -->
+      <!--     <!-1-     otávio mk -1-> -->
+      <!--     <!-1--1-> -->
+      <!--     <!-1-   </li> -1-> -->
+      <!--       <!-1--1-> -->
+      <!--   </ul> -->
+      <!-- </div> -->
+
+      <!-- <div class="footer-col footer-col-2"> -->
+      <div><ul class="social-media-list">
+  <!-- <li style="display:inline"><a target="_blank" href="https://www.youtube.com/channel/UCFSm9mZHqqNlxPxyEDmPjQA"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#youtube"></use></svg> <span class="username"></span></a></li> --><li style="display:inline"><a target="_blank" href="https://www.youtube.com/channel/UCFSm9mZHqqNlxPxyEDmPjQA">youtube</a></li>
+<li style="display:inline"><a target="_blank" href="https://kavotaman.bandcamp.com">bandcamp</a></li>
+<li style="display:inline"><a target="_blank" href="https://ruidospodcast.com.br">ruidospodcast</a></li>
+<li style="display:inline"><a target="_blank" href="https://github.com/kavotaman">github</a></li>
+</ul>
+</div>
+
+      <!-- <div class="footer-col footer-col-3"> -->
+      <!--   <p>otávio manzano kavakama - cello</p> -->
+      <!-- </div> -->
+    <!-- </div> -->
+
+  </div>
+
+</footer>
+</body>
+
+</html>
