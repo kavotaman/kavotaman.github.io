@@ -51,146 +51,107 @@
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <article class="post">
+      <div class="page-with-toc wrapper">   <!-- added wrapper here -->
 
-  <header class="post-header">
-    <h1 class="post-title">OMV</h1>
-  </header>
+  <nav class="toc">
+    <button class="toc-toggle">☰ Table of Contents</button>
+    <div class="toc-content">
+      <ul id="js-toc"></ul>
+    </div>
+  </nav>
 
-  <div class="post-content">
-    <style>
-details {
-	padding-bottom: 20px;
-	color: grey;
+  <article class="post content">
+    <header class="post-header">
+    </header>
+
+    <div class="post-content">
+      <style>
+.page-with-toc {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
 }
-pre {
-  display: block;
-  font-family: monospace;
-  white-space: pre;
-  margin: 1em 0;
-  color: #c80;
+
+.toc {
+  flex: 0 0 250px;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 1rem;
+  background: #663300;
+  border: 1.5px solid #ddd;
+  position: sticky;
+  top: 0;
+}
+
+.toc-toggle {
+  display: none; /* hidden on desktop */
+  width: 100%;
+  background: #663300;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.toc-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-content a {
+  text-decoration: none;
+  color: #F5B027;
+}
+
+.toc-content a:hover {
+  text-decoration: underline;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .page-with-toc {
+    flex-direction: column;
+  }
+
+  .toc {
+    position: sticky;   /* stick to top */
+    top: 0;
+    z-index: 1000;      /* make sure it stays above content */
+    flex: none;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 0;
+    background: #fff;   /* give it a background so text doesn't bleed through */
+  }
+
+  .toc-toggle {
+    display: block;
+  }
+
+  .toc-content {
+    display: none;
+    max-height: 60vh;   /* allow scrolling */
+    overflow-y: auto;
+    padding: 1rem;
+    background: #663300;
+    border-top: 1px solid #ddd;
+  }
+
+  .toc.open .toc-content {
+    display: block;
+  }
 }
 </style>
 
-<h2 id="if-you-got-here-from-google-or-the-like-please-be-aware-that-this-is-for-my-own-use-and-many-things-in-here-could-be-out-of-date-or-not-work-at-all">If you got here from google or the like, please be aware that this is for my own use, and many things in here could be out of date or not work at all.</h2>
-
-<!-- vim-markdown-toc Redcarpet -->
-
-<ul>
-  <li><a href="#notes">Notes</a>
-    <ul>
-      <li><a href="#containers-installed-through-portainer">Containers installed through Portainer</a></li>
-      <li><a href="#containers-installed-through-command-line">Containers installed through command line</a></li>
-    </ul>
-  </li>
-  <li><a href="#install-omv">Install OMV</a>
-    <ul>
-      <li><a href="#handle-lid-and-screen-blank">Handle Lid and Screen Blank</a></li>
-      <li><a href="#static-ip">Static IP</a>
-        <ul>
-          <li><a href="#comcast-residential-internet-fix">Comcast Residential Internet fix</a></li>
-          <li><a href="#ssh">SSH</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><a href="#first-steps">First steps</a>
-    <ul>
-      <li><a href="#neovim">NEOVIM</a></li>
-      <li><a href="#bashrc-aliases-etc">.BASHRC (aliases etc)</a></li>
-      <li><a href="#ranger">RANGER</a></li>
-      <li><a href="#omv-extras">OMV-Extras</a>
-        <ul>
-          <li><a href="#snapraid">SnapRaid</a></li>
-          <li><a href="#mergerfs">MergerFS</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><a href="#env">.env</a></li>
-  <li><a href="#media-server">MEDIA SERVER</a>
-    <ul>
-      <li><a href="#arr-stack">*Arr Stack</a>
-        <ul>
-          <li><a href="#bazarr">Bazarr</a></li>
-          <li><a href="#prowlarr">Prowlarr</a></li>
-          <li><a href="#radarr">Radarr</a></li>
-          <li><a href="#sonarr">Sonarr</a></li>
-          <li><a href="#huntarr">Huntarr</a></li>
-          <li><a href="#cleanuparr">Cleanuparr</a></li>
-          <li><a href="#flaresolverr">Flaresolverr</a></li>
-        </ul>
-      </li>
-      <li><a href="#vpn-etc">VPN etc</a>
-        <ul>
-          <li><a href="#gluetun">Gluetun</a></li>
-          <li><a href="#qbittorrent">qBitTorrent</a></li>
-          <li><a href="#soulseek">Soulseek</a></li>
-        </ul>
-      </li>
-      <li><a href="#jellyfin">Jellyfin</a>
-        <ul>
-          <li><a href="#plugins">Plugins</a></li>
-        </ul>
-      </li>
-      <li><a href="#filebot">FileBot</a></li>
-    </ul>
-  </li>
-  <li><a href="#nextcloud-aio">Nextcloud AIO</a></li>
-  <li><a href="#nginx-proxy-manager-npm">Nginx Proxy Manager (NPM)</a></li>
-  <li><a href="#immich">Immich</a></li>
-  <li><a href="#tailscale">Tailscale</a></li>
-  <li><a href="#tools">Tools</a>
-    <ul>
-      <li><a href="#omni-tools">Omni-tools</a></li>
-      <li><a href="#wetty">WeTTY</a></li>
-      <li><a href="#dumbpad">DumbPad</a></li>
-      <li><a href="#motioneye">MotionEye</a></li>
-    </ul>
-  </li>
-  <li><a href="#fmhy">FMHY</a></li>
-  <li><a href="#email-notifications">Email Notifications</a></li>
-  <li><a href="#glance-dashboard">Glance (Dashboard)</a></li>
-  <li><a href="#website">Website</a>
-    <ul>
-      <li><a href="#hugo">Hugo</a></li>
-      <li><a href="#docker-compose">docker compose</a></li>
-      <li><a href="#usage">Usage</a>
-        <ul>
-          <li><a href="#content">Content</a></li>
-          <li><a href="#images">Images</a></li>
-          <li><a href="#directory-tree">Directory tree</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><a href="#diun">DIUN</a></li>
-  <li><a href="#not-in-use">Not in use</a>
-    <ul>
-      <li><a href="#stirling-pdf">Stirling-PDF</a></li>
-      <li><a href="#pi-hole">Pi-Hole</a>
-        <ul>
-          <li><a href="#integration-with-tailscale">Integration with Tailscale</a></li>
-        </ul>
-      </li>
-      <li><a href="#nextcloud">Nextcloud</a>
-        <ul>
-          <li><a href="#mariadb">MariaDB</a>
-            <ul>
-              <li><a href="#old-nextcloud-config">Old Nextcloud config</a></li>
-            </ul>
-          </li>
-          <li><a href="#nextcloud-office">Nextcloud Office</a></li>
-          <li><a href="#nextcloud-config-php">Nextcloud config.php</a></li>
-          <li><a href="#cron-jobs">Cron jobs</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-<!-- vim-markdown-toc -->
+<hr />
+<hr />
 
 <h1 id="notes">Notes</h1>
 
@@ -207,8 +168,118 @@ pre {
 <ul>
   <li>Nextcloud</li>
   <li>Diun</li>
+  <li>Paperless-ngx</li>
   <li>Hugo (Hugo is in /configs)</li>
 </ul>
+
+<p>Located in <code class="language-plaintext highlighter-rouge">/opt/compose</code> in one big stack:</p>
+
+<ul>
+  <li>Gluetun</li>
+  <li>Flaresolverr</li>
+  <li>Prowlarr</li>
+  <li>QbitTorrent</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">gluetun</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">qmcgaw/gluetun</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">gluetun</span>
+    <span class="na">cap_add</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">NET_ADMIN</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/dev/net/tun:/dev/net/tun</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="c1"># - 8888:8888/tcp # HTTP proxy Remove if not using</span>
+      <span class="pi">-</span> <span class="s">8080:8080</span> <span class="c1"># qbittorrent web interface</span>
+      <span class="pi">-</span> <span class="s">6081:6881</span>
+      <span class="pi">-</span> <span class="s">6081:6881/udp</span>
+      <span class="pi">-</span> <span class="s">6011:6011</span>
+      <span class="pi">-</span> <span class="s">9696:9696</span> <span class="c1"># prowlarr</span>
+      <span class="pi">-</span> <span class="s">8191:8191</span> <span class="c1">#flaresolverr</span>
+      <span class="c1"># - 7878:7878 # radarr</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Gluetun:/config</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">diun.enable=true"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">FIREWALL_OUTBOUND_SUBNETS=172.17.0.0/16</span>
+      <span class="c1"># - HTTPPROXY=on #Remove if not using for HTTP proxy</span>
+      <span class="pi">-</span> <span class="s">VPN_SERVICE_PROVIDER=mullvad</span>
+      <span class="pi">-</span> <span class="s">VPN_TYPE=wireguard</span>
+      <span class="pi">-</span> <span class="s">WIREGUARD_PRIVATE_KEY=[REDACTED]</span>
+      <span class="pi">-</span> <span class="s">WIREGUARD_ADDRESSES=[REDACTED]</span>
+      <span class="pi">-</span> <span class="s">SERVER_CITIES="Chicago IL"</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="s">ping -c 1 www.google.com || exit </span><span class="m">1</span>
+      <span class="na">interval</span><span class="pi">:</span> <span class="s">30s</span>
+      <span class="na">timeout</span><span class="pi">:</span> <span class="s">10s</span>
+      <span class="na">retries</span><span class="pi">:</span> <span class="m">3</span>
+      <span class="na">start_period</span><span class="pi">:</span> <span class="s">45s</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+
+  <span class="na">flaresolverr</span><span class="pi">:</span>
+    <span class="c1"># DockerHub mirror flaresolverr/flaresolverr:latest</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/flaresolverr/flaresolverr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">flaresolverr</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container:gluetun"</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">diun.enable=true"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">LOG_LEVEL=${LOG_LEVEL:-info}</span>
+      <span class="pi">-</span> <span class="s">LOG_HTML=${LOG_HTML:-false}</span>
+      <span class="pi">-</span> <span class="s">CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="c1"># ports:</span>
+    <span class="c1"># - 8191:8191</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="na">gluetun</span><span class="pi">:</span>
+        <span class="na">condition</span><span class="pi">:</span> <span class="s">service_healthy</span>
+
+  <span class="na">prowlarr</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">linuxserver/prowlarr:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">prowlarr</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Prowlarr/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Prowlarr/backup:/data/Backup</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">diun.enable=true"</span>
+    <span class="c1"># ports:</span>
+    <span class="c1"># - 9696:9696</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container:gluetun"</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="na">gluetun</span><span class="pi">:</span>
+        <span class="na">condition</span><span class="pi">:</span> <span class="s">service_healthy</span>
+
+  <span class="na">qbittorrent</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">linuxserver/qbittorrent:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">qbittorrent</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">com.centurylinklabs.watchtower.enable=false"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">diun.enable=true"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${CONFIGS}Qbittorrent/config:/config</span>
+      <span class="pi">-</span> <span class="s">${ARRPATH}Downloads:/downloads</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1000</span>
+      <span class="pi">-</span> <span class="s">PGID=100</span>
+      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
+      <span class="pi">-</span> <span class="s">WEBUI_PORT=8080</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container:gluetun"</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">start_period</span><span class="pi">:</span> <span class="s">15s</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="na">gluetun</span><span class="pi">:</span>
+        <span class="na">condition</span><span class="pi">:</span> <span class="s">service_healthy</span>
+</code></pre></div></div>
 
 <hr />
 
@@ -765,6 +836,16 @@ CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/
   </li>
 </ul>
 
+<p>I had to do this to get rid of some errors:</p>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/docker/daemon.json</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "data-root": "/var/lib/docker",
+  "dns": ["1.1.1.1", "8.8.8.8"]
+}
+</code></pre></div></div>
+
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
 
   <span class="na">nextcloud-aio-mastercontainer</span><span class="pi">:</span>
@@ -773,6 +854,8 @@ CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/
     <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
     <span class="na">container_name</span><span class="pi">:</span> <span class="s">nextcloud-aio-mastercontainer</span> <span class="c1"># This line is not allowed to be changed.</span>
     <span class="na">network_mode</span><span class="pi">:</span> <span class="s">bridge</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">diun.enable=true"</span>
     <span class="na">volumes</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">nextcloud_aio_mastercontainer:/mnt/docker-aio-config</span> <span class="c1"># This line is not allowed to be changed.</span>
       <span class="pi">-</span> <span class="s">/var/run/docker.sock:/var/run/docker.sock:ro</span>
@@ -796,6 +879,8 @@ CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/
   <span class="na">nextcloud_aio_mastercontainer</span><span class="pi">:</span>
     <span class="na">name</span><span class="pi">:</span> <span class="s">nextcloud_aio_mastercontainer</span> <span class="c1"># This line is not allowed to be changed.</span>
 </code></pre></div></div>
+
+<hr />
 
 <h1 id="nginx-proxy-manager-npm">Nginx Proxy Manager (NPM)</h1>
 
@@ -983,6 +1068,28 @@ DB_PORT=5432
       <span class="pi">-</span> <span class="s2">"</span><span class="s">8484:80"</span>
 </code></pre></div></div>
 
+<hr />
+
+<h2 id="stirling-pdf">Stirling-PDF</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">6   stirling-pdf</span><span class="pi">:</span>
+  <span class="na">7     image</span><span class="pi">:</span> <span class="s">docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest</span>
+  <span class="na">8     ports</span><span class="pi">:</span>
+  <span class="s">9       - '8083:8080'</span>
+ <span class="na">10     volumes</span><span class="pi">:</span>
+ <span class="s">11       - ${CONFIGS}StirlingPDF/trainingData:/usr/share/tessdata</span> <span class="c1"># Required for extra OCR languages</span>
+ <span class="s">12       - ${CONFIGS}StirlingPDF/extraConfigs:/configs</span>
+ <span class="s">13       - ${CONFIGS}StirlingPDF/customFiles:/customFiles/</span>
+ <span class="s">14       - ${CONFIGS}StirlingPDF/logs:/logs/</span>
+ <span class="s">15       - ${CONFIGS}StirlingPDF/pipeline:/pipeline/</span>
+ <span class="na">16     environment</span><span class="pi">:</span>
+ <span class="s">17       - DISABLE_ADDITIONAL_FEATURES=false</span>
+ <span class="s">18       - LANGS=en_US</span>
+</code></pre></div></div>
+
+<hr />
+
 <h2 id="wetty">WeTTY</h2>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">networks</span><span class="pi">:</span>
@@ -1013,6 +1120,8 @@ DB_PORT=5432
 
 <p>To run it, the address needs to be followed by <code class="language-plaintext highlighter-rouge">/wetty</code> like this: <code class="language-plaintext highlighter-rouge">http://10.0.0.90:3000/wetty</code></p>
 
+<hr />
+
 <h2 id="dumbpad">DumbPad</h2>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
@@ -1035,6 +1144,116 @@ DB_PORT=5432
       <span class="c1"># The base URL for the application</span>
       <span class="na">BASE_URL</span><span class="pi">:</span> <span class="s">http://10.0.0.90:3003</span>
 </code></pre></div></div>
+
+<hr />
+
+<h2 id="paperless-ngx">Paperless-ngx</h2>
+
+<p>Located in <code class="language-plaintext highlighter-rouge">/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/PAPERLESS</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">networks</span><span class="pi">:</span>
+  <span class="na">backend</span><span class="pi">:</span>
+    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">paperless</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">paperless</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/paperless-ngx/paperless-ngx:latest</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">backend</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8050:8000</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">diun.enable=true"</span>
+    <span class="na">security_opt</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">no-new-privileges:true</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">paperless-redis</span>
+      <span class="pi">-</span> <span class="s">paperless-postgres</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./paperless/paperless/data:/usr/src/paperless/data</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/Merger1/data/paperless/paperless/media:/usr/src/paperless/media</span>
+      <span class="pi">-</span> <span class="s">/srv/mergerfs/Merger1/data/paperless/paperless/export:/usr/src/paperless/export</span>
+      <span class="pi">-</span> <span class="s">./paperless/paperless/consume:/usr/src/paperless/consume</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">USERMAP_UID</span><span class="pi">:</span> <span class="s">${USERMAP_UID}</span>
+      <span class="na">USERMAP_GID</span><span class="pi">:</span> <span class="s">${USERMAP_GID}</span>
+      <span class="na">PAPERLESS_TIME_ZONE</span><span class="pi">:</span> <span class="s">${PAPERLESS_TIME_ZONE}</span>
+      <span class="na">PAPERLESS_OCR_LANGUAGE</span><span class="pi">:</span> <span class="s">${PAPERLESS_OCR_LANGUAGE}</span>
+      <span class="na">PAPERLESS_ENABLE_UPDATE_CHECK</span><span class="pi">:</span> <span class="s">${PAPERLESS_ENABLE_UPDATE_CHECK}</span>
+      <span class="na">PAPERLESS_REDIS</span><span class="pi">:</span> <span class="s">redis://paperless-redis:6379</span>
+      <span class="na">PAPERLESS_DBHOST</span><span class="pi">:</span> <span class="s">${PAPERLESS_DBHOST}</span>
+      <span class="na">PAPERLESS_DBNAME</span><span class="pi">:</span> <span class="s">${PAPERLESS_DBNAME}</span>
+      <span class="na">PAPERLESS_DBUSER</span><span class="pi">:</span> <span class="s">${PAPERLESS_DBUSER}</span>
+      <span class="na">PAPERLESS_DBPASS</span><span class="pi">:</span> <span class="s">${PAPERLESS_DBPASS}</span>
+      <span class="na">PAPERLESS_SECRET_KEY</span><span class="pi">:</span> <span class="s">${PAPERLESS_SECRET_KEY}</span>
+      <span class="na">PAPERLESS_FILENAME_FORMAT</span><span class="pi">:</span> <span class="s2">"</span><span class="s">//</span><span class="nv"> </span><span class="s">"</span>
+      <span class="na">PAPERLESS_URL</span><span class="pi">:</span> <span class="s">${PAPERLESS_URL}</span>
+      <span class="na">PAPERLESS_ALLOWED_HOSTS</span><span class="pi">:</span> <span class="s">${PAPERLESS_ALLOWED_HOSTS}</span>
+      <span class="na">PAPERLESS_ADMIN_USER</span><span class="pi">:</span> <span class="s">${PAPERLESS_ADMIN_USER}</span>
+      <span class="na">PAPERLESS_ADMIN_PASSWORD</span><span class="pi">:</span> <span class="s">${PAPERLESS_ADMIN_PASSWORD}</span>
+
+  <span class="na">paperless-postgres</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">paperless-postgres</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">postgres:16.0-alpine</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">backend</span>
+    <span class="na">security_opt</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">no-new-privileges:true</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./paperless/postgres:/var/lib/postgresql/data</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_USER</span><span class="pi">:</span> <span class="s">${POSTGRES_USER}</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">${POSTGRES_DB}</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">${POSTGRES_PASSWORD}</span>
+
+  <span class="na">paperless-redis</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">paperless-redis</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">redis:7.2-alpine</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">backend</span>
+    <span class="na">security_opt</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">no-new-privileges:true</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./paperless/redis:/data</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">REDIS_ARGS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">--save</span><span class="nv"> </span><span class="s">60</span><span class="nv"> </span><span class="s">10"</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">.env</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># User mapping
+USERMAP_UID=1000
+USERMAP_GID=100
+
+# Paperless settings
+PAPERLESS_TIME_ZONE=America/New_York
+PAPERLESS_OCR_LANGUAGE=eng
+PAPERLESS_ENABLE_UPDATE_CHECK=true
+PAPERLESS_URL=https://paperless.86798788.xyz
+PAPERLESS_ALLOWED_HOSTS=paperless.86798788.xyz,localhost,127.0.0.1,100.95.189.126,10.0.0.90
+
+# Database settings
+POSTGRES_USER=[USER]
+POSTGRES_DB=paperless-db-omk
+POSTGRES_PASSWORD=[REDACTED]
+PAPERLESS_DBHOST=paperless-postgres
+PAPERLESS_DBNAME=paperless-db-omk
+PAPERLESS_DBUSER=[USER]
+PAPERLESS_DBPASS=[REDACTED]
+
+# Secret key (generate a long random one in production!)
+PAPERLESS_SECRET_KEY=[REDACTED]
+
+# Initial admin setup (remove after first login)
+PAPERLESS_ADMIN_USER=[USER]
+PAPERLESS_ADMIN_PASSWORD=[REDACTED]
+</code></pre></div></div>
+
+<hr />
 
 <h2 id="motioneye">MotionEye</h2>
 
@@ -1062,18 +1281,23 @@ DB_PORT=5432
 <h1 id="fmhy">FMHY</h1>
 
 <ul>
-  <li>create folder somewhere</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/fmhy/edit.git
-cd edit
-sudo docker compose up --build
-</code></pre></div></div>
-
-<ul>
+  <li>create folder somewhere (absolute path)</li>
+  <li><code class="language-plaintext highlighter-rouge">git clone https://github.com/fmhy/edit.git</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cd edit</code></li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker compose up --build</code></p>
+  </li>
   <li>to run:</li>
   <li><code class="language-plaintext highlighter-rouge">cd /srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/FMHY/edit</code></li>
-  <li><code class="language-plaintext highlighter-rouge">docker compose up --detach</code></li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker compose up --detach</code></p>
+  </li>
+  <li>to update:</li>
+  <li><code class="language-plaintext highlighter-rouge">cd edit</code></li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose down</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git reset --hard origin/main</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git pull</code></li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose up --build -d</code></li>
 </ul>
 
 <hr />
@@ -1363,26 +1587,6 @@ author = "omk"
 
 <h1 id="not-in-use">Not in use</h1>
 
-<h2 id="stirling-pdf">Stirling-PDF</h2>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
-  <span class="na">stirling-pdf</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s1">'</span><span class="s">8083:8080'</span>
-    <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/trainingData:/usr/share/tessdata</span> <span class="c1"># Required for extra OCR languages</span>
-      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/extraConfigs:/configs</span>
-      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/customFiles:/customFiles/</span>
-      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/logs:/logs/</span>
-      <span class="pi">-</span> <span class="s">/srv/mergerfs/MEDIA/data//StirlingPDF/pipeline:/pipeline/</span>
-    <span class="na">environment</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">DOCKER_ENABLE_SECURITY=false</span>
-      <span class="pi">-</span> <span class="s">LANGS=en_US</span>
-</code></pre></div></div>
-
-<hr />
-
 <h2 id="pi-hole">Pi-Hole</h2>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
@@ -1623,11 +1827,11 @@ sudo systemctl stop systemd-resolved
 <hr />
 
 
-  </div>
+    </div>
+  </article>
 
-</article>
+</div>
 
-      </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/"></data>
 
@@ -1664,6 +1868,40 @@ sudo systemctl stop systemd-resolved
   </div>
 
 </footer>
-</body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toc = document.querySelector(".toc");
+  const tocList = document.querySelector("#js-toc");
+  const toggle = document.querySelector(".toc-toggle");
+  const content = document.querySelector(".post-content");
+
+  // Build TOC from headings
+  if (tocList && content) {
+    const headings = content.querySelectorAll("h1, h2, h3");
+    headings.forEach(h => {
+      if (!h.id) {
+        h.id = h.textContent.trim().toLowerCase().replace(/\s+/g, "-");
+      }
+      const li = document.createElement("li");
+      li.style.marginLeft = h.tagName === "H2" ? "1rem" : "0"; // indent h3
+      li.style.marginLeft = h.tagName === "H3" ? "2rem" : "1"; // indent h3
+      const a = document.createElement("a");
+      a.href = "#" + h.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+  }
+
+  // Mobile toggle
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      toc.classList.toggle("open");
+    });
+  }
+});
+</script>
+
+  </body>
 
 </html>

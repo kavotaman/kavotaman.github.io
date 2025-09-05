@@ -141,6 +141,39 @@
   </div>
 
 </footer>
-</body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toc = document.querySelector(".toc");
+  const tocList = document.querySelector("#js-toc");
+  const toggle = document.querySelector(".toc-toggle");
+  const content = document.querySelector(".post-content");
+
+  // Build TOC from headings
+  if (tocList && content) {
+    const headings = content.querySelectorAll("h1, h2, h3");
+    headings.forEach(h => {
+      if (!h.id) {
+        h.id = h.textContent.trim().toLowerCase().replace(/\s+/g, "-");
+      }
+      const li = document.createElement("li");
+      li.style.marginLeft = h.tagName === "H3" ? "1rem" : "0"; // indent h3
+      const a = document.createElement("a");
+      a.href = "#" + h.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+  }
+
+  // Mobile toggle
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      toc.classList.toggle("open");
+    });
+  }
+});
+</script>
+
+  </body>
 
 </html>
