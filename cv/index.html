@@ -51,43 +51,104 @@
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <article class="post">
+      <div class="page-with-toc wrapper">   <!-- added wrapper here -->
 
-  <header class="post-header">
-    <h1 class="post-title">cv</h1>
-  </header>
+  <nav class="toc">
+    <button class="toc-toggle">☰ Table of Contents</button>
+    <div class="toc-content">
+      <ul id="js-toc"></ul>
+    </div>
+  </nav>
 
-  <div class="post-content">
-    <!-- vim-markdown-toc Redcarpet -->
+  <article class="post content">
+    <header class="post-header">
+    </header>
 
-<ul>
-  <li><a href="#education">Education</a>
-    <ul>
-      <li><a href="#additional-studies">Additional studies</a></li>
-      <li><a href="#private-studies">Private Studies</a></li>
-      <li><a href="#summer-festivals">Summer Festivals</a></li>
-      <li><a href="#masterclasses">Masterclasses</a></li>
-      <li><a href="#workshops">Workshops</a></li>
-    </ul>
-  </li>
-  <li><a href="#performing-experience">Performing Experience</a>
-    <ul>
-      <li><a href="#orchestras">Orchestras</a></li>
-      <li><a href="#other-ensembles">Other ensembles</a></li>
-      <li><a href="#collaborations">Collaborations</a></li>
-      <li><a href="#premieres-commissions-and-dedications">Premieres, Commissions, and Dedications</a></li>
-      <li><a href="#compositions">Compositions</a></li>
-      <li><a href="#recordings">Recordings</a></li>
-    </ul>
-  </li>
-  <li><a href="#teaching-experience">Teaching Experience</a></li>
-  <li><a href="#publications">Publications</a></li>
-  <li><a href="#misc-music">Misc (music)</a></li>
-  <li><a href="#misc-non-music">Misc (non-music)</a></li>
-</ul>
+    <div class="post-content">
+      <style>
+.page-with-toc {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+}
 
-<!-- vim-markdown-toc -->
+.toc {
+  flex: 0 0 250px;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 1rem;
+  background: #663300;
+  border: 1.5px solid #ddd;
+  position: sticky;
+  top: 0;
+}
+
+.toc-toggle {
+  display: none; /* hidden on desktop */
+  width: 100%;
+  background: #663300;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.toc-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-content a {
+  text-decoration: none;
+  color: #F5B027;
+}
+
+.toc-content a:hover {
+  text-decoration: underline;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .page-with-toc {
+    flex-direction: column;
+  }
+
+  .toc {
+    position: sticky;   /* stick to top */
+    top: 0;
+    z-index: 1000;      /* make sure it stays above content */
+    flex: none;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 0;
+    background: #fff;   /* give it a background so text doesn't bleed through */
+  }
+
+  .toc-toggle {
+    display: block;
+  }
+
+  .toc-content {
+    display: none;
+    max-height: 60vh;   /* allow scrolling */
+    overflow-y: auto;
+    padding: 1rem;
+    background: #663300;
+    border-top: 1px solid #ddd;
+  }
+
+  .toc.open .toc-content {
+    display: block;
+  }
+}
+</style>
 
 <h1 id="education">Education</h1>
 <ul>
@@ -327,8 +388,6 @@
       <li>Aspen Contemporary Ensemble. <em>Meanwhile: Incidental Music to Imaginery Puppet Plays</em> (2007), Stephen Hartke. Harris Concert Hall, Aspen, CO, July 9, 2022.</li>
     </ul>
   </li>
-  <li>Jason Eckardt (compsoer)</li>
-  <li>Fernanda Aoki Navarro (composer)</li>
   <li>Esther Heideman (soprano)
     <ul>
       <li>Aspen Contemporary Ensemble. <em>Cancionero Sefardí</em> (1999), Roberto Sierra. Harris Concert Hall, Aspen, CO, August 14, 2021.</li>
@@ -602,11 +661,11 @@
 </ul>
 
 
-  </div>
+    </div>
+  </article>
 
-</article>
+</div>
 
-      </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/"></data>
 
@@ -658,7 +717,8 @@ document.addEventListener("DOMContentLoaded", function () {
         h.id = h.textContent.trim().toLowerCase().replace(/\s+/g, "-");
       }
       const li = document.createElement("li");
-      li.style.marginLeft = h.tagName === "H3" ? "1rem" : "0"; // indent h3
+      li.style.marginLeft = h.tagName === "H2" ? "1rem" : "0"; // indent h3
+      li.style.marginLeft = h.tagName === "H3" ? "2rem" : "1"; // indent h3
       const a = document.createElement("a");
       a.href = "#" + h.id;
       a.textContent = h.textContent;
