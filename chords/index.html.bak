@@ -3,149 +3,136 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chord Transposer</title>
+  <title>Chords</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
 
   <style>
-    :root {
-      --accent: #5CB9FF;
-      --bg: #2e2e2e;
-      --text: #eaeaea;
-    }
+  :root {
+    --accent: #5CB9FF;
+    --bg: #2e2e2e;
+    --text: #eaeaea;
+  }
 
+  body {
+    font-family: system-ui, sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  h1 {
+    color: var(--accent);
+    text-align: center;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--accent);
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  textarea {
+    width: 94%;
+    min-height: 220px;
+    font-family: monospace;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border: 1px solid #444;
+    border-radius: 8px;
+    resize: vertical;
+    background: #1e1e1e;
+    color: #e0e0e0;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    flex: 1 1 100px;
+    background: #4da3ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  button:hover {
+    background: #1e90ff;
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+
+  #output {
+    white-space: pre-wrap;
+    font-family: monospace;
+    line-height: 1.5;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    color: #000;
+    overflow-x: auto;
+  }
+
+  strong {
+    font-weight: 700;
+    color: #004685;
+    border-radius: 4px;
+    padding: 0 2px;
+  }
+
+  /* 📱 Responsive adjustments */
+  @media (max-width: 600px) {
     body {
-      font-family: system-ui, sans-serif;
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    h1 {
-      color: var(--accent);
-      text-align: center;
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      color: var(--accent);
-      text-align: center;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    input[type="text"] {
-      width: 100%;
       padding: 0.5rem;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      border: 1px solid #444;
-      border-radius: 6px;
-      background: #1e1e1e;
-      color: #e0e0e0;
     }
 
     textarea {
-      width: 100%;
-      min-height: 220px;
-      font-family: monospace;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: 1px solid #444;
-      border-radius: 8px;
-      resize: vertical;
-      background: #1e1e1e;
-      color: #e0e0e0;
+      font-size: 0.95rem;
+      height: 180px;
     }
 
     .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-bottom: 1rem;
+      flex-direction: row;
+      justify-content: space-between;
     }
 
     button {
-      flex: 1 1 100px;
-      background: #4da3ff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    button:hover {
-      background: #1e90ff;
-    }
-
-    button:active {
-      transform: scale(0.97);
+      flex: 1 1 45%;
+      font-size: 0.9rem;
+      padding: 0.5rem;
     }
 
     #output {
-      white-space: pre-wrap;
-      font-family: monospace;
-      line-height: 1.5;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
-      color: #000;
-      overflow-x: auto;
+      font-size: 0.9rem;
+      padding: 0.75rem;
     }
+  }
+</style>
 
-    strong {
-      font-weight: 700;
-      color: #004685;
-      border-radius: 4px;
-      padding: 0 2px;
-    }
-
-    /* 📱 Responsive adjustments */
-    @media (max-width: 600px) {
-      body {
-        padding: 0.5rem;
-      }
-
-      textarea {
-        font-size: 0.95rem;
-        height: 180px;
-      }
-
-      .controls {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      button {
-        flex: 1 1 45%;
-        font-size: 0.9rem;
-        padding: 0.5rem;
-      }
-
-      #output {
-        font-size: 0.9rem;
-        padding: 0.75rem;
-      }
-    }
-  </style>
 </head>
 
 <body>
   <h1>Chord Transposer</h1>
   <p>Paste your lyrics and chords below, then click to transpose or change notation.</p>
-
-  <input
-    id="songTitle"
-    type="text"
-    placeholder="Song title..."
-    oninput="updateOutput()"
-  />
 
   <textarea id="input" placeholder="Paste your song here..."></textarea>
 
@@ -166,13 +153,14 @@ const NOTES_FLAT  = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
 let useFlatsDisplay = false;
 let currentTranspose = 0;
 
+// Match any chord starting with a note root
 const CHORD_REGEX = /\b([A-G](?:#|b)?)([^\s]*)/g;
 
 function transposeNote(note, steps) {
   const idxSharp = NOTES_SHARP.indexOf(note);
   const idxFlat  = NOTES_FLAT.indexOf(note);
   const idx = idxSharp !== -1 ? idxSharp : idxFlat;
-  if (idx === -1) return note;
+  if (idx === -1) return note; // not a note, skip
   const newSharp = NOTES_SHARP[(idx + steps + 12) % 12];
   const newFlat  = NOTES_FLAT[(idx + steps + 12) % 12];
   return useFlatsDisplay ? newFlat : newSharp;
@@ -181,6 +169,7 @@ function transposeNote(note, steps) {
 function transposeChord(chord, steps) {
   return chord.replace(/^([A-G](?:#|b)?)(.*)$/, (_, root, rest) => {
     const newRoot = transposeNote(root, steps);
+    // If the chord contains a slash and a *note-like* bass, transpose that too
     const slashMatch = rest.match(/\/([A-G](?:#|b)?)(?!\d)/);
     if (slashMatch) {
       const bass = slashMatch[1];
@@ -200,10 +189,8 @@ function highlightChords(text) {
 }
 
 function updateOutput() {
-  const title = document.getElementById("songTitle").value.trim();
   const input = document.getElementById("input").value;
   const lines = input.split(/\n/);
-
   const out = lines.map(line => {
     const tokens = line.trim().split(/\s+/);
     if (!tokens.length) return line;
@@ -213,12 +200,7 @@ function updateOutput() {
     }
     return line;
   }).join("\n");
-
-  const titleHTML = title
-    ? `<h2 style="text-align:center; color:#5CB9FF; margin-top:0;">${title}</h2>\n`
-    : "";
-
-  document.getElementById("output").innerHTML = titleHTML + out;
+  document.getElementById("output").innerHTML = out;
 }
 
 function transposeUp() { currentTranspose++; updateOutput(); }
@@ -234,8 +216,7 @@ document.getElementById("input").addEventListener("input", updateOutput);
 
 <script>
 function exportTXT() {
-  const title = document.getElementById("songTitle").value.trim();
-  const text = (title ? title + "\n\n" : "") + document.getElementById("output").innerText;
+  const text = document.getElementById("output").innerText;
   const blob = new Blob([text], { type: "text/plain" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
@@ -244,18 +225,23 @@ function exportTXT() {
 }
 </script>
 
-<!-- jsPDF -->
+<!-- jsPDF library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 async function exportPDF() {
   const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
+  const pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "pt",
+    format: "letter"
+  });
 
   const margin = 40;
   const lineHeight = 16;
   const maxWidth = 8.5 * 72 - margin * 2;
 
+  // Load font helper (works for local files when served via localhost)
   async function loadFont(path) {
     const res = await fetch(path);
     if (!res.ok) throw new Error("Failed to load font: " + path);
@@ -264,11 +250,13 @@ async function exportPDF() {
   }
 
   try {
+    // Load fonts from the same folder as index.html
     const [regular, bold] = await Promise.all([
       loadFont("DejaVuSansMono.ttf"),
       loadFont("DejaVuSansMono-Bold.ttf")
     ]);
 
+    // Register fonts in jsPDF
     pdf.addFileToVFS("DejaVuSansMono.ttf", regular);
     pdf.addFont("DejaVuSansMono.ttf", "DejaVuSansMono", "normal");
 
@@ -281,29 +269,13 @@ async function exportPDF() {
     alert("Could not load DejaVu fonts — using default font instead.");
   }
 
-  const title = document.getElementById("songTitle").value.trim();
-  let y = margin;
-
-  if (title) {
-    pdf.setFont("DejaVuSansMono", "bold");
-    pdf.setFontSize(14);
-    const titleWidth = pdf.getTextWidth(title);
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    pdf.text(title, (pageWidth - titleWidth) / 2, y);
-    y += 24;
-    pdf.setFontSize(10);
-  }
+  pdf.setFontSize(10);
+  const charWidth = pdf.getTextWidth("M");
 
   const container = document.createElement("div");
+  container.innerHTML = document.getElementById("output").innerHTML;
 
-  const outputClone = document.getElementById("output").cloneNode(true);
-  const h2 = outputClone.querySelector("h2");
-  if (h2) h2.remove();
-  container.innerHTML = outputClone.innerHTML;
-
-
-  pdf.setFont("DejaVuSansMono", "normal");
-  const charWidth = pdf.getTextWidth("M");
+  let y = margin;
 
   container.innerHTML.split(/\n/).forEach(lineHTML => {
     const temp = document.createElement("div");
