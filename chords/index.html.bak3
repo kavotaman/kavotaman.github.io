@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chord Transposer</title>
+  <link rel="icon" type="image/x-icon" href="/chords/favicon.png">
 
   <style>
     :root {
@@ -14,7 +15,7 @@
 
     body {
       font-family: system-ui, sans-serif;
-      max-width: 800px;
+      max-width: 900px;
       margin: 2rem auto;
       padding: 1rem;
       background: var(--bg);
@@ -93,16 +94,29 @@
       transform: scale(0.97);
     }
 
+    #previewContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     #output {
       white-space: pre-wrap;
       font-family: monospace;
       line-height: 1.5;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
       color: #000;
-      overflow-x: auto;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      background: #fff;
+      aspect-ratio: 8.5 / 11;
+      width: 100%;
+      max-width: 816px; /* 8.5in * 96dpi */
+      height: auto;
+      overflow-y: auto;
+      border: 1px solid #ccc;
     }
 
     strong {
@@ -133,11 +147,6 @@
         font-size: 0.9rem;
         padding: 0.5rem;
       }
-
-      #output {
-        font-size: 0.9rem;
-        padding: 0.75rem;
-      }
     }
   </style>
 </head>
@@ -146,12 +155,7 @@
   <h1>Chord Transposer</h1>
   <p>Paste your lyrics and chords below, then click to transpose or change notation.</p>
 
-  <input
-    id="songTitle"
-    type="text"
-    placeholder="Song title..."
-    oninput="updateOutput()"
-  />
+  <input id="songTitle" type="text" placeholder="Song title..." oninput="updateOutput()" />
 
   <textarea id="input" placeholder="Paste your song here..."></textarea>
 
@@ -163,7 +167,30 @@
     <button onclick="exportPDF()">Save PDF</button>
   </div>
 
-  <div id="output"></div>
+  <!-- 🎛️ Settings -->
+  <details style="margin-bottom: 1rem; background:#1e1e1e; padding:1rem; border-radius:8px;">
+    <summary style="cursor:pointer; color:#5CB9FF; font-weight:bold;">PDF & Detection Settings</summary>
+    <div style="margin-top:0.5rem;">
+      <label>Title Font Size: 
+        <input type="number" id="titleFontSize" value="14" min="8" max="36" style="width:60px;">
+      </label><br>
+      <label>Body Font Size: 
+        <input type="number" id="bodyFontSize" value="10" min="6" max="24" style="width:60px;">
+      </label><br>
+      <label>PDF Margin (pt): 
+        <input type="number" id="pdfMargin" value="40" min="10" max="100" style="width:60px;">
+      </label><br>
+      <label>Chord Detection Threshold: 
+        <input type="range" id="chordThreshold" min="0" max="1" step="0.05" value="0.4" 
+               oninput="document.getElementById('thresholdVal').textContent=this.value">
+        <span id="thresholdVal">0.4</span>
+      </label><br>
+    </div>
+  </details>
+
+  <div id="previewContainer">
+    <div id="output"></div>
+  </div>
 
 <script>
 const NOTES_SHARP = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
@@ -171,6 +198,7 @@ const NOTES_FLAT  = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
 
 let useFlatsDisplay = false;
 let currentTranspose = 0;
+let chordThreshold = 0.4;
 
 const CHORD_REGEX = /\b([A-G](?:#|b)?)([^\s]*)/g;
 
@@ -214,17 +242,27 @@ function updateOutput() {
     const tokens = line.trim().split(/\s+/);
     if (!tokens.length) return line;
     const chordCount = tokens.filter(w => /^[A-G](?:#|b)?/.test(w)).length;
-    if (chordCount / tokens.length >= 0.4) {
+    if (chordCount / tokens.length >= chordThreshold) {
       return highlightChords(transposeText(line, currentTranspose));
     }
     return line;
   }).join("\n");
 
+  const titleFontSize = parseFloat(document.getElementById("titleFontSize").value);
+  const bodyFontSize = parseFloat(document.getElementById("bodyFontSize").value);
+  const margin = parseFloat(document.getElementById("pdfMargin").value);
+
   const titleHTML = title
-    ? `<h2 style="text-align:center; color:#5CB9FF; margin-top:0;">${title}</h2>\n`
+    ? `<h2 style="text-align:center; color:#5CB9FF; margin-top:0; font-size:${titleFontSize}px;">${title}</h2>\n`
     : "";
 
-  document.getElementById("output").innerHTML = titleHTML + out;
+  const outputDiv = document.getElementById("output");
+  outputDiv.innerHTML = titleHTML + out;
+  outputDiv.style.fontSize = bodyFontSize + "px";
+  outputDiv.style.padding = (margin * (96 / 72)) + "px"; // convert pt -> px for realistic display
+  outputDiv.style.background = showBackground ? "#fff" : "transparent";
+  outputDiv.style.boxShadow = showBackground ? "0 0 10px rgba(0,0,0,0.3)" : "none";
+  outputDiv.style.border = showBackground ? "1px solid #ccc" : "none";
 }
 
 function transposeUp() { currentTranspose++; updateOutput(); }
@@ -236,8 +274,49 @@ function toggleFlats() {
 }
 
 document.getElementById("input").addEventListener("input", updateOutput);
+
+// --- Settings persistence and live updates ---
+function loadSettings() {
+  const settings = JSON.parse(localStorage.getItem("transposerSettings") || "{}");
+  if (settings.titleFontSize) document.getElementById("titleFontSize").value = settings.titleFontSize;
+  if (settings.bodyFontSize) document.getElementById("bodyFontSize").value = settings.bodyFontSize;
+  if (settings.pdfMargin) document.getElementById("pdfMargin").value = settings.pdfMargin;
+  if (settings.chordThreshold !== undefined) {
+    document.getElementById("chordThreshold").value = settings.chordThreshold;
+    document.getElementById("thresholdVal").textContent = settings.chordThreshold;
+    chordThreshold = parseFloat(settings.chordThreshold);
+  }
+  }
+
+function saveSettings() {
+  const settings = {
+    titleFontSize: document.getElementById("titleFontSize").value,
+    bodyFontSize: document.getElementById("bodyFontSize").value,
+    pdfMargin: document.getElementById("pdfMargin").value,
+    chordThreshold: document.getElementById("chordThreshold").value,
+  };
+  localStorage.setItem("transposerSettings", JSON.stringify(settings));
+}
+
+document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin").forEach(el => {
+  el.addEventListener("input", () => {
+    saveSettings();
+    updateOutput();
+  });
+});
+
+document.getElementById("chordThreshold").addEventListener("input", e => {
+  chordThreshold = parseFloat(e.target.value);
+  document.getElementById("thresholdVal").textContent = e.target.value;
+  saveSettings();
+  updateOutput();
+});
+
+loadSettings();
+updateOutput();
 </script>
 
+<!-- Save TXT -->
 <script>
 function exportTXT() {
   const title = document.getElementById("songTitle").value.trim();
@@ -258,8 +337,10 @@ async function exportPDF() {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
-  const margin = 40;
-  const lineHeight = 16;
+  const margin = parseFloat(document.getElementById("pdfMargin").value);
+  const titleFontSize = parseFloat(document.getElementById("titleFontSize").value);
+  const bodyFontSize = parseFloat(document.getElementById("bodyFontSize").value);
+  const lineHeight = bodyFontSize * 1.6;
   const maxWidth = 8.5 * 72 - margin * 2;
 
   async function loadFont(path) {
@@ -292,23 +373,22 @@ async function exportPDF() {
 
   if (title) {
     pdf.setFont("DejaVuSansMono", "bold");
-    pdf.setFontSize(14);
+    pdf.setFontSize(titleFontSize);
     const titleWidth = pdf.getTextWidth(title);
     const pageWidth = pdf.internal.pageSize.getWidth();
     pdf.text(title, (pageWidth - titleWidth) / 2, y);
-    y += 24;
-    pdf.setFontSize(10);
+    y += titleFontSize * 1.8;
   }
 
-  const container = document.createElement("div");
+  pdf.setFont("DejaVuSansMono", "normal");
+  pdf.setFontSize(bodyFontSize);
 
+  const container = document.createElement("div");
   const outputClone = document.getElementById("output").cloneNode(true);
   const h2 = outputClone.querySelector("h2");
   if (h2) h2.remove();
   container.innerHTML = outputClone.innerHTML;
 
-
-  pdf.setFont("DejaVuSansMono", "normal");
   const charWidth = pdf.getTextWidth("M");
 
   container.innerHTML.split(/\n/).forEach(lineHTML => {

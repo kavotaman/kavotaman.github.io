@@ -1,151 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chord Transposer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chord Transposer</title>
+  <link rel="icon" type="image/x-icon" href="/chords/favicon.png">
 
-  <style>
-    :root {
-      --accent: #5CB9FF;
-      --bg: #2e2e2e;
-      --text: #eaeaea;
-    }
+<style>
+  :root {
+    --accent: #5CB9FF;
+    --bg: #2e2e2e;
+    --text: #eaeaea;
+  }
 
-    body {
-      font-family: system-ui, sans-serif;
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: var(--bg);
-      color: var(--text);
-    }
+  body {
+    font-family: system-ui, sans-serif;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: var(--bg);
+    color: var(--text);
+  }
 
-    h1 {
-      color: var(--accent);
-      text-align: center;
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      margin-bottom: 0.5rem;
-    }
+  h1 {
+    color: var(--accent);
+    text-align: center;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin-bottom: 0.5rem;
+  }
 
-    p {
-      color: var(--accent);
-      text-align: center;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
+  p {
+    color: var(--accent);
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
 
-    input[type="text"] {
-      width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      border: 1px solid #444;
-      border-radius: 6px;
-      background: #1e1e1e;
-      color: #e0e0e0;
-    }
+  input[type="text"] {
+    width: 96%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    font-size: 1.1rem;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background: #1e1e1e;
+    color: #e0e0e0;
+  }
 
-    textarea {
-      width: 100%;
-      min-height: 220px;
-      font-family: monospace;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: 1px solid #444;
-      border-radius: 8px;
-      resize: vertical;
-      background: #1e1e1e;
-      color: #e0e0e0;
-    }
+  textarea {
+    width: 94%;
+    min-height: 220px;
+    font-family: monospace;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border: 1px solid #444;
+    border-radius: 8px;
+    resize: vertical;
+    background: #1e1e1e;
+    color: #e0e0e0;
+  }
 
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
 
-    button {
-      flex: 1 1 100px;
-      background: #4da3ff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
+  button {
+    flex: 1 1 100px;
+    background: #4da3ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
 
-    button:hover {
-      background: #1e90ff;
-    }
+  button:hover {
+    background: #1e90ff;
+  }
 
-    button:active {
-      transform: scale(0.97);
-    }
+  button:active {
+    transform: scale(0.97);
+  }
 
-    #output {
-      white-space: pre-wrap;
-      font-family: monospace;
-      line-height: 1.5;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
-      color: #000;
-      overflow-x: auto;
-    }
+  #previewContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    strong {
-      font-weight: 700;
-      color: #004685;
-      border-radius: 4px;
-      padding: 0 2px;
-    }
+  #output {
+    white-space: pre-wrap;
+    font-family: "DejaVuSansMono", monospace;
+    line-height: 1.6;
+    color: #000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    background: #fff;
+    aspect-ratio: 8.5 / 11;
+    width: 100%;
+    max-width: 816px; /* 8.5in * 96dpi */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+  }
 
-    /* 📱 Responsive adjustments */
-    @media (max-width: 600px) {
-      body {
-        padding: 0.5rem;
-      }
+  #output strong {
+    font-weight: 700;
+    color: #004685;
+    border-radius: 4px;
+    padding: 0 2px;
+  }
 
-      textarea {
-        font-size: 0.95rem;
-        height: 180px;
-      }
-
-      .controls {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      button {
-        flex: 1 1 45%;
-        font-size: 0.9rem;
-        padding: 0.5rem;
-      }
-
-      #output {
-        font-size: 0.9rem;
-        padding: 0.75rem;
-      }
-    }
-  </style>
+  @media (max-width: 600px) {
+    body { padding: 0.5rem; }
+    textarea { font-size: 0.95rem; height: 180px; }
+    .controls { flex-direction: row; justify-content: space-between; }
+    button { flex: 1 1 45%; font-size: 0.9rem; padding: 0.5rem; }
+  }
+</style>
 </head>
 
 <body>
   <h1>Chord Transposer</h1>
   <p>Paste your lyrics and chords below, then click to transpose or change notation.</p>
 
-  <input
-    id="songTitle"
-    type="text"
-    placeholder="Song title..."
-    oninput="updateOutput()"
-  />
+  <input id="songTitle" type="text" placeholder="Song title..." oninput="updateOutput()" />
 
   <textarea id="input" placeholder="Paste your song here..."></textarea>
 
@@ -157,14 +148,38 @@
     <button onclick="exportPDF()">Save PDF</button>
   </div>
 
-  <div id="output"></div>
+  <details style="margin-bottom: 1rem; background:#1e1e1e; padding:1rem; border-radius:8px;">
+    <summary style="cursor:pointer; color:#5CB9FF; font-weight:bold;">PDF & Detection Settings</summary>
+    <div style="margin-top:0.5rem;">
+      <label>Title Font Size: 
+        <input type="number" id="titleFontSize" value="14" min="8" max="36" style="width:60px;">
+      </label><br>
+      <label>Body Font Size: 
+        <input type="number" id="bodyFontSize" value="10" min="6" max="24" style="width:60px;">
+      </label><br>
+      <label>PDF Margin (pt): 
+        <input type="number" id="pdfMargin" value="40" min="10" max="100" style="width:60px;">
+      </label><br>
+      <label>Chord Detection Threshold: 
+        <input type="range" id="chordThreshold" min="0" max="1" step="0.05" value="0.4"
+               oninput="document.getElementById('thresholdVal').textContent=this.value">
+        <span id="thresholdVal">0.4</span>
+      </label><br>
+    </div>
+  </details>
 
+  <div id="previewContainer">
+    <div id="output"></div>
+  </div>
+
+<!-- ===== SCRIPT SECTION ===== -->
 <script>
 const NOTES_SHARP = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 const NOTES_FLAT  = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
-
 let useFlatsDisplay = false;
 let currentTranspose = 0;
+let chordThreshold = 0.4;
+let showBackground = true;
 
 const CHORD_REGEX = /\b([A-G](?:#|b)?)([^\s]*)/g;
 
@@ -199,7 +214,49 @@ function highlightChords(text) {
   return text.replace(CHORD_REGEX, match => `<strong>${match}</strong>`);
 }
 
-function updateOutput() {
+// ---------------- FONT SETUP + PREVIEW/PDF SYNC ----------------
+const DPI = 96;
+const PT_TO_PX = DPI / 72;
+function ptToPx(pt) { return pt * PT_TO_PX; }
+
+async function loadFontAsDataURL(path) {
+  const res = await fetch(path);
+  const buf = await res.arrayBuffer();
+  let binary = "";
+  const bytes = new Uint8Array(buf);
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk)
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+  return `data:font/ttf;base64,${btoa(binary)}`;
+}
+
+async function registerDejaVuFonts() {
+  if (document.getElementById("dejaVu-fonts")) return;
+  const [regular, bold] = await Promise.all([
+    loadFontAsDataURL("DejaVuSansMono.ttf"),
+    loadFontAsDataURL("DejaVuSansMono-Bold.ttf")
+  ]);
+  const css = `
+    @font-face {
+      font-family: "DejaVuSansMono";
+      src: url("${regular}") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "DejaVuSansMono";
+      src: url("${bold}") format("truetype");
+      font-weight: 700;
+    }`;
+  const style = document.createElement("style");
+  style.id = "dejaVu-fonts";
+  style.appendChild(document.createTextNode(css));
+  document.head.appendChild(style);
+  await document.fonts.load('12pt "DejaVuSansMono"');
+}
+
+// ---------------- RENDER OUTPUT ----------------
+async function updateOutput() {
+  await registerDejaVuFonts();
   const title = document.getElementById("songTitle").value.trim();
   const input = document.getElementById("input").value;
   const lines = input.split(/\n/);
@@ -208,31 +265,78 @@ function updateOutput() {
     const tokens = line.trim().split(/\s+/);
     if (!tokens.length) return line;
     const chordCount = tokens.filter(w => /^[A-G](?:#|b)?/.test(w)).length;
-    if (chordCount / tokens.length >= 0.4) {
+    if (chordCount / tokens.length >= chordThreshold) {
       return highlightChords(transposeText(line, currentTranspose));
     }
     return line;
   }).join("\n");
 
+  const titleFontSizePt = parseFloat(document.getElementById("titleFontSize").value);
+  const bodyFontSizePt = parseFloat(document.getElementById("bodyFontSize").value);
+  const marginPt = parseFloat(document.getElementById("pdfMargin").value);
+  const titleFontSizePx = ptToPx(titleFontSizePt);
+  const bodyFontSizePx = ptToPx(bodyFontSizePt);
+  const marginPx = ptToPx(marginPt);
+  const printableWidthPx = 8.5 * DPI - marginPx * 2;
+
   const titleHTML = title
-    ? `<h2 style="text-align:center; color:#5CB9FF; margin-top:0;">${title}</h2>\n`
+    ? `<div style="text-align:center; color:#5CB9FF; margin-top:0; font-size:${titleFontSizePx}px; font-weight:700;">${title}</div>\n`
     : "";
 
-  document.getElementById("output").innerHTML = titleHTML + out;
+  const outputDiv = document.getElementById("output");
+  outputDiv.innerHTML = titleHTML + out;
+  outputDiv.style.fontFamily = '"DejaVuSansMono", monospace';
+  outputDiv.style.fontSize = bodyFontSizePx + "px";
+  outputDiv.style.lineHeight = 1.6;
+  outputDiv.style.width = printableWidthPx + "px";
+  outputDiv.style.padding = marginPx + "px";
 }
 
-function transposeUp() { currentTranspose++; updateOutput(); }
-function transposeDown() { currentTranspose--; updateOutput(); }
-function toggleFlats() {
+function transposeUp(){ currentTranspose++; updateOutput(); }
+function transposeDown(){ currentTranspose--; updateOutput(); }
+function toggleFlats(){
   useFlatsDisplay = !useFlatsDisplay;
   updateOutput();
   document.getElementById("toggleFlats").textContent = useFlatsDisplay ? "Show ♯" : "Show ♭";
 }
 
 document.getElementById("input").addEventListener("input", updateOutput);
-</script>
 
-<script>
+function loadSettings() {
+  const settings = JSON.parse(localStorage.getItem("transposerSettings") || "{}");
+  if (settings.titleFontSize) document.getElementById("titleFontSize").value = settings.titleFontSize;
+  if (settings.bodyFontSize) document.getElementById("bodyFontSize").value = settings.bodyFontSize;
+  if (settings.pdfMargin) document.getElementById("pdfMargin").value = settings.pdfMargin;
+  if (settings.chordThreshold !== undefined) {
+    document.getElementById("chordThreshold").value = settings.chordThreshold;
+    document.getElementById("thresholdVal").textContent = settings.chordThreshold;
+    chordThreshold = parseFloat(settings.chordThreshold);
+  }
+}
+
+function saveSettings() {
+  const settings = {
+    titleFontSize: document.getElementById("titleFontSize").value,
+    bodyFontSize: document.getElementById("bodyFontSize").value,
+    pdfMargin: document.getElementById("pdfMargin").value,
+    chordThreshold: document.getElementById("chordThreshold").value
+  };
+  localStorage.setItem("transposerSettings", JSON.stringify(settings));
+}
+
+document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin").forEach(el=>{
+  el.addEventListener("input", ()=>{ saveSettings(); updateOutput(); });
+});
+document.getElementById("chordThreshold").addEventListener("input", e=>{
+  chordThreshold=parseFloat(e.target.value);
+  document.getElementById("thresholdVal").textContent=e.target.value;
+  saveSettings(); updateOutput();
+});
+
+loadSettings();
+registerDejaVuFonts().then(updateOutput);
+
+// ---------- EXPORT TXT ----------
 function exportTXT() {
   const title = document.getElementById("songTitle").value.trim();
   const text = (title ? title + "\n\n" : "") + document.getElementById("output").innerText;
@@ -248,88 +352,64 @@ function exportTXT() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
-async function exportPDF() {
+async function exportPDF(){
   const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
+  const pdf = new jsPDF({ orientation:"portrait", unit:"pt", format:"letter" });
+  const margin = parseFloat(document.getElementById("pdfMargin").value);
+  const titleFontSize = parseFloat(document.getElementById("titleFontSize").value);
+  const bodyFontSize = parseFloat(document.getElementById("bodyFontSize").value);
+  const lineHeight = bodyFontSize * 1.6;
+  const pageWidth = 8.5*72;
+  const printableWidth = pageWidth - margin*2;
 
-  const margin = 40;
-  const lineHeight = 16;
-  const maxWidth = 8.5 * 72 - margin * 2;
-
-  async function loadFont(path) {
+  async function loadFont(path){
     const res = await fetch(path);
-    if (!res.ok) throw new Error("Failed to load font: " + path);
     const buffer = await res.arrayBuffer();
     return btoa(String.fromCharCode(...new Uint8Array(buffer)));
   }
 
-  try {
-    const [regular, bold] = await Promise.all([
+  try{
+    const [regular,bold] = await Promise.all([
       loadFont("DejaVuSansMono.ttf"),
       loadFont("DejaVuSansMono-Bold.ttf")
     ]);
+    pdf.addFileToVFS("DejaVuSansMono.ttf",regular);
+    pdf.addFont("DejaVuSansMono.ttf","DejaVuSansMono","normal");
+    pdf.addFileToVFS("DejaVuSansMono-Bold.ttf",bold);
+    pdf.addFont("DejaVuSansMono-Bold.ttf","DejaVuSansMono","bold");
+  }catch(e){ console.warn(e); }
 
-    pdf.addFileToVFS("DejaVuSansMono.ttf", regular);
-    pdf.addFont("DejaVuSansMono.ttf", "DejaVuSansMono", "normal");
-
-    pdf.addFileToVFS("DejaVuSansMono-Bold.ttf", bold);
-    pdf.addFont("DejaVuSansMono-Bold.ttf", "DejaVuSansMono", "bold");
-
-    pdf.setFont("DejaVuSansMono", "normal");
-  } catch (err) {
-    console.error(err);
-    alert("Could not load DejaVu fonts — using default font instead.");
-  }
-
-  const title = document.getElementById("songTitle").value.trim();
   let y = margin;
-
-  if (title) {
-    pdf.setFont("DejaVuSansMono", "bold");
-    pdf.setFontSize(14);
-    const titleWidth = pdf.getTextWidth(title);
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    pdf.text(title, (pageWidth - titleWidth) / 2, y);
-    y += 24;
-    pdf.setFontSize(10);
+  const title = document.getElementById("songTitle").value.trim();
+  if(title){
+    pdf.setFont("DejaVuSansMono","bold");
+    pdf.setFontSize(titleFontSize);
+    const w = pdf.getTextWidth(title);
+    pdf.text(title,(pageWidth-w)/2,y);
+    y += titleFontSize * 1.8;
   }
 
-  const container = document.createElement("div");
-
-  const outputClone = document.getElementById("output").cloneNode(true);
-  const h2 = outputClone.querySelector("h2");
-  if (h2) h2.remove();
-  container.innerHTML = outputClone.innerHTML;
-
-
-  pdf.setFont("DejaVuSansMono", "normal");
+  pdf.setFont("DejaVuSansMono","normal");
+  pdf.setFontSize(bodyFontSize);
+  const output = document.getElementById("output");
+  const lines = output.innerText.split("\n");
   const charWidth = pdf.getTextWidth("M");
 
-  container.innerHTML.split(/\n/).forEach(lineHTML => {
-    const temp = document.createElement("div");
-    temp.innerHTML = lineHTML;
+  lines.forEach(line=>{
     let x = margin;
-
-    Array.from(temp.childNodes).forEach(part => {
-      const text = part.textContent || "";
-      if (!text) return;
-
-      for (let ch of text) {
-        if (ch === "\n") { y += lineHeight; x = margin; continue; }
-        if (x > maxWidth) { y += lineHeight; x = margin; }
-        if (y > 11 * 72 - margin) { pdf.addPage(); y = margin; }
-
-        pdf.setFont("DejaVuSansMono", part.nodeName === "STRONG" ? "bold" : "normal");
-        pdf.text(ch, x, y);
-        x += charWidth;
-      }
-    });
+    for(let ch of line){
+      if(x > printableWidth){ x=margin; y+=lineHeight; }
+      if(y > 11*72 - margin){ pdf.addPage(); y=margin; }
+      pdf.text(ch,x,y);
+      x += charWidth;
+    }
     y += lineHeight;
   });
 
   pdf.save("transposed_chords.pdf");
 }
 </script>
+
 </body>
 </html>
 

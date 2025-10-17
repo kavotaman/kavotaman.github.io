@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chord Transposer</title>
+  <link rel="icon" type="image/x-icon" href="/chords/favicon.png">
 
   <style>
     :root {
@@ -48,6 +49,68 @@
       background: #1e1e1e;
       color: #e0e0e0;
     }
+
+    input[type="number"] {
+        width: 100%;
+        max-width: 50px;
+        box-sizing: border-box;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        background-color: #e6f7ff;
+        color: #333;
+    }
+
+.value-control {
+  width: var(--control-size);
+  height: var(--control-size);
+  margin: 0 8px;
+  background: #c2c2c2;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  color: #3b3b3b;
+  cursor: pointer;
+  font-size: var(--font-size);
+}
+
+.value-control:hover {
+  background: #eee;
+}
+
+.value-control:active {
+  background: #ddd;
+}
+
+.value-control:focus,
+.value-input:focus {
+  outline: 2px solid #3e67fd;
+  outline-offset: 1px
+}
+
+.value-input {
+  margin: 0;
+  height: var(--control-size);
+  width: 80px;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: 2px 8px;
+  text-align: center;
+  font-size: var(--font-size);
+}
+
+.value-input:hover {
+  border-color: #777;
+}
+
+.value-input::-webkit-outer-spin-button,
+.value-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.value-input {
+  -moz-appearance: textfield;
+}
+
 
     textarea {
       width: 94%;
@@ -146,12 +209,7 @@
   <h1>Chord Transposer</h1>
   <p>Paste your lyrics and chords below, then click to transpose or change notation.</p>
 
-  <input
-    id="songTitle"
-    type="text"
-    placeholder="Song title..."
-    oninput="updateOutput()"
-  />
+  <input id="songTitle" type="text" placeholder="Song title..." oninput="updateOutput()" />
 
   <textarea id="input" placeholder="Paste your song here..."></textarea>
 
@@ -163,6 +221,44 @@
     <button onclick="exportPDF()">Save PDF</button>
   </div>
 
+  <!-- 🎛️ Settings -->
+  <details style="margin-bottom: 1rem; background:#1e1e1e; padding:1rem; border-radius:8px;">
+    <summary style="cursor:pointer; color:#5CB9FF; font-weight:bold;">PDF & Detection Settings</summary>
+    <div style="margin-top:0.5rem;">
+      <label>Title Font Size: 
+        <!-- <input type="number" id="titleFontSize" value="14" min="8" max="36" style="width:60px;"> -->
+<button class="value-control" onclick="titleFontSize.stepDown()" title="Decrease value" aria-label="Decrease value">-</button>
+<input class="value-input" type="number" value="14" min="8" max="36" name="titleFontSize" id="titleFontSize">
+<button class="value-control" onclick="titleFontSize.stepUp()" title="Increase value" aria-label="Increase value">+</button>
+      </label><br>
+      <label>Body Font Size: 
+        <!-- <input type="number" id="bodyFontSize" value="10" min="6" max="24" style="width:60px;"> -->
+<button class="value-control" onclick="bodyFontSize.stepDown()" title="Decrease value" aria-label="Decrease value">-</button>
+<input class="value-input" type="number" value="10" min="6" max="24" name="bodyFontSize" id="bodyFontSize">
+<button class="value-control" onclick="bodyFontSize.stepUp()" title="Increase value" aria-label="Increase value">+</button>
+
+      </label><br>
+      <label>PDF Margin (pt): 
+        <!-- <input type="number" id="pdfMargin" value="40" min="10" max="100" style="width:60px;"> -->
+<button class="value-control" onclick="pdfMargin.stepDown()" title="Decrease value" aria-label="Decrease value">-</button>
+<input class="value-input" type="number" value="40" min="10" max="100" name="pdfMargin" id="pdfMargin">
+<button class="value-control" onclick="pdfMargin.stepUp()" title="Increase value" aria-label="Increase value">+</button>
+
+      </label><br>
+      <label>Chord Detection Threshold: 
+        <input type="range" id="chordThreshold" min="0" max="1" step="0.05" value="0.4" 
+               oninput="document.getElementById('thresholdVal').textContent=this.value">
+        <span id="thresholdVal">0.4</span>
+      </label>
+    </div>
+  </details>
+
+
+
+
+
+
+
   <div id="output"></div>
 
 <script>
@@ -171,6 +267,7 @@ const NOTES_FLAT  = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
 
 let useFlatsDisplay = false;
 let currentTranspose = 0;
+let chordThreshold = 0.4; // adjustable
 
 const CHORD_REGEX = /\b([A-G](?:#|b)?)([^\s]*)/g;
 
@@ -214,7 +311,7 @@ function updateOutput() {
     const tokens = line.trim().split(/\s+/);
     if (!tokens.length) return line;
     const chordCount = tokens.filter(w => /^[A-G](?:#|b)?/.test(w)).length;
-    if (chordCount / tokens.length >= 0.4) {
+    if (chordCount / tokens.length >= chordThreshold) {
       return highlightChords(transposeText(line, currentTranspose));
     }
     return line;
@@ -236,6 +333,45 @@ function toggleFlats() {
 }
 
 document.getElementById("input").addEventListener("input", updateOutput);
+
+// --- Settings persistence and live updates ---
+function loadSettings() {
+  const settings = JSON.parse(localStorage.getItem("transposerSettings") || "{}");
+  if (settings.titleFontSize) document.getElementById("titleFontSize").value = settings.titleFontSize;
+  if (settings.bodyFontSize) document.getElementById("bodyFontSize").value = settings.bodyFontSize;
+  if (settings.pdfMargin) document.getElementById("pdfMargin").value = settings.pdfMargin;
+  if (settings.chordThreshold !== undefined) {
+    document.getElementById("chordThreshold").value = settings.chordThreshold;
+    document.getElementById("thresholdVal").textContent = settings.chordThreshold;
+    chordThreshold = parseFloat(settings.chordThreshold);
+  }
+}
+
+function saveSettings() {
+  const settings = {
+    titleFontSize: document.getElementById("titleFontSize").value,
+    bodyFontSize: document.getElementById("bodyFontSize").value,
+    pdfMargin: document.getElementById("pdfMargin").value,
+    chordThreshold: document.getElementById("chordThreshold").value
+  };
+  localStorage.setItem("transposerSettings", JSON.stringify(settings));
+}
+
+document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin").forEach(el => {
+  el.addEventListener("input", () => {
+    saveSettings();
+  });
+});
+
+const thresholdSlider = document.getElementById("chordThreshold");
+thresholdSlider.addEventListener("input", e => {
+  chordThreshold = parseFloat(e.target.value);
+  document.getElementById("thresholdVal").textContent = e.target.value;
+  saveSettings();
+  updateOutput(); // instantly reapply highlighting
+});
+
+loadSettings();
 </script>
 
 <script>
@@ -258,8 +394,10 @@ async function exportPDF() {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
-  const margin = 40;
-  const lineHeight = 16;
+  const margin = parseFloat(document.getElementById("pdfMargin").value);
+  const titleFontSize = parseFloat(document.getElementById("titleFontSize").value);
+  const bodyFontSize = parseFloat(document.getElementById("bodyFontSize").value);
+  const lineHeight = bodyFontSize * 1.6;
   const maxWidth = 8.5 * 72 - margin * 2;
 
   async function loadFont(path) {
@@ -292,23 +430,22 @@ async function exportPDF() {
 
   if (title) {
     pdf.setFont("DejaVuSansMono", "bold");
-    pdf.setFontSize(14);
+    pdf.setFontSize(titleFontSize);
     const titleWidth = pdf.getTextWidth(title);
     const pageWidth = pdf.internal.pageSize.getWidth();
     pdf.text(title, (pageWidth - titleWidth) / 2, y);
-    y += 24;
-    pdf.setFontSize(10);
+    y += titleFontSize * 1.8;
   }
 
-  const container = document.createElement("div");
+  pdf.setFont("DejaVuSansMono", "normal");
+  pdf.setFontSize(bodyFontSize);
 
+  const container = document.createElement("div");
   const outputClone = document.getElementById("output").cloneNode(true);
   const h2 = outputClone.querySelector("h2");
   if (h2) h2.remove();
   container.innerHTML = outputClone.innerHTML;
 
-
-  pdf.setFont("DejaVuSansMono", "normal");
   const charWidth = pdf.getTextWidth("M");
 
   container.innerHTML.split(/\n/).forEach(lineHTML => {
