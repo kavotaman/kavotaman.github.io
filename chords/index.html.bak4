@@ -22,20 +22,6 @@
     color: var(--text);
   }
 
-a {
-  color: #ffffff;
-  text-decoration: none;
-
-  &:visited {
-    color: #fff999;
-  }
-
-  &:hover {
-    color: #fff777;
-    text-decoration: underline;
-  }
-}
-
   h1 {
     color: var(--accent);
     text-align: center;
@@ -160,11 +146,10 @@ a {
     <button id="toggleFlats" onclick="toggleFlats()">Show ♭</button>
     <button onclick="exportTXT()">Save .TXT</button>
     <button onclick="exportPDF()">Save PDF</button>
-    <button><a href="/chords/ocr.html" target="_blank">OCR Tool (extract text from PDFs and images)</a></button>
   </div>
 
   <details style="margin-bottom: 1rem; background:#1e1e1e; padding:1rem; border-radius:8px;">
-    <summary style="cursor:pointer; color:#5CB9FF; font-weight:bold;">Settings</summary>
+    <summary style="cursor:pointer; color:#5CB9FF; font-weight:bold;">PDF & Detection Settings</summary>
     <div style="margin-top:0.5rem;">
       <label>Title Font Size: 
         <input type="number" id="titleFontSize" value="14" min="8" max="36" style="width:60px;">

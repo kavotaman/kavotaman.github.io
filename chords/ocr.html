@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>OCR + Transpose — Monospace Chord Editor</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin: 18px; }
+    h1 { margin-top: 0; }
+    .row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    label { display:inline-block; margin-right:8px; }
+    #editor { width:100%; height:300px; font-family: "Courier New", Courier, monospace; font-size:14px; white-space:pre; box-sizing:border-box; }
+    #render { width:100%; min-height:200px; font-family: "Courier New", Courier, monospace; white-space:pre; border:1px solid #ddd; padding:8px; box-sizing:border-box; }
+    .controls { margin:10px 0; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    button { padding:6px 10px; }
+    .progress { margin-top:8px; }
+    .chord { background: #fffa8f; font-weight:700; }
+    #dropZone { border:2px dashed #bbb; padding:12px; text-align:center; color:#666; }
+    small { color:#666; }
+  </style>
+  <!-- PDF.js -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <!-- Tesseract.js -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.0/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <h1>PDF/Image → OCR → Monospace Chord Editor (client-side)</h1>
+
+  <div class="row">
+    <div style="flex:1 1 420px;">
+      <div id="dropZone">Drop PDF or image here, or <input id="fileInput" type="file" accept="application/pdf,image/*" /></div>
+      <div class="controls">
+        <button id="startOcrBtn">OCR & Insert into editor</button>
+        <button id="clearBtn">Clear editor</button>
+        <div style="margin-left:auto;">
+          <label for="pageScale">OCR scale:</label>
+          <select id="pageScale"><option>1.5</option><option selected>2</option><option>3</option></select>
+          <small> (higher = better OCR, slower)</small>
+        </div>
+      </div>
+
+      <div class="progress" id="progressArea"></div>
+    </div>
+  </div>
+
+  <h3>Editor (monospace) — this is where OCR text will be placed</h3>
+  <textarea id="editor" placeholder="OCR result will appear here..."></textarea>
+
+  <div class="controls">
+    <label for="transposeAmount">Transpose</label>
+    <button data-step="-12" class="transposeBtn">-12</button>
+    <button data-step="-7" class="transposeBtn">-7</button>
+    <button data-step="-5" class="transposeBtn">-5</button>
+    <button data-step="-2" class="transposeBtn">-2</button>
+    <input id="transposeAmount" type="number" step="1" value="1" style="width:60px" />
+    <button id="transposeApply">Apply</button>
+
+    <label style="margin-left:12px;">Preview:</label>
+    <button id="renderBtn">Render & Highlight</button>
+    <button id="downloadTxt">Download .txt</button>
+  </div>
+
+  <h3>Rendered View (highlighted chords)</h3>
+  <div id="render"></div>
+
+  <script>
+  // ---------- Helpers & config ----------
+  const fileInput = document.getElementById('fileInput');
+  const dropZone = document.getElementById('dropZone');
+  const startOcrBtn = document.getElementById('startOcrBtn');
+  const progressArea = document.getElementById('progressArea');
+  const editor = document.getElementById('editor');
+  const renderArea = document.getElementById('render');
+  const pageScaleSelect = document.getElementById('pageScale');
+  const transposeAmountInput = document.getElementById('transposeAmount');
+  const transposeApply = document.getElementById('transposeApply');
+  const renderBtn = document.getElementById('renderBtn');
+  const downloadTxt = document.getElementById('downloadTxt');
+
+  // PDF.js worker config (cdn provides worker automatically)
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+  let selectedFile = null;
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = '#888'; });
+  dropZone.addEventListener('dragleave', e => { dropZone.style.borderColor = '#bbb'; });
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.style.borderColor = '#bbb';
+    if (e.dataTransfer.files && e.dataTransfer.files.length) {
+      selectedFile = e.dataTransfer.files[0];
+      fileInput.files = e.dataTransfer.files;
+      progressArea.textContent = 'File selected: ' + selectedFile.name;
+    }
+  });
+
+  fileInput.addEventListener('change', e => {
+    if (fileInput.files && fileInput.files[0]) {
+      selectedFile = fileInput.files[0];
+      progressArea.textContent = 'File selected: ' + selectedFile.name;
+    }
+  });
+
+  startOcrBtn.addEventListener('click', async () => {
+    if (!selectedFile) { alert('Please select a PDF or image first (drag & drop works).'); return; }
+    progressArea.textContent = 'Preparing OCR...';
+    const scale = parseFloat(pageScaleSelect.value) || 2;
+    try {
+      let canvases = [];
+      if (selectedFile.type === 'application/pdf' || selectedFile.name.toLowerCase().endsWith('.pdf')) {
+        canvases = await renderPdfToCanvases(selectedFile, scale);
+      } else if (selectedFile.type.startsWith('image/') || /\.(png|jpe?g|webp|bmp)$/i.test(selectedFile.name)) {
+        const img = await loadImageFromFile(selectedFile);
+        canvases = [imageToCanvas(img, scale)];
+      } else {
+        alert('Unsupported file type. Use PDF or image formats.');
+        return;
+      }
+
+      // OCR each canvas and reconstruct monospace text preserving alignment
+      let finalText = '';
+      for (let i = 0; i < canvases.length; i++) {
+        progressArea.textContent = `OCR: page ${i+1}/${canvases.length}...`;
+        const words = await recognizeCanvasWords(canvases[i], progress => {
+          progressArea.textContent = `OCR page ${i+1}: ${Math.round(progress * 100)}%`;
+        });
+        const txt = reconstructMonospaceFromWords(words, canvases[i].width);
+        finalText += txt + (i + 1 < canvases.length ? '\n\n' : '');
+      }
+
+      editor.value = finalText;
+      progressArea.textContent = 'OCR complete. Text inserted into editor.';
+      renderHighlighted();
+    } catch (err) {
+      console.error(err);
+      alert('OCR failed: ' + err.message);
+      progressArea.textContent = 'OCR failed: ' + err.message;
+    }
+  });
+
+  // ---------- PDF & image helpers ----------
+  async function renderPdfToCanvases(file, scale=2) {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({data:arrayBuffer}).promise;
+    const canvases = [];
+    for (let p = 1; p <= pdf.numPages; p++) {
+      const page = await pdf.getPage(p);
+      const viewport = page.getViewport({ scale: scale });
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      canvases.push(canvas);
+    }
+    return canvases;
+  }
+
+  function loadImageFromFile(file) {
+    return new Promise((res, rej) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => { URL.revokeObjectURL(url); res(img); };
+      img.onerror = e => { URL.revokeObjectURL(url); rej(e); };
+      img.src = url;
+    });
+  }
+
+  function imageToCanvas(img, scale=2) {
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.floor(img.naturalWidth * scale);
+    canvas.height = Math.floor(img.naturalHeight * scale);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    return canvas;
+  }
+
+  // ---------- Tesseract OCR ----------
+  async function recognizeCanvasWords(canvas, onProgress) {
+    return new Promise((resolve, reject) => {
+      Tesseract.recognize(canvas, 'eng', {
+        logger: m => { if (m.status === 'recognizing text' && onProgress && m.progress) onProgress(m.progress); }
+      })
+      .then(result => {
+        // result.data.words: each word has { text, bbox: { x0,y0,x1,y1 } } or sometimes { x0,y0,x1,y1 } at top-level
+        // Normalize to {text, bbox:{x0,y0,x1,y1}}
+        const words = (result.data.words || []).map(w => {
+          const bbox = w.bbox ? { x0: w.bbox.x0, y0: w.bbox.y0, x1: w.bbox.x1, y1: w.bbox.y1 } :
+                       (w.box ? { x0:w.box.x0, y0:w.box.y0, x1:w.box.x1, y1:w.box.y1 } : {x0: w.x0||0, y0: w.y0||0, x1: w.x1||0, y1: w.y1||0});
+          return { text: (w.text || '').replace(/\n/g,'').trim(), bbox };
+        }).filter(w => w.text);
+        resolve(words);
+      })
+      .catch(reject);
+    });
+  }
+
+  // ---------- Reconstruct monospace text from word boxes ----------
+  function reconstructMonospaceFromWords(words, canvasWidth) {
+    if (!words || words.length === 0) return '';
+    // group words into lines by y-center with small threshold
+    const lines = [];
+    const threshold = 10; // pixels
+    for (const w of words) {
+      const ycenter = ((w.bbox.y0 + w.bbox.y1) / 2);
+      let placed = false;
+      for (const line of lines) {
+        const avg = line.avgY;
+        if (Math.abs(avg - ycenter) <= threshold) {
+          line.words.push(Object.assign({}, w, { ycenter }));
+          // update avg
+          line.avgY = (line.avgY * (line.count) + ycenter) / (line.count + 1);
+          line.count++;
+          placed = true; break;
+        }
+      }
+      if (!placed) {
+        lines.push({ avgY: ycenter, words: [Object.assign({}, w, { ycenter })], count:1 });
+      }
+    }
+    // sort lines top-to-bottom
+    lines.sort((a,b) => a.avgY - b.avgY);
+
+    // approximate monospace char width by measuring with a temporary canvas using same font (monospace)
+    const tmp = document.createElement('canvas');
+    const ctx = tmp.getContext('2d');
+    const fontSize = 14; // should match editor font-size
+    ctx.font = `${fontSize}px "Courier New", Courier, monospace`;
+    const charWidth = ctx.measureText('M').width || 8;
+    const cols = Math.max(40, Math.floor(canvasWidth / charWidth)); // ensure reasonable min
+
+    // for each line, create char array and place words at roughly column = floor(x0 / charWidth)
+    const reconstructed = lines.map(line => {
+      const arr = new Array(cols).fill(' ');
+      // sort words left to right
+      line.words.sort((a,b) => a.bbox.x0 - b.bbox.x0);
+      for (const w of line.words) {
+        const col = Math.max(0, Math.min(cols-1, Math.floor((w.bbox.x0) / charWidth)));
+        // place the word at col but do not overflow
+        const token = w.text;
+        for (let i=0;i<token.length && (col + i) < cols; i++) {
+          arr[col + i] = token[i];
+        }
+        // put a single space after word if within bounds
+        if ((col + token.length) < cols) arr[col + token.length] = ' ';
+      }
+      // trim right spaces but keep at least one space if empty
+      let lineStr = arr.join('').replace(/\s+$/g, '');
+      return lineStr;
+    });
+
+    return reconstructed.join('\n');
+  }
+
+  // ---------- Render & highlight ----------
+  function renderHighlighted() {
+    const txt = editor.value || '';
+    // We'll highlight chords using a regex that matches common chord tokens.
+    // Chords are expected to appear on lines by themselves or above lyrics, spaced horizontally.
+    const chordRegex = /([A-G](?:#|b)?(?:(?:maj|min|m|dim|aug|sus|add|M)?\d{0,2})?(?:\/[A-G](?:#|b)?)?(?:\-[0-9])?)/g;
+
+    // Build HTML by replacing tokens on chord-like-only lines or when token is in all-caps / contains chord patterns.
+    const lines = txt.split('\n');
+    const htmlLines = lines.map(line => {
+      // if the line contains mostly chords (separator-based heuristic) we highlight tokens:
+      const tokens = line.split(/(\s+)/); // keep whitespace tokens
+      const transformed = tokens.map(tok => {
+        if (tok.trim() === '') return tok;
+        // if token matches chord-like regex AND contains no lowercase letters (avoid matching words)
+        const isChordLike = chordRegex.test(tok) && !/[a-z]/.test(tok);
+        chordRegex.lastIndex = 0;
+        if (isChordLike) {
+          return `<span class="chord">${escapeHtml(tok)}</span>`;
+        } else {
+          return escapeHtml(tok);
+        }
+      }).join('');
+      return transformed;
+    });
+
+    renderArea.innerHTML = htmlLines.join('\n').replace(/\n/g, '<br/>');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // update render on editor changes
+  editor.addEventListener('input', () => renderHighlighted());
+
+  renderBtn.addEventListener('click', () => renderHighlighted());
+
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    editor.value = '';
+    renderArea.innerHTML = '';
+  });
+
+  // ---------- Transpose logic ----------
+  // Semitone map
+  const NOTES_SHARP = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const NOTES_FLAT  = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+
+  function normalizeNoteName(name) {
+    // returns canonical index for base note letter + optional accidental
+    const n = name.toUpperCase().replace(/\s+/g,'');
+    // try sharp list then flat
+    let idx = NOTES_SHARP.indexOf(n);
+    if (idx >= 0) return idx;
+    idx = NOTES_FLAT.indexOf(n);
+    if (idx >= 0) return idx;
+    // single-letter note maybe with trailing accidental char in different format e.g. 'Cb'
+    const base = n.charAt(0);
+    const rest = n.slice(1);
+    let candidate = base + (rest || '');
+    idx = NOTES_SHARP.indexOf(candidate);
+    if (idx >= 0) return idx;
+    idx = NOTES_FLAT.indexOf(candidate);
+    if (idx >= 0) return idx;
+    return null;
+  }
+
+  function transposeChordToken(token, semitones) {
+    // This tries to extract the root note, transpose it, and then rebuild token.
+    // Examples: F#m7 -> root F#, rest m7
+    const m = token.match(/^([A-Ga-g])([#b]?)(.*)$/);
+    if (!m) return token;
+    const root = (m[1].toUpperCase() + (m[2] || ''));
+    const rest = m[3] || '';
+    const rootIdx = normalizeNoteName(root);
+    if (rootIdx === null) return token;
+    const newIdx = (rootIdx + semitones + 120) % 12;
+    // prefer sharp or flat based on original accidental
+    const useFlat = root.includes('b');
+    const newRoot = (useFlat ? NOTES_FLAT[newIdx] : NOTES_SHARP[newIdx]);
+    return newRoot + rest;
+  }
+
+  function transposeTextPreserveSpacing(text, semitones) {
+    const lines = text.split('\n');
+    const chordPattern = /([A-G][#b]?(?:maj|min|m|dim|aug|sus|add|M)?\d{0,2}(?:\/[A-G][#b]?)?(?:\-[0-9])?)/g;
+    const newLines = lines.map(line => {
+      // We will search tokens and preserve original column positions.
+      // To avoid moving text, we will replace tokens with padded versions of transposed tokens.
+      // Tokenization: find all matches with index
+      const matches = [];
+      let match;
+      while ((match = chordPattern.exec(line)) !== null) {
+        matches.push({index: match.index, text: match[0]});
+      }
+      if (matches.length === 0) return line;
+      // build mutable array of chars of the line
+      const arr = line.split('');
+      for (let k = matches.length - 1; k >= 0; k--) {
+        const { index, text: orig } = matches[k];
+        const transposed = transposeChordToken(orig, semitones);
+        // if length differs, pad with spaces to the right (or trim if longer)
+        let replacement = transposed;
+        if (replacement.length < orig.length) {
+          replacement = replacement + ' '.repeat(orig.length - replacement.length);
+        } else if (replacement.length > orig.length) {
+          // try to shrink by removing redundancies (unlikely); otherwise truncate to keep alignment
+          replacement = replacement.slice(0, orig.length);
+        }
+        // replace in arr
+        for (let i=0;i<orig.length;i++) {
+          arr[index + i] = (i < replacement.length) ? replacement[i] : ' ';
+        }
+      }
+      return arr.join('');
+    });
+    return newLines.join('\n');
+  }
+
+  document.querySelectorAll('.transposeBtn').forEach(b => {
+    b.addEventListener('click', () => {
+      transposeAmountInput.value = parseInt(b.getAttribute('data-step'),10);
+    });
+  });
+
+  transposeApply.addEventListener('click', () => {
+    const steps = parseInt(transposeAmountInput.value,10) || 0;
+    if (steps === 0) { alert('No transpose amount set.'); return; }
+    // apply transpose and replace editor content; preserve alignment by padding/truncating tokens
+    editor.value = transposeTextPreserveSpacing(editor.value, steps);
+    renderHighlighted();
+  });
+
+  // ---------- Download .txt ----------
+  downloadTxt.addEventListener('click', () => {
+    const blob = new Blob([editor.value], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'ocr_transcribed.txt'; document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 500);
+  });
+
+  // ---------- Utility: simple escape for HTML in rendering ----------
+  // (already included above)
+
+  // Initial render
+  renderHighlighted();
+  </script>
+</body>
+</html>
+
