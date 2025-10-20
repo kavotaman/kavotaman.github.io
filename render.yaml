@@ -1,5 +1,8 @@
-# render.yaml
 services:
+  - type: redis
+    name: flask-ocr-redis
+    plan: free
+
   - type: web
     name: flask-ocr-web
     env: docker
@@ -9,8 +12,8 @@ services:
     envVars:
       - key: REDIS_URL
         fromService:
-          name: flask-ocr-redis
           type: redis
+          name: flask-ocr-redis
           property: connectionString
       - key: WORKER_NAME
         value: flask-ocr-worker
@@ -20,17 +23,11 @@ services:
     env: docker
     plan: free
     rootDir: test
-    dockerCommand: celery -A worker.celery worker --loglevel=info
     dockerfilePath: ./Dockerfile
+    dockerCommand: celery -A worker.celery worker --loglevel=info
     envVars:
       - key: REDIS_URL
         fromService:
-          name: flask-ocr-redis
           type: redis
+          name: flask-ocr-redis
           property: connectionString
-
-databases:
-  - name: flask-ocr-redis
-    plan: free
-    databaseName: redis
-    user: default
