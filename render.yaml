@@ -1,3 +1,4 @@
+# render.yaml
 services:
   - type: web
     name: flask-ocr-web
@@ -8,8 +9,9 @@ services:
     envVars:
       - key: REDIS_URL
         fromService:
-          type: redis
           name: flask-ocr-redis
+          type: redis
+          property: connectionString
       - key: WORKER_NAME
         value: flask-ocr-worker
 
@@ -23,12 +25,12 @@ services:
     envVars:
       - key: REDIS_URL
         fromService:
-          type: redis
           name: flask-ocr-redis
+          type: redis
+          property: connectionString
 
 databases:
   - name: flask-ocr-redis
     plan: free
     databaseName: redis
     user: default
-
