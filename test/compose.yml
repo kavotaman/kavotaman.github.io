@@ -1,0 +1,27 @@
+services:    
+  web:    
+    build: .    
+    container_name: flask_ocr_web    
+    ports:    
+      - "5000:5000"    
+    depends_on:    
+      - redis    
+    environment:    
+      - FLASK_ENV=production    
+      - REDIS_URL=${REDIS_URL}
+    volumes:    
+      - .:/app    
+  worker:    
+    build: .    
+    container_name: flask_ocr_worker    
+    command: celery -A worker.celery worker --loglevel=info    
+    depends_on:    
+      - redis    
+    environment:    
+      - REDIS_URL=${REDIS_URL}
+    volumes:    
+      - .:/app    
+  redis:    
+    image: redis:7    
+    container_name: redis    
+    restart: always    
