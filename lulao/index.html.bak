@@ -51,12 +51,12 @@
     width:100%;
     max-width:816px; /* 8.5in * 96dpi */
     overflow-y:auto;
+    border:1px solid #ccc;
     white-space:pre-wrap;
     line-height:1.6;
     box-sizing:border-box;
     /* default font will be overridden when we register fonts */
     font-family: "SabonNext", serif;
-    letter-spacing: 0.3px;
     color:#000;
   }
 
@@ -64,19 +64,9 @@
   #output strong{
     font-family: "KozukaGothic", sans-serif;
     font-weight:400;
-    color:#000;
+    color:#004685;
     border-radius:4px;
     padding:0 2px;
-    letter-spacing: -0.5px;
-    vertical-align: baseline;
-    transform: translateY(-0.5px);
-  }
-
-  #output .chordLine {
-    line-height: 1.5;          /* tighter spacing */
-    margin-bottom: -0.25em;     /* brings lyrics closer */
-    margin-top: 0.1em;
-    letter-spacing: -0.15px;     /* slightly tighter horizontally */
   }
 
   @media (max-width:600px){
@@ -126,6 +116,7 @@
     <div id="output"></div>
   </div>
 
+<!-- ====== App Script ====== -->
 <script>
 /* ----- constants/state ----- */
 const NOTES_SHARP = ["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
@@ -136,17 +127,12 @@ let chordThreshold = 0.4;
 
 const CHORD_REGEX = /\b([A-G](?:♯|♭)?)([^\s]*)/g;
 
-/* ----- proportional font ratios ----- */
-const SABON_SIZE_RATIO = 1;              // base
-const KOZUKA_SIZE_RATIO = 10.5 / 11;     // 0.9545
-const SABON_LINE_RATIO = 12 / 11;        // 1.0909
-const KOZUKA_LINE_RATIO = 12.6 / 10.5;   // 1.2
-
 /* ----- font helpers ----- */
 async function loadArrayBufferAsBase64(path) {
   const res = await fetch(path);
   if (!res.ok) throw new Error("Font not found: " + path);
   const buf = await res.arrayBuffer();
+  // convert to base64
   let binary = "";
   const bytes = new Uint8Array(buf);
   const chunk = 0x8000;
@@ -166,23 +152,12 @@ async function registerFontsForBrowser() {
     const css = `
       @font-face{ font-family:"KozukaGothic"; src: url(data:font/otf;base64,${kozukaB64}) format("opentype"); font-weight:400; font-style:normal; }
       @font-face{ font-family:"SabonNext"; src: url(data:font/otf;base64,${sabonB64}) format("opentype"); font-weight:400; font-style:normal; }
-
-      /* tighter spacing around ♭ and ♯ */
-      #output strong {
-        font-family: "KozukaGothic", sans-serif;
-        font-weight:400;
-        color:#000;
-        border-radius:4px;
-        padding:0 0.2px;
-        letter-spacing:-0.5px;
-        vertical-align:baseline;
-        transform:translateY(-0.5px);
-      }
     `;
     const s = document.createElement("style");
     s.id = "font-injected";
     s.appendChild(document.createTextNode(css));
     document.head.appendChild(s);
+    // ensure fonts loaded
     await Promise.all([
       document.fonts.load('10.5pt "KozukaGothic"'),
       document.fonts.load('11pt "SabonNext"')
@@ -192,7 +167,7 @@ async function registerFontsForBrowser() {
   }
 }
 
-/* ----- transpose/highlight logic ----- */
+/* ----- transpose/highlight logic (same as before) ----- */
 function transposeNote(note, steps) {
   const idxSharp = NOTES_SHARP.indexOf(note);
   const idxFlat  = NOTES_FLAT.indexOf(note);
@@ -206,6 +181,7 @@ function transposeNote(note, steps) {
 function transposeChord(chord, steps) {
   return chord.replace(/^([A-G](?:♯|♭)?)(.*)$/, (_, root, rest) => {
     const newRoot = transposeNote(root, steps);
+    // slash bass
     const slashMatch = rest.match(/\/([A-G](?:♯|♭)?)(?!\d)/);
     if (slashMatch) {
       const bass = slashMatch[1];
@@ -239,13 +215,11 @@ async function updateOutput(){
     const tokens = line.trim().split(/\s+/);
     if (!tokens.length) return line;
     const chordCount = tokens.filter(w => /^[A-G](?:♯|♭)?/.test(w)).length;
-
     if (chordCount / tokens.length >= chordThreshold) {
-      // Mark chord lines
-      return `<div class="chordLine">${highlightChords(transposeText(line, currentTranspose))}</div>`;
+      return highlightChords(transposeText(line, currentTranspose));
     }
-    return `<div>${line}</div>`;
-  }).join("");
+    return line;
+  }).join("\n");
 
   const titleFontSizePt = parseFloat(document.getElementById("titleFontSize").value || 14);
   const bodyFontSizePt  = parseFloat(document.getElementById("bodyFontSize").value || 10);
@@ -255,31 +229,18 @@ async function updateOutput(){
   const marginPx = ptToPx(marginPt);
   const printableWidthPx = 8.5 * DPI - marginPx * 2;
 
-  const titleHTML = title
-    ? `<div style="text-align:center;color:#5CB9FF;margin-top:0;font-size:${titleFontSizePx}px;font-weight:700">${escapeHtml(title)}</div>\n`
-    : "";
+  const titleHTML = title ? `<div style="text-align:center;color:#5CB9FF;margin-top:0;font-size:${titleFontSizePx}px;font-weight:700">${escapeHtml(title)}</div>\n` : "";
 
   const outputDiv = document.getElementById("output");
   outputDiv.innerHTML = titleHTML + out;
-
-  // Apply proportional font relationships
-  outputDiv.style.fontFamily = '"SabonNext", serif';
-  outputDiv.style.fontSize = (bodyFontSizePx * SABON_SIZE_RATIO) + "px";
-  outputDiv.style.lineHeight = SABON_LINE_RATIO;
+  outputDiv.style.fontSize = bodyFontSizePx + "px";
   outputDiv.style.width = printableWidthPx + "px";
   outputDiv.style.padding = marginPx + "px";
-
-  // adjust chord font separately
-  document.querySelectorAll('#output strong').forEach(el=>{
-    el.style.fontFamily = '"KozukaGothic", sans-serif';
-    el.style.fontSize = (bodyFontSizePx * KOZUKA_SIZE_RATIO) + "px";
-    el.style.lineHeight = KOZUKA_LINE_RATIO;
-  });
 }
 
-/* escape helper */
+/* escape helper for safety */
 function escapeHtml(s){
-  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  return s.replace(/[&<>"']/g, (c)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]);
 }
 
 /* ----- controls ----- */
@@ -338,6 +299,8 @@ function exportTXT(){
   link.download = "transposed_chords.txt";
   link.click();
 }
+
+/* ----- PDF export (fixed + fonts embedded + wrapping) ----- */
 </script>
 
 <!-- jsPDF -->
