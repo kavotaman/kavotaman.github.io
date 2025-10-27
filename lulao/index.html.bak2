@@ -39,20 +39,16 @@
     font-size:16px;
   }
 
-.ajuste {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 400;
-  color: #fff;
-  background: #4da3ff;
-  border: 1px solid #007bff;
-  border-radius: 4px;
-  width: 40px;
-  height: 24px;
-  text-align: center;
-}
-
+  .ajuste {
+    text-align: center;
+    font-weight:400;
+    color:#fff;
+    background:#4da3ff;
+    border-style:solid;
+    border-radius:1px;
+    border-color:#007bff;
+    width:5%;
+  }
 
   details{ margin-bottom:1rem; background:#1e1e1e; padding:1rem; border-radius:8px; }
   details summary{ cursor:pointer; color:var(--accent); font-weight:700; }
@@ -82,31 +78,14 @@
   /* chord font for the highlighted tokens */
   #output strong{
     font-family: "KozukaGothic", sans-serif;
-    letter-spacing: -0.5px;
     font-weight:400;
     color:#000;
     border-radius:4px;
     padding:0 2px;
-  /*  letter-spacing: -0.5px; */
+    letter-spacing: -0.5px;
     vertical-align: baseline;
     transform: translateY(-0.5px);
   }
-
-  /* Accidentals get special kerning and closer alignment */
-#output strong .accidental {
-  display: inline-block;
-  margin-left: -3.2px;   /* pulls it left toward chord root */
-  margin-right: -1.2px;  /* pulls following characters closer */
-  letter-spacing: -1px;  /* optional: tighten internal spacing of the glyph */
-  transform: translateY(-0.5px); /* keeps ♯ and ♭ vertically centered nicely */
-}
-
-/* Only the chord root letters get full-width treatment */
-#output strong .chordRoot {
-  font-feature-settings: "fwid" 1;
-  display: inline-block;
-  letter-spacing: -2.5px;
-}
 
   #output .chordLine {
     line-height: 1.5;          /* tighter spacing */
@@ -156,7 +135,6 @@
   background: #5cb9ff;
   cursor: pointer;
 }
-
 </style>
 </head>
 <body>
@@ -187,20 +165,10 @@
       <label>Margens (pt):
         <input type="number" id="pdfMargin" value="40" min="10" max="100" style="width:60px">
       </label><br/>
-      <label>
-  Ajuste de Detecção dos Acordes:
-  <input
-    type="range"
-    class="slider"
-    id="chordThreshold"
-    min="0"
-    max="1"
-    step="0.05"
-    value="0.4"
-    oninput="document.getElementById('thresholdVal').textContent=this.value"
-  >
-  <div class="ajuste"><span id="thresholdVal">0.4</span></div>
-</label>
+      <label>Ajuste de Detecção dos Acordes:
+        <input type="range" class="slider" id="chordThreshold" min="0" max="1" step="0.05" value="0.4" oninput="document.getElementById('thresholdVal').textContent=this.value">
+        <div class="ajuste"><span id="thresholdVal" >0.4</span></div>
+      </label>
     </div>
   </details>
 
@@ -215,9 +183,6 @@ const NOTES_FLAT  = ["C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭",
 let useFlatsDisplay = false;
 let currentTranspose = 0;
 let chordThreshold = 0.4;
-
-let prevTranspose = 0;
-let prevUseFlatsDisplay = false;
 
 const CHORD_REGEX = /\b([A-G](?:♯|♭)?)([^\s]*)/g;
 
@@ -251,6 +216,8 @@ async function registerFontsForBrowser() {
     const css = `
       @font-face{ font-family:"KozukaGothic"; src: url(data:font/otf;base64,${kozukaB64}) format("opentype"); font-weight:400; font-style:normal; }
       @font-face{ font-family:"SabonNext"; src: url(data:font/otf;base64,${sabonB64}) format("opentype"); font-weight:400; font-style:normal; }
+
+      /* tighter spacing around ♭ and ♯ */
       #output strong {
         font-family: "KozukaGothic", sans-serif;
         font-weight:400;
@@ -276,65 +243,35 @@ async function registerFontsForBrowser() {
 }
 
 /* ----- transpose/highlight logic ----- */
-function transposeNote(note, steps, flats = useFlatsDisplay) {
+function transposeNote(note, steps) {
   const idxSharp = NOTES_SHARP.indexOf(note);
   const idxFlat  = NOTES_FLAT.indexOf(note);
   const idx = idxSharp !== -1 ? idxSharp : idxFlat;
   if (idx === -1) return note;
   const newSharp = NOTES_SHARP[(idx + steps + 12) % 12];
   const newFlat  = NOTES_FLAT[(idx + steps + 12) % 12];
-  return flats ? newFlat : newSharp;
+  return useFlatsDisplay ? newFlat : newSharp;
 }
 
-function transposeChord(chord, steps, flats = useFlatsDisplay) {
+function transposeChord(chord, steps) {
   return chord.replace(/^([A-G](?:♯|♭)?)(.*)$/, (_, root, rest) => {
-    const newRoot = transposeNote(root, steps, flats);
+    const newRoot = transposeNote(root, steps);
     const slashMatch = rest.match(/\/([A-G](?:♯|♭)?)(?!\d)/);
     if (slashMatch) {
       const bass = slashMatch[1];
-      const transposedBass = transposeNote(bass, steps, flats);
+      const transposedBass = transposeNote(bass, steps);
       rest = rest.replace("/" + bass, "/" + transposedBass);
     }
     return newRoot + rest;
   });
 }
 
-function transposeText(text, steps, flats = useFlatsDisplay) {
-  return text.replace(CHORD_REGEX, chord => transposeChord(chord, steps, flats));
+function transposeText(text, steps) {
+  return text.replace(CHORD_REGEX, chord => transposeChord(chord, steps));
 }
 
 function highlightChords(text) {
-  return text.replace(CHORD_REGEX, match => {
-    // Split chord into root + rest
-    const [, root, rest] = match.match(/^([A-G])(.*)$/) || ["", match, ""];
-    const html = root
-      ? `<span class="chordRoot">${root}</span>${rest.replace(/([♯♭])/g, '<span class="accidental">$1</span>')}`
-      : match;
-    return `<strong>${html}</strong>`;
-  });
-}
-
-/* ----- NEW: spacing adjuster (adds/removes 2 spaces) ----- */
-function adjustChordSpacingByAccidentals(line, steps, flats) {
-  return line.replace(/([A-G](?:♯|♭)?[^\s]*)(\s*)/g, (m, token, space) => {
-    const transposed = transposeChord(token, steps, flats);
-    const hasAcc = /[♯♭]/.test(transposed);
-    let spaces = space || " ";
-
-    // Normalize base spacing
-    spaces = " ".repeat(Math.max(1, spaces.length));
-
-    // Adjust spacing based only on current state
-    if (!hasAcc) {
-      // no accidentals → add 2 spaces
-      spaces += "";
-    } else {
-      // has accidentals → remove 2 spaces, but keep at least one
-      spaces = spaces.length > 3 ? spaces.slice(0, -2) : " ";
-    }
-
-    return transposed + spaces;
-  });
+  return text.replace(CHORD_REGEX, match => `<strong>${match}</strong>`);
 }
 
 /* ----- UI update ----- */
@@ -354,15 +291,8 @@ async function updateOutput(){
     const chordCount = tokens.filter(w => /^[A-G](?:♯|♭)?/.test(w)).length;
 
     if (chordCount / tokens.length >= chordThreshold) {
-    // chord line → adjust spacing NEWNEW
-    const adjusted = adjustChordSpacingByAccidentals(
-     line,
-     currentTranspose,
-     useFlatsDisplay
-   );
-
       // Mark chord lines
-      return `<div class="chordLine">${highlightChords(adjusted)}</div>`;
+      return `<div class="chordLine">${highlightChords(transposeText(line, currentTranspose))}</div>`;
     }
     return `<div>${line}</div>`;
   }).join("");
@@ -395,10 +325,6 @@ async function updateOutput(){
     el.style.fontSize = (bodyFontSizePx * KOZUKA_SIZE_RATIO) + "px";
     el.style.lineHeight = KOZUKA_LINE_RATIO;
   });
-  
-  prevTranspose = currentTranspose;
-  prevUseFlatsDisplay = useFlatsDisplay;
-
 }
 
 /* escape helper */
@@ -407,21 +333,9 @@ function escapeHtml(s){
 }
 
 /* ----- controls ----- */
-function transposeUp(){
-  prevTranspose = currentTranspose;
-  prevUseFlatsDisplay = useFlatsDisplay;
-  currentTranspose++;
-  updateOutput();
-}
-function transposeDown(){
-  prevTranspose = currentTranspose;
-  prevUseFlatsDisplay = useFlatsDisplay;
-  currentTranspose--;
-  updateOutput();
-}
+function transposeUp(){ currentTranspose++; updateOutput(); }
+function transposeDown(){ currentTranspose--; updateOutput(); }
 function toggleFlats(){
-  prevTranspose = currentTranspose;
-  prevUseFlatsDisplay = useFlatsDisplay;
   useFlatsDisplay = !useFlatsDisplay;
   document.getElementById("toggleFlats").textContent = useFlatsDisplay ? "Muda pra ♯" : "Muda pra ♭";
   updateOutput();
