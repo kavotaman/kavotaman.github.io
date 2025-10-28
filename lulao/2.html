@@ -39,15 +39,6 @@
     font-size:16px;
   }
 
-label {
-  padding-left: 20px;
-}
-
-.confs {
-  display: inline-block;
-  margin-bottom: 5px;
-}
-
 .ajuste {
   display: inline-flex;
   justify-content: center;
@@ -56,23 +47,9 @@ label {
   color: #fff;
   background: #4da3ff;
   border: 1px solid #007bff;
-  border-radius: 2px;
+  border-radius: 4px;
   width: 40px;
-  height: 20px;
-  text-align: center;
-}
-
-.ajuste1 {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 400;
-  color: #fff;
-  background: #4da300;
-  border: 1px solid #007b00;
-  border-radius: 2px;
-  width: 40px;
-  height: 20px;
+  height: 24px;
   text-align: center;
 }
 
@@ -149,37 +126,6 @@ label {
   width: 50%;
 }
 
-.slider1 {
-  -webkit-appearance: none;
-  width: 30%;
-  height: 10px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.8;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider1:hover {
-  opacity: 1;
-}
-
-.slider1::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 15px;
-  background: #5cb900;
-  cursor: pointer;
-}
-
-.slider1::-moz-range-thumb {
-  width: 20px;
-  height: 15px;
-  background: #5cb900;
-  cursor: pointer;
-}
-
 .slider {
   -webkit-appearance: none;
   width: 30%;
@@ -231,26 +177,21 @@ label {
 
   <details>
     <summary>Configurações</summary>
-    <h3>Layout</h3>
     <div class="configs" style="margin-top:0.5rem;">
-      <label class="confs">Tamanho do Título:
-        <input type="number" id="titleFontSize" value="14" min="8" max="46" style="width:60px">
+      <label>Tamanho da Fonte do Título:
+        <input type="number" id="titleFontSize" value="14" min="8" max="36" style="width:60px">
       </label><br/>
-      <label class="confs">Tamanho do Resto:
-        <input type="number" id="bodyFontSize" value="10" min="2" max="34" style="width:60px">
+      <label>Tamanho da Fonte do Resto:
+        <input type="number" id="bodyFontSize" value="10" min="5" max="24" style="width:60px">
       </label><br/>
-      <label class="confs">Margens (pt):
-        <input type="number" id="pdfMargin" value="40" min="5" max="100" style="width:60px">
+      <label>Margens (pt):
+        <input type="number" id="pdfMargin" value="40" min="10" max="100" style="width:60px">
       </label><br/>
-      <hr style="margin:0.8rem 0; border:none; border-top:1px solid #444;">
-
-<h3>Avançadas</h3>
-
-<label class="confs">
-  Detecção de Acordes (default 0.4):
+      <label>
+  Ajuste de Detecção dos Acordes:
   <input
     type="range"
-    class="slider1"
+    class="slider"
     id="chordThreshold"
     min="0"
     max="1"
@@ -258,53 +199,8 @@ label {
     value="0.4"
     oninput="document.getElementById('thresholdVal').textContent=this.value"
   >
-  <div class="ajuste1"><span id="thresholdVal">0.4</span></div>
+  <div class="ajuste"><span id="thresholdVal">0.4</span></div>
 </label>
-
-<hr style="border:none; border-top:1px solid #444;">
-
-<label class="confs">Remover espaços após acordes:
-<input
-type="range"
-    class="slider"
-    id="removeGlobal"
-    min="0"
-    max="10"
-    step="1"
-    value="2"
-oninput="document.getElementById('removeGlobalVal').textContent=this.value"
-    >
-  <div class="ajuste"><span id="removeGlobalVal">2</span></div>
-</label><br/>
-
-<label class="confs">Remover espaços após ♯;♭:
-<input
-type="range"
-    class="slider"
-    id="removeAcc"
-    min="1"
-    max="10"
-    step="1"
-    value="3"
-oninput="document.getElementById('removeAccVal').textContent=this.value"
-    >
-  <div class="ajuste"><span id="removeAccVal">3</span></div>
-</label><br/>
-
-<label class="confs">Adicionar espaços para acordes sem ♯/♭ :
-<input
-type="range"
-    class="slider"
-    id="addNonAcc"
-    min="0"
-    max="10"
-    step="1"
-    value="2"
-oninput="document.getElementById('addNonAccVal').textContent=this.value"
-    >
-  <div class="ajuste"><span id="addNonAccVal">2</span></div>
-</label><br/>
-
     </div>
   </details>
 
@@ -420,42 +316,34 @@ function highlightChords(text) {
 
 /* ----- NEW: spacing adjuster (adds/removes 2 spaces) ----- */
 function adjustChordSpacingByAccidentals(line, steps, flats) {
-  // --- CONFIGURATION ---
-  const REMOVE_COUNT_GLOBAL = parseInt(document.getElementById("removeGlobal")?.value || 2, 10);
-  const REMOVE_FOR_ACC       = parseInt(document.getElementById("removeAcc")?.value || 3, 10);
-  const ADD_FOR_NONACC       = parseInt(document.getElementById("addNonAcc")?.value || 2, 10);
-  const MIN_SPACES = 1;
-  const TAB_WIDTH = 4;
+  let chordIndex = 0; /*NEW*/
 
-  // normalize tabs
-  const normalizedLine = line.replace(/\t/g, " ".repeat(TAB_WIDTH));
-
-  return normalizedLine.replace(/([A-G](?:♯|♭|#|b)?[^\s]*)(\s*)/g, (m, token, space) => {
-    // transpose as usual
+  return line.replace(/([A-G](?:♯|♭)?[^\s]*)(\s*)/g, (m, token, space) => {
     const transposed = transposeChord(token, steps, flats);
-
-    // ✅ Detect any accidental (root, middle, or bass note)
-    // includes visual ♯♭ and ASCII #/b
+    chordIndex++; /*NEW*/
     const hasAcc = /[♯♭]/.test(transposed);
-
-    // normalize spaces
     let spaces = space || " ";
+    let newSpaces = spaces || " "; /*NEW*/
+
+    // Normalize base spacing
     spaces = " ".repeat(Math.max(1, spaces.length));
 
-    // --- PART 1: Accidental-based adjustment ---
-    if (hasAcc) {
-      // tighter for chords with ♯/♭
-      spaces = spaces.length > REMOVE_FOR_ACC ? spaces.slice(0, -REMOVE_FOR_ACC) : " ".repeat(MIN_SPACES);
+    // Adjust spacing based only on current state
+    if (!hasAcc) {
+      // no accidentals → add 2 spaces
+      spaces += "";
     } else {
-      // slightly looser for plain chords
-      spaces += " ".repeat(ADD_FOR_NONACC);
+      // has accidentals → remove 2 spaces, but keep at least one
+      spaces = spaces.length > 3 ? spaces.slice(0, -2) : " ";
     }
 
-    // --- PART 2: Global tightening rule ---
-    const finalLen = Math.max(MIN_SPACES, spaces.length - REMOVE_COUNT_GLOBAL);
-    const adjustedSpaces = " ".repeat(finalLen);
+    // After the first chord, remove exactly 3 spaces (but keep at least 1)
+    if (chordIndex > 1) {
+      const length = newSpaces.length;
+      newSpaces = length > 3 ? newSpaces.slice(0, length - 3) : " ";
+    }
 
-    return transposed + adjustedSpaces;
+    return transposed + spaces;
   });
 }
 
@@ -498,7 +386,7 @@ async function updateOutput(){
   const printableWidthPx = 8.5 * DPI - marginPx * 2;
 
   const titleHTML = title
-    ? `<div style="text-align:center;color:#000;margin-top:0;font-size:${titleFontSizePx}px;font-weight:700">${escapeHtml(title)}</div>\n`
+    ? `<div style="text-align:center;color:#5CB9FF;margin-top:0;font-size:${titleFontSizePx}px;font-weight:700">${escapeHtml(title)}</div>\n`
     : "";
 
   const outputDiv = document.getElementById("output");
@@ -550,19 +438,6 @@ function toggleFlats(){
 }
 
 /* ----- settings persistence ----- */
-function saveSettings(){
-  const settings = {
-    titleFontSize: document.getElementById("titleFontSize").value,
-    bodyFontSize: document.getElementById("bodyFontSize").value,
-    pdfMargin: document.getElementById("pdfMargin").value,
-    chordThreshold: document.getElementById("chordThreshold").value,
-    removeGlobal: document.getElementById("removeGlobal").value,
-    removeAcc: document.getElementById("removeAcc").value,
-    addNonAcc: document.getElementById("addNonAcc").value
-  };
-  localStorage.setItem("transposerSettings", JSON.stringify(settings));
-}
-
 function loadSettings(){
   const s = JSON.parse(localStorage.getItem("transposerSettings") || "{}");
   if (s.titleFontSize) document.getElementById("titleFontSize").value = s.titleFontSize;
@@ -573,22 +448,19 @@ function loadSettings(){
     document.getElementById("thresholdVal").textContent = s.chordThreshold;
     chordThreshold = parseFloat(s.chordThreshold);
   }
-  if (s.removeGlobal) {
-  document.getElementById("removeGlobal").value = s.removeGlobal;
-  document.getElementById("removeGlobalVal").textContent = s.removeGlobal;
 }
-if (s.removeAcc) {
-  document.getElementById("removeAcc").value = s.removeAcc;
-  document.getElementById("removeAccVal").textContent = s.removeAcc;
-}
-if (s.addNonAcc) {
-  document.getElementById("addNonAcc").value = s.addNonAcc;
-  document.getElementById("addNonAccVal").textContent = s.addNonAcc;
-}
+function saveSettings(){
+  const settings = {
+    titleFontSize: document.getElementById("titleFontSize").value,
+    bodyFontSize: document.getElementById("bodyFontSize").value,
+    pdfMargin: document.getElementById("pdfMargin").value,
+    chordThreshold: document.getElementById("chordThreshold").value
+  };
+  localStorage.setItem("transposerSettings", JSON.stringify(settings));
 }
 
 /* wire up inputs */
-document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin,#removeGlobal,#removeAcc,#addNonAcc").forEach(el=>{
+document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin").forEach(el=>{
   el.addEventListener("input", ()=>{ saveSettings(); updateOutput(); });
 });
 document.getElementById("chordThreshold").addEventListener("input", e=>{
