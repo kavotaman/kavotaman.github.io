@@ -263,12 +263,12 @@ label {
 
 <hr style="border:none; border-top:1px solid #444;">
 
-<label class="confs">Remover espaços após acordes:
+<label class="confs">Espaços entre acordes:
 <input
 type="range"
     class="slider"
     id="removeGlobal"
-    min="0"
+    min="-10"
     max="10"
     step="1"
     value="2"
@@ -277,7 +277,7 @@ oninput="document.getElementById('removeGlobalVal').textContent=this.value"
   <div class="ajuste"><span id="removeGlobalVal">2</span></div>
 </label><br/>
 
-<label class="confs">Remover espaços após ♯;♭:
+<label class="confs">Remover espaços após ♯/♭:
 <input
 type="range"
     class="slider"
@@ -291,7 +291,7 @@ oninput="document.getElementById('removeAccVal').textContent=this.value"
   <div class="ajuste"><span id="removeAccVal">3</span></div>
 </label><br/>
 
-<label class="confs">Adicionar espaços para acordes sem ♯/♭ :
+<label class="confs">Adicionar espaços para acordes sem ♯/♭:
 <input
 type="range"
     class="slider"
@@ -452,7 +452,7 @@ function adjustChordSpacingByAccidentals(line, steps, flats) {
     }
 
     // --- PART 2: Global tightening rule ---
-    const finalLen = Math.max(MIN_SPACES, spaces.length - REMOVE_COUNT_GLOBAL);
+    const finalLen = Math.max(MIN_SPACES, spaces.length + REMOVE_COUNT_GLOBAL);
     const adjustedSpaces = " ".repeat(finalLen);
 
     return transposed + adjustedSpaces;
