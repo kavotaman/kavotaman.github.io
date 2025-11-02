@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -945,7 +945,6 @@ function loadSettings(){
   if (s.pdfMargin) document.getElementById("pdfMargin").value = s.pdfMargin;
   if (s.chordThreshold !== undefined){
     document.getElementById("chordThreshold").value = s.chordThreshold;
-    document.getElementById("thresholdVal").textContent = s.chordThreshold;
     chordThreshold = parseFloat(s.chordThreshold);
   }
   if (s.removeGlobal) {
@@ -972,8 +971,8 @@ document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin,#removeGlobal
 });
 document.getElementById("chordThreshold").addEventListener("input", e=>{
   chordThreshold = parseFloat(e.target.value);
-  document.getElementById("thresholdVal").textContent = e.target.value;
-  saveSettings(); updateOutput();
+  saveSettings();
+  updateOutput();
 });
 document.getElementById("input").addEventListener("input", updateOutput);
 
