@@ -37,15 +37,16 @@
 
   .configs {
     font-size:16px;
+    text-align:center;
   }
 
 label {
-  padding-left: 20px;
 }
 
 .confs {
   display: inline-block;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .ajuste {
@@ -82,6 +83,63 @@ label {
 
   #previewContainer{ display:flex; justify-content:center; align-items:center; }
 
+  @media (max-width:600px){
+    body{ padding:0.5rem; }
+    textarea{ height:180px; font-size:0.95rem; }
+    .controls{ justify-content:space-between; }
+    .controls button{ flex:1 1 45%; padding:0.5rem; font-size:0.9rem; }
+  }
+
+.number-input {
+  display: inline-flex;
+  align-items: center;
+  background: #333;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100px;
+  height: 20px;
+  margin-left: 8px;
+}
+
+.number-input button {
+  background: #5cb9ff;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+  line-height: 1;
+}
+
+.number-input button:hover {
+  background: #3da8ff;
+}
+
+.number-input input[type=number] {
+  border: none;
+  text-align: center;
+  width: 40px;
+  font-size: 15px;
+  background: #123456;
+  color: #fff;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+/* hide browser arrows */
+.number-input input::-webkit-outer-spin-button,
+.number-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@font-face{
+  font-family:"MusicalSymbols";
+  src:url(data:font/woff2;base64,${musicalB64}) format("woff2");
+}
+
   /* large printable output area (like original) */
   #output{
     background:#fff;
@@ -115,20 +173,13 @@ label {
     transform: translateY(-0.5px);
   }
 
-  /* Accidentals get special kerning and closer alignment */
-#output strong .accidental {
+#output strong .repeatSymbol {
+  font-family: inherit;
+  font-size: 13pt;
   display: inline-block;
-  margin-left: -3.2px;   /* pulls it left toward chord root */
-  margin-right: -1.2px;  /* pulls following characters closer */
-  letter-spacing: -1px;  /* optional: tighten internal spacing of the glyph */
-  transform: translateY(-0.5px); /* keeps ♯ and ♭ vertically centered nicely */
-}
-
-/* Only the chord root letters get full-width treatment */
-#output strong .chordRoot {
-  font-feature-settings: "fwid" 1;
-  display: inline-block;
-  letter-spacing: -2.5px;
+  transform: translateY(-1pt);
+  margin: 0 2px;
+  font-weight: 600;
 }
 
   #output .chordLine {
@@ -138,77 +189,109 @@ label {
     letter-spacing: -0.15px;     /* slightly tighter horizontally between chords */
   }
 
-  @media (max-width:600px){
-    body{ padding:0.5rem; }
-    textarea{ height:180px; font-size:0.95rem; }
-    .controls{ justify-content:space-between; }
-    .controls button{ flex:1 1 45%; padding:0.5rem; font-size:0.9rem; }
-  }
-
-  .slidecontainer {
-  width: 50%;
+/* --- Chord element styling rules --- */
+#output strong .chordRoot {
+  font-size: 10.5pt;
+  letter-spacing: 0em;
 }
 
-.slider1 {
-  -webkit-appearance: none;
-  width: 30%;
-  height: 10px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.8;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+#output strong .chordSharp {
+  font-size: 9pt;
+  letter-spacing: -0.2em;
+  margin-left: -2.6px;
 }
 
-.slider1:hover {
-  opacity: 1;
+#output strong .chordFlat {
+  font-size: 9pt;
+  letter-spacing: -0.23em;
+  margin-left: -2.6px;
 }
 
-.slider1::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 15px;
-  background: #5cb900;
-  cursor: pointer;
+#output strong .chordMinor {
+  font-size: 8pt;
 }
 
-.slider1::-moz-range-thumb {
-  width: 20px;
-  height: 15px;
-  background: #5cb900;
-  cursor: pointer;
+#output strong .chord6,
+#output strong .chord7,
+#output strong .chord9 {
+  font-size: 9pt;
+  transform: translateY(-2.5pt);
+  display: inline-block;
 }
 
-.slider {
-  -webkit-appearance: none;
-  width: 30%;
-  height: 10px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.8;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+/* Generic number token style (default for numeric tokens like 7,9,13) */
+#output strong .chordNum {
+  font-size: 9pt;
+  display: inline-block;
+  /* individual tokens will use inline transform to alternate baseline shifts */
 }
 
-.slider:hover {
-  opacity: 1;
+#output strong .chordDim {
+  font-size: 11pt;
+  transform: translateY(-1.5pt);
+  display: inline-block;
 }
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 15px;
-  background: #5cb9ff;
-  cursor: pointer;
+#output strong .chordPlus {
+  font-size: 8pt;
+  transform: translateY(-4.5pt);
+  display: inline-block;
 }
 
-.slider::-moz-range-thumb {
-  width: 20px;
-  height: 15px;
-  background: #5cb9ff;
-  cursor: pointer;
+#output strong .chordSus,
+#output strong .chord2,
+#output strong .chord4,
+#output strong .chordM {
+  font-size: 8pt;
+  transform: translateY(-2.5pt);
+  display: inline-block;
+}
+
+#output strong .chordSlash {
+  font-size: 9pt;
+  transform: translateY(-2.5pt);
+  display: inline-block;
+}
+
+#output strong .bassNote {
+  font-size: 9pt;
+  transform: translateY(-2.5pt);
+  display: inline-block;
+}
+
+#output strong .bassSharp {
+  font-size: 9pt;
+  letter-spacing: -0.16em;
+  transform: translateY(-2.5pt);
+  display: inline-block;
+  margin-left: -2px;
+}
+
+#output strong .bassFlat {
+  font-size: 9pt;
+  letter-spacing: -0.24em;
+  transform: translateY(-2.5pt);
+  display: inline-block;
+  margin-left: -2px;
+}
+
+#output strong .chordHalfDim {
+  font-size: 10pt;
+  letter-spacing: 0.03em;
+  transform: translateY(-2.5pt);
+  display: inline-block;
+}
+
+#output strong .chordAccExt {
+  font-size: 9pt;
+  letter-spacing: -0.2em; /* tweak as you like */
+  display: inline-block;
+}
+
+#output strong .parenBlock {
+  font-size: 9pt;
+  transform: translateY(-2.5pt);
+  display: inline-block;
 }
 
 </style>
@@ -233,77 +316,142 @@ label {
     <summary>Configurações</summary>
     <h3>Layout</h3>
     <div class="configs" style="margin-top:0.5rem;">
-      <label class="confs">Tamanho do Título:
-        <input type="number" id="titleFontSize" value="14" min="8" max="46" style="width:60px">
-      </label><br/>
-      <label class="confs">Tamanho do Resto:
-        <input type="number" id="bodyFontSize" value="10" min="2" max="34" style="width:60px">
-      </label><br/>
-      <label class="confs">Margens (pt):
-        <input type="number" id="pdfMargin" value="40" min="5" max="100" style="width:60px">
-      </label><br/>
-      <hr style="margin:0.8rem 0; border:none; border-top:1px solid #444;">
 
-<h3>Avançadas</h3>
+<label class="confs">
+  Título:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('titleFontSize', -1)">−</button>
+    <input
+      type="number"
+      id="titleFontSize"
+      min="8"
+      max="46"
+      step="1"
+      value="14"
+    >
+    <button type="button" onclick="adjustValue('titleFontSize', 1)">+</button>
+  </div>
+</label>
+
+<label class="confs">
+  Corpo:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('bodyFontSize', -1)">−</button>
+    <input
+      type="number"
+      id="bodyFontSize"
+      min="2"
+      max="34"
+      step="1"
+      value="10"
+    >
+    <button type="button" onclick="adjustValue('bodyFontSize', 1)">+</button>
+  </div>
+</label>
+
+<label class="confs">
+  Margens:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('pdfMargin', -1)">−</button>
+    <input
+      type="number"
+      id="pdfMargin"
+      min="5"
+      max="100"
+      step="1"
+      value="40"
+    >
+    <button type="button" onclick="adjustValue('pdfMargin', 1)">+</button>
+  </div>
+</label>
+
+<hr>
 
 <label class="confs">
   Detecção de Acordes (default 0.4):
-  <input
-    type="range"
-    class="slider1"
-    id="chordThreshold"
-    min="0"
-    max="1"
-    step="0.05"
-    value="0.4"
-    oninput="document.getElementById('thresholdVal').textContent=this.value"
-  >
-  <div class="ajuste1"><span id="thresholdVal">0.4</span></div>
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('chordThreshold', -1)">−</button>
+    <input
+      type="number"
+      id="chordThreshold"
+      min="0"
+      max="1"
+      step="0.05"
+      value="0.4"
+    >
+    <button type="button" onclick="adjustValue('chordThreshold', 1)">+</button>
+  </div>
 </label>
 
-<hr style="border:none; border-top:1px solid #444;">
+<hr>
 
-<label class="confs">Espaços entre acordes:
-<input
-type="range"
-    class="slider"
-    id="removeGlobal"
-    min="-10"
-    max="10"
-    step="1"
-    value="2"
-oninput="document.getElementById('removeGlobalVal').textContent=this.value"
+<!-- 2 -->
+<label class="confs">
+  Espaços entre acordes:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('removeGlobal', -1)">−</button>
+    <input
+      type="number"
+      id="removeGlobal"
+      min="-10"
+      max="10"
+      step="1"
+      value="2"
     >
-  <div class="ajuste"><span id="removeGlobalVal">2</span></div>
-</label><br/>
+    <button type="button" onclick="adjustValue('removeGlobal', 1)">+</button>
+  </div>
+</label>
 
-<label class="confs">Remover espaços após ♯/♭:
-<input
-type="range"
-    class="slider"
-    id="removeAcc"
-    min="1"
-    max="10"
-    step="1"
-    value="3"
-oninput="document.getElementById('removeAccVal').textContent=this.value"
+<!-- 3 -->
+<label class="confs">
+  Remover espaços após ♯/♭:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('removeAcc', -1)">−</button>
+    <input
+      type="number"
+      id="removeAcc"
+      min="1"
+      max="10"
+      step="1"
+      value="3"
     >
-  <div class="ajuste"><span id="removeAccVal">3</span></div>
-</label><br/>
+    <button type="button" onclick="adjustValue('removeAcc', 1)">+</button>
+  </div>
+</label>
 
-<label class="confs">Adicionar espaços para acordes sem ♯/♭:
-<input
-type="range"
-    class="slider"
-    id="addNonAcc"
-    min="0"
-    max="10"
-    step="1"
-    value="2"
-oninput="document.getElementById('addNonAccVal').textContent=this.value"
+<!-- 4 -->
+<label class="confs">
+  Adicionar espaços para acordes sem ♯/♭:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('addNonAcc', -1)">−</button>
+    <input
+      type="number"
+      id="addNonAcc"
+      min="0"
+      max="10"
+      step="1"
+      value="2"
     >
-  <div class="ajuste"><span id="addNonAccVal">2</span></div>
-</label><br/>
+    <button type="button" onclick="adjustValue('addNonAcc', 1)">+</button>
+  </div>
+</label>
+
+<!-- 5 -->
+<label class="confs">
+  Tamanho dos acordes (chord scale):
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('chordScale', -1)">−</button>
+    <input
+      type="number"
+      id="chordScale"
+      min="0.5"
+      max="1.2"
+      step="0.05"
+      value="0.7"
+    >
+    <button type="button" onclick="adjustValue('chordScale', 1)">+</button>
+  </div>
+</label>
 
     </div>
   </details>
@@ -311,6 +459,23 @@ oninput="document.getElementById('addNonAccVal').textContent=this.value"
   <div id="previewContainer">
     <div id="output"></div>
   </div>
+
+<script>
+function adjustValue(id, direction) {
+  const input = document.getElementById(id);
+  const step = parseFloat(input.step) || 1;
+  const min = parseFloat(input.min);
+  const max = parseFloat(input.max);
+  let value = parseFloat(input.value) || 0;
+
+  value += direction * step;
+  value = Math.min(Math.max(value, min), max);
+  value = Number(value.toFixed(3)); // prevents floating rounding errors
+
+  input.value = value;
+  input.dispatchEvent(new Event('input'));
+}
+</script>
 
 <script>
 /* ----- constants/state ----- */
@@ -323,7 +488,9 @@ let chordThreshold = 0.4;
 let prevTranspose = 0;
 let prevUseFlatsDisplay = false;
 
-const CHORD_REGEX = /\b([A-G](?:♯|♭)?)([^\s]*)/g;
+/* const CHORD_REGEX = /\b([A-G](?:♯|♭)?)([^\s]*)/g; */
+const CHORD_REGEX = /(?:\b[A-G](?:♯|♭)?[^\s]*)|(?:\/[A-G](?:♯|♭)?)|(?:\b(?:sus|add|dim|aug|maj|m|M)\d*\b)|(?:\([^)]+\))/g;
+
 
 /* ----- proportional font ratios ----- */
 const SABON_SIZE_RATIO = 1;              // base
@@ -347,35 +514,87 @@ async function loadArrayBufferAsBase64(path) {
 
 async function registerFontsForBrowser() {
   if (document.getElementById("font-injected")) return;
+
   try {
-    const [kozukaB64, sabonB64] = await Promise.all([
+    // Load fonts (WOFF2 preferred, fallback to TTF)
+    const [kozukaB64, sabonB64, musicalB64] = await Promise.all([
       loadArrayBufferAsBase64("Kozuka Gothic Pr6N R.otf"),
-      loadArrayBufferAsBase64("SabonNext LT-Regular.otf")
+      loadArrayBufferAsBase64("SabonNext LT-Regular.otf"),
+      loadArrayBufferAsBase64("MUSICAL.woff2").catch(() =>
+        loadArrayBufferAsBase64("MUSICAL.TTF")
+      )
     ]);
+
     const css = `
-      @font-face{ font-family:"KozukaGothic"; src: url(data:font/otf;base64,${kozukaB64}) format("opentype"); font-weight:400; font-style:normal; }
-      @font-face{ font-family:"SabonNext"; src: url(data:font/otf;base64,${sabonB64}) format("opentype"); font-weight:400; font-style:normal; }
+      @font-face {
+        font-family: "KozukaGothic";
+        src: url(data:font/otf;base64,${kozukaB64}) format("opentype");
+        font-weight: 400; font-style: normal;
+      }
+      @font-face {
+        font-family: "SabonNext";
+        src: url(data:font/otf;base64,${sabonB64}) format("opentype");
+        font-weight: 400; font-style: normal;
+      }
+      @font-face {
+        font-family: "MusicalSymbols";
+        src: url(data:font/woff2;base64,${musicalB64}) format("woff2"),
+             url(data:font/ttf;base64,${musicalB64}) format("truetype");
+        font-weight: 400; font-style: normal;
+      }
+
       #output strong {
         font-family: "KozukaGothic", sans-serif;
-        font-weight:400;
-        color:#000;
-        border-radius:4px;
-        padding:0 0.2px;
-        letter-spacing:-0.5px;
-        vertical-align:baseline;
-        transform:translateY(-0.5px);
+        font-weight: 400;
+        color: #000;
+        border-radius: 4px;
+        padding: 0 0.2px;
+        letter-spacing: -0.5px;
+        vertical-align: baseline;
+        transform: translateY(-0.5px);
+      }
+
+      /* Repeat symbol with safe fallback fonts */
+      #output strong .repeatSymbol {
+        font-family: "MusicalSymbols","Noto Music","Segoe UI Symbol","Arial Unicode MS",sans-serif;
+        display: inline-block;
+        font-size: 11pt;
+        transform: translateY(-1pt);
+        margin: 0 2px;
       }
     `;
-    const s = document.createElement("style");
-    s.id = "font-injected";
-    s.appendChild(document.createTextNode(css));
-    document.head.appendChild(s);
+
+    const style = document.createElement("style");
+    style.id = "font-injected";
+    style.appendChild(document.createTextNode(css));
+    document.head.appendChild(style);
+
+    // Preload fonts
     await Promise.all([
       document.fonts.load('10.5pt "KozukaGothic"'),
-      document.fonts.load('11pt "SabonNext"')
+      document.fonts.load('11pt "SabonNext"'),
+      document.fonts.load('11pt "MusicalSymbols"')
     ]);
+
+    // ✅ Runtime fallback check: replace bad glyphs
+    setTimeout(() => {
+      document.querySelectorAll('#output .repeatSymbol').forEach(el => {
+        const text = el.textContent.trim();
+        // detect if glyph failed to render (shows blank or tofu box)
+        if (!text || text === "�" || el.offsetWidth < 4) {
+          el.textContent = "%"; // fallback to plain %
+          el.style.fontFamily = 'inherit';
+        }
+      });
+    }, 500);
+
   } catch (err) {
-    console.warn("Could not load fonts for preview:", err);
+    console.warn("⚠️ Could not load fonts for preview:", err);
+    // fallback if everything fails
+    document.querySelectorAll('#output .repeatSymbol').forEach(el => {
+      el.textContent = "%";
+      el.style.fontFamily = 'inherit';
+    });
   }
 }
 
@@ -408,15 +627,150 @@ function transposeText(text, steps, flats = useFlatsDisplay) {
 }
 
 function highlightChords(text) {
+    // ✅ Normalize any private-use glyphs (U+F0D4 etc.) to plain %
+  text = text.replace(/[\uF0D4\uF0D5\uF0D6\uF0D7\uF0D8\uF0D9\uF0DA\uF0DB\uF0DC\uF0DD\uF0DE\uF0DF\uF0E0]/g, "%");
+
   return text.replace(CHORD_REGEX, match => {
-    // Split chord into root + rest
-    const [, root, rest] = match.match(/^([A-G])(.*)$/) || ["", match, ""];
-    const html = root
-      ? `<span class="chordRoot">${root}</span>${rest.replace(/([♯♭])/g, '<span class="accidental">$1</span>')}`
-      : match;
+    // Detect if token looks like a normal chord (starts with A–G)
+    const isNormalChord = /^[A-G]/.test(match);
+
+    // For non-root tokens (sus2, /A, etc.), wrap everything raised + smaller
+    if (!isNormalChord) {
+      return `<strong><span class="chordRoot" style="font-size:9pt; transform:translateY(-2.5pt); display:inline-block;">${match}</span></strong>`;
+    }
+
+    // Normal chord parsing
+    const m = match.match(/^([A-G])([♯♭]?)(.*)$/);
+    if (!m) return match;
+
+    const [, root, accidental, restRaw] = m;
+    let html = `<span class="chordRoot">${root}</span>`;
+    if (accidental) {
+      html += `<span class="${accidental === "♯" ? "chordSharp" : "chordFlat"}">${accidental}</span>`;
+    }
+
+    let remaining = restRaw;
+    let numIndex = 0;
+    let insideParens = false;
+
+    while (remaining.length > 0) {
+      // 1) parentheses
+      if (remaining[0] === "(") {
+        html += `<span class="parenBlock">(</span>`;
+        insideParens = true;
+        remaining = remaining.slice(1);
+        continue;
+      }
+      if (remaining[0] === ")") {
+        html += `<span class="parenBlock">)</span>`;
+        insideParens = false;
+        remaining = remaining.slice(1);
+        continue;
+      }
+
+      // 2) slash bass
+      const slashMatch = remaining.match(/^\/([A-G])([♯♭]?)/);
+      if (slashMatch) {
+        const [, bassRoot, bassAcc] = slashMatch;
+        const raise = "translateY(-2.5pt)";
+        html += `<span class="chordSlash" style="${raise}">/</span><span class="bassNote" style="${raise}">${bassRoot}</span>`;
+        if (bassAcc) {
+          html += `<span class="${bassAcc === "♯" ? "bassSharp" : "bassFlat"}" style="${raise}">${bassAcc}</span>`;
+        }
+        remaining = remaining.slice(slashMatch[0].length);
+        continue;
+      }
+
+      // 3) keywords
+      const wordMatch = remaining.match(/^(dim|sus|M|m|\+|ø)/i);
+      if (wordMatch) {
+        const token = wordMatch[1];
+        const cls =
+          token.toLowerCase() === "dim" ? "chordDim" :
+          token === "+" ? "chordPlus" :
+          token.toLowerCase() === "sus" ? "chordSus" :
+          token === "M" ? "chordM" :
+          token === "m" ? "chordMinor" :
+          token === "ø" ? "chordHalfDim" : "";
+        html += `<span class="${cls}">${token}</span>`;
+        remaining = remaining.slice(token.length);
+        continue;
+      }
+
+      // 4) sus2/sus4 numbers after "sus"
+      const susNumMatch = remaining.match(/^(2|4|5)(?!\d)/);
+      if (susNumMatch && /sus$/i.test(html)) {
+        const token = susNumMatch[1];
+        html += `<span class="chordSus" style="transform:translateY(-2.5pt);">${token}</span>`;
+        remaining = remaining.slice(token.length);
+        continue;
+      }
+
+      // 5) extension accidentals (#/b)
+      const accExtMatch = remaining.match(/^([♯♭])/);
+      if (accExtMatch) {
+        const sym = accExtMatch[1];
+        html += `<span class="chordAccExt">${sym}</span>`;
+        remaining = remaining.slice(1);
+        continue;
+      }
+
+      // 6) number tokens (with optional accidentals)
+      const accNumMatch = remaining.match(/^([b#♭♯])(\d{1,2})/);
+      if (accNumMatch) {
+        const [, sign, digits] = accNumMatch;
+        const token = sign + digits;
+        const shift = (insideParens || numIndex % 2 === 0) ? "translateY(-2.5pt)" : "translateY(0)";
+        html += `<span class="chordNum" style="transform:${shift};">${token}</span>`;
+        numIndex++;
+        remaining = remaining.slice(token.length);
+        continue;
+      }
+
+      if (/^\d/.test(remaining)) {
+        const token = (remaining.length >= 2 && remaining[0] === "1" && /[0-3]/.test(remaining[1]))
+          ? remaining.slice(0, 2)
+          : remaining[0];
+        const shift = (insideParens || numIndex % 2 === 0)
+          ? "translateY(-2.5pt)" : "translateY(0)";
+        html += `<span class="chordNum" style="transform:${shift};">${token}</span>`;
+        numIndex++;
+        remaining = remaining.slice(token.length);
+        continue;
+      }
+
+// ✅ normalize any private-use or broken repeat glyphs to plain %
+if (remaining.length && remaining.codePointAt(0) === 0xF0D4) {
+  html += `<span class="repeatSymbol">%</span>`;
+  remaining = remaining.slice(1);
+  continue;
+}
+if (remaining[0] === "" || remaining[0] === "%") {
+  html += `<span class="repeatSymbol">%</span>`;
+  remaining = remaining.slice(1);
+  continue;
+}
+
+// also handle whole-token repeats like % or ||: :||
+if (
+  match === "||:" ||
+  match === ":||" ||
+  match.trim() === "%" ||
+  (match.length === 1 && match.codePointAt(0) === 0xF0D4)
+) {
+  return `<strong><span class="repeatSymbol">%</span></strong>`;
+}
+
+
+     // 7) normal fallback char
+      html += remaining[0];
+      remaining = remaining.slice(1);
+    }
+
     return `<strong>${html}</strong>`;
   });
 }
+
 
 /* ----- NEW: spacing adjuster (adds/removes 2 spaces) ----- */
 function adjustChordSpacingByAccidentals(line, steps, flats) {
@@ -464,31 +818,30 @@ const DPI = 96;
 const PT_TO_PX = DPI / 72;
 function ptToPx(pt){ return pt * PT_TO_PX; }
 
-async function updateOutput(){
+async function updateOutput() {
+// ensure no leftover U+F0D4 in user input
+  const inputEl = document.getElementById("input");
+  inputEl.value = inputEl.value.replace(/\uF0D4/g, "%");
+
   await registerFontsForBrowser();
   const title = document.getElementById("songTitle").value.trim();
   const input = document.getElementById("input").value || "";
   const lines = input.split(/\n/);
 
-  const out = lines.map(line=>{
+  // Parse and highlight chords line-by-line
+  const out = lines.map(line => {
     const tokens = line.trim().split(/\s+/);
     if (!tokens.length) return line;
     const chordCount = tokens.filter(w => /^[A-G](?:♯|♭)?/.test(w)).length;
 
     if (chordCount / tokens.length >= chordThreshold) {
-    // chord line → adjust spacing NEWNEW
-    const adjusted = adjustChordSpacingByAccidentals(
-     line,
-     currentTranspose,
-     useFlatsDisplay
-   );
-
-      // Mark chord lines
+      const adjusted = adjustChordSpacingByAccidentals(line, currentTranspose, useFlatsDisplay);
       return `<div class="chordLine">${highlightChords(adjusted)}</div>`;
     }
     return `<div>${line}</div>`;
   }).join("");
 
+  // Configs and conversions
   const titleFontSizePt = parseFloat(document.getElementById("titleFontSize").value || 14);
   const bodyFontSizePt  = parseFloat(document.getElementById("bodyFontSize").value || 10);
   const marginPt = parseFloat(document.getElementById("pdfMargin").value || 40);
@@ -497,6 +850,7 @@ async function updateOutput(){
   const marginPx = ptToPx(marginPt);
   const printableWidthPx = 8.5 * DPI - marginPx * 2;
 
+  // Build HTML
   const titleHTML = title
     ? `<div style="text-align:center;color:#000;margin-top:0;font-size:${titleFontSizePx}px;font-weight:700">${escapeHtml(title)}</div>\n`
     : "";
@@ -504,23 +858,43 @@ async function updateOutput(){
   const outputDiv = document.getElementById("output");
   outputDiv.innerHTML = titleHTML + out;
 
-  // Apply proportional font relationships
+  // --- Apply base layout font ---
   outputDiv.style.fontFamily = '"SabonNext", serif';
   outputDiv.style.fontSize = (bodyFontSizePx * SABON_SIZE_RATIO) + "px";
   outputDiv.style.lineHeight = SABON_LINE_RATIO;
   outputDiv.style.width = printableWidthPx + "px";
   outputDiv.style.padding = marginPx + "px";
 
-  // adjust chord font separately
-  document.querySelectorAll('#output strong').forEach(el=>{
+  // --- Apply main chord font ---
+  document.querySelectorAll('#output strong').forEach(el => {
     el.style.fontFamily = '"KozukaGothic", sans-serif';
     el.style.fontSize = (bodyFontSizePx * KOZUKA_SIZE_RATIO) + "px";
     el.style.lineHeight = KOZUKA_LINE_RATIO;
   });
-  
+
+  // ✅ --- NEW: calibrated scaling for all chord components ---
+  const baseBody = 10; // your default CSS baseline for lyric size
+  const chordScaleFactor = parseFloat(document.getElementById("chordScale")?.value || 0.7);
+  const chordScale = (bodyFontSizePt / baseBody) * KOZUKA_SIZE_RATIO * chordScaleFactor;
+
+  document.querySelectorAll('#output strong span').forEach(span => {
+    const css = window.getComputedStyle(span);
+    const currentPt = parseFloat(css.fontSize);
+    if (!isNaN(currentPt)) {
+      span.style.fontSize = (currentPt * chordScale) + "pt";
+    }
+  });
+
+// normalize any remaining private-use glyphs just in case
+document.querySelectorAll('#output .repeatSymbol').forEach(el => {
+  if (el.textContent && el.textContent.codePointAt(0) === 0xF0D4) {
+    el.textContent = "%";
+    el.style.fontFamily = "inherit";
+  }
+});
+
   prevTranspose = currentTranspose;
   prevUseFlatsDisplay = useFlatsDisplay;
-
 }
 
 /* escape helper */
@@ -558,6 +932,7 @@ function saveSettings(){
     chordThreshold: document.getElementById("chordThreshold").value,
     removeGlobal: document.getElementById("removeGlobal").value,
     removeAcc: document.getElementById("removeAcc").value,
+    chordScale: document.getElementById("chordScale").value,
     addNonAcc: document.getElementById("addNonAcc").value
   };
   localStorage.setItem("transposerSettings", JSON.stringify(settings));
@@ -581,6 +956,10 @@ if (s.removeAcc) {
   document.getElementById("removeAcc").value = s.removeAcc;
   document.getElementById("removeAccVal").textContent = s.removeAcc;
 }
+if (s.chordScale) {
+  document.getElementById("chordScale").value = s.chordScale;
+  document.getElementById("chordScaleVal").textContent = s.chordScale;
+}
 if (s.addNonAcc) {
   document.getElementById("addNonAcc").value = s.addNonAcc;
   document.getElementById("addNonAccVal").textContent = s.addNonAcc;
@@ -588,7 +967,7 @@ if (s.addNonAcc) {
 }
 
 /* wire up inputs */
-document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin,#removeGlobal,#removeAcc,#addNonAcc").forEach(el=>{
+document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin,#removeGlobal,#removeAcc,#addNonAcc,#chordScale").forEach(el=>{
   el.addEventListener("input", ()=>{ saveSettings(); updateOutput(); });
 });
 document.getElementById("chordThreshold").addEventListener("input", e=>{
