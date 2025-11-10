@@ -37,15 +37,16 @@
 
   .configs {
     font-size:16px;
+    text-align:center;
   }
 
 label {
-  padding-left: 20px;
 }
 
 .confs {
   display: inline-block;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .ajuste {
@@ -89,70 +90,49 @@ label {
     .controls button{ flex:1 1 45%; padding:0.5rem; font-size:0.9rem; }
   }
 
-  .slidecontainer {
-  width: 50%;
+.number-input {
+  display: inline-flex;
+  align-items: center;
+  background: #333;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100px;
+  height: 20px;
+  margin-left: 8px;
 }
 
-.slider1 {
-  -webkit-appearance: none;
-  width: 30%;
-  height: 10px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.8;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider1:hover {
-  opacity: 1;
-}
-
-.slider1::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 15px;
-  background: #5cb900;
-  cursor: pointer;
-}
-
-.slider1::-moz-range-thumb {
-  width: 20px;
-  height: 15px;
-  background: #5cb900;
-  cursor: pointer;
-}
-
-.slider {
-  -webkit-appearance: none;
-  width: 30%;
-  height: 10px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.8;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider:hover {
-  opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 15px;
+.number-input button {
   background: #5cb9ff;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
   cursor: pointer;
+  transition: background 0.2s;
+  line-height: 1;
 }
 
-.slider::-moz-range-thumb {
-  width: 20px;
-  height: 15px;
-  background: #5cb9ff;
-  cursor: pointer;
+.number-input button:hover {
+  background: #3da8ff;
+}
+
+.number-input input[type=number] {
+  border: none;
+  text-align: center;
+  width: 40px;
+  font-size: 15px;
+  background: #123456;
+  color: #fff;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+/* hide browser arrows */
+.number-input input::-webkit-outer-spin-button,
+.number-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 @font-face{
@@ -175,14 +155,14 @@ label {
     line-height:1.6;
     box-sizing:border-box;
     /* default font will be overridden when we register fonts */
-    font-family: "SabonNext", serif;
+    font-family: "DejaVuSansMono", monospace;
     letter-spacing: 0.3px;
     color:#000;
   }
 
   /* chord font for the highlighted tokens */
   #output strong{
-    font-family: "KozukaGothic", sans-serif;
+    font-family: "DejaVuSansMono-Bold", monospace;
     letter-spacing: -0.5px;
     font-weight:400;
     color:#000;
@@ -194,28 +174,13 @@ label {
   }
 
 #output strong .repeatSymbol {
-  font-family: "MusicalSymbols", sans-serif;
-  font-size: 11pt;              /* adjust as needed */
+  font-family: inherit;
+  font-size: 13pt;
   display: inline-block;
-  transform: translateY(-1pt);  /* centers it vertically */
+  transform: translateY(-1pt);
   margin: 0 2px;
+  font-weight: 600;
 }
-
-  /* Accidentals get special kerning and closer alignment */
-/* #output strong .accidental {
-  display: inline-block;
-  margin-left: -3.2px;    pulls it left toward chord root 
-  margin-right: -1.2px;   pulls following characters closer 
-  letter-spacing: -1px;   optional: tighten internal spacing of the glyph 
-  transform: translateY(-0.5px);  keeps ♯ and ♭ vertically centered nicely 
-} */
-
-/* Only the chord root letters get full-width treatment */
-/* #output strong .chordRoot {
-  font-feature-settings: "fwid" 1;
-  display: inline-block;
-  letter-spacing: -2.5px;
-} */
 
   #output .chordLine {
     line-height: 1.5;          /* tighter spacing */
@@ -223,7 +188,6 @@ label {
     margin-top: 0.1em;         /* distance between combined lines (chords plus lyrics) */
     letter-spacing: -0.15px;     /* slightly tighter horizontally between chords */
   }
-
 
 /* --- Chord element styling rules --- */
 #output strong .chordRoot {
@@ -350,79 +314,143 @@ label {
 
   <details>
     <summary>Configurações</summary>
-    <h3>Layout</h3>
     <div class="configs" style="margin-top:0.5rem;">
-      <label class="confs">Tamanho do Título:
-        <input type="number" id="titleFontSize" value="14" min="8" max="46" style="width:60px">
-      </label><br/>
-      <label class="confs">Tamanho do Resto:
-        <input type="number" id="bodyFontSize" value="10" min="2" max="34" style="width:60px">
-      </label><br/>
-      <label class="confs">Margens (pt):
-        <input type="number" id="pdfMargin" value="40" min="5" max="100" style="width:60px">
-      </label><br/>
-      <hr style="margin:0.8rem 0; border:none; border-top:1px solid #444;">
 
-<h3>Avançadas</h3>
+<label class="confs">
+  Título:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('titleFontSize', -1)">−</button>
+    <input
+      type="number"
+      id="titleFontSize"
+      min="8"
+      max="46"
+      step="1"
+      value="14"
+    >
+    <button type="button" onclick="adjustValue('titleFontSize', 1)">+</button>
+  </div>
+</label>
+
+<label class="confs">
+  Corpo:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('bodyFontSize', -1)">−</button>
+    <input
+      type="number"
+      id="bodyFontSize"
+      min="2"
+      max="34"
+      step="1"
+      value="10"
+    >
+    <button type="button" onclick="adjustValue('bodyFontSize', 1)">+</button>
+  </div>
+</label>
+
+<label class="confs">
+  Margens:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('pdfMargin', -1)">−</button>
+    <input
+      type="number"
+      id="pdfMargin"
+      min="5"
+      max="100"
+      step="1"
+      value="40"
+    >
+    <button type="button" onclick="adjustValue('pdfMargin', 1)">+</button>
+  </div>
+</label>
+
+<hr>
 
 <label class="confs">
   Detecção de Acordes (default 0.4):
-  <input
-    type="range"
-    class="slider1"
-    id="chordThreshold"
-    min="0"
-    max="1"
-    step="0.05"
-    value="0.4"
-    oninput="document.getElementById('thresholdVal').textContent=this.value"
-  >
-  <div class="ajuste1"><span id="thresholdVal">0.4</span></div>
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('chordThreshold', -1)">−</button>
+    <input
+      type="number"
+      id="chordThreshold"
+      min="0"
+      max="1"
+      step="0.05"
+      value="0.4"
+    >
+    <button type="button" onclick="adjustValue('chordThreshold', 1)">+</button>
+  </div>
 </label>
 
-<hr style="border:none; border-top:1px solid #444;">
+<hr>
 
-<label class="confs">Espaços entre acordes:
-<input
-type="range"
-    class="slider"
-    id="removeGlobal"
-    min="-10"
-    max="10"
-    step="1"
-    value="2"
-oninput="document.getElementById('removeGlobalVal').textContent=this.value"
+<!-- 2 -->
+<label class="confs">
+  Espaços entre acordes:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('removeGlobal', -1)">−</button>
+    <input
+      type="number"
+      id="removeGlobal"
+      min="-10"
+      max="10"
+      step="1"
+      value="2"
     >
-  <div class="ajuste"><span id="removeGlobalVal">2</span></div>
-</label><br/>
+    <button type="button" onclick="adjustValue('removeGlobal', 1)">+</button>
+  </div>
+</label>
 
-<label class="confs">Remover espaços após ♯/♭:
-<input
-type="range"
-    class="slider"
-    id="removeAcc"
-    min="1"
-    max="10"
-    step="1"
-    value="3"
-oninput="document.getElementById('removeAccVal').textContent=this.value"
+<!-- 3 -->
+<label class="confs">
+  Remover espaços após ♯/♭:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('removeAcc', -1)">−</button>
+    <input
+      type="number"
+      id="removeAcc"
+      min="1"
+      max="10"
+      step="1"
+      value="3"
     >
-  <div class="ajuste"><span id="removeAccVal">3</span></div>
-</label><br/>
+    <button type="button" onclick="adjustValue('removeAcc', 1)">+</button>
+  </div>
+</label>
 
-<label class="confs">Adicionar espaços para acordes sem ♯/♭:
-<input
-type="range"
-    class="slider"
-    id="addNonAcc"
-    min="0"
-    max="10"
-    step="1"
-    value="2"
-oninput="document.getElementById('addNonAccVal').textContent=this.value"
+<!-- 4 -->
+<label class="confs">
+  Adicionar espaços para acordes sem ♯/♭:
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('addNonAcc', -1)">−</button>
+    <input
+      type="number"
+      id="addNonAcc"
+      min="0"
+      max="10"
+      step="1"
+      value="2"
     >
-  <div class="ajuste"><span id="addNonAccVal">2</span></div>
-</label><br/>
+    <button type="button" onclick="adjustValue('addNonAcc', 1)">+</button>
+  </div>
+</label>
+
+<!-- 5 -->
+<label class="confs">
+  Tamanho dos acordes (chord scale):
+  <div class="number-input">
+    <button type="button" onclick="adjustValue('chordScale', -1)">−</button>
+    <input
+      type="number"
+      id="chordScale"
+      min="0.5"
+      max="1.2"
+      step="0.05"
+      value="0.7"
+    >
+    <button type="button" onclick="adjustValue('chordScale', 1)">+</button>
+  </div>
+</label>
 
     </div>
   </details>
@@ -430,6 +458,23 @@ oninput="document.getElementById('addNonAccVal').textContent=this.value"
   <div id="previewContainer">
     <div id="output"></div>
   </div>
+
+<script>
+function adjustValue(id, direction) {
+  const input = document.getElementById(id);
+  const step = parseFloat(input.step) || 1;
+  const min = parseFloat(input.min);
+  const max = parseFloat(input.max);
+  let value = parseFloat(input.value) || 0;
+
+  value += direction * step;
+  value = Math.min(Math.max(value, min), max);
+  value = Number(value.toFixed(3)); // prevents floating rounding errors
+
+  input.value = value;
+  input.dispatchEvent(new Event('input'));
+}
+</script>
 
 <script>
 /* ----- constants/state ----- */
@@ -447,10 +492,9 @@ const CHORD_REGEX = /(?:\b[A-G](?:♯|♭)?[^\s]*)|(?:\/[A-G](?:♯|♭)?)|(?:\b
 
 
 /* ----- proportional font ratios ----- */
-const SABON_SIZE_RATIO = 1;              // base
-const KOZUKA_SIZE_RATIO = 10.5 / 11;     // 0.9545
-const SABON_LINE_RATIO = 12 / 11;        // 1.0909
-const KOZUKA_LINE_RATIO = 12.6 / 10.5;   // 1.2
+const DEJAVU_SIZE_RATIO = 1;
+const DEJAVU_LINE_RATIO = 1;        // 1.0909
+
 
 /* ----- font helpers ----- */
 async function loadArrayBufferAsBase64(path) {
@@ -471,24 +515,21 @@ async function registerFontsForBrowser() {
 
   try {
     // Load fonts (WOFF2 preferred, fallback to TTF)
-    const [kozukaB64, sabonB64, musicalB64] = await Promise.all([
-      loadArrayBufferAsBase64("Kozuka Gothic Pr6N R.otf"),
-      loadArrayBufferAsBase64("SabonNext LT-Regular.otf"),
+    const [dejavuBoldB64, dejavuRegB64, musicalB64] = await Promise.all([
+      loadArrayBufferAsBase64("DejaVuSansMono-Bold.ttf"),
+      loadArrayBufferAsBase64("DejaVuSansMono.ttf"),
       loadArrayBufferAsBase64("MUSICAL.woff2").catch(() =>
         loadArrayBufferAsBase64("MUSICAL.TTF")
       )
     ]);
-
     const css = `
       @font-face {
-        font-family: "KozukaGothic";
-        src: url(data:font/otf;base64,${kozukaB64}) format("opentype");
-        font-weight: 400; font-style: normal;
+        font-family: "DejaVuSansMono-Bold";
+        src: url(data:font/ttf;base64,${dejavuBoldB64}) format("truetype");
       }
       @font-face {
-        font-family: "SabonNext";
-        src: url(data:font/otf;base64,${sabonB64}) format("opentype");
-        font-weight: 400; font-style: normal;
+        font-family: "DejaVuSansMono";
+        src: url(data:font/ttf;base64,${dejavuRegB64}) format("truetype");
       }
       @font-face {
         font-family: "MusicalSymbols";
@@ -498,7 +539,7 @@ async function registerFontsForBrowser() {
       }
 
       #output strong {
-        font-family: "KozukaGothic", sans-serif;
+        font-family: "DejaVuSansMono-Bold", monospace;
         font-weight: 400;
         color: #000;
         border-radius: 4px;
@@ -525,8 +566,8 @@ async function registerFontsForBrowser() {
 
     // Preload fonts
     await Promise.all([
-      document.fonts.load('10.5pt "KozukaGothic"'),
-      document.fonts.load('11pt "SabonNext"'),
+      document.fonts.load('10.5pt "DejaVuSansMono-Bold"'),
+      document.fonts.load('11pt "DejaVuSansMono"'),
       document.fonts.load('11pt "MusicalSymbols"')
     ]);
 
@@ -581,10 +622,8 @@ function transposeText(text, steps, flats = useFlatsDisplay) {
 }
 
 function highlightChords(text) {
-  // Detect if MusicalSymbols font is available
-  const musicalLoaded = document.fonts.check('10pt "MusicalSymbols"');
-  // Choose which symbol to use for repeats
-  const repeatChar = musicalLoaded ? "" : "%";
+    // ✅ Normalize any private-use glyphs (U+F0D4 etc.) to plain %
+  text = text.replace(/[\uF0D4\uF0D5\uF0D6\uF0D7\uF0D8\uF0D9\uF0DA\uF0DB\uF0DC\uF0DD\uF0DE\uF0DF\uF0E0]/g, "%");
 
   return text.replace(CHORD_REGEX, match => {
     // Detect if token looks like a normal chord (starts with A–G)
@@ -694,17 +733,30 @@ function highlightChords(text) {
         remaining = remaining.slice(token.length);
         continue;
       }
-    // detect repeat-measure symbol ( or %)
-      if (remaining[0] === "" || remaining[0] === "%") {
-        html += `<span class="repeatSymbol"></span>`;
-        remaining = remaining.slice(1);
-        continue;
-      }
 
-      if (match === "||:" || match === ":||" || match === "%" || match === "") {
-        return `<strong><span class="repeatSymbol">${repeatChar}</span></strong>`;
-      }
-     
+// ✅ normalize any private-use or broken repeat glyphs to plain %
+if (remaining.length && remaining.codePointAt(0) === 0xF0D4) {
+  html += `<span class="repeatSymbol">%</span>`;
+  remaining = remaining.slice(1);
+  continue;
+}
+if (remaining[0] === "" || remaining[0] === "%") {
+  html += `<span class="repeatSymbol">%</span>`;
+  remaining = remaining.slice(1);
+  continue;
+}
+
+// also handle whole-token repeats like % or ||: :||
+if (
+  match === "||:" ||
+  match === ":||" ||
+  match.trim() === "%" ||
+  (match.length === 1 && match.codePointAt(0) === 0xF0D4)
+) {
+  return `<strong><span class="repeatSymbol">%</span></strong>`;
+}
+
+
      // 7) normal fallback char
       html += remaining[0];
       remaining = remaining.slice(1);
@@ -762,6 +814,10 @@ const PT_TO_PX = DPI / 72;
 function ptToPx(pt){ return pt * PT_TO_PX; }
 
 async function updateOutput() {
+// ensure no leftover U+F0D4 in user input
+  const inputEl = document.getElementById("input");
+  inputEl.value = inputEl.value.replace(/\uF0D4/g, "%");
+
   await registerFontsForBrowser();
   const title = document.getElementById("songTitle").value.trim();
   const input = document.getElementById("input").value || "";
@@ -798,22 +854,23 @@ async function updateOutput() {
   outputDiv.innerHTML = titleHTML + out;
 
   // --- Apply base layout font ---
-  outputDiv.style.fontFamily = '"SabonNext", serif';
-  outputDiv.style.fontSize = (bodyFontSizePx * SABON_SIZE_RATIO) + "px";
-  outputDiv.style.lineHeight = SABON_LINE_RATIO;
+  outputDiv.style.fontFamily = '"DejaVuSansMono", serif';
+  outputDiv.style.fontSize = (bodyFontSizePx * DEJAVU_SIZE_RATIO) + "px";
+  outputDiv.style.lineHeight = DEJAVU_LINE_RATIO;
   outputDiv.style.width = printableWidthPx + "px";
   outputDiv.style.padding = marginPx + "px";
 
   // --- Apply main chord font ---
   document.querySelectorAll('#output strong').forEach(el => {
-    el.style.fontFamily = '"KozukaGothic", sans-serif';
-    el.style.fontSize = (bodyFontSizePx * KOZUKA_SIZE_RATIO) + "px";
-    el.style.lineHeight = KOZUKA_LINE_RATIO;
+    el.style.fontFamily = '"DejaVuSansMono-Bold", sans-serif';
+    el.style.fontSize = (bodyFontSizePx * DEJAVU_SIZE_RATIO) + "px";
+    el.style.lineHeight = DEJAVU_LINE_RATIO;
   });
 
   // ✅ --- NEW: calibrated scaling for all chord components ---
   const baseBody = 10; // your default CSS baseline for lyric size
-  const chordScale = (bodyFontSizePt / baseBody) * KOZUKA_SIZE_RATIO * 0.7; // tweak 0.9 if needed
+  const chordScaleFactor = parseFloat(document.getElementById("chordScale")?.value || 0.7);
+  const chordScale = (bodyFontSizePt / baseBody) * DEJAVU_SIZE_RATIO * chordScaleFactor;
 
   document.querySelectorAll('#output strong span').forEach(span => {
     const css = window.getComputedStyle(span);
@@ -822,6 +879,14 @@ async function updateOutput() {
       span.style.fontSize = (currentPt * chordScale) + "pt";
     }
   });
+
+// normalize any remaining private-use glyphs just in case
+document.querySelectorAll('#output .repeatSymbol').forEach(el => {
+  if (el.textContent && el.textContent.codePointAt(0) === 0xF0D4) {
+    el.textContent = "%";
+    el.style.fontFamily = "inherit";
+  }
+});
 
   prevTranspose = currentTranspose;
   prevUseFlatsDisplay = useFlatsDisplay;
@@ -862,6 +927,7 @@ function saveSettings(){
     chordThreshold: document.getElementById("chordThreshold").value,
     removeGlobal: document.getElementById("removeGlobal").value,
     removeAcc: document.getElementById("removeAcc").value,
+    chordScale: document.getElementById("chordScale").value,
     addNonAcc: document.getElementById("addNonAcc").value
   };
   localStorage.setItem("transposerSettings", JSON.stringify(settings));
@@ -874,7 +940,6 @@ function loadSettings(){
   if (s.pdfMargin) document.getElementById("pdfMargin").value = s.pdfMargin;
   if (s.chordThreshold !== undefined){
     document.getElementById("chordThreshold").value = s.chordThreshold;
-    document.getElementById("thresholdVal").textContent = s.chordThreshold;
     chordThreshold = parseFloat(s.chordThreshold);
   }
   if (s.removeGlobal) {
@@ -885,6 +950,10 @@ if (s.removeAcc) {
   document.getElementById("removeAcc").value = s.removeAcc;
   document.getElementById("removeAccVal").textContent = s.removeAcc;
 }
+if (s.chordScale) {
+  document.getElementById("chordScale").value = s.chordScale;
+  document.getElementById("chordScaleVal").textContent = s.chordScale;
+}
 if (s.addNonAcc) {
   document.getElementById("addNonAcc").value = s.addNonAcc;
   document.getElementById("addNonAccVal").textContent = s.addNonAcc;
@@ -892,13 +961,13 @@ if (s.addNonAcc) {
 }
 
 /* wire up inputs */
-document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin,#removeGlobal,#removeAcc,#addNonAcc").forEach(el=>{
+document.querySelectorAll("#titleFontSize,#bodyFontSize,#pdfMargin,#removeGlobal,#removeAcc,#addNonAcc,#chordScale").forEach(el=>{
   el.addEventListener("input", ()=>{ saveSettings(); updateOutput(); });
 });
 document.getElementById("chordThreshold").addEventListener("input", e=>{
   chordThreshold = parseFloat(e.target.value);
-  document.getElementById("thresholdVal").textContent = e.target.value;
-  saveSettings(); updateOutput();
+  saveSettings();
+  updateOutput();
 });
 document.getElementById("input").addEventListener("input", updateOutput);
 
@@ -964,4 +1033,5 @@ async function exportPDF() {
 
 </body>
 </html>
+
 

@@ -83,6 +83,15 @@ label {
 
   #previewContainer{ display:flex; justify-content:center; align-items:center; }
 
+#output[contenteditable="true"] {
+  cursor: text;
+  outline: none;
+}
+
+#output:focus {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
   @media (max-width:600px){
     body{ padding:0.5rem; }
     textarea{ height:180px; font-size:0.95rem; }
@@ -197,14 +206,14 @@ label {
 
 #output strong .chordSharp {
   font-size: 9pt;
-  letter-spacing: -0.2em;
-  margin-left: -2.6px;
+  letter-spacing: -0.1em;
+  margin-left: -0.6px;
 }
 
 #output strong .chordFlat {
   font-size: 9pt;
-  letter-spacing: -0.23em;
-  margin-left: -2.6px;
+  letter-spacing: -0.1em;
+  margin-left: -0.6px;
 }
 
 #output strong .chordMinor {
@@ -264,7 +273,7 @@ label {
   letter-spacing: -0.16em;
   transform: translateY(-2.5pt);
   display: inline-block;
-  margin-left: -2px;
+  margin-left: -0.1px;
 }
 
 #output strong .bassFlat {
@@ -272,7 +281,7 @@ label {
   letter-spacing: -0.24em;
   transform: translateY(-2.5pt);
   display: inline-block;
-  margin-left: -2px;
+  margin-left: -0.1px;
 }
 
 #output strong .chordHalfDim {
@@ -309,7 +318,6 @@ label {
     <button id="toggleFlats" onclick="toggleFlats()">Muda pra ♭</button>
     <button onclick="exportTXT()">Salve como .TXT</button>
     <button onclick="exportPDF()">Salve como PDF</button>
-    <button><a href="/chords/ocr.html" target="_blank" style="color:inherit; text-decoration:none; display:block;">Ferramenta OCR</a></button>
   </div>
 
   <details>
@@ -437,7 +445,7 @@ label {
 
 <!-- 5 -->
 <label class="confs">
-  Tamanho dos acordes (chord scale):
+  Tamanho dos acordes:
   <div class="number-input">
     <button type="button" onclick="adjustValue('chordScale', -1)">−</button>
     <input
@@ -456,8 +464,8 @@ label {
   </details>
 
   <div id="previewContainer">
-    <div id="output"></div>
-  </div>
+  <div id="output" contenteditable="true" spellcheck="false"></div>
+</div>
 
 <script>
 function adjustValue(id, direction) {
@@ -1037,4 +1045,5 @@ async function exportPDF() {
 
 </body>
 </html>
+
 

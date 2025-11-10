@@ -70,3 +70,6 @@ acorde menor com sétima maior
 acorde menor com sétima maior
 acorde menor com sétima maior
 
+C                    /B    Am
+C                    /B:    Am
+C                    /B     Am
