@@ -46,7 +46,7 @@
 
   textarea{
     width:100%;
-    min-height:56px;
+    min-height:40px;
     font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
     font-size:14px;
     padding:10px;
@@ -65,7 +65,6 @@
   .controls{
     display:flex;
     gap:8px;
-    margin:12px 0;
   }
 
   button{
@@ -146,19 +145,20 @@
 <body>
   <div class="app">
     <h1>12-Tone Row Analyzer</h1>
-    <p class="sub">Accepts enharmonic spellings (A# = Bb, etc). Splits into trichords (4×3) and tetrachords (3×4), computes prime forms and reports derivation. Paste a 12-tone row and click Analyze.</p>
+    <p class="sub">Enter a 12-tone row. The input accepts numbers 0-11, lowercase "t" and "e" for 10 and 11, and uppercase letters A-G with sharps as "#" and flats as "b".</p>
+    <p class="sub">Identifier for palindromes, All-Interval Series (AIS), and derived rows.</p>
 
-    <textarea id="rowInput">G F# A G# C C# A# B D# D F E</textarea>
+<div class="grid">
+    <textarea id="rowInput" rows="1" placeholder="enter row here"></textarea>
 
     <div class="controls">
       <button class="primary" onclick="runAnalysis()">Analyze</button>
-      <button onclick="resetExample()">Reset example</button>
-      <button onclick="copyResults()">Copy OCPI/IC</button>
     </div>
+</div>
 
     <div id="errorBox" class="error" style="display:none"></div>
 
-    <div id="results" style="display:none">
+    <div id="results">
         <div class="card" style="margin-top:12px">
           <h3>Pitch-classes</h3>
           <div id="pcNums" class="mono"></div>
@@ -169,22 +169,22 @@
           <h3>OCPI (ordered pitch-class intervals)</h3>
           <div id="ocpi" class="mono"></div>
           <div id="ocpiPal" class="small muted"></div>
-        </div>
 
-      <div class="card" style="margin-top:12px">
+        <hr class="sep" />
+
         <h3>IC (interval classes)</h3>
         <div id="ic" class="mono"></div>
         <div id="icPal" class="small muted"></div>
       </div>
 
       <div class="card" style="margin-top:12px">
-        <h3>Trichords — raw and prime forms</h3>
+        <h3>Trichords</h3>
         <div id="triSets" class="mono" style="margin-bottom:8px"></div>
         <div id="triResult" class="small"></div>
 
         <hr class="sep" />
 
-        <h3>Tetrachords — raw and prime forms</h3>
+        <h3>Tetrachords</h3>
         <div id="tetSets" class="mono" style="margin-bottom:8px"></div>
         <div id="tetResult" class="small"></div>
       </div>
@@ -446,7 +446,7 @@ function runAnalysis(){
   ocpi.join(', ') + ', (' + ocpiWrap + ')';
   document.getElementById('ocpiPal').textContent =
   'Palindrome? ' + (ocpiPal ? 'Yes' : 'No') +
-  ' | All-interval row? ' + (allInt ? 'YES' : 'NO');
+  ' | All-Interval Series? ' + (allInt ? 'YES' : 'NO');
   document.getElementById('ic').textContent = ic.join(', ');
   document.getElementById('icPal').textContent = 'Palindrome? ' + (icPal ? 'Yes' : 'No');
 
