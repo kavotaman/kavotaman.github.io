@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>12-Tone Row Analyzer</title>
+  <link rel="icon" type="image/x-icon" href="/12-tone/favicon.png">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<style>
+  :root{
+    --bg:#0f172a;        /* page background */
+    --card:#020617;     /* main card background */
+    --panel:#020617;    /* inner cards */
+    --border:#1e293b;   /* borders */
+    --text:#e5e7eb;     /* main text */
+    --muted:#94a3b8;    /* secondary text */
+    --accent:#3b82f6;   /* primary button */
+    --accent-hover:#2563eb;
+    --error-bg:#450a0a;
+    --error-border:#7f1d1d;
+    --error-text:#fecaca;
+  }
+
+  body{
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    margin:0;
+    padding:24px;
+  }
+
+  .app{
+    max-width:980px;
+    margin:0 auto;
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,.45);
+    padding:20px;
+    border:1px solid var(--border);
+  }
+
+  h1{margin:0 0 6px;font-size:20px;color:#f8fafc}
+  h3{margin:0 0 5px;font-size:15px;color:#f1f5f9}
+
+  p.sub{margin:0 0 16px;color:var(--muted)}
+
+  textarea{
+    width:100%;
+    min-height:40px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+    font-size:14px;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:#020617;
+    color:var(--text);
+    box-sizing:border-box;
+  }
+
+  textarea:focus{
+    outline:none;
+    border-color:var(--accent);
+  }
+
+  .controls{
+    display:flex;
+    gap:8px;
+  }
+
+  button{
+    border-radius:999px;
+    border:1px solid var(--border);
+    padding:8px 12px;
+    background:#020617;
+    color:var(--text);
+    cursor:pointer;
+  }
+
+  button:hover{
+    background:#020617;
+    border-color:var(--accent);
+    color:#dbeafe;
+  }
+
+  button.primary{
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+  }
+
+  button.primary:hover{
+    background:var(--accent-hover);
+  }
+
+  .error{
+    background:var(--error-bg);
+    border:1px solid var(--error-border);
+    color:var(--error-text);
+    padding:10px;
+    border-radius:8px;
+    margin:8px 0;
+    white-space:pre-wrap;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:12px;
+  }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:12px;
+    border-radius:10px;
+  }
+
+  .mono{
+    font-family:ui-monospace,monospace;
+    font-size:13px;
+    white-space:pre-wrap;
+    color:#f8fafc;
+    margin-bottom:4px;
+  }
+
+  .muted{
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .small{
+    font-size:14px;
+    color:var(--muted);
+    font-weight: bold;
+  }
+
+  hr.sep{
+    border:none;
+    border-top:1px solid var(--border);
+    margin:10px 0;
+  }
+
+.matrix-table {
+border-collapse: collapse;
+width: 100%;
+max-width: 100%;
+table-layout: fixed;
+margin-top: 10px;
+}
+
+
+.matrix-table th,
+.matrix-table td {
+padding: 0;
+text-align: center;
+vertical-align: middle;
+font-family: ui-monospace, monospace;
+font-size: 13px;
+color: var(--text);
+background: var(--grid-bg);
+border: 1px solid var(--grid-border);
+}
+
+
+/* Inner wrapper forces square cells */
+.matrix-cell {
+display: block;
+aspect-ratio: 1 / 1;
+width: 100%;
+height: auto;
+display: flex;
+align-items: center;
+justify-content: center;
+line-height: 1.1;
+padding: 0;
+}
+
+
+
+.matrix-table th {
+background: #1e293b;
+font-weight: bold;
+color: var(--text);
+}
+
+
+@media (max-width: 480px) {
+.matrix-table th,
+.matrix-table td {
+font-size: 11px;
+line-height: 1.0;
+}
+}
+</style>
+
+</head>
+<body>
+  <div class="app">
+    <h1>12-Tone Row Analyzer</h1>
+    <p class="sub">Enter a 12-tone row. The input accepts numbers 0-11, lowercase "t" and "e" for 10 and 11, and uppercase letters A-G with sharps as "#" and flats as "b".</p>
+    <p class="sub">Identifier for palindromes, All-Interval Series (AIS), and derived rows.</p>
+
+<div class="grid">
+    <textarea id="rowInput" rows="1" placeholder="enter row here"></textarea>
+
+    <div class="controls">
+      <button class="primary" onclick="runAnalysis()">Analyze</button>
+    </div>
+</div>
+
+    <div id="errorBox" class="error" style="display:none"></div>
+
+    <div id="results">
+        <div class="card" style="margin-top:12px">
+          <h3>Pitch-classes</h3>
+          <div id="pcNums" class="mono"></div>
+          <div id="pcNames" class="muted"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>OCPI (ordered pitch-class intervals)</h3>
+          <div id="ocpi" class="mono"></div>
+          <div id="ocpiPal" class="small muted"></div>
+
+        <hr class="sep" />
+
+        <h3>IC (interval classes)</h3>
+        <div id="ic" class="mono"></div>
+        <div id="icPal" class="small muted"></div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h3>Trichords</h3>
+        <div id="triSets" class="mono" style="margin-bottom:8px"></div>
+        <div id="triResult" class="small"></div>
+
+        <hr class="sep" />
+
+        <h3>Tetrachords</h3>
+        <div id="tetSets" class="mono" style="margin-bottom:8px"></div>
+        <div id="tetResult" class="small"></div>
+      </div>
+
+<div class="card" style="margin-top:12px">
+  <h3>12-Tone Matrix</h3>
+  <button id="matrixToggle" style="margin-bottom:8px"
+          onclick="toggleMatrixMode()">Show Note Names</button>
+  <div id="matrix" class="mono"></div>
+</div>
+    </div>
+  </div>
+
+<script>
+/* ---------------------------
+   Note maps (enharmonic-safe)
+   --------------------------- */
+const NOTE_TO_PC = {
+  C:0,"B#":0,
+  "C#":1,Db:1,
+  D:2,"D#":3,Eb:3,
+  E:4,Fb:4,"E#":5,F:5,
+  "F#":6,Gb:6,
+  G:7,"G#":8,Ab:8,
+  A:9,"A#":10,Bb:10,
+  B:11,Cb:11
+};
+const PC_TO_NOTE = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+
+let matrixMode = "numbers"; // or "names"
+
+/* Normalize token: uppercase only letter, keep accidental */
+function normalizeToken(token){
+  if(!token) return token;
+  token = token.replace(/\u266F/g,'#').replace(/\u266D/g,'b'); // ♯ ♭
+  token = token.trim();
+  if(token.length === 1) return token[0].toUpperCase();
+  // first char uppercase, rest left as-is (so 'bb' -> 'b' is not produced)
+  return token[0].toUpperCase() + token.slice(1);
+}
+
+function parseRow(text){
+  const tokens = text
+    .replace(/[\u2018\u2019\u201c\u201d]/g,'')
+    .split(/[ ,;\t\n]+/)
+    .filter(Boolean);
+
+  const pcs = [];
+  const bad = [];
+
+  for (let raw of tokens){
+    const t = raw.trim();
+    const norm = normalizeToken(t);
+
+    // ------------------------------
+    // NUMERIC INPUT HANDLING (new)
+    // ------------------------------
+
+// 0–9
+if (/^[0-9]$/.test(norm)) {
+  pcs.push(Number(norm));
+  continue;
+}
+
+// 10 (explicit)
+if (norm === "10") {
+  pcs.push(10);
+  continue;
+}
+
+// 11 (explicit)
+if (norm === "11") {
+  pcs.push(11);
+  continue;
+}
+
+// t = 10, but ONLY lowercase to avoid clashing with note names
+if (raw === "t") {
+  pcs.push(10);
+  continue;
+}
+
+// e = 11, ONLY lowercase so "E" stays E-natural
+if (raw === "e") {
+  pcs.push(11);
+  continue;
+}
+
+    // ------------------------------
+    // NOTE-NAME PARSING (existing)
+    // ------------------------------
+    if (Object.prototype.hasOwnProperty.call(NOTE_TO_PC, norm)) {
+      pcs.push(NOTE_TO_PC[norm]);
+    } else {
+      bad.push(raw);
+    }
+  }
+
+  return { pcs, bad };
+}
+
+/* ---------------------------
+   Intervals (OCPI / IC)
+   --------------------------- */
+
+function ocpiSequence(pcs){
+  const seq = [];
+
+  // regular intervals
+  for (let i = 0; i < pcs.length - 1; i++)
+    seq.push((pcs[i+1] - pcs[i] + 12) % 12);
+
+  // NEW: wrap-around interval (last → first)
+  const wrap = (pcs[0] - pcs[pcs.length - 1] + 12) % 12;
+
+  return { seq, wrap };
+}
+
+function icSequence(pcs){
+  const { seq, wrap } = ocpiSequence(pcs);
+  const icSeq = seq.map(d => Math.min(d, (12 - d) % 12));
+  const icWrap = Math.min(wrap, (12 - wrap) % 12);
+  return { icSeq, icWrap };
+}
+
+/* ---------------------------
+   All-interval row detection
+   --------------------------- */
+function isAllIntervalRow(pcs){
+  const { seq, wrap } = ocpiSequence(pcs);
+  const all = [...seq, wrap]; // 12 intervals
+
+  // Must contain all intervals 1..11 at least once
+  for (let k = 1; k <= 11; k++) {
+    if (!all.includes(k)) return false;
+  }
+
+  // No restriction on duplicates:
+  // ONE interval must appear twice — this is expected.
+  return true;
+}
+
+function isPalindrome(arr){
+  for(let i=0;i<Math.floor(arr.length/2); i++)
+    if(arr[i] !== arr[arr.length-1-i]) return false;
+  return true;
+}
+
+/* ---------------------------
+   Prime form utilities
+   --------------------------- */
+function mod(n,m=12){ return ((n % m) + m) % m; }
+function uniqueSorted(set){ return Array.from(new Set(set)).sort((a,b)=>a-b); }
+
+function normalOrder(set){
+  const u = uniqueSorted(set);
+  if(u.length === 0) return [];
+  // build rotations and choose minimal span; tiebreak lexicographically
+  let best = null;
+  for(let i=0;i<u.length;i++){
+    const rot = u.slice(i).concat(u.slice(0,i).map(x => x + 12));
+    const span = rot[rot.length-1] - rot[0];
+    if(best === null){ best = rot; continue; }
+    const bestSpan = best[best.length-1] - best[0];
+    if(span < bestSpan) best = rot;
+    else if(span === bestSpan){
+      // lex tiebreak (compare elements in order)
+      for(let j=0;j<rot.length;j++){
+        const rVal = rot[j];
+        const bVal = best[j] !== undefined ? best[j] : Infinity;
+        if(rVal < bVal){ best = rot; break; }
+        if(rVal > bVal) break;
+      }
+    }
+  }
+  return best.map(x => mod(x));
+}
+
+function invertSet(set){ return set.map(x => mod(12 - x)); }
+function transposeToZero(set){ const t = set[0] || 0; return set.map(x => mod(x - t)); }
+
+function primeForm(set){
+  // Work on the unique set (prime form ignores duplicates)
+  const n1 = transposeToZero(normalOrder(set));
+  const n2 = transposeToZero(normalOrder(invertSet(set)));
+  // compare reversed lexicographically (largest to smallest) per standard practice
+  const L = Math.max(n1.length, n2.length);
+  for(let i = L-1; i >= 0; i--){
+    const a = n1[i] !== undefined ? n1[i] : -1;
+    const b = n2[i] !== undefined ? n2[i] : -1;
+    if(a < b) return n1;
+    if(a > b) return n2;
+  }
+  return n1;
+}
+
+function pfToString(pf){ return '(' + pf.join('') + ')'; }
+
+/* ---------------------------
+   Derived detection
+   --------------------------- */
+function arrayEq(a,b){
+  if(!a || !b) return false;
+  if(a.length !== b.length) return false;
+  for(let i=0;i<a.length;i++) if(a[i] !== b[i]) return false;
+  return true;
+}
+
+function analyzeDerivation(pcs){
+  const trichords = [], tetrachords = [];
+  for(let i=0;i<4;i++) trichords.push(pcs.slice(i*3, i*3+3));
+  for(let i=0;i<3;i++) tetrachords.push(pcs.slice(i*4, i*4+4));
+
+  const triPF = trichords.map(t => primeForm(t));
+  const tetPF = tetrachords.map(t => primeForm(t));
+
+  const triDerived = triPF.every(pf => arrayEq(pf, triPF[0]));
+  const tetDerived = tetPF.every(pf => arrayEq(pf, tetPF[0]));
+
+  return { trichords, tetrachords, triPF, tetPF, triDerived, tetDerived };
+}
+
+/* ---------------------------
+   Matrix generator (Prime / Inversion)
+   --------------------------- */
+function generateMatrix(pcs){
+  // Normalize to P0
+  const base = pcs.map(x => (x - pcs[0] + 12) % 12);
+
+  // I0 column
+  const firstCol = base.map(x => (12 - x) % 12);
+
+  const matrix = [];
+
+  for (let r = 0; r < 12; r++){
+    const row = [];
+    for (let c = 0; c < 12; c++){
+      row.push((firstCol[r] + base[c]) % 12);
+    }
+    matrix.push(row);
+  }
+
+  return { base, firstCol, matrix };
+}
+
+function renderMatrixTable(base, firstCol, matrix, originalPcs) {
+  const name = n => PC_TO_NOTE[n];
+  const firstNote = name(originalPcs[0]);  // use the passed-in original
+
+  let html = "<table class='matrix-table'>";
+
+  // HEADER ROW (I labels)
+  html += "<tr><th></th>";
+  for (let c = 0; c < 12; c++) {
+    const label = firstCol[c] === 0
+      ? `I0 (${firstNote})`
+      : `I${firstCol[c]}`;
+    html += `<th>${label}</th>`;
+  }
+  html += "<th></th></tr>";
+
+  // BODY (12 rows)
+  for (let r = 0; r < 12; r++) {
+    const pLabel = base[r] === 0
+      ? `P0 (${firstNote})`
+      : `P${base[r]}`;
+
+    html += `<tr><th>${pLabel}</th>`;
+
+    for (let c = 0; c < 12; c++) {
+      const v = matrix[r][c];
+      const cell = matrixMode === "numbers" ? v : name(v);
+      html += `<td><span class="matrix-cell">${cell}</span></td>`;
+    }
+
+    html += `<th>R${matrix[r][11]}</th>`;
+    html += "</tr>";
+  }
+
+  // BOTTOM (RI labels)
+  html += "<tr><th></th>";
+  for (let c = 0; c < 12; c++) {
+    html += `<th>RI${matrix[11][c]}</th>`;
+  }
+  html += "<th></th></tr>";
+
+  html += "</table>";
+  return html;
+}
+
+function matrixToText(matrix){
+  return matrix
+    .map(row => row.map(n => n.toString().padStart(2, ' ')).join(' '))
+    .join('\n');
+}
+
+/* ---------------------------
+   UI helpers
+   --------------------------- */
+function pcsToNames(pcs){ return pcs.map(p => PC_TO_NOTE[p]).join(', '); }
+function setToNotes(set){ return set.map(p => PC_TO_NOTE[p]).join(' '); }
+function setToNums(set){ return '(' + set.join(',') + ')'; }
+
+function showError(msg){
+  const box = document.getElementById('errorBox');
+  box.textContent = msg;
+  box.style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+}
+function clearError(){ document.getElementById('errorBox').style.display = 'none'; }
+
+function resetExample(){ document.getElementById('rowInput').value = 'G F# A G# C C# A# B D# D F E'; }
+
+function copyResults(){
+  const ocpiText = document.getElementById('ocpi').textContent || '';
+  const icText = document.getElementById('ic').textContent || '';
+  const txt = 'OCPI: ' + ocpiText + '\\nIC: ' + icText;
+  navigator.clipboard?.writeText(txt).then(()=>alert('Copied OCPI/IC to clipboard'), ()=>alert('Copy failed'));
+}
+
+function toggleMatrixMode() {
+  matrixMode = (matrixMode === "numbers") ? "names" : "numbers";
+
+  const btn = document.getElementById("matrixToggle");
+  btn.textContent = (matrixMode === "numbers")
+    ? "Show Note Names"
+    : "Show Numbers";
+
+  if (window._lastPcs) {
+    const { base, firstCol, matrix } = generateMatrix(window._lastPcs);
+    document.getElementById("matrix").innerHTML =
+      renderMatrixTable(base, firstCol, matrix, window._originalPcs)
+  }
+}
+
+/* ---------------------------
+   Main
+   --------------------------- */
+function runAnalysis(){
+  clearError();
+  const input = document.getElementById('rowInput').value;
+  const {pcs, bad} = parseRow(input);
+  window._originalPcs = pcs.slice();   // THIS is the true first note
+  if(bad.length) return showError('Could not parse tokens: ' + bad.join(', '));
+  if(pcs.length !== 12) return showError('Please supply exactly 12 pitch-classes (parsed ' + pcs.length + ').');
+  if(new Set(pcs).size !== 12) return showError('Parsed pitch-classes are not all distinct (duplicates detected).');
+
+  window._lastPcs = pcs; // allow toggle to re-render
+
+  const { seq: ocpi, wrap: ocpiWrap } = ocpiSequence(pcs);
+  const { icSeq: ic, icWrap } = icSequence(pcs);
+  const ocpiPal = isPalindrome(ocpi);
+  const icPal = isPalindrome(ic);
+  const allInt = isAllIntervalRow(pcs);
+  const deriv = analyzeDerivation(pcs);
+
+  document.getElementById('pcNums').textContent = pcs.join(', ');
+  document.getElementById('pcNames').textContent = pcsToNames(pcs);
+  document.getElementById('ocpi').textContent =
+  ocpi.join(', ') + ', (' + ocpiWrap + ')';
+  document.getElementById('ocpiPal').textContent =
+  'Palindrome? ' + (ocpiPal ? 'Yes' : 'No') +
+  ' | All-Interval Series? ' + (allInt ? 'YES' : 'NO');
+  document.getElementById('ic').textContent = ic.join(', ');
+  document.getElementById('icPal').textContent = 'Palindrome? ' + (icPal ? 'Yes' : 'No');
+
+  // Trichords display
+  const triRaw = deriv.trichords.map(s => setToNotes(s)).join(' | ');
+  const triNums = deriv.trichords.map(s => '(' + s.join(',') + ')').join(' ');
+  const triPFs = deriv.triPF.map(pfToString).join(' ');
+  document.getElementById('triSets').textContent = triRaw + '\n' + triNums + ' → ' + triPFs;
+  document.getElementById('triResult').textContent = 'Trichord-derived? ' + (deriv.triDerived ? 'YES' : 'NO');
+
+  // Tetrachords display
+  const tetRaw = deriv.tetrachords.map(s => setToNotes(s)).join(' | ');
+  const tetNums = deriv.tetrachords.map(s => '(' + s.join(',') + ')').join(' ');
+  const tetPFs = deriv.tetPF.map(pfToString).join(' ');
+  document.getElementById('tetSets').textContent = tetRaw + '\n' + tetNums + ' → ' + tetPFs;
+  document.getElementById('tetResult').textContent = 'Tetrachord-derived? ' + (deriv.tetDerived ? 'YES' : 'NO');
+
+  // 12-Tone Matrix
+  const { base, firstCol, matrix } = generateMatrix(pcs);
+
+  document.getElementById("matrix").innerHTML =
+    renderMatrixTable(base, firstCol, matrix, window._originalPcs)
+
+  // Other
+  document.getElementById('results').style.display = 'block';
+}
+</script>
+</body>
+</html>
+
