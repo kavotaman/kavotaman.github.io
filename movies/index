@@ -920,7 +920,7 @@
   <td class="year">2021</td>
   <td class="country">Korea</td>
   <td class="genre">action comedy</td>
-  <td class="director">Kim Hyeong-joo</td>
+  <td class="director">Kim Hyung-joo</td>
   <td class="rating">8.0</td>
 </tr>
 
@@ -1266,7 +1266,7 @@
   <td class="year">2022</td>
   <td class="country">Korea</td>
   <td class="genre">drama</td>
-  <td class="director">Hirokazu Koreeda</td>
+  <td class="director">Hirokazu Kore-eda</td>
   <td class="rating">8,0</td>
 </tr>
 <tr>
@@ -1866,7 +1866,7 @@
   <td class="year">2022</td>
   <td class="country">Korea</td>
   <td class="genre">action crime</td>
-  <td class="director">Choi Jaehoon</td>
+  <td class="director">Choi Jae-hoon</td>
   <td class="rating">6.9</td>
 </tr>
 <tr>
@@ -2092,6 +2092,30 @@
   <td class="genre">action comedy</td>
   <td class="director">Choi Won-sub</td>
   <td class="rating">6.1</td>
+</tr>
+<tr>
+  <td class="title">Hi-Five</td>
+  <td class="year">2025</td>
+  <td class="country">Korea</td>
+  <td class="genre">fantasy action comedy</td>
+  <td class="director">Kang Hyeong-cheol</td>
+  <td class="rating">6.8</td>
+</tr>
+<tr>
+  <td class="title">No Other Choice</td>
+  <td class="year">2025</td>
+  <td class="country">Korea</td>
+  <td class="genre">black comedy thriller</td>
+  <td class="director">Park Chan-wook</td>
+  <td class="rating">6.8</td>
+</tr>
+<tr>
+  <td class="title">My Daughter Is a Zombie</td>
+  <td class="year">2025</td>
+  <td class="country">Korea</td>
+  <td class="genre">zombie comedy</td>
+  <td class="director">Pil Gam-sung</td>
+  <td class="rating">6.5</td>
 </tr>
 <!-- MARK111 -->
     </tbody>
