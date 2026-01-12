@@ -156,10 +156,20 @@
   <span class="nt">&lt;Binding</span> <span class="na">channel=</span><span class="s">"1"</span> <span class="na">ctl=</span><span class="s">"2"</span> <span class="na">uri=</span><span class="s">"/route/gain 2"</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;Binding</span> <span class="na">channel=</span><span class="s">"1"</span> <span class="na">ctl=</span><span class="s">"3"</span> <span class="na">uri=</span><span class="s">"/route/gain 3"</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;Binding</span> <span class="na">channel=</span><span class="s">"1"</span> <span class="na">ctl=</span><span class="s">"4"</span> <span class="na">uri=</span><span class="s">"/route/gain 4"</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;Binding</span> <span class="na">channel=</span><span class="s">"1"</span> <span class="na">ctl=</span><span class="s">"5"</span> <span class="na">uri=</span><span class="s">"/route/gain 5"</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;Binding</span> <span class="na">channel=</span><span class="s">"1"</span> <span class="na">ctl=</span><span class="s">"6"</span> <span class="na">uri=</span><span class="s">"/route/gain 6"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;Binding</span> <span class="na">channel=</span><span class="s">"1"</span> <span class="na">ctl=</span><span class="s">"5"</span> <span class="na">uri=</span><span class="s">"/bus/gain master"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;Binding</span> <span class="na">channel=</span><span class="s">"2"</span> <span class="na">ctl=</span><span class="s">"1"</span> <span class="na">uri=</span><span class="s">"/route/pandirection 6"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/ArdourMIDIBindings&gt;</span>
 </code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">/route/gain N</code> controls the fader for track <strong>N</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">/bus/gain master</code> controls the fader for the Master track</p>
+
+<p><code class="language-plaintext highlighter-rouge">/route/pandirection N</code> controls the pan direction for track <strong>N</strong></p>
+
+<p>For some reason, I can only have 5 Controllers per Channel. That is why the <code class="language-plaintext highlighter-rouge">pandirection</code> gets a new Channel.</p>
+
+<p><a href="https://manual.ardour.org/using-control-surfaces/generic-midi/midi-binding-maps/">https://manual.ardour.org/using-control-surfaces/generic-midi/midi-binding-maps/</a></p>
 
 <h2 id="to-use-it-in-ardour">To use it in Ardour</h2>
 
