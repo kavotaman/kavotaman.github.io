@@ -1,0 +1,63 @@
+body {
+  font-family: sans-serif;
+  font-size: 10pt;
+  padding: 20px;
+}
+
+#fretboard {
+  display: grid;
+  grid-template-rows: repeat(6, 30px);
+  gap: 4px;
+  margin-top: 20px;
+}
+
+.string {
+  display: grid;
+  grid-template-columns: repeat(25, 50px);
+}
+
+.fret {
+  border: 1px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #f5f5f5;
+}
+
+.fret.selected {
+  background: #222;
+  color: white;
+}
+
+.fret.hidden span {
+  visibility: hidden;
+}
+
+.fret-marker {
+  min-height: 16px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #222;
+  border-radius: 50%;
+}
+
+#fret-markers {
+  display: grid;
+  grid-template-columns: repeat(25, 50px);
+  margin-top: 6px;
+  font-size: 14px;
+  color: #444;
+}
+
+.fret-marker {
+  text-align: center;
+}
+
