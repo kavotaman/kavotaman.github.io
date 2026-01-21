@@ -33,6 +33,10 @@ function buildFretboard() {
       cell.className = "fret";
       cell.dataset.pc = pc; // store pitch class
 
+      if (fret === 0) {
+        cell.classList.add("open-string");
+      }
+
       const label = document.createElement("span");
       label.textContent = useSharps
         ? NOTES_SHARPS[pc]
@@ -66,7 +70,7 @@ const doubleDots = [12, 24];
 function buildFretMarkers() {
   markerContainer.innerHTML = "";
 
-  for (let fret = 0; fret <= 24; fret++) {
+  for (let fret = 0; fret <= frets; fret++) {
     const marker = document.createElement("div");
     marker.className = "fret-marker";
 
@@ -88,6 +92,7 @@ function buildFretMarkers() {
 }
 
 buildFretMarkers();
+
 
 document
   .getElementById("toggleAccidentals")
@@ -111,18 +116,42 @@ document.getElementById("toggleNotes").addEventListener("click", () => {
 
 
 document.getElementById("exportPDF").addEventListener("click", async () => {
-  const title = document.getElementById("songTitle").value.trim();
   const diagram = document.getElementById("diagram");
-  const canvas = await html2canvas(diagram);
+
+  const canvas = await html2canvas(diagram, {
+    scale: 2
+  });
+
   const imgData = canvas.toDataURL("image/png");
 
   const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF("landscape");
+  const pdf = new jsPDF({
+    orientation: "landscape",
+    unit: "pt",
+    format: "letter"
+  });
 
-  const width = pdf.internal.pageSize.getWidth();
-  const height = (canvas.height * width) / canvas.width;
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
 
-  pdf.addImage(imgData, "PNG", 10, 10, width - 20, height);
+  const marginX = 12;  // smaller left/right margin
+  const marginY = 24;  // keep top margin nicer
+
+  const maxWidth = pageWidth - marginX * 2;
+  const maxHeight = pageHeight - marginY * 2;
+
+  const ratio = Math.min(
+    maxWidth / canvas.width,
+    maxHeight / canvas.height
+  ) * 1.2;
+
+  const imgWidth = canvas.width * ratio;
+  const imgHeight = canvas.height * ratio;
+
+  // 🔥 DO NOT CENTER HORIZONTALLY
+  const x = marginX;
+  const y = marginY;
+
+  pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
   pdf.save("guitar-scale.pdf");
 });
-

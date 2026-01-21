@@ -61,3 +61,14 @@ body {
   text-align: center;
 }
 
+.fret.open-string {
+  background: #9f9f9f;
+  font-weight: 600;
+  border-right: 4px solid #111; /* the nut */
+  margin-right: 4px;
+}
+
+.fret.open-string.selected {
+  background: #333;
+  color: #fff;
+}
