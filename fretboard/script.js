@@ -134,7 +134,7 @@ document.getElementById("exportPDF").addEventListener("click", async () => {
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
 
-  const marginX = 12;  // smaller left/right margin
+  const marginX = 24;  // smaller left/right margin
   const marginY = 24;  // keep top margin nicer
 
   const maxWidth = pageWidth - marginX * 2;
@@ -143,12 +143,12 @@ document.getElementById("exportPDF").addEventListener("click", async () => {
   const ratio = Math.min(
     maxWidth / canvas.width,
     maxHeight / canvas.height
-  ) * 1.2;
+  ) * 1.08;
 
   const imgWidth = canvas.width * ratio;
   const imgHeight = canvas.height * ratio;
 
-  // 🔥 DO NOT CENTER HORIZONTALLY
+  // DO NOT CENTER HORIZONTALLY
   const x = marginX;
   const y = marginY;
 
