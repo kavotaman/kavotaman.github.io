@@ -101,3 +101,8 @@ ol {
 ol li ul:first-of-type {
 	margin-top: 0
 }
+
+sup {
+  vertical-align: super;
+  font-size: 8pt;
+}
