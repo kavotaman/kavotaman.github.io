@@ -171,7 +171,6 @@
       <li>Radarr</li>
       <li>Sonarr</li>
       <li>Bazarr</li>
-      <li>Huntarr</li>
       <li>Cleanuparr</li>
     </ul>
   </li>
@@ -584,25 +583,6 @@ CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/
 
 <hr />
 
-<h3 id="huntarr">Huntarr</h3>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
-  <span class="na">huntarr</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">huntarr/huntarr:latest</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">huntarr</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s2">"</span><span class="s">9705:9705"</span>
-    <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">${CONFIGS}Huntarr:/config</span>
-    <span class="na">labels</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s2">"</span><span class="s">diun.enable=true"</span>
-    <span class="na">environment</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">TZ=America/New_York</span>
-</code></pre></div></div>
-
-<hr />
-
 <h3 id="cleanuparr">Cleanuparr</h3>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
@@ -922,7 +902,19 @@ CONFIGS=/srv/dev-disk-by-uuid-31275b2a-43bc-4c99-b8cb-6672862bf771/configs/
 </code></pre></div></div>
 
 <ul>
-  <li>In the WebGUI, go to Hosts -&gt; Proxy Hosts</li>
+  <li>
+    <p>In the WebGUI, go to Hosts -&gt; Proxy Hosts</p>
+  </li>
+  <li>Cloudflare
+    <ul>
+      <li>profile -&gt; API -&gt; All zones</li>
+    </ul>
+  </li>
+  <li>NPM
+    <ul>
+      <li></li>
+    </ul>
+  </li>
 </ul>
 
 <hr />
@@ -1710,6 +1702,11 @@ sudo systemctl stop systemd-resolved
 
 <hr />
 
+<h1 id="troubleshoot">Troubleshoot</h1>
+
+<p>Mount disks</p>
+
+<p><code class="language-plaintext highlighter-rouge">omv-salt deploy run fstab</code></p>
 
     </div>
   </article>
