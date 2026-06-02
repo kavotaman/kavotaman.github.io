@@ -13,11 +13,50 @@
 <div class="controls">
   <button id="toggleAccidentals">Sharps / Flats</button>
   <button id="toggleNotes">Toggle Notes</button>
+  <button id="toggleLayout">⚙ Layout</button>
+  <button id="shareURL">🔗 Share</button>
   <button id="exportPDF">Export PDF</button>
 </div>
 
+<div id="layout-panel" class="layout-panel hidden">
+  <div class="layout-row">
+    <label>Fret range:
+      <input type="number" id="fretStart" value="0" min="0" max="23" style="width:48px"> –
+      <input type="number" id="fretEnd" value="24" min="1" max="24" style="width:48px">
+    </label>
+  </div>
+  <div class="layout-row">
+    <label>Zoom:
+      <input type="range" id="zoomRange" min="60" max="150" value="100" step="5">
+      <span id="zoomLabel">100%</span>
+    </label>
+  </div>
+  <div class="layout-row">
+    <span>Strings:</span>
+    <label><input type="checkbox" class="string-toggle" data-idx="0" checked> e (high)</label>
+    <label><input type="checkbox" class="string-toggle" data-idx="1" checked> B</label>
+    <label><input type="checkbox" class="string-toggle" data-idx="2" checked> G</label>
+    <label><input type="checkbox" class="string-toggle" data-idx="3" checked> D</label>
+    <label><input type="checkbox" class="string-toggle" data-idx="4" checked> A</label>
+    <label><input type="checkbox" class="string-toggle" data-idx="5" checked> E (low)</label>
+  </div>
+  <div class="layout-row">
+    <label>PDF orientation:
+      <select id="pdfOrientation">
+        <option value="landscape">Landscape</option>
+        <option value="portrait">Portrait</option>
+      </select>
+    </label>
+  </div>
+</div>
+
+<div id="share-toast" class="share-toast hidden">✓ URL copied to clipboard!</div>
+
 <div id="diagram">
-  <input id="songTitle" type="text" placeholder="Title..." style="margin-top:10px;" oninput="updateOutput()" />
+  <div id="diagram-title-block">
+    <input id="songTitle" type="text" placeholder="Scale / song title…" oninput="onTitleInput()" />
+    <div id="diagram-subtitle" class="diagram-subtitle"></div>
+  </div>
   <div id="fretboard"></div>
   <div id="fret-markers"></div>
 </div>
@@ -28,4 +67,3 @@
 
 </body>
 </html>
-

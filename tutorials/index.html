@@ -100,6 +100,33 @@ echo ${1/$num/$paddednum}
 
 <p>change the <code class="language-plaintext highlighter-rouge">*.jpg</code> to the extension of your liking.</p>
 
+<hr />
+
+<h1 id="ardour-yoshimi-wayland-hyprland">Ardour Yoshimi Wayland Hyprland</h1>
+
+<ul>
+  <li>Wrap Yoshimi in a shell script</li>
+  <li>Create a wrapper that Ardour will find instead of the real binary:</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">sudo mv /usr/bin/yoshimi /usr/bin/yoshimi.real</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo nano /usr/bin/yoshimi</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash#!/bin/bash
+GDK_BACKEND=x11 WAYLAND_DISPLAY="" exec /usr/bin/yoshimi.real "$@"
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">sudo chmod +x /usr/bin/yoshimi</code></p>
+
+<ul>
+  <li>Ardour calls yoshimi by name, so it’ll pick up the wrapper transparently.</li>
+</ul>
+
+<h2 id="tutorial-ardour-yoshimi">Tutorial Ardour Yoshimi</h2>
+
+<p>https://www.youtube.com/watch?v=ytvqtsPxi7I</p>
+
   </div>
 
 </article>
