@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cifras</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --surface2: #222;
+    --border: #2e2e2e;
+    --accent: #c8a96e;
+    --accent-dim: #8a7045;
+    --text: #e8e4dc;
+    --text-muted: #888;
+    --text-dim: #555;
+    --chord: #c8a96e;
+    --font-mono: 'Courier New', Courier, monospace;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    height: 52px;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    background: rgba(15,15,15,0.95);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+  }
+  .nav-logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--text-muted); font-weight: 400; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HOME PAGE ── */
+  .home-header {
+    padding: 3rem 2rem 2rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .home-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+  .home-header p { color: var(--text-muted); }
+
+  .toolbar {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .toolbar input[type="search"] {
+    flex: 1;
+    min-width: 200px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .toolbar input[type="search"]:focus { border-color: var(--accent-dim); }
+  .toolbar input[type="search"]::placeholder { color: var(--text-dim); }
+  .toolbar select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+  }
+  .toolbar select:focus { border-color: var(--accent-dim); }
+
+  .songs-grid {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .song-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    background: var(--surface);
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.1s;
+    border-bottom: 1px solid var(--border);
+  }
+  .song-row:last-child { border-bottom: none; }
+  .song-row:hover { background: var(--surface2); }
+  .song-title-cell strong {
+    display: block;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .song-title-cell span {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 99px;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .badge-genre {
+    background: #1e2a1e;
+    color: #7dc47d;
+    border: 1px solid #2d452d;
+  }
+  .badge-level-iniciante { background: #1a2a1a; color: #6fcf6f; border: 1px solid #2a4a2a; }
+  .badge-level-intermediário { background: #2a220f; color: #d4a847; border: 1px solid #4a3a1a; }
+  .badge-level-avançado { background: #2a1010; color: #d47070; border: 1px solid #4a2020; }
+
+  .empty-state {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 1rem;
+    padding: 0.6rem 1rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .table-header span {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    cursor: pointer;
+    user-select: none;
+  }
+  .table-header span:hover { color: var(--text-muted); }
+  .table-header span.sort-active { color: var(--accent); }
+
+  /* ── SONG PAGE ── */
+  .song-page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+  .song-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-muted);
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .song-back:hover { color: var(--accent); }
+  .song-back svg { width: 14px; height: 14px; }
+
+  .song-meta {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .song-meta h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .song-meta .band {
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .song-meta-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+
+  .song-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .transpose-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .btn-icon {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.1s, color 0.1s;
+  }
+  .btn-icon:hover { background: #2e2e2e; color: var(--accent); }
+  .transpose-value {
+    font-size: 13px;
+    min-width: 24px;
+    text-align: center;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .sep { color: var(--border); }
+  .btn-flat {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: border-color 0.1s, color 0.1s;
+  }
+  .btn-flat:hover { border-color: var(--accent-dim); color: var(--accent); }
+  .btn-flat.active { border-color: var(--accent); color: var(--accent); }
+  .font-group {
+    display: flex; align-items: center; gap: 0.5rem; font-size: 13px; color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* CHORD SHEET */
+  .chord-sheet {
+    font-family: var(--font-mono);
+    white-space: pre;
+    font-size: 15px;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+  .chord-sheet .chord {
+    color: var(--chord);
+    font-weight: 700;
+  }
+  .chord-sheet .section-label {
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 13px;
+    font-family: -apple-system, sans-serif;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .home-header { padding: 2rem 1rem 1rem; }
+    .toolbar { padding: 0 1rem 1rem; }
+    .songs-grid { margin: 0 1rem; padding: 0; }
+    .song-page { padding: 1.5rem 1rem 4rem; }
+    .song-row { grid-template-columns: 1fr auto; }
+    .badge-genre { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">cifras<span>.app</span></a>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="home-header">
+    <h1>Cifras</h1>
+    <p>Todas as músicas em um lugar.</p>
+  </div>
+
+  <div class="toolbar">
+    <input type="search" id="search-input" placeholder="Buscar por título ou banda…" oninput="renderList()">
+    <select id="filter-genre" onchange="renderList()">
+      <option value="">Todos os gêneros</option>
+    </select>
+    <select id="filter-level" onchange="renderList()">
+      <option value="">Todos os níveis</option>
+      <option value="Iniciante">Iniciante</option>
+      <option value="Intermediário">Intermediário</option>
+      <option value="Avançado">Avançado</option>
+    </select>
+  </div>
+
+  <div class="songs-grid" id="songs-container">
+    <div class="empty-state">Carregando músicas…</div>
+  </div>
+</div>
+
+<!-- SONG PAGE -->
+<div id="page-song" class="page">
+  <div class="song-page" id="song-content"></div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// SONG FILE REGISTRY
+// List your song files here. Add new songs by
+// creating a new .txt file and adding its name.
+// ─────────────────────────────────────────────
+const SONG_FILES = [
+  'olivia dean - so easy (to fall in love).txt',
+  'the cranberries - zombie.txt',
+  'garbage - only happy when it rains.txt',
+  'radiohead - creep.txt',
+ ];
+
+// ─────────────────────────────────────────────
+// SONG FILE PARSER
+// Each .txt file has a metadata header block
+// (key: value lines) followed by a blank line,
+// then the chord/lyric content.
+// ─────────────────────────────────────────────
+function parseSongFile(text, id) {
+  const lines = text.replace(/\r\n/g, '\n').split('\n');
+  const meta = {};
+  let contentStart = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const colonIdx = line.indexOf(':');
+    if (colonIdx > 0) {
+      const key = line.slice(0, colonIdx).trim().toLowerCase();
+      const value = line.slice(colonIdx + 1).trim();
+      const allowed = ['title','band','genre','level','key','tuning','capo'];
+      if (allowed.includes(key)) {
+        meta[key] = key === 'capo' ? parseInt(value, 10) || 0 : value;
+        contentStart = i + 1;
+        continue;
+      }
+    }
+    // First non-header line (blank line separating header from content)
+    if (line.trim() === '' && contentStart === i) {
+      contentStart = i + 1;
+      break;
+    }
+    break;
+  }
+
+  // Skip leading blank lines in content
+  while (contentStart < lines.length && lines[contentStart].trim() === '') {
+    contentStart++;
+  }
+
+  const content = lines.slice(contentStart).join('\n').trimEnd();
+
+  return {
+    id,
+    title:   meta.title   || '(sem título)',
+    band:    meta.band    || '',
+    genre:   meta.genre   || '',
+    level:   meta.level   || '',
+    key:     meta.key     || '',
+    tuning:  meta.tuning  || 'Standard',
+    capo:    meta.capo    !== undefined ? meta.capo : 0,
+    content,
+  };
+}
+
+// ─────────────────────────────────────────────
+// LOAD ALL SONGS
+// ─────────────────────────────────────────────
+let SONGS = [];
+
+async function loadSongs() {
+  const results = await Promise.allSettled(
+    SONG_FILES.map((filename, i) =>
+      fetch(filename)
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.text();
+        })
+        .then(text => parseSongFile(text, i + 1))
+    )
+  );
+
+  SONGS = results
+    .filter(r => r.status === 'fulfilled')
+    .map(r => r.value);
+
+  if (results.some(r => r.status === 'rejected')) {
+    console.warn('Some song files could not be loaded.');
+  }
+
+  initGenreFilter();
+  renderList();
+}
+
+// ─────────────────────────────────────────────
+// CHORD TRANSPOSITION
+// ─────────────────────────────────────────────
+const CHROMATIC_SHARP = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const CHROMATIC_FLAT  = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+
+function noteToIndex(note) {
+  let idx = CHROMATIC_SHARP.indexOf(note);
+  if (idx === -1) idx = CHROMATIC_FLAT.indexOf(note);
+  return idx;
+}
+
+function transposeNote(note, semitones, useFlat) {
+  const idx = noteToIndex(note);
+  if (idx === -1) return note;
+  const newIdx = ((idx + semitones) % 12 + 12) % 12;
+  return useFlat ? CHROMATIC_FLAT[newIdx] : CHROMATIC_SHARP[newIdx];
+}
+
+function transposeChord(chord, semitones, useFlat) {
+  // Match note + accidental as one atomic token.
+  // Using a lookahead to avoid consuming a 'b' that is part of a chord suffix (e.g. "Bb" vs "Ab9").
+  // We also handle the slash-bass separator explicitly so we never split "F#" into "F" + "#".
+  return chord.replace(/([A-G](?:b(?![a-z])|#)?)/g, (match) => transposeNote(match, semitones, useFlat));
+}
+
+const CHORD_REGEX = /(?<![A-Za-z])([A-G][b#]?(?:maj|min|m|M|aug|dim|sus|add|dom)?[0-9]*(?:[#b][0-9]+)*(?:\([^)]*\))?(?:\/[A-G][b#]?)?)(?![A-Za-z])/g;
+
+function transposeContent(content, semitones, useFlat) {
+  if (semitones === 0 && !useFlat) return content;
+  return content.split('\n').map(line => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('[') && trimmed.endsWith(']')) return line;
+    const lowercaseRatio = (line.match(/[a-z]/g) || []).length / Math.max(line.length, 1);
+    if (lowercaseRatio > 0.4) return line;
+    return line.replace(CHORD_REGEX, (chord) => transposeChord(chord, semitones, useFlat));
+  }).join('\n');
+}
+
+// ─────────────────────────────────────────────
+// RENDER HELPERS
+// ─────────────────────────────────────────────
+function levelClass(level) {
+  return 'badge-level-' + level.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+}
+
+function renderContent(content) {
+  return content.split('\n').map(line => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+      return `<span class="section-label">${escHtml(line)}</span>`;
+    }
+    const lowercaseRatio = (line.match(/[a-z]/g) || []).length / Math.max(line.length, 1);
+    if (lowercaseRatio <= 0.4 && trimmed.length > 0) {
+      return line.replace(CHORD_REGEX, (chord) => `<span class="chord">${escHtml(chord)}</span>`);
+    }
+    return escHtml(line);
+  }).join('\n');
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─────────────────────────────────────────────
+// HOME PAGE
+// ─────────────────────────────────────────────
+let sortKey = 'title';
+let sortDir = 1;
+
+function initGenreFilter() {
+  const genres = [...new Set(SONGS.map(s => s.genre))].sort();
+  const sel = document.getElementById('filter-genre');
+  // Remove any previously added options (keep the default one)
+  while (sel.options.length > 1) sel.remove(1);
+  genres.forEach(g => {
+    const opt = document.createElement('option');
+    opt.value = g; opt.textContent = g;
+    sel.appendChild(opt);
+  });
+}
+
+function setSort(key) {
+  if (sortKey === key) sortDir *= -1;
+  else { sortKey = key; sortDir = 1; }
+  document.querySelectorAll('.table-header span').forEach(s => s.classList.remove('sort-active'));
+  const el = document.querySelector(`.table-header [data-sort="${key}"]`);
+  if (el) el.classList.add('sort-active');
+  renderList();
+}
+
+function renderList() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  const genre = document.getElementById('filter-genre').value;
+  const level = document.getElementById('filter-level').value;
+
+  let filtered = SONGS.filter(s => {
+    const matchQ = !query || s.title.toLowerCase().includes(query) || s.band.toLowerCase().includes(query);
+    const matchG = !genre || s.genre === genre;
+    const matchL = !level || s.level === level;
+    return matchQ && matchG && matchL;
+  });
+
+  filtered.sort((a, b) => {
+    const va = a[sortKey] || ''; const vb = b[sortKey] || '';
+    return va.localeCompare(vb, 'pt') * sortDir;
+  });
+
+  const container = document.getElementById('songs-container');
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state">Nenhuma música encontrada.</div>';
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="table-header">
+      <span data-sort="title" onclick="setSort('title')" class="${sortKey==='title'?'sort-active':''}">Título / Banda</span>
+      <span data-sort="genre" onclick="setSort('genre')" class="${sortKey==='genre'?'sort-active':''}">Gênero</span>
+      <span data-sort="level" onclick="setSort('level')" class="${sortKey==='level'?'sort-active':''}">Nível</span>
+      <span></span>
+    </div>
+    ${filtered.map(s => `
+      <div class="song-row" onclick="showSong(${s.id})">
+        <div class="song-title-cell">
+          <strong>${escHtml(s.title)}</strong>
+          <span>${escHtml(s.band)}</span>
+        </div>
+        <span class="badge badge-genre">${escHtml(s.genre)}</span>
+        <span class="badge ${levelClass(s.level)}">${escHtml(s.level)}</span>
+        <span style="color:var(--text-dim); font-size:18px;">›</span>
+      </div>
+    `).join('')}
+  `;
+}
+
+// ─────────────────────────────────────────────
+// SONG PAGE
+// ─────────────────────────────────────────────
+let currentSong = null;
+let transpose = 0;
+let useFlat = false;
+let fontSize = 15;
+
+function showSong(id) {
+  currentSong = SONGS.find(s => s.id === id);
+  transpose = 0;
+  useFlat = false;
+  fontSize = 15;
+  renderSong();
+  showPage('song');
+}
+
+function renderSong() {
+  if (!currentSong) return;
+  const s = currentSong;
+  const content = transposeContent(s.content, transpose, useFlat);
+  const transLabel = transpose === 0 ? '0' : (transpose > 0 ? '+'+transpose : transpose);
+
+  document.getElementById('song-content').innerHTML = `
+    <button class="song-back" onclick="showPage('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Todas as músicas
+    </button>
+
+    <div class="song-meta">
+      <h1>${escHtml(s.title)}</h1>
+      <div class="band">${escHtml(s.band)}</div>
+      <div class="song-meta-tags">
+        <span class="badge badge-genre">${escHtml(s.genre)}</span>
+        <span class="badge ${levelClass(s.level)}">${escHtml(s.level)}</span>
+        <span style="font-size:12px; color:var(--text-dim);">Tom: ${escHtml(s.key)}${s.capo > 0 ? ' • Capo '+s.capo : ''}</span>
+      </div>
+    </div>
+
+    <div class="song-controls">
+      <div class="transpose-group">
+        <span>Transpor</span>
+        <button class="btn-icon" onclick="changeTranspose(-1)">−</button>
+        <span class="transpose-value">${transLabel}</span>
+        <button class="btn-icon" onclick="changeTranspose(1)">+</button>
+      </div>
+      <span class="sep">|</span>
+      <button class="btn-flat ${useFlat ? 'active' : ''}" onclick="toggleFlat()">♭ bemóis</button>
+      <div class="font-group">
+        <span>Texto</span>
+        <button class="btn-icon" onclick="changeFontSize(-1)">−</button>
+        <span class="transpose-value">${fontSize}</span>
+        <button class="btn-icon" onclick="changeFontSize(1)">+</button>
+      </div>
+    </div>
+
+    <div class="chord-sheet" id="chord-sheet-content" style="font-size:${fontSize}px">${renderContent(content)}</div>
+  `;
+}
+
+function changeTranspose(delta) {
+  transpose = ((transpose + delta + 12) % 12);
+  if (transpose > 6) transpose -= 12;
+  renderSong();
+}
+
+function toggleFlat() {
+  useFlat = !useFlat;
+  renderSong();
+}
+
+function changeFontSize(delta) {
+  fontSize = Math.max(11, Math.min(24, fontSize + delta));
+  renderSong();
+}
+
+// ─────────────────────────────────────────────
+// ROUTING
+// ─────────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'home') renderList();
+}
+
+// INIT
+loadSongs();
+</script>
+</body>
+</html>
