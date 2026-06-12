@@ -20,7 +20,7 @@
     --radius: 8px;
   }
 
-  * { box-sizing: margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     background: var(--bg);
@@ -435,7 +435,7 @@ let SONGS = [];
 async function loadSongs() {
   const results = await Promise.allSettled(
     SONG_FILES.map((filename, i) =>
-      fetch(filename)
+      fetch(encodeURIComponent(filename))   // ← this line
         .then(r => {
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           return r.text();
@@ -443,6 +443,18 @@ async function loadSongs() {
         .then(text => parseSongFile(text, i + 1))
     )
   );
+//  
+//async function loadSongs() {
+//  const results = await Promise.allSettled(
+//    SONG_FILES.map((filename, i) =>
+//      fetch(filename)
+//        .then(r => {
+//          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+//          return r.text();
+//        })
+//        .then(text => parseSongFile(text, i + 1))
+//    )
+//  );
 
   SONGS = results
     .filter(r => r.status === 'fulfilled')
