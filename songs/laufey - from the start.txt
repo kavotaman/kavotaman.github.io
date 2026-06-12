@@ -6,7 +6,7 @@ tuning: "Standard",
 capo: 0,
 
 [INTRO]
-Gbmaj7  Ab  Dbmaj7     
+Gbmaj7  Ab7(13)  Dbmaj7     
 
           Gbmaj7   Ab7 
 Don't you notice   how 
@@ -19,7 +19,7 @@ Don't you dare look at me that way
 Ebm7           %              Ab7                [stop]
 I don't need reminders of how you don't feel the same 
 
-        Gbmaj7  Ab 
+        Gbmaj7  Ab7(13)
 Oh, the burning pain 
 Dbmaj7           %                  Ebm7    Ab7 
 Listening to you harp on 'bout some new soulmate 
@@ -43,7 +43,7 @@ But don't you feel it too?
     Ebm7       Ab7           Dbmaj7 [1 2 stop]
 Confess I loved you from the start 
 
-( Gbmaj7  Ab7 )      
+( Gbmaj7  Ab7(13)  )      
 
         Dbmaj7    %
 Bi-ya-ba-da 
@@ -56,7 +56,7 @@ Ba-bi, ya-da-ba-da-ba, ba-da-ba-di
       Ebm7    %      Ab7  [1 2 stop]
 Ya-ba-bi, ya-da, da-da 
 
-         Gbmaj7  Ab7 
+         Gbmaj7  Ab7(13)
 What's a girl to do 
  Dbmaj7      %            Ebm7    Ab7 
 Lying on my bed, staring into the bluÐµ? 

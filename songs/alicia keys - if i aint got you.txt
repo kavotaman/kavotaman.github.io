@@ -8,6 +8,14 @@ capo: 0,
 [INTRO] 
 Cmaj7 Bm7 Am7 Gmaj7   x2
 
+                                               | 1st ending       ||  | 2nd ending ||
+|-12----- x6 ---10----- x6 --8----- x6 -7-----| x4 -8-----10-----||  -7-----------||
+|---12---    -----10---    ----8---    ---7---|    ---8-----10---||  ---7---------||
+|-----12-    -------11-    ------9-    -----7-|    -----9-----11-||  ------7------||
+|--------    ----------    --------    -------|    --------------||  -------------||
+|--------    ----------    --------    -------|    --------------||  -------------||
+|--------    ----------    --------    -------|    --------------||  -------------||
+
 [VERSE]
 Gmaj7                         Em7                   
 Some people live for the fortune  
@@ -51,7 +59,7 @@ And that's the only way to prove you love them
 [BRIDGE]  
  G        Am7        Bm7     Am7 
 And in a world on a silver platter  
- G       Am7           Bm7      
+ G       Am7           Bm7   ( Cmaj7 Bm7 Am7 )   
 And wondering what it means 
  G         Am7      Bm7      Am7 
 No one to share, no one who truly  
@@ -71,7 +79,7 @@ But everything means nothing  If I ain't got you
 Some people want it all  But I don't want nothing at all  
 	    Am7                        G7+  
 If it ain't you baby  If I ain't got you baby  
-G7+ Am7 Bm7 - C7+                          Bm7  
+G7+ Am7 Bm7   C7+                          Bm7  
 Some people want diamond rings   Some just want everything  
                Bbm7  Am7                  G7+  
 But everything means nothing  If I ain't got you  
@@ -81,3 +89,14 @@ But everything means nothing  If I ain't got you
 
 Like intro: 
 Cmaj7 Bm7 Am7 Gmaj7   x2
+
+                                               | 1st ending       ||  | 2nd ending ||
+|-12----- x6 ---10----- x6 --8----- x6 -7-----| x4 -8-----10-----||  -7-----------||
+|---12---    -----10---    ----8---    ---7---|    ---8-----10---||  ---7---------||
+|-----12-    -------11-    ------9-    -----7-|    -----9-----11-||  ------7------||
+|--------    ----------    --------    -------|    --------------||  -------------||
+|--------    ----------    --------    -------|    --------------||  -------------||
+|--------    ----------    --------    -------|    --------------||  -------------||
+
+
+

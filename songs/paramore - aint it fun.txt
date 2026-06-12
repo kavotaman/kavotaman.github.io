@@ -5,6 +5,9 @@ key: "E",
 tuning: "Standard",
 capo: 0,
 
+Solo pentatonic: 
+C#m       
+
 [INTRO]
 
 |----------------------------------------------------------------|
@@ -69,7 +72,7 @@ When you're living in your bubble
 So what are you gonna do 
           C#m                      A [RIFF] C#m 
 When the world don't orbit around you? 
-     A        
+     A [NO riff]       
 So what are you gonna do 
         C#m                     A [RIFF] C#m [stop]
 When nobody wants to fool with you? 
@@ -96,7 +99,7 @@ Ain't it fun?
 C#m    B       A        %   C#m   B 
 Living in the real world 
 
-E5 [palm mute]
+E5     
 Don't go crying to your mama 
 'Cause you're on your own in the real world
 Don't go crying to your mama

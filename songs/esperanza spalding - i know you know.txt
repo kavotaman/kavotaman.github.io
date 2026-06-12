@@ -6,8 +6,8 @@ tuning: "Standard",
 capo: 0,
 
 [Intro]
-Am7b5 D7b9 Gm11 Db13 - only bass
-Am7b5 D7b9 Gm11 Db13 - x3
+Am7b5 D7b9 Gm11 Db13     - only bass
+Am7b5 D7b9 Gm11 Db13     - x3
  
 [Verse 1]
 Am7b5                  D7b9     
@@ -24,7 +24,7 @@ I see you're scared unconvinced by
 what I've tried to say
      Am7b5               Bdim    
 That I am yours and that nothing 
-             G7#9/Db    %
+             Db7(13)    %
 will take me away
 
 [Chorus]
@@ -40,17 +40,17 @@ I love you babe and nothing will take me away
 [Verse 2]
 Am7b5        D7b9                   
 The way you always call me with some
-          D7b9      Db13
+          Gm11      Db13
  question, and every time
 Am7b5                D7b9         
 Try to pretend you didn't call me 
                       Gm11      Db13
 just ’cause I was on your mind
-Am7b5               D7b9              D7b9   Db13
+Am7b5               D7b9              Gm11   Db13
 Too soon for you to say out loud but I know
     Am7b5                 Bdim      
 You love me and though we don't say 
-          G7#9/Db   %
+          Db7(13)   %
 it already shows
  
 [Chorus]
@@ -74,7 +74,7 @@ I love you babe and nothing will take me away
 [Bridge]
 Am7                    Dbm7
 I wait for you to open up
-Gb7sus4  Gb7
+Gb7sus4  Gb7    
 But it's not a bore
 Bmaj7                 Abm7
 You're just what I've been looking for
@@ -82,9 +82,9 @@ Fm7b5   Bb7b13               Ebm6
 Why do you keep your head in the sand?
 D7b13    Dbm9                    
 Whoever you loved before me that 
-Gb7                F7#9/B
+Gb7                B7(13)
 ran's nothing like me
-F7#9/B x8 (in 4)
+B7(13) x8 (in 4)
 
 [Chorus]
 Fmaj7       Dm7b5
