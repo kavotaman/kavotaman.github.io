@@ -1,5 +1,6 @@
 title: "I Just Might",
 band: "Bruno Mars",
+genre: "Holy Cannoli",
 key: "E",
 tuning: "Standard",
 capo: 0,

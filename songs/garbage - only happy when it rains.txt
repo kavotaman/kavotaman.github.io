@@ -1,8 +1,7 @@
 title: "Only Happy When it Rains",
 band: "Garbage",
-genre: "",
-level: "",
 key: "E",
+genre: "Evan",
 tuning: "Standard",
 capo: 0,
 

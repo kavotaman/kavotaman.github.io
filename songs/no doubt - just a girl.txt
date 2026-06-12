@@ -1,5 +1,6 @@
 title: "Just a Girl",
 band: "No Doubt",
+genre: "Holy Cannoli",
 key: "E",
 tuning: "Standard",
 capo: 0,

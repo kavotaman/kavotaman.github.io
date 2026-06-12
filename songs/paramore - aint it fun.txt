@@ -1,5 +1,6 @@
 title: "Ain't it Fun",
 band: "Paramore",
+genre: "Holy Cannoli",
 key: "E",
 tuning: "Standard",
 capo: 0,
@@ -159,4 +160,4 @@ A             %    C#m           B
 'Cause you're on your own in the real world  
 
 
-A, C#m and B until the end
+A % C#m B      until the end

@@ -1,0 +1,80 @@
+title: "Hold the Line",
+band: "Toto",
+genre: "Holy Cannoli",
+key: "E",
+tuning: "Standard",
+capo: 0,
+
+[Intro]
+ 
+F#m  C#m  D  E  Esus4  E    x2 piano
+F#m   C#m  D D E    x2 guitar
+E  C#m  Cm  Bm    
+ 
+[Verse]
+Bm              C#m          F#m               C#m Cm Bm
+It's not in the way that you hold me  (riff 1)
+Bm              C#m             F#m            C#m Cm Bm
+It's not in the way you say you care  (riff 2)
+Bm              C#m             Dmaj7       E         C#m Cm Bm
+It's not in the way you've been treating my friends
+Bm              C#m          Dmaj7           E        C#m Cm Bm
+It's not in the way that you stayed till the end
+Bm              C#m                 D                               E
+It's not in the way you look or the things that you say that you'll do
+ 
+[Chorus]
+*C#   E* F#m C#m D E Esus4 E                       F#m C#m D E Esus4 E
+Hold the line,        love isn't always on time, oh  oh  oh
+*C#   E* F#m C#m D E Esus4 E                       F#m C#m D E Esus4 E   E C#m Cm Bm
+Hold the line,        love isn't always on time, oh  oh  oh
+ 
+[Verse]
+Bm              C#m            F#m                  C#m  Cm  Bm
+It's not in the words that you told me, girl (riff 1)
+Bm              C#m                F#m              C#m Cm  Bm
+It's not in the way you say you're mine (riff 2)
+Bm              C#m          Dmaj7        E         C#m Cm  Bm
+It's not in the way that you came back to me
+Bm              C#m           Dmaj7        E        C#m Cm  Bm
+It's not in the way that your love set me free
+Bm              C#m                 D                               E
+It's not in the way you look or the things that you say that you'll do
+
+[Chorus]
+*C#   E* F#m C#m D E Esus4 E                       F#m C#m D E Esus4 E
+Hold the line,        love isn't always on time, oh  oh  oh
+*C#   E* F#m C#m D E Esus4 E                       F#m C#m D E Esus4 E   E C#m Cm Bm
+Hold the line,        love isn't always on time, oh  oh  oh
+
+[GUITAR SOLO]
+F#m  C#m  D  E  Esus4  E     x8
+E  C#m  Cm  Bm     
+
+[Verse]
+Bm              C#m            F#m                    C#m Cm  Bm
+It's not in the words that you told me, girl (riff 1)
+Bm              C#m                F#m                C#m Cm  Bm
+It's not in the way you say you're mine, ooh (riff 2)
+Bm              C#m          Dmaj7        E           C#m Cm  Bm
+It's not in the way that you came back to me
+Bm              C#m           Dmaj7       E           C#m Cm  Bm
+It's not in the way that your love set me free
+Bm              C#m                 D                               E
+It's not in the way you look or the things that you say that you'll do
+ 
+[Chorus]
+*C#   E* F#m C#m D E Esus4 E                       F#m C#m D E Esus4 E
+Hold the line,        love isn't always on time, oh  oh  oh
+*C#   E* F#m C#m D E Esus4 E                       F#m C#m D E Esus4 E   E C#m Cm Bm
+Hold the line,        love isn't always on time, oh  oh  oh
+         F#m C#m D E Esus4 E                       F#m C#m D E Esus4 E
+Hold the line,        love isn't always on time, 
+         F#m C#m D E Esus4 E                       F#m C#m D E Esus4 E
+Hold the line,        love isn't always on time,
+                     F#m C#m D E Esus4 E
+Love isn't always on time
+                     F#m C#m D E Esus4 E
+Love isn't always on time
+                     F#m C#m D E Esus4 E
+Love isn't always on time, whoa oh oh oh

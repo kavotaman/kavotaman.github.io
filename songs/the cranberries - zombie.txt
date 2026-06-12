@@ -1,5 +1,6 @@
 title: "Zombie",
 band: "The Cranberries",
+genre: "Evan",
 key: "E",
 tuning: "Standard",
 capo: 0,

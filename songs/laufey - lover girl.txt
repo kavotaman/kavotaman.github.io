@@ -1,5 +1,6 @@
 title: "Lover Girl",
 band: "Laufey",
+genre: "Holy Cannoli",
 key: "E",
 tuning: "Standard",
 capo: 0,

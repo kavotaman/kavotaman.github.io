@@ -1,5 +1,6 @@
 title: "If I Ain't Got You",
 band: "Alicia Keys",
+genre: "Holy Cannoli",
 key: "E",
 tuning: "Standard",
 capo: 0,

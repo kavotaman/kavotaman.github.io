@@ -1,5 +1,6 @@
 title: "Sir Duke",
 band: "Stevie Wonder",
+genre: "Holy Cannoli",
 key: "E",
 tuning: "Standard",
 capo: 0,

@@ -1,5 +1,6 @@
 title: "Stand by Me",
 band: "Ben E. King",
+genre: "Holy Cannoli",
 key: "E",
 tuning: "Standard",
 capo: 0,

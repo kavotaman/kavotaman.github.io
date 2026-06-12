@@ -1,5 +1,6 @@
 title: "I Know You Know",
 band: "Esperanza Spalding",
+genre: "Holy Cannoli",
 key: "E",
 tuning: "Standard",
 capo: 0,
