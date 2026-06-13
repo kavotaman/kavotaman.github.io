@@ -356,23 +356,23 @@
 // creating a new .txt file and adding its name.
 // ─────────────────────────────────────────────
 const SONG_FILES = [
-  'oliviadeansoeasytofallinlove.txt',
-  'the cranberries - zombie.txt',
-  'garbage - only happy when it rains.txt',
-  'radiohead - creep.txt',
-  'laufey - lover girl.txt',
-  'stevie wonder - sir duke.txt',
-  'bruno mars - i just might.txt',
-  'esperanza spalding - i know you know.txt',
-  'alicia keys - if i aint got you.txt',
-  'ben e king - stand by me.txt',
-  'no doubt - just a girl.txt',
-  'laufey - from the start.txt',
-  'paramore - aint it fun.txt',
-  'paramore - spiderwebs.txt',
-  'toto - hold the line.txt',
-  'the cranberries - linger.txt',
-  'onerepublic - need your love.txt',
+  'olivia-dean_so-easy-to-fall-in-love.txt',
+  'the-cranberries_zombie.txt',
+  'garbage_only-happy-when-it-rains.txt',
+  'radiohead_creep.txt',
+  'laufey_lover-girl.txt',
+  'stevie-wonder_sir-duke.txt',
+  'bruno-mars_i-just-might.txt',
+  'esperanza-spalding_i-know-you-know.txt',
+  'alicia-keys_if-i-aint-got-you.txt',
+  'ben-e-king_stand-by-me.txt',
+  'no-doubt_just-a-girl.txt',
+  'laufey_from-the-start.txt',
+  'paramore_aint-it-fun.txt',
+  'paramore_spiderwebs.txt',
+  'toto_hold-the-line.txt',
+  'the-cranberries_linger.txt',
+  'onerepublic_need-your-love.txt',
   ];
 
 // ─────────────────────────────────────────────
@@ -432,10 +432,11 @@ function parseSongFile(text, id) {
 // ─────────────────────────────────────────────
 let SONGS = [];
 
+  
 async function loadSongs() {
   const results = await Promise.allSettled(
     SONG_FILES.map((filename, i) =>
-      fetch(encodeURIComponent(filename))   // ← this line
+      fetch(filename)
         .then(r => {
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           return r.text();
@@ -443,18 +444,6 @@ async function loadSongs() {
         .then(text => parseSongFile(text, i + 1))
     )
   );
-//  
-//async function loadSongs() {
-//  const results = await Promise.allSettled(
-//    SONG_FILES.map((filename, i) =>
-//      fetch(filename)
-//        .then(r => {
-//          if (!r.ok) throw new Error(`HTTP ${r.status}`);
-//          return r.text();
-//        })
-//        .then(text => parseSongFile(text, i + 1))
-//    )
-//  );
 
   SONGS = results
     .filter(r => r.status === 'fulfilled')
