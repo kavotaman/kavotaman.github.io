@@ -1,0 +1,93 @@
+title: "Zombie",
+band: "The Cranberries",
+genre: "Evan",
+key: "E",
+tuning: "Standard",
+capo: 0,
+
+[INTRO] 
+[clean] 
+Em C G D/F#
+[distortion] 
+Em C G D/F# 2x
+[clean] 
+Em C G D/F#
+
+Em         C  
+Another head hangs lowly  
+G                D/F#  
+Child is slowly taken  
+Em                  C   
+And the violence caused such silence  
+G               D/F#  
+Who are we mistaken  
+         Em  
+but you see, it's not me  
+           C  
+it's not my family  
+          G  
+in your head, in your head  
+              D/F#  
+they are fighting  
+               Em  
+With their tanks, and their bombs,  
+              C   
+and their bombs, and their guns  
+           G                           D/F#  
+In your head, in your head they are cryin'  
+
+[DISTORTION]
+         Em             C  
+In your head, In your head  
+     G              D/F#  
+Zombie, zombie, zombie eh eh  
+                Em            C   
+What's in your head, in your head  
+     G             D/F#  
+Zombie, zombie, zombie eh eh eh oh 
+
+Em C G D/F#  
+[clean] Em C G D/F#  
+
+Em         C 
+Another mother's breakin'  
+G                D/F# 
+heart is taking over  
+Em                    C  
+ when the violence causes such silence  
+  G             D/F# 
+we must be mistaken  
+           Em                 C 
+it's the same old theme since 1916  
+         G 
+in your head,  
+                               D/F# 
+in your head they're still fightin'  
+           Em  
+With their tanks and their bombs  
+           C 
+And their bombs and their guns  
+         G                            D/F# 
+In your head, in your head they are dying  
+
+         Em             C  
+In your head, In your head  
+    G               D/F#  
+Zombie, zombie, zombie eh eh  
+                Em            C   
+What's in your head, in your head  
+     G             D/F#  
+Zombie, zombie, zombie eh eh eh oh 
+
+Em C G D/F# 2x
+
+[BASS - little solo] 
+Em C 4x
+
+[SOLO distortion]
+Em C G D/F# 3x
+
+[BASS] 
+Em C 3x Em
+
+

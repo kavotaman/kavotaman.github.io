@@ -1,0 +1,103 @@
+title: "Spiderwebs",
+band: "Paramore",
+genre: "Holy Cannoli",
+key: "E",
+tuning: "Standard",
+capo: 0,
+
+[INTRO]
+( Bb F Gm Eb )  Bb    
+ 
+      Bb                              Bb
+You think that we connect, that the chemistry's correct
+            Bb                                   Bb
+Your words walk right through my ears, presuming I like what I hear
+Eb              F         Bb                 Gm
+  And now I'm stuck in the, the web you're spinning
+Eb                     F
+You've got me for you prey
+ 
+ Bb                                F
+Sorry I'm not home right now, I'm walking into spiderwebs
+    Gm                             Eb
+So leave a message, and I'll call you back
+Bb         F          Gm                           Eb        Bb  Bb
+A likely story, but leave a message and I'll call you back
+ 
+          Bb                                 Bb
+You're intruding on what's mine, and you're taking up my time
+               Bb                                 Bb
+Don't have the courage inside me, to tell you, "Please let me be"
+Eb        F     Bb               Gm           Eb           F
+  Communication, a telephonic invasion, I'm planning my escape
+ 
+ Bb                                F
+Sorry I'm not home right now, I'm walking into spiderwebs
+    Gm                             Eb
+So leave a message, and I'll call you back
+Bb         F          Gm                          Eb
+A likely story, but leave a message and I'll call you back
+ 
+Bb             F             Gm        Eb
+And it's all your fault, I screen my phone calls
+   Bb      F                   Gm       Eb
+No matter who calls, I gotta screen my phone calls
+ 
+[SOLO] 
+Gm Eb Gm Eb    x2
+ 
+Gm               Eb
+Now it's gone to deep (it's gone too...)
+    Gm             Eb
+You wake me in my sleep (Wake me in my...)
+ Gm                Eb
+Dreams become nightmares (become...)
+        Gm            Eb
+You're ringing in my ears
+ 
+ Bb                                F
+Sorry I'm not home right now, I'm walking into spiderwebs
+    Gm                             Eb
+So leave a message, and I'll call you back
+Bb         F          Gm                          Eb
+A likely story, but leave a message and I'll call you back
+ 
+Bb             F             Gm        Eb
+And it's all your fault, I screen my phone calls
+   Bb                       F                   Gm       Eb
+No matter, matter, matter, who calls, I gotta screen my phone calls
+ 
+Bb  F                  Gm                            Eb
+Oooh, the spiderwebs, leave a message and I'll call you back
+Bb                   F             Gm                            Eb
+ I'm walking into spiderwebs, so, leave a message and I'll call you back
+Bb          F        Gm             Eb
+  It's all your fault, I screen my phone calls
+   Bb                       F                   Gm       Eb
+No matter, matter, matter, who calls, I gotta screen my phone calls
+Bb          F        Gm          Eb
+  It's all your fault, it's all your fault
+Bb           F        Gm         Eb
+  No matter who calls, no matter who calls
+ 
+Bb                  F             Gm                            Eb
+ I'm walking into spiderwebs so, leave a message and I'll call you back
+Bb                  F             Gm                            Eb
+ I'm walking into spiderwebs so, leave a message and I'll call you back
+Bb               F        Gm           Eb
+  Ooh, it's all your fault, no matter who calls
+Bb                    F        Gm         Eb
+  I gotta screen my phone call, it's all your fault
+   Bb                       F       Gm             Eb
+No matter, matter, matter, who calls, I screen my phone calls
+ 
+ 
+riffs/transitions:
+ 
+  Bb          Bb          Eb    Eb               Bb
+|-----------|--------------3-|---3--------------------------------
+|-3---------|-3------------4-|---4---------------3----------------
+|-3---------|-3---------3--3-|---3---------------3----------------
+|-3--0h1-0--|-3---0-1-3----5-|---5---------------3----------------
+|-1-1-----3-|-1-3----------6-|---6-6-5-5-3-3-1-0-1----------------
+|-----------|----------------|------------------------------------

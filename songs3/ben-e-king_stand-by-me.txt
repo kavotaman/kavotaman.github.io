@@ -1,0 +1,85 @@
+title: "Stand by Me",
+band: "Ben E. King",
+genre: "Holy Cannoli",
+key: "E",
+tuning: "Standard",
+capo: 0,
+
+[INTRO]
+A % F#m % D E A %   
+
+         A           %                           
+When the night has come     
+F#m                    %
+     And the land is dark       
+          D            E             A   %      
+And the moon is the only light we'll see,     
+       A              %
+No, I won't be afraid,       
+         F#m           %
+No, I won't be afraid       
+         D          E                 A      
+Just as long as you stand, stand by me.    
+       
+        E         E7     
+So darling, darling,     
+A       
+Stand by me,       
+              F#m       
+Oh, stand by me.       
+D       
+ Oh Stand,      
+E       
+ Stand by me,       
+A       
+ Stand by me.      
+       
+         A     
+If the sky that we look upon       
+F#m     
+    Should tumble and fall     
+              D                         E       A   
+Or the mountain should crumble to the sea,     
+             A     
+I won't cry, I won't cry,     
+          F#m       
+No, I won't shed a tear     
+               D                E              A     
+Just as long as you stand, stand by me.       
+
+        E         E7     
+And darling, darling       
+A     
+Stand by me       
+F#m     
+Oh, Stand by me       
+D     
+Oh Stand now    
+E     
+Stand by me 
+A 
+Stand by me       
+
+        E         E7     
+And darling, darling       
+A     
+Stand by me       
+F#m     
+Oh, Stand by me       
+D     
+Oh Stand now    
+E     
+Stand by me 
+A 
+Stand by me  
+
+A                                          A 
+Whenever you're in trouble, won't you stand by me       
+F#m 
+Oh, stand by me       
+D 
+Stand by me       
+E 
+Stand by me       
+A 
+Stand by me

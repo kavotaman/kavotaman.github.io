@@ -42,7 +42,6 @@
     position: sticky;
     top: 0;
     background: rgba(15,15,15,0.95);
-    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     z-index: 100;
   }
@@ -303,61 +302,6 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-  /* SHARE / PDF BUTTONS */
-  .btn-share {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: border-color 0.1s, color 0.1s;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    margin-left: auto;
-  }
-  .btn-share:hover { border-color: var(--accent-dim); color: var(--accent); }
-  .btn-share svg { width: 13px; height: 13px; }
-
-  /* TOAST */
-  #toast {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.5rem 1.2rem;
-    border-radius: 99px;
-    font-size: 13px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s, transform 0.2s;
-    z-index: 999;
-    white-space: nowrap;
-  }
-  #toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  /* PRINT / PDF */
-  @media print {
-    nav, .song-back, .song-controls, #toast { display: none !important; }
-    body { background: white !important; color: black !important; font-size: 12px; }
-    .chord-sheet { font-size: 11px !important; white-space: pre-wrap !important; color: black !important; }
-    .chord { color: #b07000 !important; font-weight: bold; }
-    .section-label { color: #007700 !important; }
-    .song-meta h1 { font-size: 1.4rem; color: black !important; }
-    .song-meta .band { color: #b07000 !important; }
-    .badge { border: 1px solid #ccc !important; color: #333 !important; background: #eee !important; }
-    .page { display: block !important; }
-    #page-home { display: none !important; }
-  }
-
   @media (max-width: 600px) {
     nav { padding: 0 1rem; }
     .home-header { padding: 2rem 1rem 1rem; }
@@ -372,25 +316,23 @@
 <body>
 
 <nav>
-  <a class="nav-logo" onclick="showPage('home')">chords<span>.omk</span></a>
+  <a class="nav-logo" onclick="showPage('home')">cifras<span>.app</span></a>
 </nav>
-
-<div id="toast"></div>
 
 <!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <div class="home-header">
-    <h1>Chords.omk</h1>
-    <p>No ads transposer</p>
+    <h1>Cifras</h1>
+    <p>Todas as músicas em um lugar.</p>
   </div>
 
   <div class="toolbar">
-    <input type="search" id="search-input" placeholder="Song title or band..." oninput="renderList()">
+    <input type="search" id="search-input" placeholder="Buscar por título ou banda…" oninput="renderList()">
     <select id="filter-genre" onchange="renderList()">
-      <option value="">Tags</option>
+      <option value="">Todos os gêneros</option>
     </select>
     <select id="filter-level" onchange="renderList()">
-      <option value="">Levels</option>
+      <option value="">Todos os níveis</option>
       <option value="Iniciante">Iniciante</option>
       <option value="Intermediário">Intermediário</option>
       <option value="Avançado">Avançado</option>
@@ -398,7 +340,7 @@
   </div>
 
   <div class="songs-grid" id="songs-container">
-    <div class="empty-state">Loading songs...</div>
+    <div class="empty-state">Carregando músicas…</div>
   </div>
 </div>
 
@@ -492,43 +434,14 @@ function parseSongFile(text, id) {
 let SONGS = [];
 
   
-async function fetchWithTimeout(url, ms = 8000) {
-  const controller = new AbortController();
-  const tid = setTimeout(() => controller.abort(), ms);
-  try {
-    const r = await fetch(url, { signal: controller.signal });
-    clearTimeout(tid);
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    return r.text();
-  } catch(e) {
-    clearTimeout(tid);
-    throw e;
-  }
-}
-
 async function loadSongs() {
-  // Warn if running from file:// on Safari (fetch is blocked by default)
-  if (location.protocol === 'file:') {
-    const ua = navigator.userAgent;
-    const isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
-    if (isSafari) {
-      document.getElementById('songs-container').innerHTML = `
-        <div class="empty-state" style="padding:2rem; line-height:1.7;">
-          <strong style="color:var(--accent)">⚠️ Safari / iPad: acesso local bloqueado</strong><br><br>
-          O Safari não permite carregar arquivos locais via <code>file://</code>.<br>
-          Para usar o app, abra-o num servidor local ou num serviço de hospedagem.<br><br>
-          <strong>Opção rápida (Mac/PC):</strong> no terminal, entre na pasta do projeto e rode:<br>
-          <code style="background:var(--surface2);padding:4px 8px;border-radius:4px;display:inline-block;margin-top:4px;">python3 -m http.server 8080</code><br>
-          Depois acesse <code>http://localhost:8080</code> no iPad via Safari.<br><br>
-          <strong>Opção fácil (sem código):</strong> hospede os arquivos no <a href="https://pages.github.com" style="color:var(--accent)">GitHub Pages</a> ou <a href="https://netlify.com" style="color:var(--accent)">Netlify</a>.
-        </div>`;
-      return;
-    }
-  }
-
   const results = await Promise.allSettled(
     SONG_FILES.map((filename, i) =>
-      fetchWithTimeout(filename)
+      fetch(filename)
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.text();
+        })
         .then(text => parseSongFile(text, i + 1))
     )
   );
@@ -538,7 +451,7 @@ async function loadSongs() {
     .map(r => r.value);
 
   if (results.some(r => r.status === 'rejected')) {
-    console.warn('Some song files could not be loaded:', results.filter(r=>r.status==='rejected').map(r=>r.reason));
+    console.warn('Some song files could not be loaded.');
   }
 
   initGenreFilter();
@@ -678,9 +591,9 @@ function renderList() {
 
   container.innerHTML = `
     <div class="table-header">
-      <span data-sort="title" onclick="setSort('title')" class="${sortKey==='title'?'sort-active':''}">Song / Band</span>
-      <span data-sort="genre" onclick="setSort('genre')" class="${sortKey==='genre'?'sort-active':''}">Genre</span>
-      <span data-sort="level" onclick="setSort('level')" class="${sortKey==='level'?'sort-active':''}">Level</span>
+      <span data-sort="title" onclick="setSort('title')" class="${sortKey==='title'?'sort-active':''}">Título / Banda</span>
+      <span data-sort="genre" onclick="setSort('genre')" class="${sortKey==='genre'?'sort-active':''}">Gênero</span>
+      <span data-sort="level" onclick="setSort('level')" class="${sortKey==='level'?'sort-active':''}">Nível</span>
       <span></span>
     </div>
     ${filtered.map(s => `
@@ -705,18 +618,13 @@ let transpose = 0;
 let useFlat = false;
 let fontSize = 15;
 
-function showSong(id, pushState = true) {
+function showSong(id) {
   currentSong = SONGS.find(s => s.id === id);
-  if (!currentSong) return;
   transpose = 0;
   useFlat = false;
   fontSize = 15;
   renderSong();
-  showPage('song', false);
-  if (pushState) {
-    const slug = SONG_FILES[id - 1] ? SONG_FILES[id - 1].replace(/\.txt$/, '') : id;
-    history.pushState({ songId: id }, '', '#song/' + slug);
-  }
+  showPage('song');
 }
 
 function renderSong() {
@@ -726,9 +634,9 @@ function renderSong() {
   const transLabel = transpose === 0 ? '0' : (transpose > 0 ? '+'+transpose : transpose);
 
   document.getElementById('song-content').innerHTML = `
-    <button class="song-back" onclick="navigateHome()">
+    <button class="song-back" onclick="showPage('home')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      All songs
+      Todas as músicas
     </button>
 
     <div class="song-meta">
@@ -737,34 +645,25 @@ function renderSong() {
       <div class="song-meta-tags">
         <span class="badge badge-genre">${escHtml(s.genre)}</span>
         <span class="badge ${levelClass(s.level)}">${escHtml(s.level)}</span>
-        <span style="font-size:12px; color:var(--text-dim);">Key: ${escHtml(s.key)}${s.capo > 0 ? ' • Capo '+s.capo : ''}</span>
+        <span style="font-size:12px; color:var(--text-dim);">Tom: ${escHtml(s.key)}${s.capo > 0 ? ' • Capo '+s.capo : ''}</span>
       </div>
     </div>
 
     <div class="song-controls">
       <div class="transpose-group">
-        <span>Transpose</span>
+        <span>Transpor</span>
         <button class="btn-icon" onclick="changeTranspose(-1)">−</button>
         <span class="transpose-value">${transLabel}</span>
         <button class="btn-icon" onclick="changeTranspose(1)">+</button>
       </div>
       <span class="sep">|</span>
-      <button class="btn-flat ${useFlat ? 'active' : ''}" onclick="toggleFlat()">Toggle #/b</button>
+      <button class="btn-flat ${useFlat ? 'active' : ''}" onclick="toggleFlat()">♭ bemóis</button>
       <div class="font-group">
-        <span>Text</span>
+        <span>Texto</span>
         <button class="btn-icon" onclick="changeFontSize(-1)">−</button>
         <span class="transpose-value">${fontSize}</span>
         <button class="btn-icon" onclick="changeFontSize(1)">+</button>
       </div>
-      <span class="sep">|</span>
-      <button class="btn-share" onclick="shareSong()" title="Copiar link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Share
-      </button>
-      <button class="btn-share" onclick="exportPDF()" title="Exportar PDF">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-        PDF
-      </button>
     </div>
 
     <div class="chord-sheet" id="chord-sheet-content" style="font-size:${fontSize}px">${renderContent(content)}</div>
@@ -783,91 +682,22 @@ function toggleFlat() {
 }
 
 function changeFontSize(delta) {
-  fontSize = Math.max(9, Math.min(32, fontSize + delta));
+  fontSize = Math.max(11, Math.min(24, fontSize + delta));
   renderSong();
 }
 
 // ─────────────────────────────────────────────
 // ROUTING
 // ─────────────────────────────────────────────
-function showPage(name, updateHash = true) {
+function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   window.scrollTo(0, 0);
-  if (name === 'home') {
-    renderList();
-    if (updateHash) history.pushState({}, '', location.pathname + location.search);
-  }
+  if (name === 'home') renderList();
 }
 
-function navigateHome() {
-  showPage('home');
-}
-
-// ─────────────────────────────────────────────
-// SHARE & PDF
-// ─────────────────────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-function shareSong() {
-  const url = location.href;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).then(() => showToast('Link copiado! ✓'));
-  } else {
-    // Fallback for older Safari
-    const ta = document.createElement('textarea');
-    ta.value = url;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
-    try { document.execCommand('copy'); showToast('Link copiado! ✓'); }
-    catch(e) { showToast('Copie o link da barra de endereços'); }
-    document.body.removeChild(ta);
-  }
-}
-
-function exportPDF() {
-  window.print();
-}
-
-// ─────────────────────────────────────────────
-// HASH-BASED DEEP LINKING
-// ─────────────────────────────────────────────
-function handleHash() {
-  const hash = location.hash; // e.g. #song/whitesnake_here-i-go-again
-  if (hash.startsWith('#song/')) {
-    const slug = hash.slice(6);
-    // Find by matching filename (without .txt)
-    const idx = SONG_FILES.findIndex(f => f.replace(/\.txt$/, '') === slug);
-    if (idx !== -1 && SONGS[idx]) {
-      showSong(SONGS[idx].id, false);
-      return;
-    }
-    // Fallback: try numeric id
-    const numId = parseInt(slug, 10);
-    if (!isNaN(numId)) { showSong(numId, false); return; }
-  }
-  showPage('home', false);
-}
-
-window.addEventListener('popstate', handleHash);
-
-// ─────────────────────────────────────────────
 // INIT
-// ─────────────────────────────────────────────
-async function init() {
-  await loadSongs();
-  handleHash(); // respect URL on first load
-}
-
-init();
+loadSongs();
 </script>
 </body>
 </html>
