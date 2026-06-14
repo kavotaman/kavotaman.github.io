@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cifras</title>
+<title>Chords</title>
 <style>
   :root {
     --bg: #0f0f0f;
@@ -475,7 +475,7 @@ function parseSongFile(text, id) {
 
   return {
     id,
-    title:   meta.title   || '(sem título)',
+    title:   meta.title   || '(no title)',
     band:    meta.band    || '',
     genre:   meta.genre   || '',
     level:   meta.level   || '',
@@ -587,7 +587,11 @@ function transposeChord(chord, semitones, useFlat) {
   return newRoot + parts.suffix + newBass;
 }
 
-const CHORD_REGEX = /(?<![A-Za-z])([A-G][b#]?(?:maj|min|m|M|aug|dim|sus|add|dom)?[0-9]*(?:[#b][0-9]+)*(?:\([^)]*\))?(?:\/[A-G][b#]?)?)(?![A-Za-z])/g;
+// NOTE: avoid lookbehind (?<!...) here — it's only supported on iOS 16.4+ (Safari 16.4+),
+// and on older iPads an unsupported regex literal throws a SyntaxError at parse time,
+// which silently breaks this *entire* script (the "stuck on Loading songs..." bug).
+// We capture the preceding character as a group instead and re-emit it unchanged.
+const CHORD_REGEX = /(^|[^A-Za-z])([A-G][b#]?(?:maj|min|m|M|aug|dim|sus|add|dom)?[0-9]*(?:[#b][0-9]+)*(?:\([^)]*\))?(?:\/[A-G][b#]?)?)(?![A-Za-z])/g;
 
 function transposeContent(content, semitones, useFlat) {
   if (semitones === 0 && !useFlat) return content;
@@ -596,7 +600,7 @@ function transposeContent(content, semitones, useFlat) {
     if (trimmed.startsWith('[') && trimmed.endsWith(']')) return line;
     const lowercaseRatio = (line.match(/[a-z]/g) || []).length / Math.max(line.length, 1);
     if (lowercaseRatio > 0.4) return line;
-    return line.replace(CHORD_REGEX, (chord) => transposeChord(chord, semitones, useFlat));
+    return line.replace(CHORD_REGEX, (m, pre, chord) => pre + transposeChord(chord, semitones, useFlat));
   }).join('\n');
 }
 
@@ -615,7 +619,7 @@ function renderContent(content) {
     }
     const lowercaseRatio = (line.match(/[a-z]/g) || []).length / Math.max(line.length, 1);
     if (lowercaseRatio <= 0.4 && trimmed.length > 0) {
-      return line.replace(CHORD_REGEX, (chord) => `<span class="chord">${escHtml(chord)}</span>`);
+      return line.replace(CHORD_REGEX, (m, pre, chord) => `${escHtml(pre)}<span class="chord">${escHtml(chord)}</span>`);
     }
     return escHtml(line);
   }).join('\n');

@@ -1,9 +1,0 @@
-title: "",
-band: "",
-genre: "",
-level: "",
-key: "E",
-tuning: "Standard",
-capo: 0,
-
-[Intro]
