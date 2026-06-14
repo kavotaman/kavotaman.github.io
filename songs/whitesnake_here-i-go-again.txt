@@ -1,7 +1,6 @@
 title: "Here I Go Again",
 band: "Whitesnake",
-genre: "",
-level: "5-8",
+genre: "5-8",
 key: "G",
 tuning: "Standard",
 capo: 0,

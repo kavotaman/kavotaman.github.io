@@ -20,6 +20,19 @@
     --radius: 8px;
   }
 
+  :root.light {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface2: #ede9e3;
+    --border: #d0c9bf;
+    --accent: #9a6f2e;
+    --accent-dim: #b8893e;
+    --text: #000000;
+    --text-muted: #6b5f50;
+    --text-dim: #2a8a1e;
+    --chord: #9a6f2e;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -41,7 +54,7 @@
     gap: 1rem;
     position: sticky;
     top: 0;
-    background: rgba(15,15,15,0.95);
+    background: color-mix(in srgb, var(--bg) 95%, transparent);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     z-index: 100;
@@ -358,6 +371,20 @@
     #page-home { display: none !important; }
   }
 
+  .btn-theme {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.1s, color 0.1s;
+    margin-left: auto;
+  }
+  .btn-theme:hover { border-color: var(--accent-dim); color: var(--accent); }
+
   @media (max-width: 600px) {
     nav { padding: 0 1rem; }
     .home-header { padding: 2rem 1rem 1rem; }
@@ -373,6 +400,7 @@
 
 <nav>
   <a class="nav-logo" onclick="showPage('home')">chords<span>.omk</span></a>
+  <button class="btn-theme" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
 </nav>
 
 <div id="toast"></div>
@@ -593,15 +621,168 @@ function transposeChord(chord, semitones, useFlat) {
 // We capture the preceding character as a group instead and re-emit it unchanged.
 const CHORD_REGEX = /(^|[^A-Za-z])([A-G][b#]?(?:maj|min|m|M|aug|dim|sus|add|dom)?[0-9]*(?:[#b][0-9]+)*(?:\([^)]*\))?(?:\/[A-G][b#]?)?)(?![A-Za-z])/g;
 
-function transposeContent(content, semitones, useFlat) {
+// ─────────────────────────────────────────────
+// TAB TRANSPOSITION
+// ─────────────────────────────────────────────
+// Standard guitar tuning (low to high): E2 A2 D3 G3 B3 E4
+// We store open-string pitches as semitones from a common root (MIDI-ish).
+// E2=40, A2=45, D3=50, G3=55, B3=59, E4=64
+const STRING_OPEN = [40, 45, 50, 55, 59, 64]; // index 0=low E, 5=high e
+const MAX_FRET = 24;
+
+// Detect if a line is a tab line: must look like "E|--..." or "e|--..." or "A|--..."
+// Accepts optional leading whitespace and the string letter prefix.
+const TAB_LINE_RE = /^(\s*)([EeAaDdGgBb])\|(.*)$/;
+
+function isTabLine(line) {
+  return TAB_LINE_RE.test(line);
+}
+
+// Parse which string index (0=low E ... 5=high e) from the letter
+function stringLetterToIndex(letter) {
+  // The file uses E (low), A, D, G, B, e (high) — but also E for high (ambiguous).
+  // We handle this by the order in which they appear in a tab block.
+  // Called with the detected stringIndex from block context when possible.
+  const map = { 'E': 0, 'A': 1, 'D': 2, 'G': 3, 'B': 4, 'e': 5 };
+  return map[letter] !== undefined ? map[letter] : -1;
+}
+
+// Transpose a single fret number on a given string by `semitones`.
+// Rules:
+//   - Compute absolute pitch = STRING_OPEN[stringIdx] + fret
+//   - Shift pitch by semitones
+//   - Try to stay on the same string first; if fret goes below 0, move to adjacent lower string.
+//   - If already on lowest string and fret < 0, jump up an octave (add 12 semitones).
+//   - Returns { fret: number, stringIdx: number }
+function transposeFret(fret, stringIdx, semitones) {
+  let pitch = STRING_OPEN[stringIdx] + fret + semitones;
+  let si = stringIdx;
+
+  // Try to find a valid fret on the same string or lower strings
+  while (si >= 0) {
+    const f = pitch - STRING_OPEN[si];
+    if (f >= 0 && f <= MAX_FRET) return { fret: f, stringIdx: si };
+    si--;
+  }
+  // Can't go lower — wrap up an octave and use original string
+  pitch += 12;
+  const f = pitch - STRING_OPEN[stringIdx];
+  if (f >= 0 && f <= MAX_FRET) return { fret: f, stringIdx: stringIdx };
+  // Last resort: clamp
+  return { fret: Math.max(0, Math.min(MAX_FRET, pitch - STRING_OPEN[stringIdx])), stringIdx: stringIdx };
+}
+
+// Transpose all fret numbers in a tab body string, preserving spacing.
+// Tab body looks like: --5--3--0h2--7/9--|
+// Numbers can be 1 or 2 digits; we must preserve total character count to keep columns aligned.
+function transposeTabBody(body, stringIdx, semitones) {
+  if (semitones === 0) return body;
+  // We'll walk character-by-character to find digit runs.
+  let result = '';
+  let i = 0;
+  while (i < body.length) {
+    if (body[i] >= '0' && body[i] <= '9') {
+      // Read the full number
+      let j = i;
+      while (j < body.length && body[j] >= '0' && body[j] <= '9') j++;
+      const origStr = body.slice(i, j);
+      const origFret = parseInt(origStr, 10);
+      const { fret: newFret } = transposeFret(origFret, stringIdx, semitones);
+      const newStr = String(newFret);
+      // Preserve width: if new number is shorter, pad with dashes before (like tabs do)
+      // If longer, we must expand — unavoidable but rare.
+      if (newStr.length < origStr.length) {
+        result += '-'.repeat(origStr.length - newStr.length) + newStr;
+      } else {
+        result += newStr;
+      }
+      i = j;
+    } else {
+      result += body[i];
+      i++;
+    }
+  }
+  return result;
+}
+
+// Identify tab blocks in content (consecutive tab lines for all 6 strings)
+// and transpose them, mapping line letters to string indices by block order.
+function transposeTabsInContent(content, semitones) {
+  if (semitones === 0) return content;
+  const lines = content.split('\n');
+  const out = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    // Look for the start of a tab block: a run of lines matching TAB_LINE_RE
+    if (isTabLine(lines[i])) {
+      // Collect the block
+      const blockStart = i;
+      const block = [];
+      while (i < lines.length && isTabLine(lines[i])) {
+        const m = lines[i].match(TAB_LINE_RE);
+        block.push({ indent: m[1], letter: m[2], body: m[3], original: lines[i] });
+        i++;
+      }
+      // Map each line in the block to a string index by position.
+      // Standard tab is written high-to-low (e B G D A E) OR low-to-high.
+      // We detect direction by checking the first and last letter.
+      // Most guitar tab: first line = e (high), last = E (low) → high-to-low order.
+      // If first letter looks like 'E' and last like 'e', it's low-to-high.
+      // We assign string indices based on block order, normalizing to known patterns.
+      const n = block.length;
+      let stringIndices;
+      if (n === 6) {
+        // Detect order by letters
+        const first = block[0].letter;
+        const last  = block[n-1].letter;
+        if (first === 'e' || (first === 'E' && last === 'E')) {
+          // High-to-low: e(5), B(4), G(3), D(2), A(1), E(0)
+          stringIndices = [5,4,3,2,1,0];
+        } else {
+          // Low-to-high: E(0), A(1), D(2), G(3), B(4), e(5)
+          stringIndices = [0,1,2,3,4,5];
+        }
+      } else {
+        // Partial block — fall back to letter mapping
+        stringIndices = block.map(b => {
+          const idx = stringLetterToIndex(b.letter);
+          return idx === -1 ? 0 : idx;
+        });
+      }
+
+      for (let k = 0; k < block.length; k++) {
+        const { indent, letter, body } = block[k];
+        const si = stringIndices[k];
+        const newBody = transposeTabBody(body, si, semitones);
+        out.push(indent + letter + '|' + newBody);
+      }
+    } else {
+      out.push(lines[i]);
+      i++;
+    }
+  }
+  return out.join('\n');
+}
+
+function transposeContent(content, semitones, useFlat, doTabs = false) {
   if (semitones === 0 && !useFlat) return content;
-  return content.split('\n').map(line => {
+
+  // First transpose tabs if requested
+  let result = (doTabs && semitones !== 0) ? transposeTabsInContent(content, semitones) : content;
+
+  // Transpose/re-notate chords on non-tab, non-lyric lines
+  result = result.split('\n').map(line => {
     const trimmed = line.trim();
     if (trimmed.startsWith('[') && trimmed.endsWith(']')) return line;
+    if (isTabLine(line)) return line;
     const lowercaseRatio = (line.match(/[a-z]/g) || []).length / Math.max(line.length, 1);
     if (lowercaseRatio > 0.4) return line;
+    // Apply transpose and/or flat re-notation
     return line.replace(CHORD_REGEX, (m, pre, chord) => pre + transposeChord(chord, semitones, useFlat));
   }).join('\n');
+
+  return result;
 }
 
 // ─────────────────────────────────────────────
@@ -708,6 +889,7 @@ let currentSong = null;
 let transpose = 0;
 let useFlat = false;
 let fontSize = 15;
+let transposeTabs = true;
 
 function showSong(id, pushState = true) {
   currentSong = SONGS.find(s => s.id === id);
@@ -715,6 +897,7 @@ function showSong(id, pushState = true) {
   transpose = 0;
   useFlat = false;
   fontSize = 15;
+  transposeTabs = true;
   renderSong();
   showPage('song', false);
   if (pushState) {
@@ -726,7 +909,7 @@ function showSong(id, pushState = true) {
 function renderSong() {
   if (!currentSong) return;
   const s = currentSong;
-  const content = transposeContent(s.content, transpose, useFlat);
+  const content = transposeContent(s.content, transpose, useFlat, transposeTabs);
   const transLabel = transpose === 0 ? '0' : (transpose > 0 ? '+'+transpose : transpose);
 
   document.getElementById('song-content').innerHTML = `
@@ -754,6 +937,7 @@ function renderSong() {
       </div>
       <span class="sep">|</span>
       <button class="btn-flat ${useFlat ? 'active' : ''}" onclick="toggleFlat()">Toggle #/b</button>
+      <button class="btn-flat ${transposeTabs ? 'active' : ''}" onclick="toggleTransposeTabs()" title="Also transpose guitar tab numbers">Tabs</button>
       <div class="font-group">
         <span>Text</span>
         <button class="btn-icon" onclick="changeFontSize(-1)">−</button>
@@ -783,6 +967,11 @@ function changeTranspose(delta) {
 
 function toggleFlat() {
   useFlat = !useFlat;
+  renderSong();
+}
+
+function toggleTransposeTabs() {
+  transposeTabs = !transposeTabs;
   renderSong();
 }
 
@@ -864,9 +1053,25 @@ function handleHash() {
 window.addEventListener('popstate', handleHash);
 
 // ─────────────────────────────────────────────
+// THEME
+// ─────────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle('light');
+  document.getElementById('theme-toggle').textContent = isLight ? '🌑' : '🌙';
+  try { localStorage.setItem('theme', isLight ? 'light' : 'dark'); } catch(e) {}
+}
+
+// ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
 async function init() {
+  // Restore theme
+  try {
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.add('light');
+      document.getElementById('theme-toggle').textContent = '🌑';
+    }
+  } catch(e) {}
   await loadSongs();
   handleHash(); // respect URL on first load
 }
