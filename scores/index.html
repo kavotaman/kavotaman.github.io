@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Score Transposer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg:        #0f0f12;
+      --surface:   #1a1a20;
+      --surface2:  #24242c;
+      --border:    #2e2e38;
+      --text:      #f0ece3;
+      --text-dim:  #8a8698;
+      --accent:    #f5a623;
+      --accent-dim:#7a5010;
+      --danger:    #e05c5c;
+      --radius:    8px;
+      --sidebar-w: 280px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 24px;
+      height: 56px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    header h1 span { color: var(--accent); }
+    .header-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    /* ── BODY ── */
+    .body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-w);
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-section {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    /* File drop zone */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .drop-zone:hover, .drop-zone.dragging {
+      border-color: var(--accent);
+      background: rgba(245, 166, 35, 0.06);
+    }
+    .drop-zone input[type=file] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .drop-zone .icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .drop-zone p { color: var(--text-dim); line-height: 1.5; }
+    .drop-zone strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 13px; }
+    .drop-zone .formats {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 8px;
+    }
+
+    /* Controls */
+    .control-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .control-row:last-child { margin-bottom: 0; }
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+
+    /* Transpose stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .stepper button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 18px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      transition: background 0.15s;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .stepper button:hover { background: var(--border); }
+    .stepper .value {
+      flex: 1;
+      text-align: center;
+      font-family: 'Inter', monospace;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .semitone-hint {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* Toggle group */
+    .toggle-group {
+      display: flex;
+      gap: 0;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .toggle-group button {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 6px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .toggle-group button.active {
+      background: var(--accent);
+      color: #0f0f12;
+      font-weight: 600;
+    }
+    .toggle-group button:not(.active):hover { background: var(--border); color: var(--text); }
+
+    /* Range */
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .range-row { display: flex; justify-content: space-between; }
+    .range-row span { font-size: 11px; color: var(--text-dim); }
+
+    /* Btn */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      width: 100%;
+    }
+    .btn:hover { background: var(--surface2); border-color: var(--text-dim); }
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0f0f12;
+      font-weight: 600;
+    }
+    .btn.primary:hover { background: #e0951f; border-color: #e0951f; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Track list */
+    #track-list { display: flex; flex-direction: column; gap: 6px; }
+    .track-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .track-item.active { border-color: var(--accent); }
+    .track-color {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .track-name {
+      flex: 1;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-check {
+      font-size: 14px;
+      color: var(--accent);
+    }
+    #no-tracks { color: var(--text-dim); font-size: 12px; }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .toolbar .sep {
+      width: 1px; height: 20px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+    .icon-btn {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--text-dim);
+      font-size: 16px;
+      width: 36px; height: 36px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .icon-btn:hover { background: var(--surface2); color: var(--text); border-color: var(--border); }
+    .icon-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--accent-dim); }
+    .icon-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .toolbar-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    #score-info {
+      display: flex;
+      flex-direction: column;
+    }
+    #score-title { font-weight: 600; font-size: 13px; }
+    #score-artist { font-size: 11px; color: var(--text-dim); }
+
+    /* Score container */
+    .score-wrap {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #2a2a32;
+      position: relative;
+    }
+
+    /* alphaTab renders black ink on white — give it a white "page" */
+    #alphaTab-container {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* alphaTab overrides — white background so notation is readable */
+    .at-surface {
+      background: #ffffff !important;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+
+    /* Empty state */
+    #empty-state {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--text-dim);
+    }
+    #empty-state .big-icon { font-size: 64px; opacity: 0.3; }
+    #empty-state h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--text);
+      opacity: 0.5;
+    }
+    #empty-state p { font-size: 13px; opacity: 0.6; text-align: center; max-width: 300px; line-height: 1.6; }
+
+    /* Loading overlay */
+    #loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15,15,18,0.85);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 50;
+    }
+    #loading-overlay.show { display: flex; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-overlay p { color: var(--text-dim); font-size: 13px; }
+
+    /* Error bar */
+    #error-bar {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: rgba(224,92,92,0.15);
+      border-bottom: 1px solid rgba(224,92,92,0.3);
+      color: var(--danger);
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    #error-bar.show { display: flex; }
+    #error-bar button {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Cursor / player highlight overrides */
+    .at-cursor-bar { background: rgba(245,166,35,0.08) !important; }
+    .at-cursor-beat { background: rgba(245,166,35,0.5) !important; }
+    .at-selection div { background: rgba(245,166,35,0.2) !important; }
+    .at-highlight * { fill: var(--accent) !important; stroke: var(--accent) !important; }
+
+    /* Mobile */
+    @media (max-width: 680px) {
+      :root { --sidebar-w: 100%; }
+      .body { flex-direction: column; }
+      aside { width: 100%; max-height: 50dvh; border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Score<span>·</span>Transposer</h1>
+  <span class="header-badge">alphaTab</span>
+</header>
+
+<div class="body">
+
+  <!-- SIDEBAR -->
+  <aside>
+
+    <!-- Load file -->
+    <div class="sidebar-section">
+      <div class="section-label">Load Score</div>
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="file-input" accept=".gp,.gp3,.gp4,.gp5,.gpx,.xml,.musicxml,.cap,.tex" />
+        <span class="icon">🎸</span>
+        <strong>Drop a file here</strong>
+        <p>or click to browse</p>
+        <p class="formats">.gp .gp3 .gp4 .gp5 .gpx<br>.xml .musicxml .cap .tex</p>
+      </div>
+    </div>
+
+    <!-- Transpose -->
+    <div class="sidebar-section">
+      <div class="section-label">Transpose</div>
+      <div class="control-row">
+        <label>Semitones (all tracks)</label>
+        <div class="stepper">
+          <button id="semi-down" title="Down one semitone">−</button>
+          <span class="value" id="semi-display">0</span>
+          <button id="semi-up" title="Up one semitone">+</button>
+        </div>
+        <div class="semitone-hint" id="semi-hint">No transposition</div>
+      </div>
+      <div class="control-row">
+        <button class="btn" id="btn-reset-transpose">↺ Reset to original key</button>
+      </div>
+    </div>
+
+    <!-- Display -->
+    <div class="sidebar-section">
+      <div class="section-label">Display</div>
+      <div class="control-row">
+        <label>Notation mode</label>
+        <div class="toggle-group">
+          <button class="active" data-notation="GuitarPro" title="Standard notation + tablature">Both</button>
+          <button data-notation="SongBook" title="Standard notation only">Standard</button>
+          <button data-notation="TabOnly" title="Tablature only">Tab only</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <label>Zoom</label>
+        <input type="range" id="zoom-range" min="50" max="200" value="100" step="10" />
+        <div class="range-row">
+          <span>50%</span>
+          <span id="zoom-label">100%</span>
+          <span>200%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tracks -->
+    <div class="sidebar-section">
+      <div class="section-label">Tracks</div>
+      <div id="track-list">
+        <p id="no-tracks">Load a score to see tracks</p>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <div class="toolbar">
+      <div id="score-info">
+        <span id="score-title">No score loaded</span>
+        <span id="score-artist"></span>
+      </div>
+      <div class="sep"></div>
+      <span class="toolbar-label">Key:</span>
+      <span id="key-display" style="font-size:13px; color:var(--accent); font-weight:600;">—</span>
+      <div style="flex:1"></div>
+
+      <!-- Playback -->
+      <button class="icon-btn" id="btn-play" title="Play / Pause" disabled>▶</button>
+      <button class="icon-btn" id="btn-stop" title="Stop" disabled>■</button>
+      <div class="sep"></div>
+      <button class="icon-btn" id="btn-loop" title="Loop" disabled>⟳</button>
+      <div class="sep"></div>
+      <button class="icon-btn" id="btn-metronome" title="Metronome" disabled>♩</button>
+    </div>
+
+    <div id="error-bar">
+      <span>⚠</span>
+      <span id="error-text">An error occurred.</span>
+      <button onclick="document.getElementById('error-bar').classList.remove('show')">✕</button>
+    </div>
+
+    <div class="score-wrap" id="score-wrap">
+      <div id="empty-state">
+        <div class="big-icon">𝄞</div>
+        <h2>Open a score to begin</h2>
+        <p>Drop a Guitar Pro, MusicXML, or alphaTex file into the sidebar to render it here with notation and tabs.</p>
+      </div>
+      <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading score…</p>
+      </div>
+      <div id="alphaTab-container"></div>
+    </div>
+  </main>
+</div>
+
+<!-- alphaTab (ESM from jsDelivr) -->
+<script type="module">
+import * as alphaTab from 'https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/alphaTab.min.mjs';
+
+// ── STATE ──
+let api = null;
+let semitones = 0;
+let activeTracks = [];
+let isPlaying = false;
+let isLooping = false;
+let metronomeOn = false;
+let notationMode = 'GuitarPro';
+let playerReady = false;
+
+// ── ELEMENTS ──
+const container    = document.getElementById('alphaTab-container');
+const emptyState   = document.getElementById('empty-state');
+const loadingOv    = document.getElementById('loading-overlay');
+const errorBar     = document.getElementById('error-bar');
+const errorText    = document.getElementById('error-text');
+const semiDisplay  = document.getElementById('semi-display');
+const semiHint     = document.getElementById('semi-hint');
+const trackList    = document.getElementById('track-list');
+const noTracks     = document.getElementById('no-tracks');
+const scoreTitle   = document.getElementById('score-title');
+const scoreArtist  = document.getElementById('score-artist');
+const keyDisplay   = document.getElementById('key-display');
+const zoomRange    = document.getElementById('zoom-range');
+const zoomLabel    = document.getElementById('zoom-label');
+const btnPlay      = document.getElementById('btn-play');
+const btnStop      = document.getElementById('btn-stop');
+const btnLoop      = document.getElementById('btn-loop');
+const btnMetronome = document.getElementById('btn-metronome');
+
+// ── INIT alphaTab ──
+function initAlphaTab() {
+  if (api) { api.destroy(); }
+
+  const CDN = 'https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/';
+
+  api = new alphaTab.AlphaTabApi(container, {
+    core: {
+      scriptFile: CDN + 'alphaTab.min.js',
+      fontDirectory: CDN + 'font/',
+      // Workers are disabled: Firefox (and some Chrome configs) block
+      // worker instantiation from cross-origin CDN scripts.
+      // Main-thread rendering works in all browsers with no setup needed.
+      useWorkers: false,
+      logLevel: alphaTab.LogLevel.Warning,
+    },
+    display: {
+      layoutMode: alphaTab.LayoutMode.Page,
+      scale: parseFloat(zoomRange.value) / 100,
+      staveProfile: getStaveProfile(),
+    },
+    notation: {
+      notationMode: alphaTab.NotationMode.GuitarPro,
+    },
+    player: {
+      enablePlayer: true,
+      enableCursor: true,
+      enableUserInteraction: true,
+      soundFont: CDN + 'soundfont/sonivox.sf2',
+      scrollElement: document.getElementById('score-wrap'),
+      // 'browser' uses Web Audio API directly on the main thread.
+      // Required when useWorkers:false; also avoids Firefox worker audio issues.
+      outputMode: 'browser',
+    },
+  });
+
+  // Events
+  api.renderStarted.on(() => {
+    loadingOv.classList.add('show');
+  });
+  api.renderFinished.on(() => {
+    loadingOv.classList.remove('show');
+  });
+  api.scoreLoaded.on((score) => {
+    emptyState.style.display = 'none';
+    scoreTitle.textContent  = score.title  || 'Untitled';
+    scoreArtist.textContent = score.artist || '';
+    updateKeyDisplay(score);
+    buildTrackList(score);
+    enablePlayback(true);
+    playerReady = false;
+    btnPlay.title = 'Loading soundfont…';
+    applyTransposition();
+  });
+  api.error.on((err) => {
+    loadingOv.classList.remove('show');
+    showError(err.message || String(err));
+  });
+  api.playerStateChanged.on((args) => {
+    isPlaying = args.state === alphaTab.PlayerState.Playing;
+    btnPlay.textContent = isPlaying ? '⏸' : '▶';
+    btnPlay.title = isPlaying ? 'Pause' : 'Play';
+  });
+
+  // Firefox (and Safari) suspend AudioContext until a user gesture.
+  // soundFontLoaded fires once the SF2 is downloaded and decoded.
+  api.soundFontLoaded.on(() => {
+    playerReady = true;
+  });
+  api.soundFontLoadFailed.on(() => {
+    showError('SoundFont failed to load. Check your network connection.');
+  });
+}
+
+function getStaveProfile() {
+  switch (notationMode) {
+    case 'SongBook': return alphaTab.StaveProfile.Score;
+    case 'TabOnly':  return alphaTab.StaveProfile.Tab;
+    default:         return alphaTab.StaveProfile.Default;
+  }
+}
+
+// ── LOAD FILE ──
+function loadFile(file) {
+  if (!api) initAlphaTab();
+  emptyState.style.display = 'none';
+  loadingOv.classList.add('show');
+  errorBar.classList.remove('show');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const data = new Uint8Array(e.target.result);
+    api.load(data);
+  };
+  reader.onerror = () => showError('Failed to read file.');
+  reader.readAsArrayBuffer(file);
+}
+
+// ── DROP ZONE ──
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) loadFile(fileInput.files[0]);
+});
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragging'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('dragging');
+  const file = e.dataTransfer.files[0];
+  if (file) loadFile(file);
+});
+
+// ── TRANSPOSE ──
+const NOTES = ['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const NAMES = {
+  0:  'No transposition',
+  1:  'Up 1 semitone (min 2nd ↑)',
+  2:  'Up 1 whole step (maj 2nd ↑)',
+  3:  'Up 1.5 steps (min 3rd ↑)',
+  4:  'Up 2 whole steps (maj 3rd ↑)',
+  5:  'Up a perfect 4th ↑',
+  6:  'Up a tritone ↑',
+  7:  'Up a perfect 5th ↑',
+  8:  'Up a min 6th ↑',
+  9:  'Up a maj 6th ↑',
+  10: 'Up a min 7th ↑',
+  11: 'Up a maj 7th ↑',
+  12: 'Up one octave ↑',
+  '-1':  'Down 1 semitone (min 2nd ↓)',
+  '-2':  'Down 1 whole step (maj 2nd ↓)',
+  '-3':  'Down 1.5 steps (min 3rd ↓)',
+  '-4':  'Down 2 whole steps (maj 3rd ↓)',
+  '-5':  'Down a perfect 4th ↓',
+  '-6':  'Down a tritone ↓',
+  '-7':  'Down a perfect 5th ↓',
+  '-8':  'Down a min 6th ↓',
+  '-9':  'Down a maj 6th ↓',
+  '-10': 'Down a min 7th ↓',
+  '-11': 'Down a maj 7th ↓',
+  '-12': 'Down one octave ↓',
+};
+
+function updateSemitoneUI() {
+  const s = semitones;
+  semiDisplay.textContent = s > 0 ? `+${s}` : `${s}`;
+  semiDisplay.style.color = s === 0 ? 'var(--text-dim)' : 'var(--accent)';
+  semiHint.textContent = NAMES[String(s)] || NAMES[s] || `${Math.abs(s)} semitones ${s > 0 ? '↑' : '↓'}`;
+}
+
+function applyTransposition() {
+  if (!api || !api.score) return;
+  const trackCount = api.score.tracks.length;
+  const pitches = Array(trackCount).fill(semitones);
+  api.settings.notation.transpositionPitches = pitches;
+  api.updateSettings();
+  api.render();
+  updateKeyDisplay(api.score);
+}
+
+document.getElementById('semi-up').addEventListener('click', () => {
+  if (semitones >= 12) return;
+  semitones++;
+  updateSemitoneUI();
+  applyTransposition();
+});
+document.getElementById('semi-down').addEventListener('click', () => {
+  if (semitones <= -12) return;
+  semitones--;
+  updateSemitoneUI();
+  applyTransposition();
+});
+document.getElementById('btn-reset-transpose').addEventListener('click', () => {
+  semitones = 0;
+  updateSemitoneUI();
+  applyTransposition();
+});
+updateSemitoneUI();
+
+// ── KEY DISPLAY ──
+function updateKeyDisplay(score) {
+  if (!score || !score.masterBars || score.masterBars.length === 0) {
+    keyDisplay.textContent = '—';
+    return;
+  }
+  try {
+    const keySignature = score.masterBars[0].keySignature;
+    // keySignature is an int; negative = flats, positive = sharps
+    keyDisplay.textContent = keySignatureToString(keySignature, semitones);
+  } catch {
+    keyDisplay.textContent = '—';
+  }
+}
+
+function keySignatureToString(ks, transpose) {
+  // Circle of fifths: sharps C G D A E B F# C#, flats C F Bb Eb Ab Db Gb Cb
+  const majorKeys = ['C','G','D','A','E','B','F♯','C♯','A♭','E♭','B♭','F'];
+  // ks: 0=C, 1=G ... 7=C#, -1=F ... -7=Cb
+  const idx = ((ks % 12) + 12) % 12;
+  const rootNote = majorKeys[idx] || 'C';
+  if (transpose === 0) return rootNote;
+  // Transpose the note name display
+  const noteIndex = NOTES.findIndex(n => n.replace('♯','#') === rootNote.replace('♯','#')) ?? 0;
+  const newIndex = ((noteIndex + transpose) % 12 + 12) % 12;
+  return NOTES[newIndex] + ' (transposed)';
+}
+
+// ── NOTATION MODE ──
+document.querySelectorAll('.toggle-group button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.toggle-group button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    notationMode = btn.dataset.notation;
+    if (api) {
+      api.settings.display.staveProfile = getStaveProfile();
+      api.updateSettings();
+      api.render();
+    }
+  });
+});
+
+// ── ZOOM ──
+zoomRange.addEventListener('input', () => {
+  zoomLabel.textContent = zoomRange.value + '%';
+  if (api) {
+    api.settings.display.scale = parseFloat(zoomRange.value) / 100;
+    api.updateSettings();
+    api.render();
+  }
+});
+
+// ── TRACKS ──
+const TRACK_COLORS = ['#f5a623','#5bc8f5','#88e06e','#e07be0','#f57c7c','#7ca6f5','#f5d87c','#7cf5d8'];
+
+function buildTrackList(score) {
+  trackList.innerHTML = '';
+  activeTracks = score.tracks.map(t => t.index);
+  score.tracks.forEach((track, i) => {
+    const item = document.createElement('div');
+    item.className = 'track-item active';
+    item.dataset.index = i;
+    item.innerHTML = `
+      <div class="track-color" style="background:${TRACK_COLORS[i % TRACK_COLORS.length]}"></div>
+      <span class="track-name">${track.name || 'Track ' + (i+1)}</span>
+      <span class="track-check">✓</span>
+    `;
+    item.addEventListener('click', () => toggleTrack(i, item, score));
+    trackList.appendChild(item);
+  });
+}
+
+function toggleTrack(index, item, score) {
+  const pos = activeTracks.indexOf(index);
+  if (pos >= 0) {
+    if (activeTracks.length === 1) return; // keep at least one
+    activeTracks.splice(pos, 1);
+    item.classList.remove('active');
+    item.querySelector('.track-check').textContent = '';
+  } else {
+    activeTracks.push(index);
+    activeTracks.sort((a,b) => a-b);
+    item.classList.add('active');
+    item.querySelector('.track-check').textContent = '✓';
+  }
+  api.renderTracks(activeTracks.map(i => score.tracks[i]));
+}
+
+// ── PLAYBACK ──
+function enablePlayback(on) {
+  btnPlay.disabled = !on;
+  btnStop.disabled = !on;
+  btnLoop.disabled = !on;
+  btnMetronome.disabled = !on;
+}
+
+btnPlay.addEventListener('click', async () => {
+  if (!api) return;
+  // Resume the AudioContext on user gesture — required by Firefox & Safari.
+  // alphaTab exposes the context via api.player.output.context (browser output).
+  try {
+    const ctx = api.player?.output?.context;
+    if (ctx && ctx.state === 'suspended') {
+      await ctx.resume();
+    }
+  } catch (_) { /* not all output modes expose .context */ }
+  if (isPlaying) api.pause();
+  else api.play();
+});
+btnStop.addEventListener('click', () => {
+  if (!api) return;
+  api.stop();
+  btnPlay.textContent = '▶';
+  btnPlay.title = 'Play';
+});
+btnLoop.addEventListener('click', () => {
+  if (!api) return;
+  isLooping = !isLooping;
+  api.isLooping = isLooping;
+  btnLoop.classList.toggle('active', isLooping);
+});
+btnMetronome.addEventListener('click', () => {
+  if (!api) return;
+  metronomeOn = !metronomeOn;
+  api.metronomeVolume = metronomeOn ? 1 : 0;
+  btnMetronome.classList.toggle('active', metronomeOn);
+});
+
+// ── ERROR ──
+function showError(msg) {
+  errorText.textContent = msg;
+  errorBar.classList.add('show');
+}
+
+// Init without a file so the UI is ready
+initAlphaTab();
+</script>
+</body>
+</html>

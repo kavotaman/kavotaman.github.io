@@ -1,0 +1,105 @@
+title: "It's My Life",
+band: "Bon Jovi",
+genre: "5-8",
+tuning: "Standard",
+capo: 0,
+
+[Intro]
+Em    C  D  x2
+ 
+[Verse 1]
+Em                                       Em    C  D
+This ain't a song for the broken-hearted
+   Em                               Em    C  D
+No silent prayer for faith departed
+Em                      C
+I ain't gonna be just a face in the crowd
+G
+You're gonna hear my voice
+D
+When I shout it out loud
+ 
+[Chorus]
+        Em         C
+It's my life, It's now or never
+G             D
+I ain't gonna live forever
+Em           C               D
+I just wanna live while I'm alive
+         Em                        C            G
+(It's my life) My heart is like an open highway
+                     D             Em
+Like Frankie said, I did it my way
+             C               D
+I just wanna live while I'm alive
+        Em
+It's my life
+ 
+Em    C  D  x2
+ 
+[Verse 2]
+Em                                          Em    C  D
+This is for the ones who stood their ground
+    Em                                   Em    C  D
+For Tommy and Gina who never backed down
+  Em                            C
+Tomorrow's getting harder, make no mistake
+G
+Luck ain't even lucky
+D
+Got to make your own breaks
+ 
+[Chorus]
+        Em         C
+It's my life, It's now or never
+G             D
+I ain't gonna live forever
+Em           C               D
+I just wanna live while I'm alive
+         Em                        C            G
+(It's my life) My heart is like an open highway
+                     D             Em
+Like Frankie said, I did it my way
+             C               D
+I just wanna live while I'm alive
+               C
+'Cause it's my life
+ 
+[Solo]
+(C)   D    C    A
+ 
+[Bridge]
+Em
+Better stand tall when they're calling you out
+ 
+Don't bend, don't break, baby, don't back down
+ 
+[Chorus]
+Em Em N.C.
+        Em         C
+It's my life, It's now or never
+G             D
+I ain't gonna live forever
+Em           C               D
+I just wanna live while I'm alive
+         Em                        C            G
+(It's my life) My heart is like an open highway
+                     D             Em
+Like Frankie said, I did it my way
+             C               D
+I just wanna live while I'm alive
+        Em         C
+It's my life, It's now or never
+G             D
+I ain't gonna live forever
+Em           C               D
+I just wanna live while I'm alive
+         Em                        C            G
+(It's my life) My heart is like an open highway
+                     D             Em
+Like Frankie said, I did it my way
+             C               D
+I just wanna live while I'm alive
+        Em
+It's my life
+
