@@ -1,0 +1,90 @@
+title: "Girl on Fire",
+band: "Alicia Keys",
+genre: "5-8",
+key: "E",
+tuning: "Standard",
+capo: 0,
+
+[Verse]
+C                                 Am
+  She's just a girl, and she's on fire
+F                       G
+  Hotter than a fantasy, lonely like a highway
+C                                      Am
+  She's living in a world, and it's on fire
+F               C         F                      G
+  Filled with catastrophe, but she knows she can fly away
+ 
+[Pre-Chorus]
+C          Am                              Em
+Ooh, oh-oh-ooh, she got both feet on the ground
+                      G
+And she's burning it down
+           C          Am                             Em
+Oh-oh-ooh, ooh, oh-oh-ooh, she got her head in the clouds
+                       G
+And she's not backing down
+ 
+[Chorus]
+                 C   Am                 Em
+This girl is on fire    This girl is on fire
+G                   C   Am                 Em   G
+  She's walking on fire    This girl is on fire
+
+[Verse]
+C                                Am
+  Looks like a girl, but she's a flame
+F
+  So bright, she can burn your eyes
+G
+  Better look the other way
+C                                         Am
+  You can try but you'll never forget her name
+F          C
+  She's on top of the world
+F                G
+  Hottest of the hottest girls say
+
+[Pre-Chorus]
+C          Am                            Em
+Ooh, oh-oh-ooh, we got our feet on the ground
+                      G
+And we're burning it down
+           C          Am                         Em
+Oh-oh-ooh, ooh, oh-oh-ooh, got our head in the clouds
+                      G
+And we're not coming down
+ 
+[Chorus]
+                 C   Am                 Em
+This girl is on fire    This girl is on fire
+G                   C   Am                 Em   G
+  She's walking on fire    This girl is on fire
+ 
+[Bridge]
+F                               G
+  Everybody stands, as she goes by
+                                            F
+Cause they can see the flame that's in her eyes
+                                       G
+Watch her when she's lighting up the night
+        C                  Am
+Nobody knows that she's a lonely girl
+            Em
+And it's a lonely world
+                    F           C         F
+But she gon' let it burn, baby, burn, baby
+ 
+[Chorus]
+     G           C    Am                 Em
+This girl is on fire     This girl is on fire
+G                   C   Am                  Em  G
+  She's walking on fire    This girl is on fire
+
+[Outro]
+C      Am      F        G
+C      Am      Em       G
+C      Am      F        G
+C      Am      Em       G
+C                                 Am
+  She's just a girl, and she's on fire
