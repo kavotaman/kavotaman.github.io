@@ -14,9 +14,9 @@ This ain't a song for the broken-hearted
 No silent prayer for faith departed
 Em                      C
 I ain't gonna be just a face in the crowd
-G
+            G
 You're gonna hear my voice
-D
+        D
 When I shout it out loud
  
 [Chorus]
@@ -46,7 +46,7 @@ For Tommy and Gina who never backed down
 Tomorrow's getting harder, make no mistake
 G
 Luck ain't even lucky
-D
+       D
 Got to make your own breaks
  
 [Chorus]
@@ -62,20 +62,15 @@ I just wanna live while I'm alive
 Like Frankie said, I did it my way
              C               D
 I just wanna live while I'm alive
-       %       C
+       %       Em
 'Cause it's my life
  
 [Solo]
-(C)   D    C    A
+(Em)   C    G    D      x2
+
+Em     [Break]
  
-[Bridge]
-Em
-Better stand tall when they're calling you out
- 
-Don't bend, don't break, baby, don't back down
- 
-[Chorus]
-Em Em N.C.
+[Chorus]        
         Em         C
 It's my life, It's now or never
 G             D
