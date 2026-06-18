@@ -8,7 +8,7 @@ capo: 0,
 Em   ( C  B ) x2
  
 [Verse 1]
-Em                                       Em   ( C  B )
+[ Em ]                                    Em   ( C  B )
 This ain't a song for the broken-hearted
    Em                               Em   ( C  B )
 No silent prayer for faith departed
@@ -16,7 +16,7 @@ Em                      C
 I ain't gonna be just a face in the crowd
             G
 You're gonna hear my voice
-        D
+        D                [ D D ]
 When I shout it out loud
  
 [Chorus]
@@ -38,7 +38,7 @@ It's my life
 Em   ( C  B ) x2
  
 [Verse 2]
-Em                                          Em   ( C  B )
+[ Em ]                                       Em   ( C  B )
 This is for the ones who stood their ground
     Em                                   Em   ( C  B )
 For Tommy and Gina who never backed down
@@ -46,29 +46,8 @@ For Tommy and Gina who never backed down
 Tomorrow's getting harder, make no mistake
 G
 Luck ain't even lucky
-       D
+       D                    [ D D ]
 Got to make your own breaks
- 
-[Chorus]
-        Em         C
-It's my life, It's now or never
-G             D
-I ain't gonna live forever
-Em           C               D     %
-I just wanna live while I'm alive
-         Em                        C            G
-(It's my life) My heart is like an open highway
-                     D             Em
-Like Frankie said, I did it my way
-             C               D
-I just wanna live while I'm alive
-       %       Em
-'Cause it's my life
- 
-[Solo]
-(Em)   C    G    D      x2
-
-Em     [Break]
  
 [Chorus]        
         Em         C

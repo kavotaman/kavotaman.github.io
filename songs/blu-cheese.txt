@@ -1,0 +1,72 @@
+title: "Blu Cheese - Theme Song",
+band: "Blu Cheese",
+genre: "5-8",
+tuning: "Standard",
+capo: 0,
+
+[Intro]
+Em   C   G   D (D#)  Blu Cheese!
+Em   C   G   A (B)   Blu Cheese!
+
+[Verse 1]
+    Em         
+We came from a fridge in France (oui oui)
+          C
+Now we're coming out to dance
+   G                  A 
+We don't ask how, we figure things out
+    B
+And then we shout Blu Cheese!
+
+Em   C   G   A (B)   Blu Cheese!
+
+[Verse 2]
+   Em                      G
+We live as blu cheese, we die as blu cheese
+     Eb                      D
+It's our time to go, so just save us a piece
+Em                   G
+Save one more piece, send us to Greece
+   Eb                       A         B
+We travel the world, and we end up in one piece
+
+C   D   
+
+[Pre-Chorus]
+Em                          %
+Right now we're dancing, so dance with us too
+A                                 B
+Don't stop the movement, the cheese will stay blu
+
+[Chorus]
+      Em    D             C       B
+Blu Cheese Hmmmmmmm Blu Cheese Hmmmmmm    
+      Em    D             C       B
+Blu Cheese Hmmmmmmm Blu Cheese Hmmmmmm    
+
+[Solo]
+C    | G    | D    | A    |
+C    | G    | F#   | G G# |
+
+[Bridge]
+     A                    A#         
+Blu Cheese Blu Cheese Blu Cheese Blu Cheese
+     B                    C                    
+Blu Cheese Blu Cheese Blu Cheese Blu Cheese
+     C#                 D
+Blu Cheese Blu Cheese Blu Cheese Blu Cheese
+   [ D# ]                         
+When I say Blu Cheese, you say Hmmmmmmm
+
+
+[Chorus]
+     Em    D             C     B
+Blu Cheese Hmmmmmmm Blu Cheese Hmmmmmm    
+     Em    D             C     B
+Blu Cheese Hmmmmmmm Blu Cheese Hmmmmmm    
+     Em    D             C     B
+Blu Cheese Hmmmmmmm Blu Cheese Hmmmmmm    
+     Em    D             C     B
+Blu Cheese Hmmmmmmm Blu Cheese Hmmmmmm   
+     Em
+Blu Cheese!!!

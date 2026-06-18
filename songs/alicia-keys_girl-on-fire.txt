@@ -5,14 +5,14 @@ key: "E",
 tuning: "Standard",
 capo: 0,
 
-[Verse]
+[Verse 1]
 C                                 Am
   She's just a girl, and she's on fire
 F                       G
   Hotter than a fantasy, lonely like a highway
 C                                      Am
   She's living in a world, and it's on fire
-F               C         F                      G
+F                         G
   Filled with catastrophe, but she knows she can fly away
  
 [Pre-Chorus]
@@ -26,12 +26,12 @@ Oh-oh-ooh, ooh, oh-oh-ooh, she got her head in the clouds
 And she's not backing down
  
 [Chorus]
-                 C   Am                 Em
+                 C   Am                     Em
 This girl is on fire    This girl is on fire
 G                   C   Am                 Em   G
   She's walking on fire    This girl is on fire
 
-[Verse]
+[Verse 2]
 C                                Am
   Looks like a girl, but she's a flame
 F
@@ -40,9 +40,9 @@ G
   Better look the other way
 C                                         Am
   You can try but you'll never forget her name
-F          C
+F          
   She's on top of the world
-F                G
+G   
   Hottest of the hottest girls say
 
 [Pre-Chorus]
@@ -68,23 +68,17 @@ F                               G
 Cause they can see the flame that's in her eyes
                                        G
 Watch her when she's lighting up the night
-        C                  Am
+                          Am
 Nobody knows that she's a lonely girl
             Em
 And it's a lonely world
-                    F           C         F
+                    F           
 But she gon' let it burn, baby, burn, baby
  
 [Chorus]
-     G           C    Am                 Em
+                 C    Am                 Em
 This girl is on fire     This girl is on fire
 G                   C   Am                  Em  G
   She's walking on fire    This girl is on fire
 
-[Outro]
-C      Am      F        G
-C      Am      Em       G
-C      Am      F        G
-C      Am      Em       G
-C                                 Am
-  She's just a girl, and she's on fire
+C     
