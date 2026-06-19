@@ -21,10 +21,10 @@ Keep my sunglasses on while I shed a tear.
 It's never the right time, yeah, yeah.
  
 [Pre-Chorus]
-F        G              Em              F
-I put my armor on, show you how strong I am,
-F        G              Em            [ Em ]    
-I put my armor on, I'll show you that I am...
+F          G              Em               F
+  I put my armor on, show you how strong I am,
+F          G              Em            [ Em ]    
+  I put my armor on, I'll show you that I am...
  
 [Chorus]
 Am                F                      C
@@ -41,20 +41,20 @@ Unstoppable today, unstoppable today,
 Unstoppable today, I'm unstoppable today.
  
 [Verse 2]
-Am                        F
- Break down, only alone I will cry on out,
-                         C                           Em
+(Am)                              F
+   Break down, only alone I will cry on out,
+                         C                             Em
 You'll never see what's hiding out, hiding out deep down, yeah, yeah.
-Am                                  F
-I know, I've heard that to let your feelings show,
-                          C                                  Em
+Am                                      F
+   I know, I've heard that to let your feelings show,
+                         C                                    Em
 Is the only way to make friendships grow but I'm too afraid now, yeah, yeah.
 
 [Pre-Chorus]
-F        G              Em              F
-I put my armor on, show you how strong I am,
-F        G              Em            [ Em ]    
-I put my armor on, I'll show you that I am...
+F           G             Em               F
+  I put my armor on, show you how strong I am,
+F          G              Em            [ Em ]    
+  I put my armor on, I'll show you that I am...
  
 [Chorus]
 Am                F                      C
@@ -71,14 +71,14 @@ Unstoppable today, unstoppable today,
 Unstoppable today, I'm unstoppable today.
                  F                  C
 Unstoppable today, unstoppable today,
-                 Em                     Am
+                 Em                     F
 Unstoppable today, I'm unstoppable today.
 
 [Pre-Chorus]
-F        G              Em              F
-I put my armor on, show you how strong I am,
-F        G              Em            [ Em ]    
-I put my armor on, I'll show you that I am...
+(F)        G              Em               F
+  I put my armor on, show you how strong I am,
+F          G              Em            [ Em ]    
+  I put my armor on, I'll show you that I am...
  
 [Chorus]
 Am                F                      C
@@ -97,4 +97,3 @@ Unstoppable today, I'm unstoppable today.
 Unstoppable today, unstoppable today,
                  Em                     Am
 Unstoppable today, I'm unstoppable today.
-

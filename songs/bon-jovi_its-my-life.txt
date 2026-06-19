@@ -5,12 +5,12 @@ tuning: "Standard",
 capo: 0,
 
 [Intro]
-Em   ( C  B ) x2
+Em      x2
  
 [Verse 1]
-[ Em ]                                    Em   ( C  B )
+[ Em ]                                   Em   
 This ain't a song for the broken-hearted
-   Em                               Em   ( C  B )
+   Em                               Em  
 No silent prayer for faith departed
 Em                      C
 I ain't gonna be just a face in the crowd
@@ -26,21 +26,21 @@ G             D
 I ain't gonna live forever
 Em           C               D     %
 I just wanna live while I'm alive
-         Em                        C            G
+         Em                        C          
 (It's my life) My heart is like an open highway
-                     D             Em
-Like Frankie said, I did it my way
-             C               D
-I just wanna live while I'm alive
+G                       D            
+   Like Frankie said, I did it my way
+Em              C               D
+   I just wanna live while I'm alive
 %       Em
 It's my life
  
-Em   ( C  B ) x2
+(Em)    x2
  
 [Verse 2]
-[ Em ]                                       Em   ( C  B )
+[ Em ]                                     Em 
 This is for the ones who stood their ground
-    Em                                   Em   ( C  B )
+    Em                                   Em  
 For Tommy and Gina who never backed down
   Em                            C
 Tomorrow's getting harder, make no mistake
@@ -56,24 +56,23 @@ G             D
 I ain't gonna live forever
 Em           C               D     %
 I just wanna live while I'm alive
-         Em                        C            G
+         Em                        C          
 (It's my life) My heart is like an open highway
-                     D             Em
-Like Frankie said, I did it my way
-             C               D     %
-I just wanna live while I'm alive
+G                       D             
+   Like Frankie said, I did it my way
+Em              C               D     %
+   I just wanna live while I'm alive
         Em         C
 It's my life, It's now or never
 G             D
 I ain't gonna live forever
 Em           C               D     %
 I just wanna live while I'm alive
-         Em                        C            G
+         Em                        C          
 (It's my life) My heart is like an open highway
-                     D             Em
-Like Frankie said, I did it my way
-             C               D
-I just wanna live while I'm alive
+G                       D            
+   Like Frankie said, I did it my way
+Em              C               D
+   I just wanna live while I'm alive
 %       Em
 It's my life
-
