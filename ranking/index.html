@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rank Board — Name Ranking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #1C2128;
+    --ink-soft: #262C35;
+    --paper: #F6F1E7;
+    --paper-hover: #FFFBF2;
+    --line: #DCD3BD;
+    --ink-text: #20242B;
+    --mist: #9099A8;
+    --mist-bright: #C7CCD6;
+    --accent: #3E6259;
+    --accent-bright: #4E7B6E;
+    --danger: #A23B3B;
+    --gold: #C9A227;
+    --gold-text: #2B2208;
+    --silver: #9FA6B2;
+    --silver-text: #262A30;
+    --bronze: #B5651D;
+    --bronze-text: #FCF5E8;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background: #794242;
+    color: var(--paper);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  body{
+    min-height: 100vh;
+    padding: 32px 16px 80px;
+  }
+
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .sr-only{
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    margin-bottom: 22px;
+  }
+
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin: 0 0 6px;
+  }
+
+  .title-row{
+    display:flex;
+    align-items: flex-end;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .title-input{
+    flex: 1 1 280px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed var(--line);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    padding: 4px 2px 8px;
+    min-width: 0;
+  }
+  .title-input::placeholder{ color: var(--mist); font-weight: 600; opacity: 0.8; }
+  .title-input:focus{ outline: none; border-bottom-color: var(--accent-bright); }
+
+  .actions{
+    display:flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  button{
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  .btn{
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--accent);
+    color: #fff;
+    transition: background-color 120ms ease, transform 80ms ease;
+  }
+  .btn:hover{ background: var(--accent-bright); }
+  .btn:active{ transform: translateY(1px); }
+
+  .btn.secondary{
+    background: transparent;
+    border-color: var(--line);
+    color: var(--mist-bright);
+  }
+  .btn.secondary:hover{ border-color: var(--danger); color: #E8B6B6; }
+
+  .meta-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 14px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .counter{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--mist-bright);
+  }
+
+  .hint{
+    font-size: 13px;
+    color: var(--mist);
+  }
+
+  /* ---------- Board ---------- */
+  .board{
+    background: var(--paper);
+    border-radius: 14px;
+    box-shadow: 0 18px 40px -12px rgba(0,0,0,0.45);
+    overflow: hidden;
+  }
+
+  .row{
+    display:flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+    transition: background-color 120ms ease;
+  }
+  .row:last-child{ border-bottom: none; }
+  .row:hover{ background: var(--paper-hover); }
+  .row.dragging{
+    opacity: 0.55;
+    background: var(--paper-hover);
+  }
+
+  .handle{
+    flex: 0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width: 28px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    color: #B7AD93;
+    border-radius: 6px;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .handle:hover{ color: var(--ink-text); background: rgba(0,0,0,0.05); }
+  .handle:active{ cursor: grabbing; }
+  .handle:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .tile{
+    flex: 0 0 auto;
+    width: 44px;
+    height: 36px;
+    border-radius: 7px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family: 'Big Shoulders Stencil', 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.25);
+  }
+  .row.gold .tile{ background: var(--gold); color: var(--gold-text); }
+  .row.silver .tile{ background: var(--silver); color: var(--silver-text); }
+  .row.bronze .tile{ background: var(--bronze); color: var(--bronze-text); }
+
+  .name-input{
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-text);
+    padding: 8px 6px;
+    border-radius: 6px;
+  }
+  .name-input::placeholder{ color: #B7AD93; font-weight: 400; }
+  .name-input:focus{
+    outline: none;
+    background: #fff;
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .name-input:focus-visible{
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translate(-50%, 12px);
+    background: var(--ink-soft);
+    color: var(--paper);
+    border: 1px solid var(--line);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease;
+    box-shadow: 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  .toast.show{
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  @media (max-width: 480px){
+    .title-input{ font-size: 22px; }
+    .tile{ width: 38px; font-size: 17px; }
+    .name-input{ font-size: 14px; }
+    body{ padding: 22px 10px 70px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1 class="sr-only">Rank Board — drag-and-drop name ranking</h1>
+  <p class="sr-only" id="dnd-instructions">Each row has a drag handle. Click and drag it to reorder, or focus the handle and press the up or down arrow keys to move that row.</p>
+
+  <header>
+    <p class="eyebrow">Rank Board</p>
+    <div class="title-row">
+      <input id="titleInput" class="title-input" type="text" placeholder="Name this ranking…" aria-label="Ranking title" maxlength="80">
+      <div class="actions">
+        <button class="btn" id="copyBtn" type="button">Copy share link</button>
+        <button class="btn secondary" id="resetBtn" type="button">Reset</button>
+      </div>
+    </div>
+    <div class="meta-row">
+      <span class="counter" id="counter">0 / 60 named</span>
+      <span class="hint">Drag the grip to reorder · changes save to the link automatically</span>
+    </div>
+  </header>
+
+  <div class="board" id="board" role="list" aria-describedby="dnd-instructions"></div>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var TOTAL = 60;
+  var board = document.getElementById('board');
+  var titleInput = document.getElementById('titleInput');
+  var counterEl = document.getElementById('counter');
+  var toastEl = document.getElementById('toast');
+  var copyBtn = document.getElementById('copyBtn');
+  var resetBtn = document.getElementById('resetBtn');
+  var toastTimer = null;
+
+  var GRIP_SVG = '<svg width="12" height="20" viewBox="0 0 12 20" fill="currentColor" aria-hidden="true">' +
+    '<circle cx="3" cy="3" r="1.7"/><circle cx="9" cy="3" r="1.7"/>' +
+    '<circle cx="3" cy="10" r="1.7"/><circle cx="9" cy="10" r="1.7"/>' +
+    '<circle cx="3" cy="17" r="1.7"/><circle cx="9" cy="17" r="1.7"/>' +
+  '</svg>';
+
+  // ---------- Encoding helpers (UTF-8 safe base64url) ----------
+  function encodeState(state){
+    var json = JSON.stringify(state);
+    var utf8 = encodeURIComponent(json).replace(/%([0-9A-F]{2})/g, function(_, p1){
+      return String.fromCharCode(parseInt(p1, 16));
+    });
+    var b64 = btoa(utf8);
+    return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+
+  function decodeState(b64){
+    var str = b64.replace(/-/g, '+').replace(/_/g, '/');
+    while (str.length % 4) str += '=';
+    var utf8 = atob(str);
+    var json = decodeURIComponent(
+      Array.prototype.map.call(utf8, function(c){
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join('')
+    );
+    return JSON.parse(json);
+  }
+
+  function defaultState(){
+    return { t: '', n: new Array(TOTAL).fill('') };
+  }
+
+  function loadState(){
+    var hash = location.hash.slice(1);
+    if (!hash) return defaultState();
+    try {
+      var s = decodeState(hash);
+      if (!s || !Array.isArray(s.n)) return defaultState();
+      var n = s.n.slice(0, TOTAL).map(function(v){ return typeof v === 'string' ? v : ''; });
+      while (n.length < TOTAL) n.push('');
+      return { t: typeof s.t === 'string' ? s.t : '', n: n };
+    } catch (e){
+      return defaultState();
+    }
+  }
+
+  // ---------- Debounce ----------
+  function debounce(fn, wait){
+    var t;
+    return function(){
+      var args = arguments;
+      clearTimeout(t);
+      t = setTimeout(function(){ fn.apply(null, args); }, wait);
+    };
+  }
+
+  // ---------- Render ----------
+  function render(state){
+    titleInput.value = state.t || '';
+    board.innerHTML = '';
+    for (var i = 0; i < TOTAL; i++){
+      createRow(i + 1, state.n[i] || '');
+    }
+    renumber();
+    updateCounter();
+  }
+
+  function createRow(pos, value){
+    var row = document.createElement('div');
+    row.className = 'row';
+    row.setAttribute('role', 'listitem');
+
+    var handle = document.createElement('button');
+    handle.type = 'button';
+    handle.className = 'handle';
+    handle.setAttribute('aria-label', 'Drag handle for row ' + pos);
+    handle.innerHTML = GRIP_SVG;
+
+    var tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.textContent = String(pos);
+
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'name-input';
+    input.placeholder = 'Entry ' + pos;
+    input.value = value;
+    input.maxLength = 80;
+    input.setAttribute('aria-label', 'Name for this row');
+
+    row.appendChild(handle);
+    row.appendChild(tile);
+    row.appendChild(input);
+    board.appendChild(row);
+
+    input.addEventListener('input', saveStateDebounced);
+    attachDrag(handle, row);
+  }
+
+  function renumber(){
+    var rows = board.querySelectorAll('.row');
+    rows.forEach(function(row, i){
+      var pos = i + 1;
+      row.querySelector('.tile').textContent = String(pos);
+      row.querySelector('.handle').setAttribute('aria-label', 'Drag handle for row ' + pos);
+      row.classList.remove('gold', 'silver', 'bronze');
+      if (pos === 1) row.classList.add('gold');
+      else if (pos === 2) row.classList.add('silver');
+      else if (pos === 3) row.classList.add('bronze');
+    });
+  }
+
+  function updateCounter(){
+    var inputs = board.querySelectorAll('.name-input');
+    var count = 0;
+    inputs.forEach(function(inp){ if (inp.value.trim().length > 0) count++; });
+    counterEl.textContent = count + ' / ' + TOTAL + ' named';
+  }
+
+  function saveState(){
+    var inputs = board.querySelectorAll('.name-input');
+    var names = [];
+    inputs.forEach(function(inp){ names.push(inp.value); });
+    var state = { t: titleInput.value, n: names };
+    var encoded = encodeState(state);
+    history.replaceState(null, '', '#' + encoded);
+    updateCounter();
+  }
+  var saveStateDebounced = debounce(saveState, 400);
+
+  // ---------- Drag & drop (pointer events, mouse + touch) ----------
+  function getRowAfter(y, excludeRow){
+    var rows = Array.prototype.filter.call(
+      board.querySelectorAll('.row'),
+      function(r){ return r !== excludeRow; }
+    );
+    var closest = { offset: -Infinity, element: null };
+    rows.forEach(function(r){
+      var box = r.getBoundingClientRect();
+      var offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset){
+        closest = { offset: offset, element: r };
+      }
+    });
+    return closest.element;
+  }
+
+  function attachDrag(handle, row){
+    var dragging = false;
+    var pointerId = null;
+    var lastClientY = 0;
+    var scrollRAF = null;
+
+    function onMove(e){
+      if (!dragging) return;
+      lastClientY = e.clientY;
+      var after = getRowAfter(e.clientY, row);
+      if (after === null){
+        if (board.lastElementChild !== row) board.appendChild(row);
+      } else if (after !== row.nextElementSibling && after !== row){
+        board.insertBefore(row, after);
+      }
+      renumber();
+    }
+
+    function autoScrollStep(){
+      if (!dragging){ scrollRAF = null; return; }
+      var margin = 70;
+      if (lastClientY < margin){
+        window.scrollBy(0, -12);
+      } else if (lastClientY > window.innerHeight - margin){
+        window.scrollBy(0, 12);
+      }
+      scrollRAF = requestAnimationFrame(autoScrollStep);
+    }
+
+    function onUp(e){
+      if (!dragging) return;
+      dragging = false;
+      row.classList.remove('dragging');
+      try { handle.releasePointerCapture(pointerId); } catch(err){}
+      handle.removeEventListener('pointermove', onMove);
+      handle.removeEventListener('pointerup', onUp);
+      handle.removeEventListener('pointercancel', onUp);
+      if (scrollRAF){ cancelAnimationFrame(scrollRAF); scrollRAF = null; }
+      saveState();
+    }
+
+    handle.addEventListener('pointerdown', function(e){
+      e.preventDefault();
+      dragging = true;
+      pointerId = e.pointerId;
+      lastClientY = e.clientY;
+      try { handle.setPointerCapture(pointerId); } catch(err){}
+      row.classList.add('dragging');
+      handle.addEventListener('pointermove', onMove);
+      handle.addEventListener('pointerup', onUp);
+      handle.addEventListener('pointercancel', onUp);
+      scrollRAF = requestAnimationFrame(autoScrollStep);
+    });
+
+    handle.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowUp'){
+        e.preventDefault();
+        var prev = row.previousElementSibling;
+        if (prev){
+          board.insertBefore(row, prev);
+          renumber();
+          saveState();
+          handle.focus();
+        }
+      } else if (e.key === 'ArrowDown'){
+        e.preventDefault();
+        var next = row.nextElementSibling;
+        if (next){
+          board.insertBefore(next, row);
+          renumber();
+          saveState();
+          handle.focus();
+        }
+      }
+    });
+  }
+
+  // ---------- Toast ----------
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2000);
+  }
+
+  // ---------- Buttons ----------
+  copyBtn.addEventListener('click', function(){
+    var url = window.location.href;
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){
+        showToast('Link copied to clipboard');
+      }).catch(function(){ fallbackCopy(url); });
+    } else {
+      fallbackCopy(url);
+    }
+  });
+
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('Link copied to clipboard'); }
+    catch(e){ showToast('Could not copy — select the URL manually'); }
+    document.body.removeChild(ta);
+  }
+
+  resetBtn.addEventListener('click', function(){
+    var ok = confirm('Clear the title and all 60 names? This can\'t be undone.');
+    if (!ok) return;
+    history.replaceState(null, '', location.pathname + location.search);
+    render(defaultState());
+  });
+
+  titleInput.addEventListener('input', saveStateDebounced);
+
+  // ---------- Init ----------
+  render(loadState());
+
+  window.addEventListener('hashchange', function(){
+    render(loadState());
+  });
+})();
+</script>
+</body>
+</html>

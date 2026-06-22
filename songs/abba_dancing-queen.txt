@@ -1,0 +1,61 @@
+title: "Dancing Queen",
+band: "ABBA",
+genre: "5-8",
+level: "",
+key: "E",
+tuning: "Standard",
+capo: 0,
+
+[Intro/Chorus]   
+G       C/G       G        C/G   
+G       C         G        %   
+
+D              B   
+You can dance, you can jive   
+Em7                    A7     
+having the time of your life.   
+    C              C/A   
+Oh, see that girl, watch that scene,   
+            G           C/G     G    C/G
+Diggin' the dancing queen.
+
+[Verse]
+G                                       C/G   
+Friday night and the lights are low.   
+G                                Em7    
+Looking out for a place to go.   
+D                         %   
+Where they play the right music   
+D              %   
+Getting in the swing.   
+                D         Em7    D  Em   
+You've  come to look for a king. 
+
+G                        C/G   
+Anybody could be that guy.   
+G                              Em7   
+Night is young and the music's high.   
+D                     
+With a bit of rock music   
+D                
+Everything is fine,   
+              Em   
+You're in the mood for a dance.   
+                     Am7     D   
+And when you get the chance...   
+
+[Chorus]
+            G              C/G                    G             C/G   
+You are the dancing queen, young and sweet, only seventeen.   
+G              C                      G   
+Dancing queen, feel the beat from the tam - bourine.   
+   
+Oh    yeah.   
+D              B   
+You can dance, you can jive   
+Em7                    A      
+having the time of your life.   
+    C              C/A   
+Oh, see that girl, watch that scene,   
+            G   
+Diggin' the dancing queen.
