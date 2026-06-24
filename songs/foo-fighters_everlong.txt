@@ -1,0 +1,91 @@
+title: "Everlong",
+band: "Foo Fighters",
+genre: "5-8",
+key: "E",
+tuning: "Standard",
+capo: 0,
+
+[Intro]
+D | % | Bm | % | G | Bm | % |   x3
+ 
+[Verse]
+D      %        Bm              %   G   Bm      %
+Hello,    I've waited here for you,  Everlong
+D      %   Bm               %
+Tonight, I throw myself into
+G                Bm               %
+  And out of the red, out of her head she sang
+
+[Instrumental]
+D | % | Bm | % | G | Bm | % |
+
+D         %     Bm              %  G       Bm
+Come down, and waste away with me,    Down with me
+D       %      Bm            %
+Slow how, you wanted it to be
+G              Bm              %
+  I'm over my head, out of her head she sang
+ 
+[Pre-Chorus]
+D | % | A |
+ 
+     D       %
+And I wonder
+A               D           %
+  When I sing along with you
+ 
+[Chorus]
+Bm                          G               D       %
+   If everything could ever feel this real forever
+Bm                        G             D     %
+   If anything could ever be this good again
+Bm                          G       
+   The only thing I'll ever ask of you
+D                                A             G     %
+   You've got to promise not to stop when I say when - she sang
+ 
+[Instrumental]
+D | % | Bm | % | G | Bm | % |
+ 
+[Verse]
+D           %   Bm                   %  G      Bm      %
+Breathe out, so I could breathe you in,   hold you in
+D       %  Bm                     %
+And now, I know you've always been
+G              Bm             %
+  Out of your head, out of my head I sang
+
+[Pre-Chorus]
+D | % | A |
+ 
+     D       %
+And I wonder
+A               D           %
+  When I sing along with you
+ 
+[Chorus]
+Bm                          G               D       %
+   If everything could ever feel this real forever
+Bm                        G             D     %
+   If anything could ever be this good again
+Bm                          G       
+   The only thing I'll ever ask of you
+D                                A             G     %
+   You've got to promise not to stop when I say when - she sang
+
+[Instrumental]
+D | % | Bm | % | G | Bm | % |   x2
+ 
+[Pre-Chorus]
+D    x4       D        %
+          And I wonder
+
+[Chorus]
+Bm                          G               D       %
+   If everything could ever feel this real forever
+Bm                        G             D     %
+   If anything could ever be this good again
+Bm                          G       
+   The only thing I'll ever ask of you
+D                                A             G     %   %   %   [ G ]
+   You've got to promise not to stop when I say when 
