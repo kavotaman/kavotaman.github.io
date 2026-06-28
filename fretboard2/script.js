@@ -119,6 +119,9 @@ function buildFretMarkers() {
   for (let fret = fretStart; fret <= fretEnd; fret++) {
     const marker = document.createElement("div");
     marker.className = "fret-marker";
+    if (fret === 0) {
+      marker.classList.add("marker-nut");
+    }
 
     if (singleDots.includes(fret)) {
       const dot = document.createElement("div");
@@ -149,13 +152,6 @@ document.getElementById("toggleAccidentals").addEventListener("click", () => {
   });
   updateSubtitle();
   updateURL();
-});
-
-document.getElementById("toggleNotes").addEventListener("click", () => {
-  showNotes = !showNotes;
-  document.querySelectorAll(".fret").forEach(fret => {
-    fret.classList.toggle("hidden", !showNotes);
-  });
 });
 
 document.getElementById("toggleLayout").addEventListener("click", () => {
@@ -328,14 +324,7 @@ function loadFromURL() {
       });
     }
 
-    const tn = params.get("tn");
-    if (tn) {
-      const parts = tn.split(",");
-      if (parts.length === 6) {
-        parts.forEach((n, i) => { if (NOTES_SHARPS.includes(n)) tuning[i] = n; });
-      }
-    }
-  } catch(e) {
+      } catch(e) {
     console.warn("Could not parse URL state", e);
   }
 
