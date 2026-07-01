@@ -1,0 +1,88 @@
+title: "Big Yellow Taxi",
+band: "Joni Mitchell",
+genre: "5-8",
+tuning: "Standard",
+capo: 0,
+
+[Intro]
+A      A      B      B
+E7     E7     E7     E7
+ 
+[Verse 1]
+     A                  %                E     %
+They paved paradise and put up a parking lot
+       A              B                 E          %
+with a pink hotel, a boutique and a swingin' hot spot.
+ 
+[Chorus]
+E               E
+Don't it always seem to go
+         A                      E             
+that you don't know what you've got till it's gone.
+     A                  B                E     %
+They paved paradise and put up a parking lot.
+                                         (ooh, bop bop bop bop)
+E     %
+(ooh, bop bop bop bop)
+
+[Verse 2]
+     A                   %                    E     %
+They took all the trees, put 'em in a tree museum
+         A                    B                         E          %
+and they charged the people a dollar and a half just to see 'em.
+ 
+[Chorus]
+E               %
+Don't it always seem to go
+         A                       E             
+that you don't know what you've got till it's gone.
+     A                  B                E     %
+They paved paradise and put up a parking lot.
+ 
+[Interlude]
+E   %
+ 
+[Verse 3]
+A                   %                 E        %
+Hey farmer, farmer, put away that D.D.T. now,
+        A                      B                          E      %
+give me spots on my apples but leave me the birds and the bees, please.
+ 
+[Chorus 3]
+E               E
+Don't it always seem to go
+         A                      E             
+that you don't know what you've got till it's gone.
+     A                  B                E     %
+They paved paradise and put up a parking lot.
+                                         (ooh, bop bop bop bop)
+E     %
+(ooh, bop bop bop bop)
+ 
+[Verse 4]
+A                 %                     E      %
+Late last night I heard the screen door slam
+      A               B                E     %
+and a big yellow taxi took away my old man
+ 
+[Chorus]
+E               E
+Don't it always seem to go
+         A                      E             
+that you don't know what you've got till it's gone.
+
+     A                  B                E     %
+They paved paradise and put up a parking lot.
+ 
+E               E
+Don't it always seem to go
+         A                      E             [E]
+that you don't know what you've got till it's gone.
+     A                  B                E      %
+They paved paradise and put up a parking lot.
+ 
+[Outro]
+          A               B                E     %
+Yeah they paved paradise, put up a parking lot
+            A               B                E
+I said they paved paradise, put up a parking lot
