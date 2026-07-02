@@ -6,7 +6,7 @@ capo: 0,
 
 [Intro]
 A      A      B      B
-E7     E7     E7     E7
+E      E      E      E
  
 [Verse 1]
      A                  %                E     %
