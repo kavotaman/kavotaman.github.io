@@ -15,7 +15,7 @@ They paved paradise and put up a parking lot
 with a pink hotel, a boutique and a swingin' hot spot.
  
 [Chorus]
-E               E
+E               %
 Don't it always seem to go
          A                      E             
 that you don't know what you've got till it's gone.
@@ -76,7 +76,8 @@ They paved paradise and put up a parking lot.
 E               %
 Don't it always seem to go
          A                      E             [E]
-that you don't know what you've got till it's gone.
+that you don't know what you've got till it's gone...
+
      A                  B                E      %
 They paved paradise and put up a parking lot.
                                          (ooh, bop bop bop bop)
