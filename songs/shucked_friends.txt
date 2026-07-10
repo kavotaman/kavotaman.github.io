@@ -1,0 +1,148 @@
+title: "Friends",
+band: "Shucked",
+genre: "Broadway",
+tuning: "Standard",
+capo: 0,
+
+[Verse 1]
+A
+
+e|-5----------5---------------------------------------------------|
+B|--------2-------2-----------------------------------------------|
+G|------2-------2-------------------------------------------------|
+D|----------------------------------------------------------------|
+A|-0--------0-----------------------------------------------------|
+E|----------------------------------------------------------------|
+ 
+      A
+It’s Hard To Say I’m Sorry
+      Amaj7
+It’s Hard To Say I’m Wrong
+A7                          D              ( D C#m )
+Since It’s Been So Easy For Us To Get Along
+     Bm
+For All My Best Intentions
+         E
+I’m The One Who’s Built A Wall
+      Bm
+Well If We’re Being Honest
+            E
+I’ve Been Known To Know It All
+ 
+[Verse 2]
+      A
+The Truth Is I Just Love You
+          Amaj7
+And With Everything We’ve Lost
+    A7
+I Couldn’t Stand To Lose You
+             D                  ( D C# )
+Cause Each Other’s All We’ve Got
+    Bm
+So Let’s Not Waste A Moment
+         E
+Stayin’ Mad And Keepin’ Score
+     Bm
+So Could You Just Forgive Me?
+    E
+If You Forgive Me More
+ 
+[Pre-chorus]
+     D
+Sometimes I Call You Crazy
+     C#m
+Sometimes I Call You Out
+     Bm                       A   ( Bm C#m )
+Sometimes I Call You Up At 2 A.M.
+   D
+I Call You When You’re Happy
+          C#m
+Or When You’re Missing Your Daddy
+   Bm                     [E]
+I Have To Call You Family
+
+But I Get To Call You
+ 
+[Chorus]
+A                C#m
+Friend, My Best Friend
+          D            C#m
+I’ll Be Yours Until The End
+          D              C#m
+Blood Is Thick And Whiskey’s Thin
+             Bm        E
+When We’re Together
+A                C#m
+Friend, My Old Friend
+         D              C#m
+Ins And Outs And Outs And Ins
+           D            C#m
+We’ve Been Family All Our Lives
+              Bm         [E]
+But We’ll Be Friends
+          A
+Friends Forever
+
+[Spoken]
+A E D %
+ 
+[Verse 3]
+A
+We've all got our secrets
+   Amaj7
+We wish nobody knew
+A7
+I'm so glad that I'm the one
+         D                ( D C#m )
+You've always told 'em to
+Bm
+I'd give you my happy
+        E
+If it made you happy more
+     Bm
+You know I'd never take it
+        E
+What's mine is always yours
+ 
+[Pre-chorus]
+       D
+I'll always call you sister
+        C#m
+Sister from another mister
+               Bm                            A    ( Bm C#m )
+Cause you've always got an ear that you can lend
+        D
+You're my most prized possession
+       C#m
+Since mama went to Heaven
+   Bm                       [E]
+I have to call you family
+ 
+But I get to call you
+ 
+[Chorus]
+A                C#m
+Friend, My best friend
+            D             C#m
+Take your heart around the bend
+         D        C#m
+Always just remember when
+             Bm        E
+When we're together
+A                 C#m
+Friend, my old friend
+         D              C#m
+Ins and outs and outs and ins
+              D         C#m
+We've been family all our lives
+                Bm      E       
+But we'll be friends
+           A
+Friends forever
+ 
+              D         C#m        
+We've been family all our lives
+                Bm      E       
+But we'll be friends
+           A        
+Friends forever
