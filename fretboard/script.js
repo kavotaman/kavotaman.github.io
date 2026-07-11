@@ -4,8 +4,8 @@ const NOTES_FLATS  = ["C", "Db", "D", "Eb", "E", "F",
                       "Gb", "G", "Ab", "A", "Bb", "B"];
 
 let useSharps = true;
-const tuning = ["E", "B", "G", "D", "A", "E"]; // high to low
-const tuningLabels = ["e", "B", "G", "D", "A", "E"];
+let tuning = ["E", "B", "G", "D", "A", "E"]; // high to low, mutable for alternate tunings
+const DEFAULT_TUNING = ["E", "B", "G", "D", "A", "E"];
 const totalFrets = 24;
 
 let showNotes = true;
@@ -41,17 +41,16 @@ function buildFretboard() {
   const cols = fretEnd - fretStart + 1;
 
   fretboard.innerHTML = "";
-  fretboard.style.gridTemplateRows = `repeat(${tuning.length}, ${fretHeight}px)`;
+  const visibleCount = tuning.length - hiddenStrings.size;
+  fretboard.style.gridTemplateRows = `repeat(${visibleCount}, ${fretHeight}px)`;
 
   tuning.forEach((stringNote, sIdx) => {
+    if (hiddenStrings.has(sIdx)) return; // skip entirely — grid row not added
+
     const string = document.createElement("div");
     string.className = "string";
     string.dataset.stringIdx = sIdx;
     string.style.gridTemplateColumns = `repeat(${cols}, ${fretWidth}px)`;
-
-    if (hiddenStrings.has(sIdx)) {
-      string.classList.add("hidden-string");
-    }
 
     for (let fret = fretStart; fret <= fretEnd; fret++) {
       const pc = pitchClassAt(stringNote, fret);
@@ -120,6 +119,9 @@ function buildFretMarkers() {
   for (let fret = fretStart; fret <= fretEnd; fret++) {
     const marker = document.createElement("div");
     marker.className = "fret-marker";
+    if (fret === 0) {
+      marker.classList.add("marker-nut");
+    }
 
     if (singleDots.includes(fret)) {
       const dot = document.createElement("div");
@@ -138,8 +140,6 @@ function buildFretMarkers() {
   }
 }
 
-buildFretboard();
-
 // --- Controls ---
 
 document.getElementById("toggleAccidentals").addEventListener("click", () => {
@@ -152,13 +152,6 @@ document.getElementById("toggleAccidentals").addEventListener("click", () => {
   });
   updateSubtitle();
   updateURL();
-});
-
-document.getElementById("toggleNotes").addEventListener("click", () => {
-  showNotes = !showNotes;
-  document.querySelectorAll(".fret").forEach(fret => {
-    fret.classList.toggle("hidden", !showNotes);
-  });
 });
 
 document.getElementById("toggleLayout").addEventListener("click", () => {
@@ -202,6 +195,14 @@ document.querySelectorAll(".string-toggle").forEach(cb => {
   });
 });
 
+// Reset button
+document.getElementById("resetFretboard").addEventListener("click", () => {
+  selectedPCs.clear();
+  updateAllCells();
+  updateSubtitle();
+  updateURL();
+});
+
 // Title input
 function onTitleInput() {
   updateURL();
@@ -221,6 +222,37 @@ function updateSubtitle() {
   el.textContent = "Notes: " + notes.join("  ·  ");
 }
 
+// --- Tuning selects ---
+
+function buildTuningSelects() {
+  const container = document.getElementById("tuning-selects");
+  container.innerHTML = "";
+  const stringNames = ["e (high)", "B", "G", "D", "A", "E (low)"];
+  tuning.forEach((note, idx) => {
+    const wrap = document.createElement("label");
+    wrap.style.cssText = "display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9pt;";
+    wrap.textContent = stringNames[idx];
+
+    const sel = document.createElement("select");
+    sel.dataset.stringIdx = idx;
+    NOTES_SHARPS.forEach((n, pc) => {
+      const opt = document.createElement("option");
+      opt.value = n;
+      opt.textContent = n;
+      if (n === note) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener("change", e => {
+      tuning[idx] = e.target.value;
+      buildFretboard();
+      updateURL();
+    });
+
+    wrap.appendChild(sel);
+    container.appendChild(wrap);
+  });
+}
+
 // --- URL state ---
 
 function encodeState() {
@@ -233,6 +265,8 @@ function encodeState() {
   if (fretStart !== 0) params.set("fs", fretStart);
   if (fretEnd !== 24) params.set("fe", fretEnd);
   if (hiddenStrings.size > 0) params.set("hs", [...hiddenStrings].join(","));
+  const tuningChanged = tuning.some((n, i) => n !== DEFAULT_TUNING[i]);
+  if (tuningChanged) params.set("tn", tuning.join(","));
 
   return params.toString();
 }
@@ -245,7 +279,11 @@ function updateURL() {
 
 function loadFromURL() {
   const hash = window.location.hash.slice(1);
-  if (!hash) return;
+  if (!hash) {
+    buildTuningSelects();
+    buildFretboard();
+    return;
+  }
 
   try {
     const params = new URLSearchParams(hash);
@@ -285,10 +323,12 @@ function loadFromURL() {
         if (cb) cb.checked = false;
       });
     }
-  } catch(e) {
+
+      } catch(e) {
     console.warn("Could not parse URL state", e);
   }
 
+  buildTuningSelects();
   buildFretboard();
   updateSubtitle();
 }
