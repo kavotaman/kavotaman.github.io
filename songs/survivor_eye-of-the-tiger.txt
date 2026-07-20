@@ -5,172 +5,51 @@ tuning: "Standard",
 capo: 0,
 
 [Intro]
- 
-Am
-Am G Am
-Am G Am
-Am Em F
- 
-Am
-Am G Am
-Am G Am
-Am Em F
- 
-Am
-Am G Am
-Am G Am
-Am Em F
- 
-Am
-Am G Am
-Am G Am
-Am Em F
- 
-Am
- 
+Guitars play C
 
+Main Riff x4
+
+Guitars play C
  
 [Verse 1]
  
-Am              F
+Cm              Ab
    Risin' up, back on the street,
-G                      Am
+Bb                      Cm
   Did my time, took my chances.
-Am                             F
+Cm                             Ab
   Went the distance, now I'm back on my 
 feet,
-        G                     Am
+        Bb                     Cm
 Just a man and his will to survive.
  
-Am                  F
+Cm                  Ab
   So many times, it happens too fast,
-G                             Am
+Bb                             Cm
   You change your passion for glory
-Am                            F
+Cm                            Ab
   Don't lose your grip on the dreams of 
 the past,
-          G                        Am
+          Bb                        Cm
 You must fight just to keep them alive:
  
  
 [Chorus]
  
-G*    Am  Dm                           
-It's the    eye of the tiger, it's the 
- C               G
+         Fm                           
+It's the eye of the tiger, it's the 
+ Eb               Bb
 thrill of the fight -
-       Dm                         Am   
-Rising up to the challenge of our ri - 
-G
-val.
-         Dm                            
+       Fm                         Bb
+Rising up to the challenge of our rival 
+         Fm                            
 And the last known survivor stalks his 
- C             G
+ Eb             Bb
 prey in the night,
-          Dm          Em7          F  
-And he's watching us all with the eye of 
-N.C.    Am
-the tiger.
- 
-Am
- 
- 
-[Verse 2]
- 
-Am              F
-Face to face, out in the heat,
-G                      Am
-Hangin' tough, stayin' hungry.
-Am                             F
-They stack the odds, still we take to the 
-street,
-         G                     Am
-For the kill with the skill to survive.
- 
- 
-[Chorus]
- 
-G*    Am  Dm                           
-It's the    eye of the tiger, it's the 
- C               G
-thrill of the fight -
-       Dm                         Am   
-Rising up to the challenge of our ri - 
-G
-val.
-         Dm                            
-And the last known survivor stalks his 
- C             G
-prey in the night,
-          Dm          Em7          F  
-And he's watching us all with the eye of 
-N.C.    Am
-the tiger.
- 
-Am
- 
- 
-[Verse 3]
- 
-Am              F
-Risin' up, straight to the top,
-G                      Am
-Had the guts, got the glory.
-Am                             F
-Went the distance, now I'm not gonna stop,
-        G                     Am
-Just a man and his will to survive.
- 
- 
-[Chorus]
- 
-G*    Am  Dm                           
-It's the    eye of the tiger, it's the 
- C               G
-thrill of the fight -
-       Dm                         Am   
-Rising up to the challenge of our ri - 
-G
-val.
-         Dm                            
-And the last known survivor stalks his 
- C             G
-prey in the night,
-          Dm          Em7          F  
-And he's watching us all with the eye of 
-N.C.    Am
-the tiger.
- 
- 
-[Outro]
- 
-Am
-Am G Am
-Am G Am
-Am Em F
-                Am
-The eye of the tiger
-Am G Am
-Am G Am
-Am Em F
-                Am
-The eye of the tiger
-Am G Am
-Am G Am
-Am Em F
-                Am
-The eye of the tiger
-Am G Am
-Am G Am
-Am Em F
-                Am
-The eye of the tiger
-Am G Am
-Am G Am
-Am Em F
- 
-Am
-Am G Am
-Am G Am
-Am Em F
-(fade out)
+          Fm          Gm7          Ab  
+And he's watching us all with the eye
+        Cm
+of the tiger.
+
+
+Main riff
