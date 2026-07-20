@@ -1,3 +1,9 @@
+title: "Eye of the Tiger",
+band: "Survivor",
+genre: "5-8",
+tuning: "Standard",
+capo: 0,
+
 [Intro]
  
 Am
