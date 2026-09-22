@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chord Diagram Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --paper: #EAE3D3;
+    --card: #FFFDF8;
+    --ink: #211C16;
+    --ink-soft: #5B5346;
+    --rosewood: #7C4A2D;
+    --rosewood-dark: #5E3720;
+    --brass: #AD8A4E;
+    --line: #D8CFBA;
+    --danger: #A5432E;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper: #23201A;
+      --card: #FFFDF8;
+      --ink: #211C16;
+      --ink-soft: #5B5346;
+      --rosewood: #C99A6D;
+      --rosewood-dark: #E4B888;
+      --brass: #D8B878;
+      --line: #3A352B;
+      --danger: #E17A5F;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper: #23201A;
+    --card: #FFFDF8;
+    --ink: #211C16;
+    --ink-soft: #5B5346;
+    --rosewood: #C99A6D;
+    --rosewood-dark: #E4B888;
+    --brass: #D8B878;
+    --line: #3A352B;
+    --danger: #E17A5F;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', -apple-system, sans-serif;
+    min-height: 100%;
+  }
+  .app{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 20px 60px;
+  }
+  header.top{
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: var(--rosewood-dark);
+    color: #000000;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  }
+  .top-row{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .title-block h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0 0 2px;
+    letter-spacing: 0.2px;
+  }
+  .title-block p{
+    margin:0;
+    font-size: 0.82rem;
+    color: #000000;
+    max-width: 46ch;
+    line-height: 1.4;
+  }
+  .controls{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .field{
+    display:flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .field label{
+    font-size: 0.68rem;
+    color: #000000;
+  }
+  .field select, .field input[type="number"]{
+    background: #6B3F26;
+    border: 1px solid #8A5A38;
+    color: #FBF4E8;
+    border-radius: 7px;
+    padding: 5px 8px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    width: 68px;
+  }
+  button{
+    font-family: inherit;
+    cursor:pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: transform 0.08s ease, filter 0.15s ease;
+  }
+  button:active{ transform: translateY(1px); }
+  .btn-primary{
+    background: var(--brass);
+    color: #2A1E0F;
+  }
+  .btn-primary:hover{ filter: brightness(1.08); }
+  .btn-ghost{
+    background: rgba(255,255,255,0.12);
+    color: #000000;
+  }
+  .btn-ghost:hover{ background: rgba(255,255,255,0.2); }
+
+  .sheet-wrap{
+    overflow-x: auto;
+    padding: 4px 4px 30px;
+    display:flex;
+    justify-content:center;
+  }
+  .sheet{
+    background: var(--card);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+    width: 780px;
+    max-width: 100%;
+    flex-shrink: 0;
+    display: grid;
+    gap: 0;
+    border: 1px solid #E3DBC7;
+  }
+  .card{
+    border: 1px solid #E3DBC7;
+    padding: 14px 12px 10px;
+    display:flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    background: var(--card);
+    color: var(--ink);
+  }
+  .card .remove{
+    position:absolute;
+    top: 6px;
+    right: 6px;
+    background: transparent;
+    color: var(--ink-soft);
+    padding: 2px 6px;
+    font-size: 1rem;
+    line-height: 1;
+    border-radius: 5px;
+  }
+  .card .remove:hover{ background: #F0E7D3; color: var(--danger); }
+  .name-input{
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-bottom: 1.5px solid var(--line);
+    background: transparent;
+    padding: 4px 22px 6px;
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+  }
+  .name-input:focus{ border-bottom-color: var(--rosewood); }
+  .name-input::placeholder{ color: #BDB29A; font-weight: 500; }
+
+  canvas.diagram{
+    width: 100%;
+    display:block;
+    touch-action: none;
+    cursor: crosshair;
+  }
+  .card-footer{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 0.72rem;
+    color: #000000;
+    flex-wrap: wrap;
+  }
+  .mini-field{
+    display:flex;
+    align-items:center;
+    gap: 4px;
+  }
+  .mini-field input[type="number"]{
+    width: 40px;
+    padding: 2px 4px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    text-align:center;
+  }
+  .mini-field select{
+    padding: 2px 4px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    background: white;
+  }
+  .clear-link{
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    font-size: 0.72rem;
+  }
+  .clear-link:hover{ color: var(--danger); }
+
+  .helptext{
+    text-align:center;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    line-height: 1.5;
+  }
+  .helptext strong{ color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 640px){
+    .top-row{ flex-direction: column; align-items: stretch; }
+    .controls{ justify-content: space-between; }
+    .sheet{ width: 560px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <div class="top-row">
+      <div class="title-block">
+        <h1>Chord Diagram Sheet</h1>
+        <p>Click a fret to place a finger. Drag across strings on the same fret to add a barre. Set a start fret for chords higher up the neck.</p>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="pageSize">Page</label>
+          <select id="pageSize">
+            <option value="a4">A4</option>
+            <option value="letter">Letter</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="columns">Columns</label>
+          <input type="number" id="columns" min="1" max="6" value="3">
+        </div>
+        <button class="btn-primary" id="addBtn">+ Add diagram</button>
+        <button class="btn-ghost" id="exportBtn">Export PDF</button>
+        <button class="btn-ghost" id="resetBtn">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sheet-wrap">
+    <div class="sheet" id="sheet"></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var FRETS_SHOWN = 5;
+  var STORAGE_KEY = "chord-sheet-state-v1";
+
+  var settings = { pageSize: "a4", columns: 3 };
+  var diagrams = [];
+  var els = {}; // id -> {card, canvas, ctx, nameInput, baseFretInput, stringsSelect}
+  var uid = 1;
+
+  function newDiagram(){
+    return {
+      id: "d" + (uid++),
+      name: "",
+      baseFret: 1,
+      strings: 6,
+      dots: [],       // {string, fret}
+      barres: [],     // {fret, from, to}
+      stringState: ["", "", "", "", "", "", ""] // index by string, '' | 'O' | 'X'
+    };
+  }
+
+  function clampDiagramToStrings(d){
+    d.dots = d.dots.filter(function(p){ return p.string < d.strings; });
+    d.barres = d.barres.filter(function(b){ return b.from < d.strings && b.to < d.strings; });
+  }
+
+  function saveState(){
+    try{
+      var payload = { settings: settings, diagrams: diagrams };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    }catch(e){ /* storage unavailable, ignore */ }
+  }
+
+  function loadState(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return false;
+      var payload = JSON.parse(raw);
+      if(payload && Array.isArray(payload.diagrams) && payload.diagrams.length){
+        settings = payload.settings || settings;
+        diagrams = payload.diagrams;
+        diagrams.forEach(function(d){
+          var n = parseInt(d.id.replace("d",""),10);
+          if(!isNaN(n) && n >= uid) uid = n + 1;
+        });
+        return true;
+      }
+    }catch(e){ /* ignore corrupt state */ }
+    return false;
+  }
+
+  // ---------- geometry ----------
+  function geom(logicalW, logicalH, strings){
+    var marginLeft = 30, marginRight = 16, marginTop = 34, marginBottom = 12;
+    var gw = logicalW - marginLeft - marginRight;
+    var gh = logicalH - marginTop - marginBottom;
+    var stringSpacing = gw / (strings - 1);
+    var fretSpacing = gh / FRETS_SHOWN;
+    return {
+      marginLeft: marginLeft, marginTop: marginTop,
+      stringSpacing: stringSpacing, fretSpacing: fretSpacing,
+      x: function(s){ return marginLeft + s * stringSpacing; },
+      yLine: function(f){ return marginTop + f * fretSpacing; },
+      yDot: function(f){ return marginTop + (f - 0.5) * fretSpacing; },
+      ox: function(s){ return marginLeft + s * stringSpacing; },
+      oy: function(){ return marginTop - 16; }
+    };
+  }
+
+  function sizeCanvas(canvas){
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    var w = Math.max(120, rect.width);
+    var h = w * 1.2;
+    canvas.style.height = h + "px";
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: w, h: h };
+  }
+
+  function drawDiagram(id){
+    var e = els[id];
+    var d = diagrams.find(function(x){ return x.id === id; });
+    if(!e || !d) return;
+    var sized = sizeCanvas(e.canvas);
+    var ctx = sized.ctx, w = sized.w, h = sized.h;
+    var g = geom(w, h, d.strings);
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#FFFDF8";
+    ctx.fillRect(0, 0, w, h);
+
+    var ink = "#211C16";
+    var lineSoft = "#8A8272";
+
+    // open/mute row
+    ctx.font = "600 " + Math.max(11, g.stringSpacing * 0.42) + "px 'Work Sans', sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = ink;
+    for(var s = 0; s < d.strings; s++){
+      var mark = d.stringState[s] || "";
+      if(mark){
+        ctx.fillText(mark, g.ox(s), g.oy());
+      }
+    }
+
+    // fret number label (start fret)
+    if(d.baseFret > 1){
+      ctx.font = "italic 500 " + Math.max(11, g.fretSpacing * 0.3) + "px 'Fraunces', serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = ink;
+      ctx.fillText(d.baseFret + "fr", g.marginLeft - 9, g.yDot(1));
+    }
+
+    // string lines
+    ctx.strokeStyle = ink;
+    for(var si = 0; si < d.strings; si++){
+      ctx.lineWidth = 1.3;
+      ctx.beginPath();
+      ctx.moveTo(g.x(si), g.yLine(0));
+      ctx.lineTo(g.x(si), g.yLine(FRETS_SHOWN));
+      ctx.stroke();
+    }
+
+    // fret lines
+    for(var f = 0; f <= FRETS_SHOWN; f++){
+      var isNut = (f === 0 && d.baseFret === 1);
+      ctx.lineWidth = isNut ? 5 : 1.3;
+      ctx.strokeStyle = isNut ? ink : lineSoft;
+      ctx.beginPath();
+      ctx.moveTo(g.x(0), g.yLine(f) + (isNut ? ctx.lineWidth/2 - 0.5 : 0));
+      ctx.lineTo(g.x(d.strings - 1), g.yLine(f) + (isNut ? ctx.lineWidth/2 - 0.5 : 0));
+      ctx.stroke();
+    }
+
+    var r = Math.min(g.stringSpacing, g.fretSpacing) * 0.32;
+
+    // barres
+    ctx.fillStyle = ink;
+    d.barres.forEach(function(b){
+      var x1 = g.x(b.from), x2 = g.x(b.to), y = g.yDot(b.fret);
+      ctx.beginPath();
+      ctx.moveTo(x1, y - r);
+      ctx.lineTo(x2, y - r);
+      ctx.arc(x2, y, r, -Math.PI/2, Math.PI/2);
+      ctx.lineTo(x1, y + r);
+      ctx.arc(x1, y, r, Math.PI/2, -Math.PI/2 + Math.PI*2);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    // dots
+    d.dots.forEach(function(p){
+      ctx.beginPath();
+      ctx.arc(g.x(p.string), g.yDot(p.fret), r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function nearestString(x, g, strings){
+    var s = Math.round((x - g.marginLeft) / g.stringSpacing);
+    return Math.max(0, Math.min(strings - 1, s));
+  }
+  function nearestFretCell(y, g){
+    var f = Math.ceil((y - g.marginTop) / g.fretSpacing);
+    return Math.max(1, Math.min(FRETS_SHOWN, f));
+  }
+
+  function barreAt(d, s, f){
+    return d.barres.find(function(b){ return b.fret === f && s >= b.from && s <= b.to; });
+  }
+  function dotAt(d, s, f){
+    return d.dots.find(function(p){ return p.string === s && p.fret === f; });
+  }
+
+  function bindCanvasEvents(id){
+    var e = els[id];
+    var canvas = e.canvas;
+    var down = null;
+
+    function getLogicalPos(evt){
+      var rect = canvas.getBoundingClientRect();
+      return { x: evt.clientX - rect.left, y: evt.clientY - rect.top, rectW: rect.width, rectH: rect.height };
+    }
+
+    canvas.addEventListener("pointerdown", function(evt){
+      canvas.setPointerCapture(evt.pointerId);
+      down = getLogicalPos(evt);
+    });
+
+    canvas.addEventListener("pointerup", function(evt){
+      if(!down) return;
+      var up = getLogicalPos(evt);
+      var d = diagrams.find(function(x){ return x.id === id; });
+      var g = geom(down.rectW, down.rectW * 1.2, d.strings);
+
+      // open/mute row zone
+      var oyZone = g.marginTop - 16;
+      if(down.y < g.marginTop - 4 && up.y < g.marginTop - 4){
+        var s = nearestString(down.x, g, d.strings);
+        var order = ["", "O", "X"];
+        var cur = d.stringState[s] || "";
+        var idx = (order.indexOf(cur) + 1) % order.length;
+        d.stringState[s] = order[idx];
+        drawDiagram(id);
+        saveState();
+        down = null;
+        return;
+      }
+
+      var s0 = nearestString(down.x, g, d.strings);
+      var f0 = nearestFretCell(down.y, g);
+      var s1 = nearestString(up.x, g, d.strings);
+      var f1 = nearestFretCell(up.y, g);
+
+      if(f0 === f1 && s0 !== s1){
+        var from = Math.min(s0, s1), to = Math.max(s0, s1);
+        d.barres = d.barres.filter(function(b){ return b.fret !== f0; });
+        d.dots = d.dots.filter(function(p){ return !(p.fret === f0 && p.string >= from && p.string <= to); });
+        d.barres.push({ fret: f0, from: from, to: to });
+      } else {
+        var existingBarre = barreAt(d, s0, f0);
+        if(existingBarre){
+          d.barres = d.barres.filter(function(b){ return b !== existingBarre; });
+        } else {
+          var existingDot = dotAt(d, s0, f0);
+          if(existingDot){
+            d.dots = d.dots.filter(function(p){ return p !== existingDot; });
+          } else {
+            d.dots.push({ string: s0, fret: f0 });
+          }
+        }
+      }
+      drawDiagram(id);
+      saveState();
+      down = null;
+    });
+
+    canvas.addEventListener("pointercancel", function(){ down = null; });
+  }
+
+  // ---------- DOM building ----------
+  function createCard(d){
+    var card = document.createElement("div");
+    card.className = "card";
+
+    var removeBtn = document.createElement("button");
+    removeBtn.className = "remove";
+    removeBtn.innerHTML = "&times;";
+    removeBtn.title = "Remove diagram";
+    removeBtn.addEventListener("click", function(){
+      diagrams = diagrams.filter(function(x){ return x.id !== d.id; });
+      delete els[d.id];
+      renderSheet();
+      saveState();
+    });
+    card.appendChild(removeBtn);
+
+    var nameInput = document.createElement("input");
+    nameInput.className = "name-input";
+    nameInput.type = "text";
+    nameInput.placeholder = "Chord name";
+    nameInput.value = d.name;
+    nameInput.addEventListener("input", function(){
+      d.name = nameInput.value;
+      saveState();
+    });
+    card.appendChild(nameInput);
+
+    var canvas = document.createElement("canvas");
+    canvas.className = "diagram";
+    canvas.id = "canvas-" + d.id;
+    card.appendChild(canvas);
+
+    var footer = document.createElement("div");
+    footer.className = "card-footer";
+
+    var fretField = document.createElement("div");
+    fretField.className = "mini-field";
+    var fretLabel = document.createElement("label");
+    fretLabel.textContent = "Start fret";
+    var fretInput = document.createElement("input");
+    fretInput.type = "number";
+    fretInput.min = "1";
+    fretInput.max = "20";
+    fretInput.value = d.baseFret;
+    fretInput.addEventListener("input", function(){
+      var v = parseInt(fretInput.value, 10);
+      if(isNaN(v) || v < 1) v = 1;
+      if(v > 20) v = 20;
+      d.baseFret = v;
+      drawDiagram(d.id);
+      saveState();
+    });
+    fretField.appendChild(fretLabel);
+    fretField.appendChild(fretInput);
+
+    var stringsField = document.createElement("div");
+    stringsField.className = "mini-field";
+    var stringsLabel = document.createElement("label");
+    stringsLabel.textContent = "Strings";
+    var stringsSelect = document.createElement("select");
+    [4,5,6,7].forEach(function(n){
+      var opt = document.createElement("option");
+      opt.value = n; opt.textContent = n;
+      if(n === d.strings) opt.selected = true;
+      stringsSelect.appendChild(opt);
+    });
+    stringsSelect.addEventListener("change", function(){
+      d.strings = parseInt(stringsSelect.value, 10);
+      clampDiagramToStrings(d);
+      drawDiagram(d.id);
+      saveState();
+    });
+    stringsField.appendChild(stringsLabel);
+    stringsField.appendChild(stringsSelect);
+
+    var clearBtn = document.createElement("button");
+    clearBtn.className = "clear-link";
+    clearBtn.textContent = "Clear";
+    clearBtn.addEventListener("click", function(){
+      d.dots = []; d.barres = []; d.stringState = ["", "", "", "", "", "", ""];
+      drawDiagram(d.id);
+      saveState();
+    });
+
+    footer.appendChild(fretField);
+    footer.appendChild(stringsField);
+    footer.appendChild(clearBtn);
+    card.appendChild(footer);
+
+    els[d.id] = { card: card, canvas: canvas };
+    return card;
+  }
+
+  function updateSheetLayout(){
+    var sheet = document.getElementById("sheet");
+    var cols = Math.max(1, Math.min(6, settings.columns));
+    var rows = Math.max(1, Math.ceil(diagrams.length / cols));
+    sheet.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+    sheet.style.gridTemplateRows = "repeat(" + rows + ", 1fr)";
+    var ratio = settings.pageSize === "a4" ? (210/297) : (215.9/279.4);
+    sheet.style.aspectRatio = ratio.toFixed(4);
+  }
+
+  function renderSheet(){
+    var sheet = document.getElementById("sheet");
+    sheet.innerHTML = "";
+    els = {};
+    diagrams.forEach(function(d){
+      sheet.appendChild(createCard(d));
+    });
+    updateSheetLayout();
+    requestAnimationFrame(function(){
+      diagrams.forEach(function(d){
+        bindCanvasEvents(d.id);
+        drawDiagram(d.id);
+      });
+    });
+  }
+
+  function addDiagram(){
+    diagrams.push(newDiagram());
+    renderSheet();
+    saveState();
+  }
+
+  // ---------- export ----------
+  function exportPDF(){
+    if(diagrams.length === 0) return;
+    var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
+    if(!jsPDFCtor){ alert("PDF library failed to load. Check your connection and try again."); return; }
+
+    var format = settings.pageSize === "a4" ? "a4" : "letter";
+    var dims = settings.pageSize === "a4" ? [210, 297] : [215.9, 279.4];
+    var doc = new jsPDFCtor({ unit: "mm", format: format });
+
+    var marginMM = 8;
+    var cols = Math.max(1, Math.min(6, settings.columns));
+    var rows = Math.max(1, Math.ceil(diagrams.length / cols));
+    var usableW = dims[0] - marginMM * 2;
+    var usableH = dims[1] - marginMM * 2;
+    var cellW = usableW / cols;
+    var cellH = usableH / rows;
+
+    diagrams.forEach(function(d, i){
+      var col = i % cols;
+      var row = Math.floor(i / cols);
+      var cellX = marginMM + col * cellW;
+      var cellY = marginMM + row * cellH;
+
+      doc.setFont("times", "bold");
+      doc.setFontSize(13);
+      doc.setTextColor(33, 28, 22);
+      var label = d.name && d.name.trim() ? d.name.trim() : "\u2014";
+      doc.text(label, cellX + cellW / 2, cellY + 7, { align: "center" });
+
+      var canvas = els[d.id] && els[d.id].canvas;
+      if(!canvas) return;
+      var imgData = canvas.toDataURL("image/png");
+      var canvasAspect = canvas.width / canvas.height;
+      var availW = cellW * 0.82;
+      var availH = cellH - 13;
+      var imgW = availW, imgH = imgW / canvasAspect;
+      if(imgH > availH){ imgH = availH; imgW = imgH * canvasAspect; }
+      var imgX = cellX + (cellW - imgW) / 2;
+      var imgY = cellY + 10;
+      doc.addImage(imgData, "PNG", imgX, imgY, imgW, imgH);
+    });
+
+    doc.save("chord-diagrams.pdf");
+  }
+
+  // ---------- init ----------
+  function init(){
+    var restored = loadState();
+    if(!restored){
+      for(var i = 0; i < 6; i++) diagrams.push(newDiagram());
+    }
+
+    document.getElementById("pageSize").value = settings.pageSize;
+    document.getElementById("columns").value = settings.columns;
+
+    document.getElementById("pageSize").addEventListener("change", function(evt){
+      settings.pageSize = evt.target.value;
+      updateSheetLayout();
+      requestAnimationFrame(function(){
+        diagrams.forEach(function(d){ drawDiagram(d.id); });
+      });
+      saveState();
+    });
+    document.getElementById("columns").addEventListener("input", function(evt){
+      var v = parseInt(evt.target.value, 10);
+      if(isNaN(v) || v < 1) v = 1;
+      if(v > 6) v = 6;
+      settings.columns = v;
+      updateSheetLayout();
+      requestAnimationFrame(function(){
+        diagrams.forEach(function(d){ drawDiagram(d.id); });
+      });
+      saveState();
+    });
+    document.getElementById("addBtn").addEventListener("click", addDiagram);
+    document.getElementById("exportBtn").addEventListener("click", exportPDF);
+    document.getElementById("resetBtn").addEventListener("click", function(){
+      if(!confirm("Clear all diagrams and start over?")) return;
+      diagrams = [];
+      for(var i = 0; i < 6; i++) diagrams.push(newDiagram());
+      renderSheet();
+      saveState();
+    });
+
+    window.addEventListener("resize", function(){
+      diagrams.forEach(function(d){ drawDiagram(d.id); });
+    });
+
+    renderSheet();
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
