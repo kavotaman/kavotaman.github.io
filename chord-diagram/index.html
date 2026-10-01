@@ -161,7 +161,7 @@
     padding: 14px 12px 10px;
     display:flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0;
     position: relative;
     background: var(--card);
     color: var(--ink);
@@ -193,6 +193,23 @@
   }
   .name-input:focus{ border-bottom-color: var(--rosewood); }
   .name-input::placeholder{ color: #BDB29A; font-weight: 500; }
+
+  .sheet-title{
+    grid-column: 1 / -1;
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-bottom: 1.5px solid var(--line);
+    background: transparent;
+    padding: 14px 12px 10px;
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+  }
+  .sheet-title:focus{ border-bottom-color: var(--rosewood); }
+  .sheet-title::placeholder{ color: #BDB29A; font-weight: 500; }
 
   canvas.diagram{
     width: 100%;
@@ -270,8 +287,8 @@
         <div class="field">
           <label for="pageSize">Page</label>
           <select id="pageSize">
-            <option value="a4">A4</option>
             <option value="letter">Letter</option>
+            <option value="a4">A4</option>
           </select>
         </div>
         <div class="field">
@@ -298,7 +315,7 @@
   var FRETS_SHOWN = 5;
   var STORAGE_KEY = "chord-sheet-state-v1";
 
-  var settings = { pageSize: "a4", columns: 3 };
+  var settings = { pageSize: "letter", columns: 3, title: "" };
   var diagrams = [];
   var els = {}; // id -> {card, canvas, ctx, nameInput, baseFretInput, stringsSelect}
   var uid = 1;
@@ -333,7 +350,7 @@
       if(!raw) return false;
       var payload = JSON.parse(raw);
       if(payload && Array.isArray(payload.diagrams) && payload.diagrams.length){
-        settings = payload.settings || settings;
+        settings = Object.assign({}, settings, payload.settings || {});
         diagrams = payload.diagrams;
         diagrams.forEach(function(d){
           var n = parseInt(d.id.replace("d",""),10);
@@ -347,7 +364,7 @@
 
   // ---------- geometry ----------
   function geom(logicalW, logicalH, strings){
-    var marginLeft = 30, marginRight = 16, marginTop = 34, marginBottom = 12;
+    var marginLeft = 30, marginRight = 16, marginTop = 26, marginBottom = 12;
     var gw = logicalW - marginLeft - marginRight;
     var gh = logicalH - marginTop - marginBottom;
     var stringSpacing = gw / (strings - 1);
@@ -359,7 +376,7 @@
       yLine: function(f){ return marginTop + f * fretSpacing; },
       yDot: function(f){ return marginTop + (f - 0.5) * fretSpacing; },
       ox: function(s){ return marginLeft + s * stringSpacing; },
-      oy: function(){ return marginTop - 16; }
+      oy: function(){ return marginTop - 14; }
     };
   }
 
@@ -636,9 +653,9 @@
   function updateSheetLayout(){
     var sheet = document.getElementById("sheet");
     var cols = Math.max(1, Math.min(6, settings.columns));
-    var rows = Math.max(1, Math.ceil(diagrams.length / cols));
     sheet.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
-    sheet.style.gridTemplateRows = "repeat(" + rows + ", 1fr)";
+    sheet.style.gridAutoRows = "max-content";
+    sheet.style.alignContent = "start";
     var ratio = settings.pageSize === "a4" ? (210/297) : (215.9/279.4);
     sheet.style.aspectRatio = ratio.toFixed(4);
   }
@@ -647,6 +664,16 @@
     var sheet = document.getElementById("sheet");
     sheet.innerHTML = "";
     els = {};
+    var titleInput = document.createElement("input");
+    titleInput.className = "sheet-title";
+    titleInput.type = "text";
+    titleInput.placeholder = "Title (optional)";
+    titleInput.value = settings.title || "";
+    titleInput.addEventListener("input", function(){
+      settings.title = titleInput.value;
+      saveState();
+    });
+    sheet.appendChild(titleInput);
     diagrams.forEach(function(d){
       sheet.appendChild(createCard(d));
     });
@@ -681,31 +708,50 @@
     var usableW = dims[0] - marginMM * 2;
     var usableH = dims[1] - marginMM * 2;
     var cellW = usableW / cols;
-    var cellH = usableH / rows;
+
+    // optional title at the top of the page
+    var title = (settings.title || "").trim();
+    var titleH = 0;
+    if(title){
+      doc.setFont("times", "bold");
+      doc.setFontSize(20);
+      doc.setTextColor(33, 28, 22);
+      doc.text(title, dims[0] / 2, marginMM + 8, { align: "center", maxWidth: usableW });
+      titleH = 14;
+    }
+
+    // natural (compact) cell height: name line + diagram image
+    var sample = diagrams.map(function(d){ return els[d.id] && els[d.id].canvas; }).filter(Boolean)[0];
+    var canvasAspect = sample ? sample.width / sample.height : 1 / 1.2;
+    var imgW = cellW * 0.82;
+    var imgH = imgW / canvasAspect;
+    var labelH = 7, padBottom = 3;
+    var cellH = labelH + imgH + padBottom;
+
+    // shrink only if the rows would not fit on the page
+    var availH = usableH - titleH;
+    if(cellH * rows > availH){
+      var k = availH / (cellH * rows);
+      cellH *= k; imgW *= k; imgH *= k; labelH *= k; padBottom *= k;
+    }
+    var fontSize = Math.max(8, 13 * (cellH / (7 + (cellW * 0.82) / canvasAspect + 3)));
 
     diagrams.forEach(function(d, i){
       var col = i % cols;
       var row = Math.floor(i / cols);
       var cellX = marginMM + col * cellW;
-      var cellY = marginMM + row * cellH;
+      var cellY = marginMM + titleH + row * cellH;
 
       doc.setFont("times", "bold");
-      doc.setFontSize(13);
+      doc.setFontSize(fontSize);
       doc.setTextColor(33, 28, 22);
       var label = d.name && d.name.trim() ? d.name.trim() : "\u2014";
-      doc.text(label, cellX + cellW / 2, cellY + 7, { align: "center" });
+      doc.text(label, cellX + cellW / 2, cellY + labelH * 0.8, { align: "center" });
 
       var canvas = els[d.id] && els[d.id].canvas;
       if(!canvas) return;
       var imgData = canvas.toDataURL("image/png");
-      var canvasAspect = canvas.width / canvas.height;
-      var availW = cellW * 0.82;
-      var availH = cellH - 13;
-      var imgW = availW, imgH = imgW / canvasAspect;
-      if(imgH > availH){ imgH = availH; imgW = imgH * canvasAspect; }
-      var imgX = cellX + (cellW - imgW) / 2;
-      var imgY = cellY + 10;
-      doc.addImage(imgData, "PNG", imgX, imgY, imgW, imgH);
+      doc.addImage(imgData, "PNG", cellX + (cellW - imgW) / 2, cellY + labelH, imgW, imgH);
     });
 
     doc.save("chord-diagrams.pdf");

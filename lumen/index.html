@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lumen Map</title>
+<style>
+:root{--bg:#0b0b0f;--fg:#eee;--ac:#7c5cff;--pn:#17171d;--ln:#2a2a35;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font:14px system-ui,sans-serif;color-scheme:dark;overflow:hidden}
+body{display:flex;flex-direction:column}
+#w{flex:1;min-height:0;position:relative}
+#c{width:100%;height:100%;display:block;touch-action:none}
+#bar{display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:var(--pn);border-top:1px solid var(--ln);justify-content:center}
+button,select,label.b{background:#22222c;color:var(--fg);border:1px solid var(--ln);border-radius:8px;padding:8px 10px;font:inherit}
+button.p{background:var(--ac);border-color:var(--ac)}
+input[type=color]{width:40px;height:36px;padding:0;border:1px solid var(--ln);border-radius:8px;background:none}
+#hint{position:absolute;left:8px;top:8px;font-size:12px;opacity:.7;pointer-events:none}
+#vbar{display:none;flex-wrap:wrap;gap:6px;padding:8px;background:var(--pn);border-top:1px solid var(--ln);align-items:center;justify-content:center}#vbar.on{display:flex}#vs{flex:1 1 140px;min-width:100px}#vv{width:80px}#vt{font-size:12px;opacity:.8;min-width:70px;text-align:center}
+#sen{width:70px}#lvw{display:inline-block;width:44px;height:8px;background:#2a2a35;border-radius:4px;overflow:hidden;align-self:center}#lv{display:block;height:100%;width:0;background:var(--ac)}
+body.out #bar,body.out #vbar,body.out #hint{display:none!important}body.out #c{cursor:none}
+#toast{position:fixed;left:50%;top:12px;transform:translateX(-50%);background:#000a;padding:6px 12px;border-radius:20px;font-size:12px;opacity:0;transition:opacity .4s;pointer-events:none}
+</style></head><body>
+<div id="w"><canvas id="c"></canvas><div id="hint">Drag corners to fit surfaces. Drag inside a zone to move it.</div></div>
+<div id="bar">
+<button id="add">+ Zone</button><button id="del">Delete</button>
+<select id="fx"></select><input type="color" id="col" value="#ff3b6b">
+<label class="b">Image<input id="img" type="file" accept="image/*" hidden></label>
+<label class="b">Video<input id="vid" type="file" accept="video/*" hidden></label><button id="cam">Camera</button><button id="mic">Mic</button><button id="vaud">Video audio</button><input id="sen" type="range" min="0.5" max="6" step="0.1" value="2" title="Audio sensitivity"><span id="lvw"><i id="lv"></i></span>
+<button id="win">Projector window</button><button id="full" class="p">Fullscreen output</button>
+</div>
+<div id="vbar"><button id="vp">Pause</button><button id="vr">Restart</button><input id="vs" type="range" min="0" max="1000" value="0"><span id="vt">0:00</span>
+<select id="vsp"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="1.5">1.5x</option><option value="2">2x</option></select>
+<button id="vl">Loop on</button><button id="vm">Muted</button><input id="vv" type="range" min="0" max="100" value="100"></div>
+<div id="toast"></div>
+<script>
+const OUT=location.hash==='#out',$=s=>document.querySelector(s);
+const cv=$('#c'),ctx=cv.getContext('2d'),S=256,sc=document.createElement('canvas');sc.width=sc.height=S;const sx=sc.getContext('2d');
+const FX=['Solid','Gradient','Stripes','Rainbow','Pulse','Grid','Rings','Image','Video','Spectrum','Waveform','Beat flash','Bass orb','Reactive color'];
+let Z=[],sel=0,drag=null,cw=1,ch=1,dpr=1,lastTap=0;
+const bc=(()=>{try{return new BroadcastChannel('lumenmap')}catch(e){return null}})();
+FX.forEach((n,i)=>$('#fx').add(new Option(n,i)));
+const mk=()=>{const n=Z.length,o=Math.min(.06*n,.25);return{p:[[.3,.3],[.7,.3],[.7,.7],[.3,.7]].map(a=>[a[0]+o,a[1]+o]),fx:n%7,col:['#ff3b6b','#3bd1ff','#ffd23b','#7cff6b'][n%4],img:null}};
+const ser=()=>JSON.stringify(Z,(k,v)=>k[0]==='_'?undefined:v);
+function save(){const s=ser();try{localStorage.setItem('lumenmap',s)}catch(e){}bc&&bc.postMessage({z:s})}
+function load(s){try{Z=JSON.parse(s);if(sel>=Z.length)sel=Z.length-1}catch(e){}ui()}
+try{const s=localStorage.getItem('lumenmap');s&&load(s)}catch(e){}
+if(!Z.length)Z=[mk()];
+bc&&(bc.onmessage=e=>{if(e.data.z&&OUT)load(e.data.z);if(e.data.req&&!OUT)save();if(e.data.a&&OUT)A=e.data.a});
+if(OUT){document.body.classList.add('out');bc&&bc.postMessage({req:1});$('#c').addEventListener('click',()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen().catch(()=>{})})}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.opacity=1;setTimeout(()=>e.style.opacity=0,2500)}
+function ui(){const z=Z[sel];$('#fx').disabled=$('#col').disabled=!z;if(z){$('#fx').value=z.fx;$('#col').value=z.col}
+const v=z&&z._vid,vb=$('#vbar'),on=!!v;
+if(v){const live=!!v.srcObject;['#vs','#vsp','#vl','#vr'].forEach(q=>$(q).disabled=live);$('#vl').textContent=v.loop?'Loop on':'Loop off';$('#vm').textContent=v.muted?'Muted':'Sound on';$('#vsp').value=String(v.playbackRate);$('#vv').value=v.volume*100}
+if(vb.classList.contains('on')!==on){vb.classList.toggle('on',on);resize()}}
+const fmt=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');let seeking=false;
+function vsync(){const v=Z[sel]&&Z[sel]._vid;if(!v)return;const d=v.duration;if(isFinite(d)&&d>0){if(!seeking)$('#vs').value=v.currentTime/d*1000;$('#vt').textContent=fmt(v.currentTime)+' / '+fmt(d)}else $('#vt').textContent='live';$('#vp').textContent=v.paused?'Play':'Pause'}
+function resize(){dpr=window.devicePixelRatio||1;const w=$('#w');cw=cv.width=Math.round(w.clientWidth*dpr);ch=cv.height=Math.round(w.clientHeight*dpr)}
+addEventListener('resize',resize);resize();
+
+let ac,an,fd,td,audioOn=false,avgB=0,beatV=0,fc=0,micSt=null,micSrc=null;
+let A={l:0,b:0,m:0,t:0,beat:0,spec:new Array(32).fill(0),wave:new Array(64).fill(128)};
+async function audioInit(){if(!ac){ac=new(window.AudioContext||window.webkitAudioContext)();an=ac.createAnalyser();an.fftSize=1024;an.smoothingTimeConstant=.75;fd=new Uint8Array(an.frequencyBinCount);td=new Uint8Array(an.fftSize)}if(ac.state==='suspended')await ac.resume()}
+function audioUpdate(){if(OUT||!an||!audioOn)return;an.getByteFrequencyData(fd);an.getByteTimeDomainData(td);const g=+$('#sen').value;
+const avg=(a,b)=>{let x=0;for(let i=a;i<b;i++)x+=fd[i];return Math.min(1,x/(b-a)/255*g)};
+A.b=avg(1,6);A.m=avg(6,60);A.t=Math.min(1,avg(60,300)*2);A.l=Math.min(1,(A.b+A.m+A.t)/2.2);
+avgB=avgB*.95+A.b*.05;if(A.b>avgB*1.25+.08&&beatV<.4)beatV=1;else beatV*=.9;A.beat=beatV;
+for(let i=0;i<32;i++){const a=Math.floor(1+Math.pow(i/32,2)*250),b=Math.max(a+1,Math.floor(1+Math.pow((i+1)/32,2)*250));A.spec[i]=avg(a,b)}
+for(let i=0;i<64;i++)A.wave[i]=td[i*16];
+$('#lv').style.width=A.l*100+'%';if(bc&&(fc++&1))bc.postMessage({a:A})}
+$('#mic').onclick=async()=>{if(micSt){micSt.getTracks().forEach(t=>t.stop());micSrc.disconnect();micSt=null;$('#mic').classList.remove('p');toast('Mic off');return}
+try{await audioInit();micSt=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});micSrc=ac.createMediaStreamSource(micSt);micSrc.connect(an);audioOn=true;$('#mic').classList.add('p');toast('Mic on')}catch(e){toast('Mic unavailable or permission denied')}};
+$('#vaud').onclick=async()=>{const v=Z[sel]&&Z[sel]._vid;if(!v||v.srcObject){toast('Select a zone with a video file first');return}
+try{await audioInit();if(!v._ms){v._ms=ac.createMediaElementSource(v);v._ms.connect(ac.destination)}v._ms.connect(an);v.muted=false;audioOn=true;ui();toast('Analyzing video audio. Keep it unmuted.')}catch(e){toast('Could not tap video audio')}};
+function paint(z,t){const c=z.col;sx.globalAlpha=1;sx.fillStyle='#000';sx.fillRect(0,0,S,S);
+switch(+z.fx){
+case 0:sx.fillStyle=c;sx.fillRect(0,0,S,S);break;
+case 1:{const g=sx.createLinearGradient(0,0,S,S);g.addColorStop(0,c);g.addColorStop(1,`hsl(${(t*40)%360},90%,55%)`);sx.fillStyle=g;sx.fillRect(0,0,S,S);break}
+case 2:sx.fillStyle=c;for(let i=0;i<8;i++)sx.fillRect(((i*40+t*50)%320)-32,0,20,S);break;
+case 3:for(let i=0;i<S;i+=4){sx.fillStyle=`hsl(${(i*1.4+t*80)%360},95%,55%)`;sx.fillRect(0,i,S,4)}break;
+case 4:sx.globalAlpha=.5+.5*Math.sin(t*3);sx.fillStyle=c;sx.fillRect(0,0,S,S);break;
+case 5:sx.strokeStyle=c;sx.lineWidth=4;for(let i=0;i<=4;i++){sx.beginPath();sx.moveTo(i*S/4,0);sx.lineTo(i*S/4,S);sx.moveTo(0,i*S/4);sx.lineTo(S,i*S/4);sx.stroke()}break;
+case 6:sx.strokeStyle=c;sx.lineWidth=8;for(let i=0;i<6;i++){sx.beginPath();sx.arc(S/2,S/2,(i*30+t*40)%180,0,7);sx.stroke()}break;
+case 9:for(let i=0;i<32;i++){const h=A.spec[i]*S;sx.fillStyle=`hsl(${i*8+t*30},90%,55%)`;sx.fillRect(i*S/32+1,S-h,S/32-2,h)}break;
+case 10:sx.strokeStyle=z.col;sx.lineWidth=5;sx.beginPath();A.wave.forEach((w,i)=>{const y=S/2+(w-128)/128*S/2*Math.min(+$('#sen').value,3);i?sx.lineTo(i*S/63,y):sx.moveTo(0,y)});sx.stroke();break;
+case 11:sx.globalAlpha=.12+.88*A.beat;sx.fillStyle=z.col;sx.fillRect(0,0,S,S);break;
+case 12:sx.fillStyle=z.col;sx.beginPath();sx.arc(S/2,S/2,16+A.b*S*.42,0,7);sx.fill();sx.strokeStyle='#fff';sx.lineWidth=4;sx.beginPath();sx.arc(S/2,S/2,30+A.m*S*.45,0,7);sx.stroke();break;
+case 13:sx.fillStyle=`hsl(${(t*30+A.m*200)%360},90%,${15+A.l*55}%)`;sx.fillRect(0,0,S,S);break;
+case 8:{const m=z._vid;if(m&&m.readyState>=2&&m.videoWidth){const r=Math.max(S/m.videoWidth,S/m.videoHeight),w=m.videoWidth*r,h=m.videoHeight*r;sx.drawImage(m,(S-w)/2,(S-h)/2,w,h)}break}
+case 7:if(z.img){if(!z._im||z._src!==z.img){z._src=z.img;z._im=new Image();z._im.src=z.img}
+const m=z._im;if(m.complete&&m.naturalWidth){const r=Math.max(S/m.naturalWidth,S/m.naturalHeight),w=m.naturalWidth*r,h=m.naturalHeight*r;sx.drawImage(m,(S-w)/2,(S-h)/2,w,h)}}break}}
+
+function hom(q){const[x0,y0]=q[0],[x1,y1]=q[1],[x2,y2]=q[2],[x3,y3]=q[3];
+const dx1=x1-x2,dx2=x3-x2,dx3=x0-x1+x2-x3,dy1=y1-y2,dy2=y3-y2,dy3=y0-y1+y2-y3;
+let g=0,h=0;if(dx3||dy3){const d=dx1*dy2-dx2*dy1;g=(dx3*dy2-dx2*dy3)/d;h=(dx1*dy3-dx3*dy1)/d}
+const a=x1-x0+g*x1,b=x3-x0+h*x3,d=y1-y0+g*y1,e=y3-y0+h*y3;
+return(u,v)=>{const w=g*u+h*v+1;return[(a*u+b*v+x0)/w,(d*u+e*v+y0)/w]}}
+
+function tri(s0,s1,s2,d0,d1,d2){const e1x=s1[0]-s0[0],e1y=s1[1]-s0[1],e2x=s2[0]-s0[0],e2y=s2[1]-s0[1],f1x=d1[0]-d0[0],f1y=d1[1]-d0[1],f2x=d2[0]-d0[0],f2y=d2[1]-d0[1],det=e1x*e2y-e2x*e1y;
+const a=(f1x*e2y-f2x*e1y)/det,c=(f2x*e1x-f1x*e2x)/det,b=(f1y*e2y-f2y*e1y)/det,d=(f2y*e1x-f1y*e2x)/det,e=d0[0]-a*s0[0]-c*s0[1],f=d0[1]-b*s0[0]-d*s0[1];
+const gx=(d0[0]+d1[0]+d2[0])/3,gy=(d0[1]+d1[1]+d2[1])/3;
+ctx.save();ctx.beginPath();[d0,d1,d2].forEach((p,i)=>{const dx=p[0]-gx,dy=p[1]-gy,l=Math.hypot(dx,dy)||1,x=p[0]+dx/l*.7,y=p[1]+dy/l*.7;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});
+ctx.closePath();ctx.clip();ctx.setTransform(a,b,c,d,e,f);ctx.drawImage(sc,0,0);ctx.restore()}
+
+function warp(q){const m=hom(q),N=10,k=S/N;
+for(let i=0;i<N;i++)for(let j=0;j<N;j++){const a=m(i/N,j/N),b=m((i+1)/N,j/N),c=m((i+1)/N,(j+1)/N),e=m(i/N,(j+1)/N);
+tri([i*k,j*k],[(i+1)*k,j*k],[i*k,(j+1)*k],a,b,e);tri([(i+1)*k,j*k],[(i+1)*k,(j+1)*k],[i*k,(j+1)*k],b,c,e)}}
+
+const px=z=>z.p.map(([x,y])=>[x*cw,y*ch]);
+function frame(ms){const t=ms/1000;vsync();audioUpdate();ctx.fillStyle='#000';ctx.fillRect(0,0,cw,ch);
+Z.forEach(z=>{paint(z,t);warp(px(z))});
+if(!document.body.classList.contains('out')){
+Z.forEach((z,i)=>{const q=px(z);ctx.beginPath();q.forEach((p,j)=>j?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();ctx.lineWidth=2*dpr;ctx.strokeStyle=i===sel?'#7c5cff':'#fff6';ctx.stroke();
+if(i===sel)q.forEach(p=>{ctx.beginPath();ctx.arc(p[0],p[1],12*dpr,0,7);ctx.fillStyle='#fff';ctx.fill();ctx.lineWidth=3*dpr;ctx.strokeStyle='#7c5cff';ctx.stroke()})})}
+requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+
+function inQ(q,x,y){let r=false;for(let i=0,j=3;i<4;j=i++)if((q[i][1]>y)!==(q[j][1]>y)&&x<(q[j][0]-q[i][0])*(y-q[i][1])/(q[j][1]-q[i][1])+q[i][0])r=!r;return r}
+cv.addEventListener('pointerdown',e=>{
+if(document.body.classList.contains('out')){if(!OUT){const n=Date.now();if(n-lastTap<350)exitOut();lastTap=n}return}
+const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*dpr,y=(e.clientY-r.top)*dpr;cv.setPointerCapture(e.pointerId);
+const z=Z[sel];if(z){const q=px(z);for(let i=0;i<4;i++)if(Math.hypot(q[i][0]-x,q[i][1]-y)<30*dpr){drag={h:i};return}}
+for(let i=Z.length-1;i>=0;i--)if(inQ(px(Z[i]),x,y)){sel=i;ui();drag={m:1,x,y};return}});
+cv.addEventListener('pointermove',e=>{if(!drag)return;const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*dpr,y=(e.clientY-r.top)*dpr,z=Z[sel];
+if(drag.h!=null)z.p[drag.h]=[Math.min(1,Math.max(0,x/cw)),Math.min(1,Math.max(0,y/ch))];
+else{const dx=(x-drag.x)/cw,dy=(y-drag.y)/ch;z.p=z.p.map(([a,b])=>[a+dx,b+dy]);drag.x=x;drag.y=y}});
+cv.addEventListener('pointerup',()=>{if(drag){drag=null;save()}});
+
+$('#add').onclick=()=>{Z.push(mk());sel=Z.length-1;ui();save()};
+$('#del').onclick=()=>{if(Z.length){stopVid(Z[sel]);Z.splice(sel,1);sel=Math.max(0,sel-1);ui();save()}};
+$('#fx').onchange=e=>{const z=Z[sel];z.fx=+e.target.value;if(z._vid)z.fx==8?z._vid.play().catch(()=>{}):z._vid.pause();save()};
+$('#col').oninput=e=>{Z[sel].col=e.target.value;save()};
+$('#img').onchange=e=>{const f=e.target.files[0];if(!f||!Z[sel])return;const im=new Image();im.onload=()=>{const k=Math.min(1,512/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);Z[sel].img=c.toDataURL('image/jpeg',.8);Z[sel].fx=7;ui();save()};im.src=URL.createObjectURL(f);e.target.value=''};
+function stopVid(z){const v=z&&z._vid;if(!v)return;v.pause();if(v.srcObject)v.srcObject.getTracks().forEach(t=>t.stop());if(v._url)URL.revokeObjectURL(v._url);v.removeAttribute('src');v.srcObject=null;v.load();z._vid=null}
+function mkVid(){const v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.preload='auto';v.onerror=()=>toast('Cannot play this video. Try MP4 (H.264).');return v}
+function setVid(z,v){stopVid(z);z._vid=v;z.fx=8;ui();save()}
+$('#vid').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f||!Z[sel])return;const v=mkVid();v._url=URL.createObjectURL(f);v.src=v._url;v.play().catch(()=>{});setVid(Z[sel],v);toast('Video plays in this window only')};
+$('#cam').onclick=async()=>{const z=Z[sel];if(!z)return;try{const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}),v=mkVid();v.srcObject=st;await v.play();setVid(z,v)}catch(err){toast('Camera unavailable or permission denied')}};
+const cur=()=>Z[sel]&&Z[sel]._vid;
+$('#vp').onclick=()=>{const v=cur();if(v)v.paused?v.play().catch(()=>{}):v.pause()};
+$('#vr').onclick=()=>{const v=cur();if(v){v.currentTime=0;v.play().catch(()=>{})}};
+$('#vs').onpointerdown=()=>seeking=true;$('#vs').onchange=()=>seeking=false;$('#vs').onpointerup=()=>seeking=false;
+$('#vs').oninput=e=>{const v=cur();if(v&&isFinite(v.duration))v.currentTime=e.target.value/1000*v.duration};
+$('#vsp').onchange=e=>{const v=cur();if(v)v.playbackRate=+e.target.value};
+$('#vl').onclick=()=>{const v=cur();if(v){v.loop=!v.loop;ui()}};
+$('#vm').onclick=()=>{const v=cur();if(v){v.muted=!v.muted;ui()}};
+$('#vv').oninput=e=>{const v=cur();if(v){v.volume=e.target.value/100;if(v.volume>0&&v.muted){v.muted=false;ui()}}};
+addEventListener('keydown',e=>{if(e.key===' '&&document.body.classList.contains('out')){e.preventDefault();Z.forEach(z=>{const v=z._vid;if(v)v.paused?v.play().catch(()=>{}):v.pause()})}});
+$('#win').onclick=()=>{const w=window.open(location.href.split('#')[0]+'#out','lumenout','width=960,height=540');if(!w)toast('Popup blocked. Allow popups, or use Fullscreen output.');else toast('Drag the window onto the projector display, then click it for fullscreen.')};
+async function enterOut(){document.body.classList.add('out');toast('Double-tap to exit');try{await document.documentElement.requestFullscreen()}catch(e){}try{navigator.wakeLock&&navigator.wakeLock.request('screen')}catch(e){}}
+function exitOut(){document.body.classList.remove('out');if(document.fullscreenElement)document.exitFullscreen()}
+$('#full').onclick=enterOut;
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&!OUT)document.body.classList.remove('out');setTimeout(resize,100)});
+ui();
+</script></body></html>
