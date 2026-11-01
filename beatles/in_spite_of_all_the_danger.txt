@@ -1,0 +1,65 @@
+title: "In Spite of All the Danger",
+band: "The Beatles",
+album: "Anthology I",
+key: "E",
+tuning: "Standard",
+capo: 0,
+
+[Verse]
+[E]  B7                      E
+        In spite of all the danger
+%                       %                E7
+  In spite of all that may be (ah ah ah aaah)
+                      A                        B7
+I'll do anything for you, anything you want me to
+                     E    A  E
+If you'll be true to me
+ 
+                    E
+In spite of all the heartache
+%                    %             E7
+  That you may cause me (ah ah ah aaah)
+                     A                         B7
+I'll do anything for you, anything you want me to
+                     E    A   E  E7
+If you'll be true to me
+ 
+[Bridge]
+     A          %
+I'll look after you
+          E            E7
+Like I've never done before
+     A              %
+I'll keep all those others
+     (B7)             ...
+From knockin' at your door
+ 
+[Verse]
+                    E
+In spite of all the danger
+%                      %                 E7
+  In spite of all that may be (ah ah ah aaah)
+                     A                         B7
+I'll do anything for you, anything you want me to
+                     E    A  E
+If you'll be true to me
+ 
+[Solo]
+  E     | %     | %     | E7 
+  A     | %     | E     | % 
+  B7    | A     | E     | B7
+ 
+[Verse]
+                    E
+In spite of all the heartache
+%                    %             E7
+  That you may cause me (ah ah ah aaah)
+                     A                         B7
+I'll do anything for you, anything you want me to
+                     E    A   E
+If you'll be true to me
+ 
+                     A                         B7
+I'll do anything for you, anything you want me to
+                     E    A   E
+If you'll be true to me
