@@ -399,7 +399,7 @@
 <body>
 
 <nav>
-  <a class="nav-logo" onclick="showPage('home')">chords<span>.omk</span></a>
+  <a class="nav-logo" onclick="showPage('home')">beatles<span>.chords</span></a>
   <button class="btn-theme" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
 </nav>
 
@@ -408,12 +408,12 @@
 <!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <div class="home-header">
-    <h1>Chords.omk</h1>
-    <p>No ads transposer</p>
+    <h1>Beatles.chords</h1>
+    <p>Transposição sem zuera</p>
   </div>
 
   <div class="toolbar">
-    <input type="search" id="search-input" placeholder="Song title or band..." oninput="renderList()">
+    <input type="search" id="search-input" placeholder="procure por título..." oninput="renderList()">
     <select id="filter-album" onchange="renderList()">
       <option value="">Albums</option>
     </select>
@@ -437,7 +437,11 @@
 // ─────────────────────────────────────────────
 const SONG_FILES = [
   'thatll_be_the_day.txt',
-  'in_spite_of_all_the_danger.txt'
+  'in_spite_of_all_the_danger.txt',
+  'hallelujah_i_love_her_so.txt',
+  'youll_be_mine.txt',
+  'cayenne.txt',
+  'my_bonnie.txt',
   ];
 
 // ─────────────────────────────────────────────

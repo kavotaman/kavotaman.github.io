@@ -2,7 +2,6 @@ title: "That'll Be the Day",
 band: "The Beatles",
 album: "Anthology I",
 key: "A",
-tuning: "Standard",
 capo: 0,
 
 [Intro]

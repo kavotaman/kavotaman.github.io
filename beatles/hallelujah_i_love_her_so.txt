@@ -1,0 +1,54 @@
+title: "Hallelujah, I Love Her So",
+band: "The Beatles",
+album: "Anthology I",
+key: "Bb",
+capo: 1,
+
+ 
+[intro]
+  A  F#m7  | D  E
+ 
+[Chorus]
+A        F#m7            D           E7
+  Let me tell you about a girl I know,
+A          F#m7      D           E7
+  She's my baby and I love her so.
+(A)                    (A7)
+  Every morning when the  sun comes up,
+(D)                        (B7)
+  She brings me coffee in my  favorite cup.
+
+             A   F#m7      D   B7
+That's why I know,   yes I know,
+     E           E7         A  F#m7
+Hallelujah I just  love her so.
+ 
+[Verse]
+(D)                     (B7)
+  When I call her on the   telephone,
+(A)              (F#m7)
+  She says: "baby, I'm so alone."
+(D)                      (B7)
+  By the time I count from one to four,
+(E)                  E7
+  She'll be knocking on my door.
+ 
+[Verse]
+A      F#m7               D             E7
+  In the evening when the sun goes down,
+A           F#m          D            E7
+  And there ain't nobody  else around,
+
+(A)                    (A7)
+  She kisses me and she   holds me tight,
+(D)                         (B7)
+  She says: "baby everything   is alright"
+
+             A    F#m7       D    B7
+That's why I know,    yes, I know,
+     E           E7          A  F#m7
+Hallelujah I just  love her so.
+     B7          E7          A  F#m7
+Hallelujah I just  love her so.
+     B7          E7                A...
+Hallelujah I just  love that chick so.

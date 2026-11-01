@@ -2,7 +2,6 @@ title: "In Spite of All the Danger",
 band: "The Beatles",
 album: "Anthology I",
 key: "E",
-tuning: "Standard",
 capo: 0,
 
 [Verse]
