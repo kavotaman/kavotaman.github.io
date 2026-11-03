@@ -1,9 +1,5 @@
 title: "Creep",
 band: "Radiohead",
-genre: "Evan",
-key: "E",
-tuning: "Standard",
-capo: 0,
 
 Intro: G % B % C % Cm %  
    
