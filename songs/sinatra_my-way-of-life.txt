@@ -1,0 +1,55 @@
+title: "My Way of Life"
+band: "Frank Sinatra"
+
+[Intro]
+Dm    | A     | Dm    | A     |
+
+[Verse]
+Dm             %            A7    %
+Gotta have you near all the time 
+           Dm   %           A7     %
+With your dreams wrapped in mine 
+Dm         C            Dm               C/E            F   %  A7  % 
+Gotta be a part of your soul and of your heart all the time 
+Dm             %            A7     %
+Nothing in the world that I do 
+        Dm    %        A7    % 
+Means a thing, without you 
+Dm             C           F          Em7(5-)         Asus4  %  
+I'm just half alive in my struggle to survive without you 
+ 
+[Chorus]
+A7     %      Dm     %    Dm7/C    %    Bb    %
+   You are my way of life,     the only way I know 
+Dm/A   %      Gm7    %   Em7(5-)    %     Asus4   %   A7   %
+   You are my way of life,     I'll never let you go  
+
+[Verse]
+Dm            %         A7      %
+Never let you out of my sight 
+      Dm   %       A7     % 
+Be it day,   be it night 
+Dm            C             Dm            C/E 
+You belong to me that's the way it has to be 
+         F     %    A7   % 
+Wrong or right 
+Dm               %           A7    %
+I don't need the crowd at my door 
+      Dm    %          A7   % 
+The applause from the floor 
+Dm            C           F                 Em7(5-)      Asus4  % 
+All I want is you and the love that we once knew nothing more 
+
+[Chorus]
+A7     %      Dm     %    Dm7/C    %    Bb    % 
+   You are my way of life,     the only way I know
+Dm/A    %     Gm7     %  Em7(5-) %       Dm       %
+   I'll never let you go,      because I love you so
+
+A#7     %      D#m    %  D#m7/C#   %    B     % 
+   You are my way of life,     the only way I know 
+D#m/A#   %       G#m7   %    A#7       %    D#m  % 
+    Make me your way of life,    Don't ever go
+   
+D#m/C#   | B      | D#m/A#  |   
+G#m7     | A#7    | D#m     |

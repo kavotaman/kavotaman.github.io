@@ -1,0 +1,24 @@
+title: "Cayenne",
+band: "The Beatles",
+album: "Anthology I",
+key: "Dm",
+capo: 1,
+
+Dm    |%
+
+
+Dm    |%    |%    |%
+Gm    |%    |Dm   |%
+A7    |%    |Dm   |%
+
+Dm    |%    |%    |%
+Gm    |%    |Dm   |%
+A7    |Gm   |Dm   |%
+
+Dm    |%    |%    |%
+Gm    |%    |Dm   |%
+A7    |Gm   |Dm   |%
+
+Dm    |%    |%    |%
+Gm    |%    |...
+

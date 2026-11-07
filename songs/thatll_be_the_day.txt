@@ -1,0 +1,81 @@
+title: "That'll Be the Day",
+band: "The Beatles",
+album: "Anthology I",
+key: "A",
+capo: 0,
+
+[Intro]
+    [A]  [  e♭  e  e♭  d  d♭ ]   | E7
+
+[Chorus]
+      D                         % 
+Well, that’ll be the day * when you say goodbye. *
+      A                         %
+Yeah, that’ll be the day * when you make me cry. *
+  D                               %       
+I think you’re gonna leave, * you know it’s a lie, *
+      (A)                 E      A
+‘cause that’ll be the day when I die.
+
+[Verse]
+            D                                A
+* Well, you give me all your loving and your, your turtle doving, *
+      D                             (A)
+* All your hugs and kisses and your *  money too.
+      D                     A
+* You say you love me, baby, until you tell me, baby, *
+(E)                 E7
+That someday, well, I’ll be through,
+
+[Chorus]
+       D                         %
+‘Cause that’ll be the day * when you make me cry. *    
+    A                         %
+Ah, that’ll be the day * when you say goodbye. *
+  D                               %
+I think you’re gonna leave, * you know it’s a lie, *
+      (A)                 E      A
+‘cause that’ll be the day when I die.
+
+[Solo]
+ A     |%     |%     |% 
+ D     |%     |A     |%
+ E     |D     |(A)   |E7
+
+[Chorus]
+      D                         %
+Well, that’ll be the day * when you say goodbye. *
+      A                         %
+Yeah, that’ll be the day * when you make me cry. *
+  D                               %
+I think you’re gonna leave, * you know it’s a lie, *
+      (A)                 E      A
+‘cause that’ll be the day when I die.
+
+[Verse]
+       D                         A
+* Well, when Cupid shot his dart, he shot it at your heart, *
+D                            (A)
+* So if we’ll ever part and * I’ll leave too.
+D                          A
+* A-and you say you told me a-and you told me boldly *
+(E)                 E7
+That someday, well, I’ll be through,
+
+[Chorus]
+       D                         %
+‘Cause that’ll be the day * when you say goodbye. *
+     A                         %
+Yes, that’ll be the day * when you make me cry. *
+  D                               %
+I think you’re gonna leave, * you know it’s a lie, *
+      (A)                 E      A
+‘cause that’ll be the day when I die.
+      D                   %
+Yeah, that’ll be the day,  * ooh-ooh. *
+A                  %
+That’ll be the day,  * ooh-ooh. *
+D                  %
+That’ll be the day,  * ooh-ooh. *
+A
+That’ll be the day.

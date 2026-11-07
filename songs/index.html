@@ -18,6 +18,10 @@
     --chord: #c8a96e;
     --font-mono: 'Courier New', Courier, monospace;
     --radius: 8px;
+
+    /* PAGE WIDTHS - tweak these two to taste */
+    --home-width: 900px;  /* song list page (was 860px) */
+    --song-width: 800px;  /* chord sheet page (was 760px) */
   }
 
   :root.light {
@@ -76,7 +80,7 @@
   /* ── HOME PAGE ── */
   .home-header {
     padding: 3rem 2rem 2rem;
-    max-width: 860px;
+    max-width: var(--home-width);
     margin: 0 auto;
   }
   .home-header h1 {
@@ -88,7 +92,7 @@
   .home-header p { color: var(--text-muted); }
 
   .toolbar {
-    max-width: 860px;
+    max-width: var(--home-width);
     margin: 0 auto;
     padding: 0 2rem 1.5rem;
     display: flex;
@@ -123,7 +127,7 @@
   .toolbar select:focus { border-color: var(--accent-dim); }
 
   .songs-grid {
-    max-width: 860px;
+    max-width: var(--home-width);
     margin: 0 auto;
     padding: 0 2rem 4rem;
     display: flex;
@@ -135,7 +139,7 @@
   }
   .song-row {
     display: grid;
-    grid-template-columns: 1fr auto auto auto;
+    grid-template-columns: 1fr auto auto;
     gap: 1rem;
     padding: 0.85rem 1rem;
     background: var(--surface);
@@ -162,14 +166,11 @@
     white-space: nowrap;
     font-weight: 500;
   }
-  .badge-genre {
+  .badge-album {
     background: #1e2a1e;
     color: #7dc47d;
     border: 1px solid #2d452d;
   }
-  .badge-level-iniciante { background: #1a2a1a; color: #6fcf6f; border: 1px solid #2a4a2a; }
-  .badge-level-intermediário { background: #2a220f; color: #d4a847; border: 1px solid #4a3a1a; }
-  .badge-level-avançado { background: #2a1010; color: #d47070; border: 1px solid #4a2020; }
 
   .empty-state {
     padding: 3rem 1rem;
@@ -180,7 +181,7 @@
 
   .table-header {
     display: grid;
-    grid-template-columns: 1fr auto auto auto;
+    grid-template-columns: 1fr auto auto;
     gap: 1rem;
     padding: 0.6rem 1rem;
     background: var(--bg);
@@ -199,9 +200,9 @@
 
   /* ── SONG PAGE ── */
   .song-page {
-    max-width: 760px;
+    max-width: var(--song-width);
     margin: 0 auto;
-    padding: 2rem 2rem 6rem;
+    padding: 1rem 1rem 2rem;
   }
   .song-back {
     display: inline-flex;
@@ -219,11 +220,6 @@
   .song-back:hover { color: var(--accent); }
   .song-back svg { width: 14px; height: 14px; }
 
-  .song-meta {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border);
-  }
   .song-meta h1 {
     font-size: 1.8rem;
     font-weight: 700;
@@ -245,7 +241,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     flex-wrap: wrap;
   }
   .transpose-group {
@@ -391,15 +387,14 @@
     .toolbar { padding: 0 1rem 1rem; }
     .songs-grid { margin: 0 1rem; padding: 0; }
     .song-page { padding: 1.5rem 1rem 4rem; }
-    .song-row { grid-template-columns: 1fr auto; }
-    .badge-genre { display: none; }
+    .song-row { grid-template-columns: 1fr auto auto; }
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" onclick="showPage('home')">chords<span>.omk</span></a>
+  <a class="nav-logo" onclick="showPage('home')">beatles<span>.chords</span></a>
   <button class="btn-theme" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
 </nav>
 
@@ -408,20 +403,14 @@
 <!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <div class="home-header">
-    <h1>Chords.omk</h1>
-    <p>No ads transposer</p>
+    <h1>Beatles.chords</h1>
+    <p>Transposição sem zuera</p>
   </div>
 
   <div class="toolbar">
-    <input type="search" id="search-input" placeholder="Song title or band..." oninput="renderList()">
-    <select id="filter-genre" onchange="renderList()">
-      <option value="">Tags</option>
-    </select>
-    <select id="filter-level" onchange="renderList()">
-      <option value="">Levels</option>
-      <option value="Iniciante">Iniciante</option>
-      <option value="Intermediário">Intermediário</option>
-      <option value="Avançado">Avançado</option>
+    <input type="search" id="search-input" placeholder="procure por título..." oninput="renderList()">
+    <select id="filter-album" onchange="renderList()">
+      <option value="">Albums</option>
     </select>
   </div>
 
@@ -442,6 +431,13 @@
 // creating a new .txt file and adding its name.
 // ─────────────────────────────────────────────
 const SONG_FILES = [
+  'thatll_be_the_day.txt',
+  'in_spite_of_all_the_danger.txt',
+  'hallelujah_i_love_her_so.txt',
+  'youll_be_mine.txt',
+  'cayenne.txt',
+  'my_bonnie.txt',
+  'aint_she_sweet.txt',
   'olivia-dean_so-easy-to-fall-in-love.txt',
   'the-cranberries_zombie.txt',
   'garbage_only-happy-when-it-rains.txt',
@@ -471,6 +467,9 @@ const SONG_FILES = [
   'the-procrastinators.txt',
   'shucked_friends.txt',
   'survivor_eye-of-the-tiger.txt',
+  'sinatra_my-way-of-life.txt',
+  'poison_every-rose-has-its-thorn.txt',
+  'ozzy_i-dont-know.txt',
   ];
 
 // ─────────────────────────────────────────────
@@ -489,8 +488,10 @@ function parseSongFile(text, id) {
     const colonIdx = line.indexOf(':');
     if (colonIdx > 0) {
       const key = line.slice(0, colonIdx).trim().toLowerCase();
-      const value = line.slice(colonIdx + 1).trim();
-      const allowed = ['title','band','genre','level','key','tuning','capo'];
+      // Strip trailing comma and surrounding quotes (e.g.  title: "Girl on Fire",)
+      const value = line.slice(colonIdx + 1).trim().replace(/,$/, '').trim().replace(/^"(.*)"$/, '$1');
+      // 'genre' is accepted as a legacy name for 'album'
+      const allowed = ['title','band','album','genre','level','key','tuning','capo'];
       if (allowed.includes(key)) {
         meta[key] = key === 'capo' ? parseInt(value, 10) || 0 : value;
         contentStart = i + 1;
@@ -516,8 +517,7 @@ function parseSongFile(text, id) {
     id,
     title:   meta.title   || '(no title)',
     band:    meta.band    || '',
-    genre:   meta.genre   || '',
-    level:   meta.level   || '',
+    album:   meta.album   || meta.genre || '',
     key:     meta.key     || '',
     tuning:  meta.tuning  || 'Standard',
     capo:    meta.capo    !== undefined ? meta.capo : 0,
@@ -580,7 +580,7 @@ async function loadSongs() {
     console.warn('Some song files could not be loaded:', results.filter(r=>r.status==='rejected').map(r=>r.reason));
   }
 
-  initGenreFilter();
+  initAlbumFilter();
   renderList();
 }
 
@@ -590,27 +590,47 @@ async function loadSongs() {
 const CHROMATIC_SHARP = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const CHROMATIC_FLAT  = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
 
+const ENHARMONIC_ALIASES = { 'Cb': 11, 'B#': 0, 'E#': 5, 'Fb': 4 };
+
 function noteToIndex(note) {
   let idx = CHROMATIC_SHARP.indexOf(note);
   if (idx === -1) idx = CHROMATIC_FLAT.indexOf(note);
+  if (idx === -1 && ENHARMONIC_ALIASES[note] !== undefined) idx = ENHARMONIC_ALIASES[note];
   return idx;
 }
 
+// Accidentals: the file may use "#"/"b" or the real symbols "♯"/"♭".
+// Internally we work with # and b; everything we DISPLAY uses ♯ and ♭.
+function normAcc(s) { return s.replace(/♯/g, '#').replace(/♭/g, 'b'); }
+function fmtAcc(s)  { return s.replace(/#/g, '♯').replace(/b/g, '♭'); }
+// For chord suffixes only convert "#" and a "b" that is followed by a digit (7b9, #5, (b9)).
+function fmtSuffix(s) { return normAcc(s).replace(/#/g, '♯').replace(/b(?=[0-9])/g, '♭'); }
+
+// Transpose a note name such as "E", "Bb", "f#", "e♭". Lowercase stays lowercase.
+// With 0 semitones and no flat toggle the original spelling is kept (only the symbols change).
 function transposeNote(note, semitones, useFlat) {
-  const idx = noteToIndex(note);
-  if (idx === -1) return note;
-  const newIdx = ((idx + semitones) % 12 + 12) % 12;
-  return useFlat ? CHROMATIC_FLAT[newIdx] : CHROMATIC_SHARP[newIdx];
+  const isLower = note[0] === note[0].toLowerCase();
+  const norm = note[0].toUpperCase() + normAcc(note.slice(1));
+  let name = norm;
+  if (!(semitones === 0 && !useFlat)) {
+    const idx = noteToIndex(norm);
+    if (idx !== -1) {
+      const newIdx = ((idx + semitones) % 12 + 12) % 12;
+      name = useFlat ? CHROMATIC_FLAT[newIdx] : CHROMATIC_SHARP[newIdx];
+    }
+  }
+  name = fmtAcc(name);
+  return isLower ? name[0].toLowerCase() + name.slice(1) : name;
 }
 
 function parseChordParts(chord) {
-  // Extract root note (e.g. "Eb", "C#", "G")
-  const rootMatch = chord.match(/^([A-G][b#]?)/);
+  // Extract root note (e.g. "Eb", "C#", "G", or lowercase melody notes like "e♭")
+  const rootMatch = chord.match(/^([A-Ga-g][b#♭♯]?)/);
   if (!rootMatch) return null;
   const root = rootMatch[1];
   const rest = chord.slice(root.length);
   // Extract slash-bass only if it's /[A-G][b#]? at the very end (not inside parens like "7(9/11)")
-  const slashBassMatch = rest.match(/(\/[A-G][b#]?)$/);
+  const slashBassMatch = rest.match(/(\/[A-G][b#♭♯]?)$/);
   const bass   = slashBassMatch ? slashBassMatch[1] : '';
   const suffix = slashBassMatch ? rest.slice(0, rest.length - bass.length) : rest;
   return { root, suffix, bass };
@@ -623,14 +643,50 @@ function transposeChord(chord, semitones, useFlat) {
   const newBass = parts.bass
     ? '/' + transposeNote(parts.bass.slice(1), semitones, useFlat)
     : '';
-  return newRoot + parts.suffix + newBass;
+  return newRoot + fmtSuffix(parts.suffix) + newBass;
 }
 
 // NOTE: avoid lookbehind (?<!...) here — it's only supported on iOS 16.4+ (Safari 16.4+),
 // and on older iPads an unsupported regex literal throws a SyntaxError at parse time,
 // which silently breaks this *entire* script (the "stuck on Loading songs..." bug).
 // We capture the preceding character as a group instead and re-emit it unchanged.
-const CHORD_REGEX = /(^|[^A-Za-z])([A-G][b#]?(?:maj|min|m|M|aug|dim|sus|add|dom)?[0-9]*(?:[#b][0-9]+)*(?:\([^)]*\))?(?:\/[A-G][b#]?)?)(?![A-Za-z])/g;
+const CHORD_REGEX = /(^|[^A-Za-z])([A-G][b#♭♯]?(?:maj|min|m|M|aug|dim|sus|add|dom)?[º°]?[0-9]*[º°]?(?:[#b♭♯][0-9]+)*(?:\([^)]*\))?(?:\/[A-G][b#♭♯]?)?)(?![A-Za-z])/g;
+
+// Lowercase single notes (e, e♭, f#...) used for little melodic lines, e.g. [ e  e♭  d ].
+// Same "capture the preceding character" trick as above (no lookbehind).
+const LOWER_NOTE_SRC = '(^|[^A-Za-z])([a-g][b#♭♯]?)(?![A-Za-z])';
+// Groups: 1=pre 2=chord | 3=pre 4=lowercase note
+const NOTE_OR_CHORD_SRC = CHORD_REGEX.source + '|' + LOWER_NOTE_SRC;
+
+// A token is "musical" if, once its chords/notes are removed, no letters are left
+// (so "A", "[A]", "e♭", "%", "|", "(A)" qualify, but "Verse" or "goodbye," don't).
+function isMusicalToken(tok) {
+  const rest = tok
+    .replace(new RegExp(CHORD_REGEX.source, 'g'), '$1')
+    .replace(new RegExp(LOWER_NOTE_SRC, 'g'), '$1');
+  return !/[A-Za-z]/.test(rest);
+}
+
+// A line of chords / notes (as opposed to lyrics).
+function isChordLine(line) {
+  const trimmed = line.trim();
+  if (!trimmed) return false;
+  if (trimmed.split(/\s+/).every(isMusicalToken)) return true;
+  const lowercaseRatio = (line.match(/[a-z]/g) || []).length / Math.max(line.length, 1);
+  return lowercaseRatio <= 0.4;
+}
+
+// "[Verse 1]", "[Chorus]" are section labels. A bracketed line made only of notes,
+// like "[ e  e♭  d ]", is a melodic line instead. A single uppercase token such as
+// "[A]" is still treated as a section label.
+function isSectionLabel(line) {
+  const t = line.trim();
+  if (!(t.startsWith('[') && t.endsWith(']'))) return false;
+  const tokens = t.slice(1, -1).trim().split(/\s+/).filter(Boolean);
+  const melodic = tokens.length > 0 && tokens.every(isMusicalToken) &&
+    (tokens.length > 1 || /^[a-g][b#♭♯]?$/.test(tokens[0]));
+  return !melodic;
+}
 
 // ─────────────────────────────────────────────
 // TAB TRANSPOSITION
@@ -776,21 +832,47 @@ function transposeTabsInContent(content, semitones) {
   return out.join('\n');
 }
 
+// Transpose every chord in a chord line while keeping each chord starting at its
+// ORIGINAL column, so it stays above the right syllable. When a chord grows
+// (C -> C#, D/F -> D#/F#) the spaces after it shrink; when it shrinks they grow.
+// If chords would collide, at least one space is kept, and the following chords
+// snap back to their original columns as soon as there's room.
+function transposeChordLine(line, semitones, useFlat) {
+  // Work token by token (a token = run of non-space characters). Every token,
+  // chord or not ( %  |  (A)  [A]  *  ... ), is placed back at its ORIGINAL
+  // column; only chords inside a token get transposed. Because non-chord tokens
+  // are re-anchored too, a length change never pushes the rest of the line.
+  const tokenRe = /\S+/g;
+  let out = '';
+  let m;
+  while ((m = tokenRe.exec(line)) !== null) {
+    // Chords (D, A#m, D/F, Bº7) and lowercase melody notes (e, e♭) are both transposed.
+    const newTok = m[0].replace(
+      new RegExp(NOTE_OR_CHORD_SRC, 'g'),
+      (x, pre1, chord, pre2, note) => chord !== undefined
+        ? pre1 + transposeChord(chord, semitones, useFlat)
+        : pre2 + transposeChord(note, semitones, useFlat)
+    );
+    let pad = m.index - out.length;
+    if (pad < 1 && out.length > 0) pad = 1; // never glue tokens together
+    out += ' '.repeat(Math.max(0, pad)) + newTok;
+  }
+  return out;
+}
+
 function transposeContent(content, semitones, useFlat, doTabs = false) {
-  if (semitones === 0 && !useFlat) return content;
+  // No early return at 0 semitones: chord lines still go through so that # and b
+  // are always displayed as ♯ and ♭ (original spelling is kept when not transposing).
 
   // First transpose tabs if requested
   let result = (doTabs && semitones !== 0) ? transposeTabsInContent(content, semitones) : content;
 
   // Transpose/re-notate chords on non-tab, non-lyric lines
   result = result.split('\n').map(line => {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('[') && trimmed.endsWith(']')) return line;
+    if (isSectionLabel(line)) return line;
     if (isTabLine(line)) return line;
-    const lowercaseRatio = (line.match(/[a-z]/g) || []).length / Math.max(line.length, 1);
-    if (lowercaseRatio > 0.4) return line;
-    // Apply transpose and/or flat re-notation
-    return line.replace(CHORD_REGEX, (m, pre, chord) => pre + transposeChord(chord, semitones, useFlat));
+    if (!isChordLine(line)) return line;
+    return transposeChordLine(line, semitones, useFlat);
   }).join('\n');
 
   return result;
@@ -799,19 +881,28 @@ function transposeContent(content, semitones, useFlat, doTabs = false) {
 // ─────────────────────────────────────────────
 // RENDER HELPERS
 // ─────────────────────────────────────────────
-function levelClass(level) {
-  return 'badge-level-' + level.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-}
-
 function renderContent(content) {
   return content.split('\n').map(line => {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+    if (isSectionLabel(line)) {
       return `<span class="section-label">${escHtml(line)}</span>`;
     }
-    const lowercaseRatio = (line.match(/[a-z]/g) || []).length / Math.max(line.length, 1);
-    if (lowercaseRatio <= 0.4 && trimmed.length > 0) {
-      return line.replace(CHORD_REGEX, (m, pre, chord) => `${escHtml(pre)}<span class="chord">${escHtml(chord)}</span>`);
+    if (isChordLine(line)) {
+      // Chords, lowercase melody notes and the "%" repeat sign get the .chord style;
+      // all other text is just escaped.
+      const re = new RegExp(NOTE_OR_CHORD_SRC + '|%', 'g');
+      let html = '', last = 0, m;
+      while ((m = re.exec(line)) !== null) {
+        if (m[0] === '%') {
+          html += escHtml(line.slice(last, m.index)) + '<span class="chord">%</span>';
+        } else {
+          const pre = m[1] !== undefined ? m[1] : m[3];
+          const tok = m[2] !== undefined ? m[2] : m[4];
+          html += escHtml(line.slice(last, m.index + pre.length)) +
+                  `<span class="chord">${escHtml(tok)}</span>`;
+        }
+        last = m.index + m[0].length;
+      }
+      return html + escHtml(line.slice(last));
     }
     return escHtml(line);
   }).join('\n');
@@ -827,14 +918,14 @@ function escHtml(str) {
 let sortKey = 'title';
 let sortDir = 1;
 
-function initGenreFilter() {
-  const genres = [...new Set(SONGS.map(s => s.genre))].sort();
-  const sel = document.getElementById('filter-genre');
+function initAlbumFilter() {
+  const albums = [...new Set(SONGS.map(s => s.album).filter(Boolean))].sort();
+  const sel = document.getElementById('filter-album');
   // Remove any previously added options (keep the default one)
   while (sel.options.length > 1) sel.remove(1);
-  genres.forEach(g => {
+  albums.forEach(a => {
     const opt = document.createElement('option');
-    opt.value = g; opt.textContent = g;
+    opt.value = a; opt.textContent = a;
     sel.appendChild(opt);
   });
 }
@@ -850,14 +941,12 @@ function setSort(key) {
 
 function renderList() {
   const query = document.getElementById('search-input').value.toLowerCase();
-  const genre = document.getElementById('filter-genre').value;
-  const level = document.getElementById('filter-level').value;
+  const album = document.getElementById('filter-album').value;
 
   let filtered = SONGS.filter(s => {
     const matchQ = !query || s.title.toLowerCase().includes(query) || s.band.toLowerCase().includes(query);
-    const matchG = !genre || s.genre === genre;
-    const matchL = !level || s.level === level;
-    return matchQ && matchG && matchL;
+    const matchA = !album || s.album === album;
+    return matchQ && matchA;
   });
 
   filtered.sort((a, b) => {
@@ -875,8 +964,7 @@ function renderList() {
   container.innerHTML = `
     <div class="table-header">
       <span data-sort="title" onclick="setSort('title')" class="${sortKey==='title'?'sort-active':''}">Song / Band</span>
-      <span data-sort="genre" onclick="setSort('genre')" class="${sortKey==='genre'?'sort-active':''}">Genre</span>
-      <span data-sort="level" onclick="setSort('level')" class="${sortKey==='level'?'sort-active':''}">Level</span>
+      <span data-sort="album" onclick="setSort('album')" class="${sortKey==='album'?'sort-active':''}">Album</span>
       <span></span>
     </div>
     ${filtered.map(s => `
@@ -885,8 +973,7 @@ function renderList() {
           <strong>${escHtml(s.title)}</strong>
           <span>${escHtml(s.band)}</span>
         </div>
-        <span class="badge badge-genre">${escHtml(s.genre)}</span>
-        <span class="badge ${levelClass(s.level)}">${escHtml(s.level)}</span>
+        ${s.album ? `<span class="badge badge-album">${escHtml(s.album)}</span>` : '<span></span>'}
         <span style="color:var(--text-dim); font-size:18px;">›</span>
       </div>
     `).join('')}
@@ -932,11 +1019,6 @@ function renderSong() {
     <div class="song-meta">
       <h1>${escHtml(s.title)}</h1>
       <div class="band">${escHtml(s.band)}</div>
-      <div class="song-meta-tags">
-        <span class="badge badge-genre">${escHtml(s.genre)}</span>
-        <span class="badge ${levelClass(s.level)}">${escHtml(s.level)}</span>
-        <span style="font-size:12px; color:var(--text-dim);">Key: ${escHtml(s.key)}${s.capo > 0 ? ' • Capo '+s.capo : ''}</span>
-      </div>
     </div>
 
     <div class="song-controls">
@@ -947,7 +1029,7 @@ function renderSong() {
         <button class="btn-icon" onclick="changeTranspose(1)">+</button>
       </div>
       <span class="sep">|</span>
-      <button class="btn-flat ${useFlat ? 'active' : ''}" onclick="toggleFlat()">Toggle #/b</button>
+      <button class="btn-flat ${useFlat ? 'active' : ''}" onclick="toggleFlat()">Toggle ♯/♭</button>
       <button class="btn-flat ${transposeTabs ? 'active' : ''}" onclick="toggleTransposeTabs()" title="Also transpose guitar tab numbers">Tabs</button>
       <div class="font-group">
         <span>Text</span>

@@ -1,0 +1,45 @@
+title: "You'll Be Mine",
+band: "The Beatles",
+album: "Anthology I",
+key: "A",
+capo: 1,
+
+[Intro]
+ A  D7 | A  E7 
+ 
+[Verse]
+          A            C#m
+When the stars fall at night,
+          F#m         A
+You'll be mine and I know.
+          E7            D             A      E7
+You'll be mine till you die, you'll be  mine
+
+    A          C#m
+And so all the night, 
+          F#m   A
+You'll be mine,   You'll be mine
+         E7          D
+And the stars always shine
+          A     A7
+You'll be mine, now
+ 
+[Bridge] (spoken)
+   D                 %                                       A
+My darling, when you brought me that toast the other morning 
+                      A7
+Ah, I looked into you eyes and I could see
+              D
+That National Health eyeball
+      %               B7
+And I love you, like I never done,
+                          E7
+Like I never done before!
+ 
+[Verse]
+          A              C#m
+Yes, the stars are gonna shine
+              F#m                 A
+And you'll be mine, and you'll be mine
+          E7             D              A
+You'll be mine, and the stars are gonna shine

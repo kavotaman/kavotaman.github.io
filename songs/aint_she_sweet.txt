@@ -1,0 +1,65 @@
+title: "Ain't She Sweet",
+band: "The Beatles",
+album: "Anthology I",
+key: "E",
+capo: 0,
+
+[Intro]
+(B7)    |(%)
+ 
+[Verse] 
+   |E     C7   |B7                 |E       C7       |B7
+Oh, ain't she   sweet. Well see you walking down that street.
+     |E     G#m     |C#7              |F#7      B7  |E    
+Yes I   ask you very    confidentially,   ain't she  sweet.
+ 
+   |E     C7   |B7                 |E    C7     |B7
+Oh, ain't she   nice. Well look her over once or twice.
+     |E     G#m     |C#7              |F#7      B7  |E
+Yes I   ask you very    confidentially,   ain't she  nice.
+ 
+[Chorus]
+            |A    |%         |E7     |%
+Just cast an eye,    in her direction.
+        |A    |%              |(B7)      |(%)
+Oh me oh my,     ain't that perfection.
+ 
+[Verse] 
+   |E   C7   |B7                  |E            C7     |B7
+Oh, I   re -  peat. Well don't you think that's kind of neat.
+     |E     G#m     |C#7              |F#7      B7  |E
+Yes I   ask you very    confidentially,   ain't she  sweet.
+ 
+[Solo]
+  A    |%    |E     |%    
+  A    |%    |(B7)  |(%)
+ 
+[Verse]
+   |E     C7   |B7                 |E       C7       |B7
+Oh, ain't she   sweet. Well see you walking down that street.
+      |E     G#m     |C#7              |F#7      B7  |E
+Well I   ask you very    confidentially,   ain't she  sweet.
+ 
+   |E     C7   |B7                |E    C7     |B7
+Oh, ain't that  nice. Well look it over once or twice.
+     |E     G#m     |C#7              |F#7      B7  |E
+Yes I   ask you very    confidentially,   ain't she  nice.
+ 
+[Chorus] 
+            |A    |%         |E7     |%
+Just cast an eye,    in her direction.
+        |A    |%              |(B7)      |(%)
+Oh me oh my,     ain't that perfection.
+ 
+[Verse] 
+   |E   C7   |B7                  |E            C7     |B7
+Oh, I   re -  peat. Well don't you think that's kind of neat.
+     |E     G#m     |C#7              |F#7      B7 |E
+Yes I   ask you very    confidentially,   ain't she sweet.
+ 
+   |E     C7   |B7                 |E       C7       |B7
+Oh, ain't she   sweet. Well see you walking down that street.
+          |E      G#m    |C#7           |F#7      B7  |E
+Yeah 'll I ask you   very confidentially,   ain't she  sweet.
+       |E      G#m    |C#7           |F#7   B7  |E
+Well, I ask you   very confidentially ain't she  sweet.
