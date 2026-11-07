@@ -353,20 +353,46 @@
     transform: translateX(-50%) translateY(0);
   }
 
-  /* PRINT / PDF */
-  @media print {
-    nav, .song-back, .song-controls, #toast { display: none !important; }
-    body { background: white !important; color: black !important; font-size: 12px; }
-    .chord-sheet { font-size: 11px !important; white-space: pre-wrap !important; color: black !important; }
-    .chord { color: #b07000 !important; font-weight: bold; }
-    .section-label { color: #007700 !important; }
-    .song-meta h1 { font-size: 1.4rem; color: black !important; }
-    .song-meta .band { color: #b07000 !important; }
-    .badge { border: 1px solid #ccc !important; color: #333 !important; background: #eee !important; }
-    .page { display: block !important; }
-    #page-home { display: none !important; }
+  /* PRINT / PDF  (pure black on white, so B&W printers look crisp) */
+@page { margin: 14mm; }
+
+@media print {
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-print-color-adjust: economy;
+    print-color-adjust: economy;
   }
 
+  nav, .song-back, .song-controls, #toast { display: none !important; }
+  #page-home { display: none !important; }
+  .page { display: block !important; }
+
+  body { background: #fff !important; font-size: 12px; }
+  .song-page { max-width: none; padding: 0; }
+
+  .song-meta h1 { font-size: 1.4rem; }
+  .song-meta .band { font-size: 1rem; }
+
+  .chord-sheet {
+    font-size: 11px !important;
+    white-space: pre-wrap !important;
+    overflow: visible;
+  }
+
+  /* Chords: heavy bold so they stand out from the lyrics without color */
+  .chord-sheet .chord { font-weight: 900; }
+
+  /* Section labels: bold + underlined */
+  .chord-sheet .section-label {
+    font-weight: 900;
+    text-decoration: underline;
+  }
+
+  .badge { border: 1px solid #000 !important; }
+}
   .btn-theme {
     background: none;
     border: 1px solid var(--border);
